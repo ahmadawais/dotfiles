@@ -4,5 +4,7 @@
 Collection of my dotFiles.
 
 ##TODO
-[] Add .gitignore
-[] Add other dotFiles
+- [x] Add .gitignore
+- [] Add other dotFiles
+- [] Add documentation
+- [] Blog about these files
