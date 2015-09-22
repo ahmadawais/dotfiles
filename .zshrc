@@ -20,7 +20,7 @@ alias zso="subl ~/.zshrc"
 alias gi="git init"
 alias gad="git add ."
 alias gc="git ci -m"
-alias gca="git add . && git cm"
+alias gcma="git add . && git cm"
 
 
 
