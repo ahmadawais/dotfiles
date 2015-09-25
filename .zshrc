@@ -21,7 +21,9 @@ alias gi="git init"
 alias gad="git add ."
 alias gc="git ci -m"
 alias gcma="git add . && git cm"
-
+alias gp="git push"
+alias gpsuom="git push --set-upstream origin master"
+alias gpdt="git push --delete origin"
 
 
 # Uncomment the following line to use case-sensitive completion.
