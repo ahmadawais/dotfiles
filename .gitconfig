@@ -2,28 +2,25 @@
 [user]
 	name = Ahmad Awais
 	email = mrahmadawais@gmail.com
-#}}}
-
+# }}}
+#
 # filter {{{
 [filter "media"]
 	required = true
 	clean = git media clean %f
 	smudge = git media smudge %f
-
-
 [filter "lfs"]
 	clean = git-lfs clean %f
 	smudge = git-lfs smudge %f
 	required = true
-
 # }}}
-
+#
 # core {{{
 [core]
 	excludesfile = ~/.gitignore_global
 	editor = subl -n -w
 # }}}
-
+#
 # difftools {{{
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
@@ -32,7 +29,52 @@
 	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
 	trustExitCode = true
 # }}}
-
+#
+# push/ {{{
+[push]
+	default = simple
+# }}}
+#
+# Color {{{
+[color]
+	# Use colors in Git commands that are capable of colored output when outputting to the terminal
+	ui = auto
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+[color "status"]
+	added = yellow
+	changed = green
+	untracked = cyan
+# }}}
+#
+# URL shorthands {{{
+[url "git@github.com:"]
+	insteadOf = "gh:"
+	pushInsteadOf = "github:"
+	pushInsteadOf = "git://github.com/"
+[url "git://github.com/"]
+	insteadOf = "github:"
+[url "git@gist.github.com:"]
+	insteadOf = "gst:"
+	pushInsteadOf = "gist:"
+	pushInsteadOf = "git://gist.github.com/"
+[url "git://gist.github.com/"]
+	insteadOf = "gist:"
+# }}}
+#
+# help commands {{{
+[help]
+	# Automatically correct and execute mistyped commands
+	autocorrect = 1
+# }}}
+#
 # alias {{{
 [alias]
 	st = status
@@ -49,7 +91,9 @@
 	br = branch
 
 	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+
 	type = cat-file -t
+
 	dump = cat-file -p
 
 	#logs
@@ -61,6 +105,7 @@
 
 	lg1 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
 	lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+	lg3 = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
 	lg = !"git lg1"
 
 	lnc = log --pretty=format:"%h\\ %s\\ [%cn]"
@@ -75,12 +120,22 @@
 
     #list remotes
     rem="!git config -l | grep remote.*url | tail -n +2"
-    rurl= remote set-url
 
+    # Show the diff between the latest commit and the current state
+	d = !"git diff-index --quiet HEAD -- || clear; git diff --patch-with-stat"
+
+	# Show verbose output about tags, branches or remotes
+	tags = tag -l
+	branches = branch -a
+	remotes = remote -v
+	# Credit an author on the latest commit
+	credit = "!f() { git commit --amend --author \"$1 <$2>\" -C HEAD; }; f"
+	# Interactive rebase with the given number of latest commits
+	reb = "!r() { git rebase -i HEAD~$1; }; r"
+	# Remove branches that have already been merged with master
+	# a.k.a. ‘delete merged’
+	dm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
+
+	# List contributors with number of commits
+	contributors = shortlog --summary --numbered
 # }}}
-
-# push/ {{{
-[push]
-	default = simple
-# }}}
-
