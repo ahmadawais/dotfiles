@@ -74,6 +74,13 @@ alias npmup='sudo npm-check -u'
 alias ss='speedtest-cli --share'
 alias sss='speedtest-cli --simple --share'
 
+# Get week number
+alias week='date +%V'
+
+# Stopwatch
+alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
+
+
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
