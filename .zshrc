@@ -24,8 +24,13 @@ alias gad="git add ."
 alias gc="git ci -m"
 alias gcma="git add . && git cm"
 alias gp="git push"
+alias gpf="git push --force"
 alias gpsuom="git push --set-upstream origin master"
 alias gpdt="git push --delete origin"
+
+# Type `git open` to open the GitHub page or website for a repository.
+# npm install -g git-open
+alias go="git open"
 
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
@@ -64,6 +69,11 @@ alias brwe=brew  #typos
 # npm-check to update npm packages https://www.npmjs.com/package/npm-check
 alias npmupg='sudo npm-check -g -u'
 alias npmup='sudo npm-check -u'
+
+# brew install speedtest-cli
+alias ss='speedtest-cli --share'
+alias sss='speedtest-cli --simple --share'
+
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -131,3 +141,8 @@ source $ZSH/oh-my-zsh.sh
 # include z rupa
 . ~/z.sh
 
+# [functions]
+# Create a new directory and enter it
+function mkd() {
+    mkdir -p "$@" && cd "$@"
+}
