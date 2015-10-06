@@ -176,7 +176,8 @@ source $ZSH/oh-my-zsh.sh
 # include z rupa
 . ~/z.sh
 
-# [functions]
+### [functions] ###
+# @usage: mkd new_dire
 # Create a new directory and enter it
 function mkd() {
     mkdir -p "$@" && cd "$@"
