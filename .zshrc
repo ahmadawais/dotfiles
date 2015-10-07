@@ -71,8 +71,8 @@ alias npmupg='sudo npm-check -g -u'
 alias npmup='sudo npm-check -u'
 
 # brew install speedtest-cli
-alias ss='speedtest-cli --share'
-alias sss='speedtest-cli --simple --share'
+alias sts='speedtest-cli --share'
+alias stss='speedtest-cli --simple --share'
 
 # Get week number
 alias week='date +%V'
@@ -120,6 +120,21 @@ alias vp="vagrant provision"
 alias vs='sites && vagrant ssh'
 alias vag="vagrant"
 
+alias bell='echo "\a"'
+
+alias cdate='date "+%d—%m—%Y"'
+
+#tree structures
+alias ll1="tree --dirsfirst -ChFL 1"
+alias ll2="tree --dirsfirst -ChFL 2"
+alias ll3="tree --dirsfirst -ChFL 3"
+alias ll4="tree --dirsfirst -ChFupDaL 1"
+alias ll5="tree --dirsfirst -ChFupDaL 2"
+alias ll6="tree --dirsfirst -ChFupDaL 3"
+
+alias pc='phpcs --standard="WordPress" $@'
+alias pcf='phpcbf --standard="WordPress" $@'
+alias pcfall='find . | grep .php | xargs phpcbf --standard="WordPress"'
 
 
 # Uncomment the following line to use case-sensitive completion.
