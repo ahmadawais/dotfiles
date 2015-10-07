@@ -208,3 +208,6 @@ source $ZSH/oh-my-zsh.sh
 function mkd() {
     mkdir -p "$@" && cd "$@"
 }
+
+# 10 second wait if you do something that will delete everything.  I wish I'd had this before...
+setopt RM_STAR_WAIT
