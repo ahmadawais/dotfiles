@@ -113,6 +113,13 @@ alias reload="exec $SHELL -l"
 alias yolo="git commit -am '`curl -s http://whatthecommit.com/index.txt`'"
 alias yoloo="git commit -am '`curl -s http://whatthecommit.com/index.txt`' && git push origin master --force"
 
+alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to pasteboard.\n'";
+
+alias vup="vagrant up && vagrant provision && vagrant ssh"
+alias vp="vagrant provision"
+alias vs='sites && vagrant ssh'
+alias vag="vagrant"
+
 
 
 # Uncomment the following line to use case-sensitive completion.
