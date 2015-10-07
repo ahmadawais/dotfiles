@@ -109,6 +109,10 @@ alias lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resourc
 # Reload the shell (i.e. invoke as a login shell)
 alias reload="exec $SHELL -l"
 
+alias yolo="git commit -am '`curl -s http://whatthecommit.com/index.txt`'"
+alias yoloo="git commit -am '`curl -s http://whatthecommit.com/index.txt`' && git push origin master --force"
+
+
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -176,8 +180,7 @@ source $ZSH/oh-my-zsh.sh
 # include z rupa
 . ~/z.sh
 
-### [functions] ###
-# @usage: mkd new_dire
+# [functions]
 # Create a new directory and enter it
 function mkd() {
     mkdir -p "$@" && cd "$@"
