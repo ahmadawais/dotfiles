@@ -109,6 +109,7 @@ alias lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resourc
 # Reload the shell (i.e. invoke as a login shell)
 alias reload="exec $SHELL -l"
 
+# Fun commit messages
 alias yolo="git commit -am '`curl -s http://whatthecommit.com/index.txt`'"
 alias yoloo="git commit -am '`curl -s http://whatthecommit.com/index.txt`' && git push origin master --force"
 
