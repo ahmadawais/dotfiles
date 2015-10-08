@@ -12,7 +12,7 @@ ZSH_THEME="cobalt2"
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-# Example aliases
+# Aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias zs="source ~/.zshrc"
@@ -30,7 +30,7 @@ alias gpdt="git push --delete origin"
 
 # Type `git open` to open the GitHub page or website for a repository.
 # npm install -g git-open
-alias go="git open"
+alias gio="git open"
 
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
@@ -187,6 +187,9 @@ source $ZSH/oh-my-zsh.sh
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
+# 10 second wait if you do something that will delete everything.  I wish I'd had this before...
+setopt RM_STAR_WAIT
+
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
@@ -209,5 +212,9 @@ function mkd() {
     mkdir -p "$@" && cd "$@"
 }
 
-# 10 second wait if you do something that will delete everything.  I wish I'd had this before...
-setopt RM_STAR_WAIT
+# git checkout branch
+function gcb() {
+	git fetch
+		git checkout -b $@ origin/$@
+}
+
