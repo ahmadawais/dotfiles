@@ -30,10 +30,24 @@
 	"show_encoding": true,
 	"spell_check": false,
 	"tabs_small": true,
+	"trim_trailing_white_space_on_save": true,
+	"word_wrap": false,
+
+	///////////////////
+	// Theme related //
+	///////////////////
 	// "color_scheme": "Packages/Theme - Spacegray/base16-ocean.dark.tmTheme",
 	// "theme": "Spacegray.sublime-theme",
 	"color_scheme": "Packages/Theme - Cobalt2/cobalt2.tmTheme",
 	"theme": "Cobalt2.sublime-theme",
-	"trim_trailing_white_space_on_save": true,
-	"word_wrap": false
+	// "sidebar_font_big": true,
+	"sidebar_font_small": true,
+	// Padding
+	// "sidebar_medium": true,
+	// "sidebar_large": true,
+	"sidebar_xlarge": true
 }
+
+
+
+
