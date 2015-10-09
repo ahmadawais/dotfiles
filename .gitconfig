@@ -78,7 +78,6 @@
 # alias {{{
 [alias]
 	st = status
-	cl = clone
 
 	ci = commit
 	cm = commit -m
@@ -103,7 +102,7 @@
 	lds = log --pretty=format:"%C(yellow)%h\\ %C(green)%ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short --graph
 	ls = log --pretty=format:"%C(green)%h\\ %C(yellow)[%ad]%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative
 
-	lg1 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
+	lg1 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(red)%h%C(reset) —— %C(bold blue)%an%C(reset): %C(white)%s%C(reset) %C(dim white)  %C(bold green)(%ar)%C(reset) %C(bold yellow)%d%C(reset)' --all
 	lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
 	lg3 = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
 	lg = !"git lg1"
@@ -138,4 +137,29 @@
 
 	# List contributors with number of commits
 	contributors = shortlog --summary --numbered
+
+	# Pull in remote changes for the current repository and all its submodules
+    pl = !"git pull; git submodule foreach git pull origin master"
+
+    # Clone a repository including all submodules
+    cl = clone
+    clr = clone --recursive
+
+    # Switch to a branch, creating it if necessary
+    go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
+
+    # Remove the old tag with this name and tag the latest commit with it.
+    retag = "!r() { git tag -d $1 && git push origin :refs/tags/$1 && git tag $1; }; r"
+
+    # Merge GitHub pull request on top of the `master` branch
+    mpr = "!f() { \
+        if [ $(printf \"%s\" \"$1\" | grep '^[0-9]\\+$' > /dev/null; printf $?) -eq 0 ]; then \
+            git fetch origin refs/pull/$1/head:pr/$1 && \
+            git rebase master pr/$1 && \
+            git checkout master && \
+            git merge pr/$1 && \
+            git branch -D pr/$1 && \
+            git commit --amend -m \"$(git log -1 --pretty=%B)\n\nCloses #$1.\"; \
+        fi \
+    }; f"
 # }}}
