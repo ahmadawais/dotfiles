@@ -1,3 +1,6 @@
+// "color_scheme": "Packages/Theme - Spacegray/base16-ocean.dark.tmTheme",
+// "theme": "Spacegray.sublime-theme",
+
 {
 	"added_words":
 	[
@@ -8,7 +11,10 @@
 	],
 	"bold_folder_labels": true,
 	"caret_extra_width": 1,
+	"caret_extra_top":2,
+	"caret_extra_bottom":2,
 	"caret_style": "phase",
+	"color_scheme": "Packages/Theme - Cobalt2/cobalt2.tmTheme",
 	"findreplace_small": true,
 	"font_face": "Source Code Pro",
 	"font_options":
@@ -28,26 +34,11 @@
 	"line_padding_top": 1,
 	"open_files_in_new_window": true,
 	"show_encoding": true,
+	"sidebar_font_small": true,
+	"sidebar_xlarge": true,
 	"spell_check": false,
 	"tabs_small": true,
-	"trim_trailing_white_space_on_save": true,
-	"word_wrap": false,
-
-	///////////////////
-	// Theme related //
-	///////////////////
-	// "color_scheme": "Packages/Theme - Spacegray/base16-ocean.dark.tmTheme",
-	// "theme": "Spacegray.sublime-theme",
-	"color_scheme": "Packages/Theme - Cobalt2/cobalt2.tmTheme",
 	"theme": "Cobalt2.sublime-theme",
-	// "sidebar_font_big": true,
-	"sidebar_font_small": true,
-	// Padding
-	// "sidebar_medium": true,
-	// "sidebar_large": true,
-	"sidebar_xlarge": true,
+	"trim_trailing_white_space_on_save": true,
+	"word_wrap": false
 }
-
-
-
-
