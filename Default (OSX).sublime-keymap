@@ -1,0 +1,11 @@
+[
+	{ "keys": ["ctrl+/"], "command": "toggle_comment", "args": { "block": false } },
+	{ "keys": ["ctrl+shift+/"], "command": "toggle_comment", "args": { "block": true } },
+
+
+	// swap the keybindings for paste and paste_and_indent
+	{ "keys": ["super+v"], "command": "paste_and_indent" },
+	{ "keys": ["super+shift+v"], "command": "paste" },
+	{ "keys": ["ctrl+alt+m"], "command": "markdown_preview", "args": {"target": "browser", "parser":"markdown"} }
+
+]
