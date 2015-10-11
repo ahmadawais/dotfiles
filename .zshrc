@@ -18,15 +18,23 @@ ZSH_THEME="cobalt2"
 alias zs="source ~/.zshrc"
 alias zso="subl ~/.zshrc"
 alias gi="git init"
+
 alias gst="git status"
 alias gss="git status -s"
+alias gsb="git status -sb"
+
+alias lg="git log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(red)%h%C(reset) —— %C(bold blue)%an%C(reset): %C(white)%s%C(reset) %C(dim white)  %C(bold green)(%ar)%C(reset) %C(bold yellow)%d%C(reset)' --all"
+
 alias gad="git add ."
+
 alias gc="git ci -m"
 alias gcma="git add . && git cm"
 alias gp="git push"
 alias gpf="git push --force"
 alias gpsuom="git push --set-upstream origin master"
 alias gpdt="git push --delete origin"
+
+alias relaod="reload"
 
 # Type `git open` to open the GitHub page or website for a repository.
 # npm install -g git-open
@@ -101,7 +109,7 @@ alias pumpitup="osascript -e 'set volume 7'"
 
 # Kill all the tabs in Chrome to free up memory
 # [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
-alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
+alias killchrome="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
 
 # Lock the screen (when going AFK)
 alias lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
@@ -135,6 +143,8 @@ alias ll6="tree --dirsfirst -ChFupDaL 3"
 alias pc='phpcs --standard="WordPress" $@'
 alias pcf='phpcbf --standard="WordPress" $@'
 alias pcfall='find . | grep .php | xargs phpcbf --standard="WordPress"'
+
+alias rl="release-it"
 
 
 # Uncomment the following line to use case-sensitive completion.
