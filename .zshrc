@@ -33,6 +33,7 @@ alias gp="git push"
 alias gpf="git push --force"
 alias gpsuom="git push --set-upstream origin master"
 alias gpdt="git push --delete origin"
+alias gopen="git open"
 
 alias relaod="reload"
 
