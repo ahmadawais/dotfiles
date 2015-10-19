@@ -7,15 +7,26 @@
 		"admin",
 		"workflow",
 		"titanframework",
-		"php"
+		"php",
+		"Blog"
 	],
+	"afn_insert_dimensions": false,
 	"bold_folder_labels": true,
+	"caret_extra_bottom": 2,
+	"caret_extra_top": 2,
 	"caret_extra_width": 1,
-	"caret_extra_top":2,
-	"caret_extra_bottom":2,
 	"caret_style": "phase",
 	"color_scheme": "Packages/Theme - Cobalt2/cobalt2.tmTheme",
+	"fade_fold_buttons": false,
 	"findreplace_small": true,
+	"folder_exclude_patterns":
+	[
+		".svn",
+		".git",
+		".hg",
+		"CVS",
+		"npm_modules"
+	],
 	"font_face": "Source Code Pro",
 	"font_options":
 	[
@@ -28,7 +39,12 @@
 	"highlight_modified_tabs": true,
 	"ignored_packages":
 	[
+		"Markdown",
 		"Vintage"
+	],
+	"indent_guide_options":
+	[
+		"draw_normal"
 	],
 	"line_padding_bottom": 1,
 	"line_padding_top": 1,
