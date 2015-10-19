@@ -33,13 +33,15 @@ alias gp="git push"
 alias gpf="git push --force"
 alias gpsuom="git push --set-upstream origin master"
 alias gpdt="git push --delete origin"
-alias gopen="git open"
 
 alias relaod="reload"
 
 # Type `git open` to open the GitHub page or website for a repository.
 # npm install -g git-open
 alias gio="git open"
+
+# Open the pwd in the finder
+alias o="open ."
 
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
