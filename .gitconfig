@@ -1,6 +1,6 @@
 # user {{{
 [user]
-	name = Ahmad Awais
+	name  = Ahmad Awais
 	email = mrahmadawais@gmail.com
 # }}}
 #
@@ -21,6 +21,11 @@
 	editor = subl -n -w
 # }}}
 #
+## {{
+[log]
+  date = relative
+# }}}
+#
 # difftools {{{
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
@@ -33,6 +38,7 @@
 # push/ {{{
 [push]
 	default = simple
+	#default = current
 # }}}
 #
 # Color {{{
