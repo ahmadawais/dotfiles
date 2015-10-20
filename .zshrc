@@ -17,28 +17,43 @@ ZSH_THEME="cobalt2"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias zs="source ~/.zshrc"
 alias zso="subl ~/.zshrc"
+
+
+# GIT
+alias g="git"
 alias gi="git init"
+alias gco="git checkout"
+alias gb="git branches"
+alias gbd="git branch -D"
+alias grs="git remotes"
+
+alias gsclear="git stash clear"
+alias gfo="git fetch origin"
+alias grh="git reset --hard"
+
+alias gcdf="git clean -d -f"
+alias gbrename="git branch -m"
 
 alias gst="git status"
 alias gss="git status -s"
 alias gsb="git status -sb"
 
 alias lg="git log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(red)%h%C(reset) —— %C(bold blue)%an%C(reset): %C(white)%s%C(reset) %C(dim white)  %C(bold green)(%ar)%C(reset) %C(bold yellow)%d%C(reset)' --all"
+alias lg2="git log --graph --abbrev-commit --decorate --format=format:'%C(red)%h%C(reset) —— %C(bold blue)%an%C(reset): %C(white)%s%C(reset) %C(dim white)  %C(bold green)(%ar)%C(reset) %C(bold yellow)%d%C(reset)' --all"
 
 alias gad="git add ."
-
 alias gc="git ci -m"
 alias gcma="git add . && git cm"
 alias gp="git push"
 alias gpf="git push --force"
 alias gpsuom="git push --set-upstream origin master"
+alias gpsuo="git push --set-upstream origin"
 alias gpdt="git push --delete origin"
-
-alias relaod="reload"
 
 # Type `git open` to open the GitHub page or website for a repository.
 # npm install -g git-open
 alias gio="git open"
+
 
 # Open the pwd in the finder
 alias o="open ."
@@ -52,9 +67,6 @@ alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
 alias dig="dig +nocmd any +multiline +noall +answer"
 
 alias ..="cd .."
-
-# Shortcuts
-alias g="git"
 
 # List ALL files (colorized() in long format, show permissions in octal
 alias la="ls -l | awk '
@@ -76,10 +88,6 @@ alias hosts='sudo subl /etc/hosts'
 alias cask='brew cask' # i <3 u cask
 # alias where=which # sometimes i forget
 alias brwe=brew  #typos
-
-# npm-check to update npm packages https://www.npmjs.com/package/npm-check
-alias npmupg='sudo npm-check -g -u'
-alias npmup='sudo npm-check -u'
 
 # brew install speedtest-cli
 alias sts='speedtest-cli --share'
@@ -119,6 +127,7 @@ alias lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resourc
 
 # Reload the shell (i.e. invoke as a login shell)
 alias reload="exec $SHELL -l"
+alias relaod="reload" #typo addressed
 
 # Fun commit messages
 alias yolo="git commit -am '`curl -s http://whatthecommit.com/index.txt`'"
@@ -149,6 +158,42 @@ alias pcfall='find . | grep .php | xargs phpcbf --standard="WordPress"'
 
 alias rl="release-it"
 
+# NPM Quickes   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Npm
+alias n='npm'
+
+# Search Packages
+alias n:='npm search'
+
+# Install
+alias ni='npm install'
+
+# Install Globally
+alias nig='npm install -g'
+
+# Install Globally and Save
+alias nigs="npm install -g $@ --save"
+
+# Install and Save
+alias niss="npm install $@ --save"
+
+# npm-check to update npm packages https://www.npmjs.com/package/npm-check
+alias ncug='sudo npm-check -g -u'
+alias ncup='sudo npm-check -u'
+
+# Fix Issues --Hard
+function nf() {
+  rm -rf ./node_modules;
+  npm clear cache;
+  npm clean cache;
+  npm install;
+}
+
+# Fix Issues
+function nfh() {
+  npm clear cache;
+  npm clean cache;
+}
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -230,4 +275,6 @@ function gcb() {
 	git fetch
 		git checkout -b $@ origin/$@
 }
+
+
 
