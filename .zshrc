@@ -49,6 +49,12 @@ alias gpf="git push --force"
 alias gpsuom="git push --set-upstream origin master"
 alias gpsuo="git push --set-upstream origin"
 alias gpdt="git push --delete origin"
+alias grao="git remote add origin"
+
+# Git fetch & Pull
+alias gf="git fetch"
+alias gpl="git pull"
+alias gfp="git fetch && git pull"
 
 # Type `git open` to open the GitHub page or website for a repository.
 # npm install -g git-open
@@ -272,8 +278,8 @@ function mkd() {
 
 # git checkout branch
 function gcb() {
-	git fetch
-		git checkout -b $@ origin/$@
+  git fetch
+    git checkout -b $@ origin/$@
 }
 
 
