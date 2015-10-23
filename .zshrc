@@ -17,6 +17,7 @@ ZSH_THEME="cobalt2"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias zs="source ~/.zshrc"
 alias zso="subl ~/.zshrc"
+alias sgc="st ~/.gitconfig"
 
 
 # GIT
@@ -184,7 +185,7 @@ alias nigs="npm install -g $@ --save"
 alias niss="npm install $@ --save"
 
 # npm-check to update npm packages https://www.npmjs.com/package/npm-check
-alias ncug='sudo npm-check -g -u'
+alias ncupg='sudo npm-check -g -u'
 alias ncup='sudo npm-check -u'
 
 # Fix Issues --Hard
@@ -200,6 +201,8 @@ function nfh() {
   npm clear cache;
   npm clean cache;
 }
+
+alias t="trash"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
