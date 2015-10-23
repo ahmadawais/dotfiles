@@ -1,6 +1,6 @@
 # user {{{
 [user]
-	name  = Ahmad Awais
+	name = Ahmad Awais
 	email = mrahmadawais@gmail.com
 # }}}
 #
@@ -17,7 +17,7 @@
 #
 # core {{{
 [core]
-	excludesfile = ~/.gitignore_global
+	excludesfile = /Users/ahmadawais/.gitignore_global
 	editor = subl -n -w
 # }}}
 #
@@ -36,8 +36,8 @@
 # }}}
 #
 # push/ {{{
-[push]
-	default = simple
+#[push]
+#	default = simple
 	#default = current
 # }}}
 #
