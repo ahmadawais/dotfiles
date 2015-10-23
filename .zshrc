@@ -51,7 +51,7 @@ alias gpsuo="git push --set-upstream origin"
 alias gpdt="git push --delete origin"
 alias grao="git remote add origin"
 
-# Git fetch & Pull
+# Git fethc & Pull
 alias gf="git fetch"
 alias gpl="git pull"
 alias gfp="git fetch && git pull"
