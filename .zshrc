@@ -28,6 +28,8 @@ alias gb="git branches"
 alias gbd="git branch -D"
 alias grs="git remotes"
 
+alias ghist="log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short"
+
 alias gsclear="git stash clear"
 alias gfo="git fetch origin"
 alias grh="git reset --hard"
