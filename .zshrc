@@ -17,7 +17,7 @@ ZSH_THEME="cobalt2"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias zs="source ~/.zshrc"
 alias zso="subl ~/.zshrc"
-alias sgc="st ~/.gitconfig"
+alias stgc="st ~/.gitconfig"
 
 
 # GIT
@@ -33,6 +33,7 @@ alias ghist="git log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=shor
 alias gsclear="git stash clear"
 alias gfo="git fetch origin"
 alias grh="git reset --hard"
+alias grmo="git reset --hard origin/master"
 
 alias gcdf="git clean -d -f"
 alias gbrename="git branch -m"
@@ -49,6 +50,7 @@ alias gc="git ci -m"
 alias gcma="git add . && git cm"
 alias gp="git push"
 alias gpf="git push --force"
+
 alias gpsuom="git push --set-upstream origin master"
 alias gpsuo="git push --set-upstream origin"
 alias gpdt="git push --delete origin"
@@ -63,6 +65,9 @@ alias gfp="git fetch && git pull"
 # npm install -g git-open
 alias gio="git open"
 
+# Fun commit messages
+alias yolo="git commit -am '`curl -s http://whatthecommit.com/index.txt`'"
+alias yoloo="git commit -am '`curl -s http://whatthecommit.com/index.txt`' && git push origin master --force"
 
 # Open the pwd in the finder
 alias o="open ."
@@ -138,9 +143,6 @@ alias lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resourc
 alias reload="exec $SHELL -l"
 alias relaod="reload" #typo addressed
 
-# Fun commit messages
-alias yolo="git commit -am '`curl -s http://whatthecommit.com/index.txt`'"
-alias yoloo="git commit -am '`curl -s http://whatthecommit.com/index.txt`' && git push origin master --force"
 
 alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to pasteboard.\n'";
 
