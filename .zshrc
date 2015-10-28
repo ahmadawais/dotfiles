@@ -288,6 +288,3 @@ function gcb() {
   git fetch
     git checkout -b $@ origin/$@
 }
-
-
-
