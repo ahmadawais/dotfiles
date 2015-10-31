@@ -20,20 +20,65 @@ alias zso="subl ~/.zshrc"
 alias stgc="st ~/.gitconfig"
 
 
+# cd related
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+
+# QUICK FOLDERS
+alias html="cd /Users/ahmadawais/html"
+alias dot="cd /Users/ahmadawais/dotFiles"
+alias gtest="cd /Users/ahmadawais/gtest"
+
+
+# Removes dotfile or dotfolder in the pwd e.g. .git
+alias deldot="rm -rf .*"
+# Removes everything in pwd
+alias delpwd="rm -rf "$(pwd -P)"/*"
+
+# trash is better
+alias tdot="t .*"
+alias tpwd="t "$(pwd -P)"/*"
+alias ta="tdot ; tpwd"
+
+
 # GIT
 alias g="git"
 alias gi="git init"
 alias gco="git checkout"
 alias gb="git branches"
 alias gbd="git branch -D"
-alias grs="git remotes"
+#create new branch and checkout
+alias gbn='git checkout -b'
 
+#git clone realted
+alias gcl="git clone"
+
+
+#remove local branch
+function gbdel {
+  git branch -D "$1"
+}
+#delete remote branch
+function gbrdel {
+  git push origin :"$1"
+}
+
+#get a list of conflicts
+alias conflicts='git diff --name-only --diff-filter=U'
+
+
+alias grs="git remotes"
 alias ghist="git log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short"
 
 alias gsclear="git stash clear"
 alias gfo="git fetch origin"
 alias grh="git reset --hard"
 alias grmo="git reset --hard origin/master"
+# reset to head and remove all untracked files (including npm installs)
+alias gitreseteverything='git clean -d -x -f; git reset --hard'
+
 
 alias gcdf="git clean -d -f"
 alias gbrename="git branch -m"
@@ -48,8 +93,15 @@ alias lg2="git log --graph --abbrev-commit --decorate --format=format:'%C(red)%h
 alias gad="git add ."
 alias gc="git ci -m"
 alias gcma="git add . && git cm"
+
 alias gp="git push"
 alias gpf="git push --force"
+
+# git add all, git commit with the message and git push
+# git commit all push
+function gcmap() {
+    gcma "$*" && gp
+}
 
 alias gpsuom="git push --set-upstream origin master"
 alias gpsuo="git push --set-upstream origin"
@@ -72,6 +124,22 @@ alias yoloo="git commit -am '`curl -s http://whatthecommit.com/index.txt`' && gi
 # Open the pwd in the finder
 alias o="open ."
 
+# SVN related
+# https://wordpress.org/plugins/about/svn/
+alias s="svn"
+alias sst="svn st"
+alias sci="svn ci -m"
+
+
+# Add SVN tag
+# Usage: stag tags/1.0
+alias stag="svn cp trunk"
+#  SVN revert deletes added folders which are not commited but only added
+alias sr="svn revert $@ --depth infinity"
+
+# SVN revert everything like reset hard
+alias sra="svn st  | grep '!' | sed 's/!M      \(.*\)$/"\1"/' | xargs svn revert --depth infinity"
+
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ipconfig getifaddr en1"
@@ -80,7 +148,6 @@ alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
 # All the dig info
 alias dig="dig +nocmd any +multiline +noall +answer"
 
-alias ..="cd .."
 
 # List ALL files (colorized() in long format, show permissions in octal
 alias la="ls -l | awk '
@@ -92,6 +159,27 @@ alias la="ls -l | awk '
     printf(\"%0o \",k);
   printf(\" %9s  %3s %2s %5s  %6s  %s %s %s\n\", \$3, \$6, \$7, \$8, \$5, \$9,\$10, \$11);
 }'"
+
+# List only directories
+alias lsd="ls -lF ${colorflag} | grep --color=never '^d'"
+
+# Enable aliases to be sudo’ed
+# alias sudo='sudo '
+
+# URL-encode strings
+alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
+
+
+
+# `tre` is a shorthand for `tree` with hidden files and color enabled, ignoring
+# the `.git` directory, listing directories first. The output gets piped into
+# `less` with options to preserve color and line numbers, unless the output is
+# small enough for one screen.
+function tre() {
+  tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX
+}
+# cd Shortcuts
+alias des="cd Desktop"
 
 # Empty the Trash on all mounted volumes and the main HDD. then clear the useless sleepimage
 alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; rm -rfv ~/.Trash; sudo rm /private/var/vm/sleepimage"
@@ -142,6 +230,7 @@ alias lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resourc
 # Reload the shell (i.e. invoke as a login shell)
 alias reload="exec $SHELL -l"
 alias relaod="reload" #typo addressed
+alias reld="reload"
 
 
 alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to pasteboard.\n'";
@@ -162,6 +251,10 @@ alias ll3="tree --dirsfirst -ChFL 3"
 alias ll4="tree --dirsfirst -ChFupDaL 1"
 alias ll5="tree --dirsfirst -ChFupDaL 2"
 alias ll6="tree --dirsfirst -ChFupDaL 3"
+
+#show hidden files and everything
+alias lla="ll -a"
+
 
 alias pc='phpcs --standard="WordPress" $@'
 alias pcf='phpcbf --standard="WordPress" $@'
@@ -259,14 +352,8 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # 10 second wait if you do something that will delete everything.  I wish I'd had this before...
-setopt RM_STAR_WAIT
+# setopt RM_STAR_WAIT
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -277,7 +364,77 @@ setopt RM_STAR_WAIT
 # include z rupa
 . ~/z.sh
 
-# [functions]
+#
+# [functions]{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
+#
+# colors from tput
+# http://stackoverflow.com/a/20983251/950111
+# Num  Colour    #define         R G B
+# 0    black     COLOR_BLACK     0,0,0
+# 1    red       COLOR_RED       1,0,0
+# 2    green     COLOR_GREEN     0,1,0
+# 3    yellow    COLOR_YELLOW    1,1,0
+# 4    blue      COLOR_BLUE      0,0,1
+# 5    magenta   COLOR_MAGENTA   1,0,1
+# 6    cyan      COLOR_CYAN      0,1,1
+# 7    white     COLOR_WHITE     1,1,1
+#
+# tput setab [1-7] # Set the background colour using ANSI escape
+# tput setaf [1-7] # Set the foreground colour using ANSI escape
+# tput sgr0    # Reset text format to the terminal's default
+# tput bel     # Play a bell
+#
+# Usage:
+# red=`tput setaf 1`
+# green=`tput setaf 2`
+# reset=`tput sgr0`
+# echo "${red}red text ${green}green text${reset}"
+
+blackf=`tput setaf 0` #set foreground black
+greenb=`tput setab 2` # set background green
+blueb=`tput setab 4` # set background blue
+redb=`tput setab 1` # set background red
+whiteb=`tput setab 7` # set background white
+whitef=`tput setaf 7` # set foreground white
+reset=`tput sgr0`     # reset to defaults
+
+# git clone repo . i.e. inside current directory
+# usage: gclhere GitRepoURL
+# Equal to rm -rf .* && rm -rf "$(pwd -P)"/* && git clone "$*" .
+function gclhere() {
+
+  echo "${whitef}———————————————————${reset}"
+  echo "${whiteb} ${blackf}0. Initializing...${reset}"
+
+  #if not empty
+  if [ "$(ls -A $(pwd -P))" ]; then
+
+    # rm -rf .*
+    tdot
+    echo "${redb} ${blackf}1. DotFiles and DotFolders trashed...${reset}"
+
+    # rm -rf "$(pwd -P)"/*
+    tpwd
+    echo "${redb} ${blackf}2. All Files and Folders trashed...${reset}"
+
+    git clone "$*" .
+    echo "${greenb} ${blackf}2. Git repo cloned! DONE!${reset}"
+
+  # if empty
+  else
+
+    echo "${blueb} ${whitef}1. Directory is empty. Cloning the repo...${reset}"
+
+    git clone "$*" .
+    echo "${greenb} ${blackf}2. Git repo cloned! DONE!${reset}"
+
+  fi
+
+  echo "${whitef}———————————————————${reset}"
+
+}
+
+
 # Create a new directory and enter it
 function mkd() {
     mkdir -p "$@" && cd "$@"
@@ -287,4 +444,35 @@ function mkd() {
 function gcb() {
   git fetch
     git checkout -b $@ origin/$@
+}
+
+
+# checks if pwd is empty or not
+function dirempty() {
+  # DIR=pwd
+  # look for empty dir
+  if [ "$(ls -A $(pwd -P))" ]; then
+       echo "$(pwd -P) is NOT Empty"
+  else
+      echo "$(pwd -P) is Empty"
+  fi
+  # rest of the logic
+}
+
+# Create a data URL from a file
+function dataurl() {
+  local mimeType=$(file -b --mime-type "$1")
+  if [[ $mimeType == text/* ]]; then
+    mimeType="${mimeType};charset=utf-8"
+  fi
+  echo "data:${mimeType};base64,$(openssl base64 -in "$1" | tr -d '\n')"
+}
+
+# Create a git.io short URL
+function gitio() {
+  if [ -z "${1}" -o -z "${2}" ]; then
+    echo "Usage: \`gitio slug url\`"
+    return 1
+  fi
+  curl -i http://git.io/ -F "url=${2}" -F "code=${1}"
 }
