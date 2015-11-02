@@ -47,6 +47,7 @@ alias ta="tdot ; tpwd"
 alias g="git"
 alias gi="git init"
 alias gco="git checkout"
+alias go='git checkout'
 alias gb="git branches"
 alias gbd="git branch -D"
 #create new branch and checkout
@@ -92,7 +93,10 @@ alias lg2="git log --graph --abbrev-commit --decorate --format=format:'%C(red)%h
 
 alias gad="git add ."
 alias gc="git ci -m"
-alias gcma="git add . && git cm"
+alias gcmall="git add . && git cm"
+function gcma() {
+    gcmall "$*"
+}
 
 alias gp="git push"
 alias gpf="git push --force"
@@ -100,7 +104,7 @@ alias gpf="git push --force"
 # git add all, git commit with the message and git push
 # git commit all push
 function gcmap() {
-    gcma "$*" && gp
+    gcmall "$*" && gp
 }
 
 alias gpsuom="git push --set-upstream origin master"
@@ -271,6 +275,7 @@ alias n:='npm search'
 
 # Install
 alias ni='npm install'
+alias nis='sudo npm install'
 
 # Install Globally
 alias nig='npm install -g'
@@ -401,6 +406,10 @@ reset=`tput sgr0`     # reset to defaults
 # git clone repo . i.e. inside current directory
 # usage: gclhere GitRepoURL
 # Equal to rm -rf .* && rm -rf "$(pwd -P)"/* && git clone "$*" .
+#
+# TODO: Caution! This is a dangerous function and needs to be debugged, it deleted
+# pwd's parent folders files. So it should not do that, it should delete the pwd and
+# recreate it instead.
 function gclhere() {
 
   echo "${whitef}———————————————————${reset}"
