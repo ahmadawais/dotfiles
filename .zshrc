@@ -403,51 +403,11 @@ whiteb=`tput setab 7` # set background white
 whitef=`tput setaf 7` # set foreground white
 reset=`tput sgr0`     # reset to defaults
 
-# git clone repo . i.e. inside current directory
-# usage: gclhere GitRepoURL
-# Equal to rm -rf .* && rm -rf "$(pwd -P)"/* && git clone "$*" .
-#
-# TODO: Caution! This is a dangerous function and needs to be debugged, it deleted
-# pwd's parent folders files. So it should not do that, it should delete the pwd and
-# recreate it instead.
-function gclhere() {
-
-  echo "${whitef}———————————————————${reset}"
-  echo "${whiteb} ${blackf}0. Initializing...${reset}"
-
-  #if not empty
-  if [ "$(ls -A $(pwd -P))" ]; then
-
-    # rm -rf .*
-    tdot
-    echo "${redb} ${blackf}1. DotFiles and DotFolders trashed...${reset}"
-
-    # rm -rf "$(pwd -P)"/*
-    tpwd
-    echo "${redb} ${blackf}2. All Files and Folders trashed...${reset}"
-
-    git clone "$*" .
-    echo "${greenb} ${blackf}2. Git repo cloned! DONE!${reset}"
-
-  # if empty
-  else
-
-    echo "${blueb} ${whitef}1. Directory is empty. Cloning the repo...${reset}"
-
-    git clone "$*" .
-    echo "${greenb} ${blackf}2. Git repo cloned! DONE!${reset}"
-
-  fi
-
-  echo "${whitef}———————————————————${reset}"
-
-}
-
-
 # Create a new directory and enter it
 function mkd() {
     mkdir -p "$@" && cd "$@"
 }
+
 
 # git checkout branch
 function gcb() {
@@ -468,6 +428,7 @@ function dirempty() {
   # rest of the logic
 }
 
+
 # Create a data URL from a file
 function dataurl() {
   local mimeType=$(file -b --mime-type "$1")
@@ -477,6 +438,7 @@ function dataurl() {
   echo "data:${mimeType};base64,$(openssl base64 -in "$1" | tr -d '\n')"
 }
 
+
 # Create a git.io short URL
 function gitio() {
   if [ -z "${1}" -o -z "${2}" ]; then
@@ -484,4 +446,85 @@ function gitio() {
     return 1
   fi
   curl -i http://git.io/ -F "url=${2}" -F "code=${1}"
+}
+
+
+# git clone repo . i.e. inside current directory
+# usage: gclhere GitRepoURL
+# Equal to rm -rf .* && rm -rf "$(pwd -P)"/* && git clone "$*" .
+#
+# TODO: Caution! This is a dangerous function and needs to be debugged, it deleted
+# pwd's parent folders files. So it should not do that, it should delete the pwd and
+# recreate it instead.
+function gclhere() {
+
+  echo "${whitef}———————————————————${reset}"
+  echo "${whiteb} ${blackf}0. Initializing...${reset}"
+
+  #if not empty
+  if [ "$(ls -A $(pwd -P))" ]; then
+
+    echo "${redb} ${blackf}1. PWD is not empty, let's delete it...${reset}"
+
+    # PWD variable
+    aa_pwd=$PWD
+    # go back
+    cd ..
+    # trash the old PWD where git repo needs to be cloned
+    trash $aa_pwd
+    # recreate the old PWD and cd in it
+    mkdir $aa_pwd && cd $aa_pwd
+
+    echo "${redb} ${blackf}2. PWD deleted and recreated...${reset}"
+    echo "${blueb} ${whitef}3. Starting git repo clone...${reset}"
+
+    git clone "$*" .
+    echo "${greenb} ${blackf}4. Git repo cloned. DONE!${reset}"
+
+  # if empty
+  else
+
+    echo "${blueb} ${whitef}1. Directory is empty. Cloning the repo...${reset}"
+
+    echo "${blueb} ${whitef}2. Starting git repo clone...${reset}"
+    git clone "$*" .
+    echo "${greenb} ${blackf}3. Git repo cloned! DONE!${reset}"
+
+  fi
+
+  echo "${whitef}———————————————————${reset}"
+
+}
+
+
+function emptypwd() {
+
+ echo "${whitef}———————————————————${reset}"
+   echo "${whiteb} ${blackf}0. Initializing...${reset}"
+
+   #if not empty
+   if [ "$(ls -A $(pwd -P))" ]; then
+
+     echo "${redb} ${blackf}1. PWD is not empty, let's delete it...${reset}"
+
+     # PWD variable
+     aa_pwd=$PWD
+     # go back
+     cd ..
+     # trash the old PWD where git repo needs to be cloned
+     trash $aa_pwd
+     # recreate the old PWD and cd in it
+     mkdir $aa_pwd && cd $aa_pwd
+
+     echo "${greenb} ${blackf}2. PWD deleted and recreated!!!${reset}"
+
+   # if empty
+   else
+
+     echo "${greenb} ${blackf}1. Directory is already empty!!!${reset}"
+
+   fi
+
+   echo "${whitef}———————————————————${reset}"
+
 }
