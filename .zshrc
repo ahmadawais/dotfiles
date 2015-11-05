@@ -31,6 +31,9 @@ alias html="cd /Users/ahmadawais/html"
 alias dot="cd /Users/ahmadawais/dotFiles"
 alias gtest="cd /Users/ahmadawais/gtest"
 
+alias wt="cd /Users/ahmadawais/html/writablehtml.dev"
+
+
 
 # Removes dotfile or dotfolder in the pwd e.g. .git
 alias deldot="rm -rf .*"
