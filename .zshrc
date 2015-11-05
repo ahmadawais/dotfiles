@@ -31,6 +31,7 @@ alias html="cd /Users/ahmadawais/html"
 alias dot="cd /Users/ahmadawais/dotFiles"
 alias gtest="cd /Users/ahmadawais/gtest"
 
+# Projects I am working on
 alias wt="cd /Users/ahmadawais/html/writablehtml.dev"
 
 
