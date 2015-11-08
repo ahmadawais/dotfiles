@@ -60,6 +60,11 @@ alias gbn='git checkout -b'
 #git clone realted
 alias gcl="git clone"
 
+# show contributors by commits
+alias gcontributors="git shortlog -sn"
+
+# git commit count
+alias gccount="git rev-list HEAD --count"
 
 #remove local branch
 function gbdel {
@@ -124,6 +129,12 @@ alias gfp="git fetch && git pull"
 # Type `git open` to open the GitHub page or website for a repository.
 # npm install -g git-open
 alias gio="git open"
+
+# git diff last commit
+alias gd1="git diff HEAD^"
+
+# git diff word diffing
+alias gdw="git diff --word-diff"
 
 # Fun commit messages
 alias yolo="git commit -am '`curl -s http://whatthecommit.com/index.txt`'"
