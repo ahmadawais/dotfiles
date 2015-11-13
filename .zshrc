@@ -30,7 +30,7 @@ alias .....="cd ../../../.."
 alias html="cd /Users/ahmadawais/html"
 alias dot="cd /Users/ahmadawais/dotFiles"
 alias gtest="cd /Users/ahmadawais/gtest"
-alias df="cd /Users/ahmadawais/dotFiles"
+alias dfiles="cd /Users/ahmadawais/dotFiles"
 
 function gstreak(){
  cd /Users/ahmadawais/websites/git_test_repo/wpdev ;
