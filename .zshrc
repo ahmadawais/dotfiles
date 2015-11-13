@@ -30,6 +30,12 @@ alias .....="cd ../../../.."
 alias html="cd /Users/ahmadawais/html"
 alias dot="cd /Users/ahmadawais/dotFiles"
 alias gtest="cd /Users/ahmadawais/gtest"
+alias df="cd /Users/ahmadawais/dotFiles"
+
+function gstreak(){
+ cd /Users/ahmadawais/websites/git_test_repo/wpdev ;
+ python file.py "$*"
+}
 
 # Projects I am working on
 alias wt="cd /Users/ahmadawais/html/writablehtml.dev"
@@ -78,6 +84,12 @@ function gbrdel {
 #get a list of conflicts
 alias conflicts='git diff --name-only --diff-filter=U'
 
+function gammend(){
+  git rebase -i @~"$*"
+}
+
+alias gref="git reflog"
+alias greset="git reset $@"
 
 alias grs="git remotes"
 alias ghist="git log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short"
@@ -85,7 +97,7 @@ alias ghist="git log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=shor
 alias gsclear="git stash clear"
 alias gfo="git fetch origin"
 alias grh="git reset --hard"
-alias grmo="git reset --hard origin/master"
+alias gromg="git reset --hard origin/master"
 # reset to head and remove all untracked files (including npm installs)
 alias gitreseteverything='git clean -d -x -f; git reset --hard'
 
