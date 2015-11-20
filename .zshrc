@@ -31,6 +31,8 @@ alias html="cd /Users/ahmadawais/html"
 alias dot="cd /Users/ahmadawais/dotFiles"
 alias gtest="cd /Users/ahmadawais/gtest"
 alias dfiles="cd /Users/ahmadawais/dotFiles"
+alias vrdev="cd /Users/ahmadawais/html/vrhtml.dev"
+alias wtdev="cd /Users/ahmadawais/html/writablehtml.dev"
 
 function gstreak(){
  cd /Users/ahmadawais/websites/git_test_repo/wpdev ;
@@ -554,4 +556,28 @@ function emptypwd() {
 
    echo "${whitef}———————————————————${reset}"
 
+}
+
+
+#
+# Git Checkout a Pull Request locally.
+#
+# Usage: gfpr 8
+#
+# Where 8 is the number of pull request (can be found right after the PR's title).
+#
+function gfpr(){
+  echo "${whitef}———————————————————${reset}"
+    echo "${whiteb} ${blackf}0. Fetching the pull request...${reset}"
+
+    git fetch origin pull/"${1}"/head:pull_"${1}"
+
+    echo "${whiteb} ${blackf}1. PR fetched creating a branch...${reset}"
+
+    git checkout pull_"${1}"
+
+    echo "${whiteb} ${blackf}2. Checking out to a new PR branch...${reset}"
+
+    echo "${greenb} ${blackf}3. PR Branch Created!!!${reset}"
+  echo "${whitef}———————————————————${reset}"
 }
