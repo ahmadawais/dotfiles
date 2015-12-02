@@ -33,6 +33,7 @@ alias gtest="cd /Users/ahmadawais/gtest"
 alias dfiles="cd /Users/ahmadawais/dotFiles"
 alias vrdev="cd /Users/ahmadawais/html/vrhtml.dev"
 alias wtdev="cd /Users/ahmadawais/html/writablehtml.dev"
+alias cfcdev="cd cfc"
 
 function gstreak(){
  cd /Users/ahmadawais/websites/git_test_repo/wpdev ;
@@ -116,18 +117,29 @@ alias lg2="git log --graph --abbrev-commit --decorate --format=format:'%C(red)%h
 
 alias gad="git add ."
 alias gc="git ci -m"
-alias gcmall="git add . && git cm"
+alias gcmall="git add . && git ci -m"
 function gcma() {
-    gcmall "$*"
+    git add . && git ci -m "$*"
 }
 
 alias gp="git push"
 alias gpf="git push --force"
 
+# delete git and re-inialize git
+alias gdelinit="trash .git && git init"
+
 # git add all, git commit with the message and git push
 # git commit all push
 function gcmap() {
-    gcmall "$*" && gp
+    git add . && git ci -m "$*" && gp
+}
+
+# git add commit and then fix an issue on github
+# usage: gifix 5
+# Where 5 is the issue number
+function gifix() {
+  issue=$* ;
+  git add . && git ci -m "ISSUE: Fixes #$(echo -e "$issue")" && gp
 }
 
 alias gpsuom="git push --set-upstream origin master"
@@ -161,7 +173,8 @@ alias o="open ."
 # https://wordpress.org/plugins/about/svn/
 alias s="svn"
 alias sst="svn st"
-alias sci="svn ci -m"
+alias sci="svn ci -m $*"
+alias saddall="svn add --force ."
 
 
 # Add SVN tag
