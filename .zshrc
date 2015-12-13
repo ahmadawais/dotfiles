@@ -66,6 +66,9 @@ alias gbd="git branch -D"
 #create new branch and checkout
 alias gbn='git checkout -b'
 
+#git merge branch
+alias gm="git merge $*"
+
 #git clone realted
 alias gcl="git clone"
 
@@ -79,10 +82,6 @@ alias gccount="git rev-list HEAD --count"
 function gbdel {
   git branch -D "$1"
 }
-#delete remote branch
-function gbrdel {
-  git push origin :"$1"
-}
 
 #get a list of conflicts
 alias conflicts='git diff --name-only --diff-filter=U'
@@ -93,9 +92,22 @@ function gammend(){
 
 alias gref="git reflog"
 alias greset="git reset $@"
-
-alias grs="git remotes"
 alias ghist="git log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short"
+
+# All remotes
+alias grall="git remotes"
+
+# Add Origin
+alias grao="git remote add origin"
+
+# Remove remote origin
+alias grro="git remote remove origin"
+
+#delete remote branch
+function gbrdel {
+  git push origin :"$1"
+}
+
 
 alias gsclear="git stash clear"
 alias gfo="git fetch origin"
@@ -145,12 +157,42 @@ function gifix() {
 alias gpsuom="git push --set-upstream origin master"
 alias gpsuo="git push --set-upstream origin"
 alias gpdt="git push --delete origin"
-alias grao="git remote add origin"
 
 # Git fethc & Pull
 alias gf="git fetch"
 alias gpl="git pull"
 alias gfp="git fetch && git pull"
+
+# Git Tags
+# list all tags
+alias gtag="git tag"
+alias gtagd="git tag -d $*"
+alias gtagdp="git push origin :refs/tags/$*"
+function gtagdel(){
+  the_tag=$*
+
+  echo "${whitef}———————————————————${reset}"
+  echo "${greenb} ${blackf}0. Listing all tags...${reset}"
+  git tag
+
+  echo "${whitef}———————————————————${reset}"
+  echo "${redb} ${whitef}1. Deleting the tag...${reset}"
+  git tag -d $the_tag
+
+  echo "${whitef}———————————————————${reset}"
+  echo "${redb} ${whitef}2. Deleting the tag at remote origin...${reset}"
+  git push origin :refs/tags/$the_tag
+
+  echo "${whitef}———————————————————${reset}"
+  echo "${greenb} ${blackf}3. Listing all tags again...${reset}"
+  git tag
+
+  echo "${whitef}———————————————————${reset}"
+  echo "${greenb} ${blackf}Completed!...${reset}"
+
+
+
+}
 
 # Type `git open` to open the GitHub page or website for a repository.
 # npm install -g git-open
@@ -215,7 +257,9 @@ alias lsd="ls -lF ${colorflag} | grep --color=never '^d'"
 # URL-encode strings
 alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
 
-
+# Copy backup
+# http://www.thegeekstuff.com/2011/01/rsync-exclude-files-and-folders/
+alias copybuildit="rsync -avz --exclude 'node_modules' --exclude 'build' ./* ./build"
 
 # `tre` is a shorthand for `tree` with hidden files and color enabled, ignoring
 # the `.git` directory, listing directories first. The output gets piped into
@@ -229,6 +273,7 @@ alias des="cd Desktop"
 
 # Empty the Trash on all mounted volumes and the main HDD. then clear the useless sleepimage
 alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; rm -rfv ~/.Trash; sudo rm /private/var/vm/sleepimage"
+alias et="sudo rm -rfv /Volumes/*/.Trashes; rm -rfv ~/.Trash; sudo rm /private/var/vm/sleepimage"
 
 # yes I occasionally 127.0.0.1 twitter.com ;)
 alias hosts='sudo subl /etc/hosts'
@@ -437,12 +482,21 @@ source $ZSH/oh-my-zsh.sh
 # reset=`tput sgr0`
 # echo "${red}red text ${green}green text${reset}"
 
+blackb=`tput setab 0` #set background black
 blackf=`tput setaf 0` #set foreground black
+
 greenb=`tput setab 2` # set background green
+greenf=`tput setab 2` # set background green
+
 blueb=`tput setab 4` # set background blue
+bluef=`tput setaf 4` # set foreground blue
+
 redb=`tput setab 1` # set background red
+redf=`tput setaf 1` # set foreground red
+
 whiteb=`tput setab 7` # set background white
 whitef=`tput setaf 7` # set foreground white
+
 reset=`tput sgr0`     # reset to defaults
 
 # Create a new directory and enter it
