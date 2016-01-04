@@ -27,13 +27,14 @@ alias ....="cd ../../.."
 alias .....="cd ../../../.."
 
 # QUICK FOLDERS
-alias html="cd /Users/ahmadawais/html"
-alias dot="cd /Users/ahmadawais/dotFiles"
-alias gtest="cd /Users/ahmadawais/gtest"
-alias dfiles="cd /Users/ahmadawais/dotFiles"
-alias vrdev="cd /Users/ahmadawais/html/vrhtml.dev"
-alias wtdev="cd /Users/ahmadawais/html/writablehtml.dev"
-alias cfcdev="cd cfc"
+alias html="cd ~ && cd /Users/ahmadawais/html"
+alias dot="cd ~ && cd /Users/ahmadawais/dotFiles"
+alias gtest="cd ~ && cd /Users/ahmadawais/gtest"
+alias dfiles="cd ~ && cd /Users/ahmadawais/dotFiles"
+alias vrdev="cd ~ && cd /Users/ahmadawais/html/vrhtml.dev"
+alias wtdev="cd ~ && cd /Users/ahmadawais/html/writablehtml.dev"
+alias cfcdev="cd ~ && cd cfc"
+alias vrcoredev="cd ~ && cd vrcoredev"
 
 function gstreak(){
  cd /Users/ahmadawais/websites/git_test_repo/wpdev ;
@@ -60,7 +61,6 @@ alias ta="tdot ; tpwd"
 alias g="git"
 alias gi="git init"
 alias gco="git checkout"
-alias go='git checkout'
 alias gb="git branches"
 alias gbd="git branch -D"
 #create new branch and checkout
@@ -101,7 +101,14 @@ alias grall="git remotes"
 alias grao="git remote add origin"
 
 # Remove remote origin
-alias grro="git remote remove origin"
+alias gdelro="git remote remove origin"
+
+# Be careful that this will create an "alternate reality" for people who
+# have already fetch/pulled/cloned from the remote repository. But in fact, it's quite simple:
+function gdelc() {
+  git reset HEAD^ ; # remove commit locally
+  git push origin +HEAD # force-push the new HEAD commit
+}
 
 #delete remote branch
 function gbrdel {
@@ -144,6 +151,9 @@ alias gdelinit="trash .git && git init"
 # git commit all push
 function gcmap() {
     git add . && git ci -m "$*" && gp
+}
+function gcap() {
+    git add . && git ci -m "$* 💯" && gp # With 100 emoji
 }
 
 # git add commit and then fix an issue on github
@@ -392,6 +402,50 @@ function nfh() {
 }
 
 alias t="trash"
+
+# {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{ WP CLI }}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
+
+# WP DesktopServer Setup ready
+# ---Updates the Core and 2015 theme
+# ---Deletes 2013, 2014 and Aksimet
+# Usage
+#     1. First argument is the url E.g. aa.dev
+#     2. Second argument is the Site Title E.g. AA
+function wpdsready() {
+  echo "${whitef}———————————————————${reset}"
+    echo "${whiteb} ${blackf}WP: Core Installing...${reset}"
+    wp core install --url=$1 --title=$2 --admin_user=root --admin_password=root --admin_email=mrahmadawais@gmail.com
+
+    echo "${whiteb} ${blackf}WP: Core Updating...${reset}"
+    wp core update ;
+
+    echo "${whiteb} ${blackf}WP: twentyfifteen Update...${reset}"
+    wp theme update twentyfifteen;
+
+    echo "${redb} ${blackf}WP: Removing twentythirteen...${reset}"
+    wp theme delete twentythirteen ;
+
+    echo "${redb} ${blackf}WP: Removing twentyfourteen...${reset}"
+    wp theme delete twentyfourteen ;
+
+    echo "${redb} ${blackf}WP: Removing akismet...${reset}"
+    wp plugin delete akismet ;
+
+    echo "${redb} ${blackf}WP: Removing Hello Dolly...${reset}"
+    wp plugin delete hello ;
+
+    echo "${greenb} ${blackf}5. WP: DS Setup Ready. DONE!${reset}"
+  echo "${whitef}———————————————————${reset}"
+
+}
+
+# WP Plugin Install
+# Usage: wpp plugin-slug
+alias wpp="wp plugin install $* --activate"
+
+# WP Plugins Activate all
+alias wppaall="wp plugin activate --all"
+
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
