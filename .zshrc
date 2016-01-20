@@ -34,7 +34,10 @@ alias dfiles="cd ~ && cd /Users/ahmadawais/dotFiles"
 alias vrdev="cd ~ && cd /Users/ahmadawais/html/vrhtml.dev"
 alias wtdev="cd ~ && cd /Users/ahmadawais/html/writablehtml.dev"
 alias cfcdev="cd ~ && cd cfc"
-alias vrcoredev="cd ~ && cd vrcoredev"
+alias vrcdev="cd ~ && cd vrcoredev"
+alias rpdev="cd ~ && cd /Users/ahmadawais/websites/rp.dev/wp-content/plugins/inspiry-real-estate"
+alias wtwpdev="cd ~ && cd wtwp"
+alias ldev="cd ~ && cd localdev"
 
 function gstreak(){
  cd /Users/ahmadawais/websites/git_test_repo/wpdev ;
@@ -446,6 +449,9 @@ alias wpp="wp plugin install $* --activate"
 # WP Plugins Activate all
 alias wppaall="wp plugin activate --all"
 
+# Trash all posts in a CPT replace the post-type.
+alias wpdb="wp post delete $(wp post list --post_type='vr_booking' --format=ids)"
+
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -628,7 +634,7 @@ function gclhere() {
     echo "${redb} ${blackf}2. PWD deleted and recreated...${reset}"
     echo "${blueb} ${whitef}3. Starting git repo clone...${reset}"
 
-    git clone "$*" .
+    git clone --recursive "$*" .
     echo "${greenb} ${blackf}4. Git repo cloned. DONE!${reset}"
 
   # if empty
