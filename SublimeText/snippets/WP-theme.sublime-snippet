@@ -1,0 +1,20 @@
+<snippet>
+	<content><![CDATA[
+/**!
+ * Theme Name:
+ * Theme URI:
+ * Description:
+ * Version: 1.0
+ * Author: mrahmadawais
+ * Author URI: http://AhmadAwais.com/
+ * License: GNU General Public License v2 or later
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ * Tags:
+ * Text Domain: twentyfifteen
+ */
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<!-- <tabTrigger>hello</tabTrigger> -->
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.css, source.scss</scope>
+</snippet>

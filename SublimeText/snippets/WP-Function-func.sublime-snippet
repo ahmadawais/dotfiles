@@ -1,0 +1,20 @@
+<snippet>
+	<content><![CDATA[
+/**
+ * ${1:[Function Name]}.
+ *
+ * @since ${2:1.0.0}
+ */
+${3:public} function ${4:funciton_name}() {
+
+	${5:Start here...}
+
+}
+]]></content>
+<!-- Optional: Description to show in the menu -->
+    <description>WordPress Function</description>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>npfunction_wp_func</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <!--<scope>source.php - variable.other.php</scope>-->
+</snippet>

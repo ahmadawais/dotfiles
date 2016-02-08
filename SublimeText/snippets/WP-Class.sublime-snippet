@@ -1,0 +1,28 @@
+<snippet>
+	<content><![CDATA[
+/**
+ * ${1:[Class Name]}.
+ *
+ * ${2:[Long Description]}.
+ *
+ * @since ${3:1.0.0}
+ */
+
+if ( ! class_exists( '${1:[Class_Name]}' ) ) :
+
+class ${1:[Class_Name]} {
+
+	${4:Start here...}
+
+}
+
+endif;
+
+]]></content>
+<!-- Optional: Description to show in the menu -->
+    <description>WordPress Class</description>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>npclass_wp</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <!--<scope>source.php - variable.other.php</scope>-->
+</snippet>
