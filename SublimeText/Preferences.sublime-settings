@@ -1,9 +1,3 @@
-// "color_scheme": "Packages/Theme - Spacegray/base16-ocean.dark.tmTheme",
-// "theme": "Spacegray.sublime-theme",
-
-// "theme": "Cobalt2.sublime-theme",
-// "color_scheme": "Packages/Theme - Cobalt2/cobalt2.tmTheme",
-
 {
 	"added_words":
 	[
@@ -20,7 +14,8 @@
 		"internet",
 		"checkbox",
 		"metabox",
-		"screenshot"
+		"screenshot",
+		"screencast"
 	],
 	"afn_insert_dimensions": false,
 	"bold_folder_labels": true,
@@ -29,6 +24,7 @@
 	"caret_extra_width": 1,
 	"caret_style": "phase",
 	"color_scheme": "Packages/Theme - Cobalt2/cobalt2.tmTheme",
+	"ensure_newline_at_eof_on_save": true,
 	"fade_fold_buttons": false,
 	"findreplace_small": true,
 	"folder_exclude_patterns":
@@ -44,7 +40,7 @@
 	[
 		"no_round"
 	],
-	"font_size": 14,
+	"font_size": 16,
 	"hayaku_CSS_colors_case": "lowercase",
 	"hayaku_CSS_disable_inline_comment": true,
 	"highlight_line": true,
@@ -62,16 +58,23 @@
 	[
 		"draw_normal"
 	],
+	"index_exclude_patterns":
+	[
+		"*.log",
+		"node_modules"
+	],
 	"line_padding_bottom": 1,
 	"line_padding_top": 1,
 	"open_files_in_new_window": true,
+	"scroll_past_end": true,
 	"show_encoding": true,
 	"sidebar_font_small": true,
 	"sidebar_xlarge": true,
 	"spell_check": false,
+	"tab_size": 4,
 	"tabs_small": true,
 	"theme": "Cobalt2.sublime-theme",
+	"translate_tabs_to_spaces": false,
 	"trim_trailing_white_space_on_save": true,
-	"word_wrap": false,
-	"scroll_past_end": true
+	"word_wrap": false
 }
