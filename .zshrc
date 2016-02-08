@@ -31,10 +31,11 @@ alias html="cd ~ && cd /Users/ahmadawais/html"
 alias dot="cd ~ && cd /Users/ahmadawais/dotFiles"
 alias gtest="cd ~ && cd /Users/ahmadawais/gtest"
 alias dfiles="cd ~ && cd /Users/ahmadawais/dotFiles"
-alias vrdev="cd ~ && cd /Users/ahmadawais/html/vrhtml.dev"
 alias wtdev="cd ~ && cd /Users/ahmadawais/html/writablehtml.dev"
 alias cfcdev="cd ~ && cd cfc"
 alias vrcdev="cd ~ && cd vrcoredev"
+alias vrwpdev="cd ~ && cd vrwpdev"
+alias vrhtmldev="cd ~ && cd /Users/ahmadawais/html/vrhtml.dev"
 alias rpdev="cd ~ && cd /Users/ahmadawais/websites/rp.dev/wp-content/plugins/inspiry-real-estate"
 alias wtwpdev="cd ~ && cd wtwp"
 alias ldev="cd ~ && cd localdev"
@@ -70,7 +71,7 @@ alias gbd="git branch -D"
 alias gbn='git checkout -b'
 
 #git merge branch
-alias gm="git merge $*"
+alias gm="git merge $* && git push"
 
 #git clone realted
 alias gcl="git clone"
@@ -366,6 +367,9 @@ alias pcfall='find . | grep .php | xargs phpcbf --standard="WordPress"'
 
 alias rl="release-it"
 
+alias clive="caffeinate -t $*"
+alias nosleep="caffeinate -t 50000"
+
 # NPM Quickes   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Npm
 alias n='npm'
@@ -450,7 +454,7 @@ alias wpp="wp plugin install $* --activate"
 alias wppaall="wp plugin activate --all"
 
 # Trash all posts in a CPT replace the post-type.
-alias wpdb="wp post delete $(wp post list --post_type='vr_booking' --format=ids)"
+# alias wpdb="wp post delete $(wp post list --post_type='vr_booking' --format=ids)"
 
 
 # Uncomment the following line to use case-sensitive completion.
@@ -472,7 +476,7 @@ alias wpdb="wp post delete $(wp post list --post_type='vr_booking' --format=ids)
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -482,7 +486,7 @@ alias wpdb="wp post delete $(wp post list --post_type='vr_booking' --format=ids)
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-HIST_STAMPS="dd.mm.yyyy"
+HIST_STAMPS="dd-mm-yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
@@ -491,14 +495,15 @@ HIST_STAMPS="dd.mm.yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git extract sublime web-search svn npm bower brew composer wpcli emoji)
+plugins=(git extract sublime web-search svn npm bower brew composer wp-cli emoji)
 
 # User configuration
 
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/git/bin"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/git/bin:$HOME/.wp-cli"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
+
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
