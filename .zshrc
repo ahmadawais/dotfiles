@@ -499,7 +499,7 @@ plugins=(git extract sublime web-search svn npm bower brew composer wp-cli emoji
 
 # User configuration
 
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/git/bin:$HOME/.wp-cli"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/git/bin:$HOME/.wp-cli:~/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -713,3 +713,34 @@ function gfpr(){
     echo "${greenb} ${blackf}3. PR Branch Created!!!${reset}"
   echo "${whitef}———————————————————${reset}"
 }
+
+# Create a data URL from a file
+function dataurl() {
+    local mimeType=$(file -b --mime-type "$1")
+    local data=""
+    if [[ $mimeType == text/* ]]; then
+        mimeType="${mimeType};charset=utf-8"
+    fi
+    echo "data:${mimeType};base64,$(openssl base64 -in "$1" | tr -d '\n')"
+}
+
+# Get gzipped file size
+function gz() {
+    echo "orig size (bytes): "
+    cat "$1" | wc -c
+    echo "gzipped size (bytes): "
+    gzip -c "$1" | wc -c
+}
+
+# Change Finder window to show current terminal directory
+function finder {
+ osascript -e 'set cwd to do shell script "pwd"'\
+ -e 'tell application "Finder"'\
+ -e "if (${1-1} <= (count Finder windows)) then"\
+ -e "set the target of window ${1-1} to (POSIX file cwd) as string"\
+ -e 'else' -e "open (POSIX file cwd) as string"\
+ -e 'end if' -e 'end tell';\
+};
+
+
+alias thecname="dig $* +nostats +nocomments +nocmd"
