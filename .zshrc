@@ -774,7 +774,9 @@ function syncsbl(){
     cd user
     # rm -rf Package\ Control.cache
     sudo trash Package\ Control.cache
+    sudo trash bh_unicode_properties.cache
 
+    # removes the token
     change_line 'cf66ca1d205729b740886dc2c6a6fc60027c96c5' '' Gist.sublime-settings
 
     cd Color\ Highlighter
