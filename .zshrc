@@ -755,3 +755,66 @@ alias howphp="how2 -l php $*"
 # $1 is agrument 1
 # ${@:2} is everything from argument 2 to end
 alias howl="how2 -l $1 ${@:2}"
+
+# Copy sublime user folder and delete stuff
+function syncsbl(){
+  echo "${whitef}———————————————————${reset}"
+
+    echo "${redb} ${whitef}0. Deleting old user folder...${reset}"
+
+    cd SublimeText
+    sudo trash User
+
+    echo "${whiteb} ${blackf}1. Copying the `USER` files and folders from Sublime...${reset}"
+
+    cp -rfp /Users/ahmadawais/Library/Application\ Support/Sublime\ Text\ 3/Packages/User /Users/ahmadawais/dotFiles/SublimeText
+
+    echo "${whiteb} ${blackf}2. Deleting useless stuff...${reset}"
+
+    cd user
+    # rm -rf Package\ Control.cache
+    sudo trash Package\ Control.cache
+
+    cd Color\ Highlighter
+    sudo trash ColorPicker_osx_x64
+
+    ...
+
+    echo "${greenb} ${blackf}3. Sync Done!!!${reset}"
+  echo "${whitef}———————————————————${reset}"
+}
+
+
+# Copy .zshrc to dotfiles
+function synczsh(){
+  echo "${whitef}———————————————————${reset}"
+
+    echo "${redb} ${whitef}0. Deleting old .zshrc...${reset}"
+
+    dfiles
+    sudo trash .zshrc
+
+    echo "${whiteb} ${blackf}1. Copying new `.zshrc` file...${reset}"
+
+    cp ~/.zshrc /Users/ahmadawais/dotFiles/
+
+    echo "${greenb} ${blackf}3. Sync zshrc Done!!!${reset}"
+  echo "${whitef}———————————————————${reset}"
+}
+
+
+# Major Sync dotfiles function
+function syncdfiles(){
+  echo "${whitef}———————————————————${reset}"
+
+    echo "${whiteb} ${blackf}1. Syncing Sublime...${reset}"
+
+    syncsbl
+
+    echo "${whiteb} ${blackf}2. Syncing .zshrc...${reset}"
+
+    synczsh
+
+    echo "${greenb} ${blackf}3. Sync dotFiles Done!!!${reset}"
+  echo "${whitef}———————————————————${reset}"
+}
