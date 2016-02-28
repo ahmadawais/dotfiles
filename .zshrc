@@ -775,6 +775,8 @@ function syncsbl(){
     # rm -rf Package\ Control.cache
     sudo trash Package\ Control.cache
 
+    change_line 'cf66ca1d205729b740886dc2c6a6fc60027c96c5' '' Gist.sublime-settings
+
     cd Color\ Highlighter
     sudo trash ColorPicker_osx_x64
 
@@ -827,6 +829,8 @@ function syncdfiles(){
 # Change Line text in a file
 #
 # via http://stackoverflow.com/a/28262057/950111
+#
+# Usage: `change_line "TEXT_TO_BE_REPLACED" "This line is removed by the admin." yourFile`
 function escape_slashes {
     sed 's/\//\\\//g'
 }
