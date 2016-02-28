@@ -1,6 +1,7 @@
 {
     // Your GitHub API token
     // see: https://github.com/condemil/Gist#generating-access-token
+    // "token": "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
     "token": "cf66ca1d205729b740886dc2c6a6fc60027c96c5",
 
     // Show GitHub organizations

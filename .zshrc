@@ -822,3 +822,20 @@ function syncdfiles(){
     echo "${greenb} ${blackf}3. Sync dotFiles Done!!!${reset}"
   echo "${whitef}———————————————————${reset}"
 }
+
+#
+# Change Line text in a file
+#
+# via http://stackoverflow.com/a/28262057/950111
+function escape_slashes {
+    sed 's/\//\\\//g'
+}
+function change_line {
+    local OLD_LINE_PATTERN=$1; shift
+    local NEW_LINE=$1; shift
+    local FILE=$1
+
+    local NEW=$(echo "${NEW_LINE}" | escape_slashes)
+    sed -i .bak '/'"${OLD_LINE_PATTERN}"'/s/.*/'"${NEW}"'/' "${FILE}"
+    mv "${FILE}.bak" /tmp/
+}
