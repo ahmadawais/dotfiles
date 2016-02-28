@@ -632,7 +632,7 @@ function gclhere() {
     # go back
     cd ..
     # trash the old PWD where git repo needs to be cloned
-    trash $aa_pwd
+    sudo trash $aa_pwd
     # recreate the old PWD and cd in it
     mkdir $aa_pwd && cd $aa_pwd
 
@@ -807,6 +807,8 @@ function synczsh(){
 function syncdfiles(){
   echo "${whitef}———————————————————${reset}"
 
+    dfiles
+
     echo "${whiteb} ${blackf}1. Syncing Sublime...${reset}"
 
     syncsbl
@@ -814,6 +816,8 @@ function syncdfiles(){
     echo "${whiteb} ${blackf}2. Syncing .zshrc...${reset}"
 
     synczsh
+
+    gcap DotFiles Synced
 
     echo "${greenb} ${blackf}3. Sync dotFiles Done!!!${reset}"
   echo "${whitef}———————————————————${reset}"
