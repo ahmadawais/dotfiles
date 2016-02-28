@@ -1,0 +1,14 @@
+<snippet>
+	<content><![CDATA[
+jQuery( function( \$ ) {
+
+	${1:Start here...}
+
+} ); // EOF.
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<description>WordPress WP jQuery Wrap $</description>
+	<tabTrigger>npwpjquery</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

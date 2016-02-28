@@ -1,0 +1,7 @@
+{
+	"trailing_spaces_enabled": true,
+	"trailing_spaces_highlight_color": "comment",
+	"trailing_spaces_include_current_line": true,
+	"trailing_spaces_include_empty_lines": false,
+	// "trailing_spaces_trim_on_save": false
+}

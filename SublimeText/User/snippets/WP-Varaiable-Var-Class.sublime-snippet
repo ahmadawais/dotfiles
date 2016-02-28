@@ -1,0 +1,18 @@
+<snippet>
+	<content><![CDATA[
+/**
+ * ${1:[Var Name]}.
+ *
+ * @var 	${2:[Type]}
+ * @since 	${3:1.0.0}
+ */
+ ${4:public} \$${5:var_name};
+
+]]></content>
+<!-- Optional: Description to show in the menu -->
+    <description>WordPress Variable In Class</description>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>npwp_var_class</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <!--<scope>source.php - variable.other.php</scope>-->
+</snippet>

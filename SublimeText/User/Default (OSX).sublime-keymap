@@ -1,0 +1,16 @@
+[
+	// { "keys": ["ctrl+/"], "command": "toggle_comment", "args": { "block": false } },
+	// { "keys": ["ctrl+shift+/"], "command": "toggle_comment", "args": { "block": true } },
+
+	{ "keys": ["super+forward_slash"], "command": "toggle_comment", "args": { "block": false } },
+	{ "keys": ["super+alt+forward_slash"], "command": "toggle_comment", "args": { "block": true } },
+
+
+
+	// swap the keybindings for paste and paste_and_indent
+	{ "keys": ["super+v"], "command": "paste_and_indent" },
+	{ "keys": ["super+alt+v"], "command": "paste" },
+	{ "keys": ["alt+w"], "command": "close_all" },
+	{ "keys": ["ctrl+alt+m"], "command": "markdown_preview", "args": {"target": "browser", "parser":"markdown"} }
+
+]

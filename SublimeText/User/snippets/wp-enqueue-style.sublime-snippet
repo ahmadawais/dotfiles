@@ -1,0 +1,17 @@
+<snippet>
+	<content><![CDATA[
+// ${1:What is it?}.
+wp_enqueue_style(
+    '${2:handle}', ${8:// handle.}
+    ${3:DIR} . '${4:/ext/name.ext}', ${8:// path.}
+    ${5:array( 'jquery' )}, ${8:// dependencies.}
+    '${6:1.0.0}', ${8:// version.}
+    ${7:'all'} ${8:// media default = 'all'  | 'screen' | 'handheld' | 'print'.}
+);
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<description>WordPress Enqueue Styles</description>
+	<tabTrigger>npwp_enqueue_style</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>
