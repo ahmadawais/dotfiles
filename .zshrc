@@ -218,6 +218,10 @@ alias gd1="git diff HEAD^"
 # git diff word diffing
 alias gdw="git diff --word-diff"
 
+# Check the changes in last Git Pull/Fetch
+# Usage: gpfchanges branch_name
+alias gpfchanges="git diff --stat $1@{1} $1"
+
 # Fun commit messages
 alias yolo="git commit -am '`curl -s http://whatthecommit.com/index.txt`'"
 alias yoloo="git commit -am '`curl -s http://whatthecommit.com/index.txt`' && git push origin master --force"
@@ -373,6 +377,9 @@ alias nosleep="caffeinate -t 50000"
 # NPM Quickes   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Npm
 alias n='npm'
+
+#NPM Install.
+alias ni="npm install"
 
 # Search Packages
 alias n:='npm search'
