@@ -37,6 +37,7 @@ alias vrcdev="cd ~ && cd vrcoredev"
 alias vrwpdev="cd ~ && cd vrwpdev"
 alias vrhtmldev="cd ~ && cd /Users/ahmadawais/html/vrhtml.dev"
 alias rpdev="cd ~ && cd /Users/ahmadawais/websites/rp.dev/wp-content/plugins/inspiry-real-estate"
+alias web="cd ~ && cd /Users/ahmadawais/websites/"
 alias wtwpdev="cd ~ && cd wtwp"
 alias ldev="cd ~ && cd localdev"
 
@@ -85,6 +86,7 @@ alias gccount="git rev-list HEAD --count"
 #remove local branch
 function gbdel {
   git branch -D "$1"
+  git push origin :"$1"
 }
 
 #get a list of conflicts

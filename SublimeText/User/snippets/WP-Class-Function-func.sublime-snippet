@@ -12,9 +12,9 @@ ${3:public} function ${4:funciton_name}() {
 }
 ]]></content>
 <!-- Optional: Description to show in the menu -->
-    <description>WordPress Function</description>
+    <description>WordPress Function for Class</description>
 	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
-	 <tabTrigger>npfunction_wp_func</tabTrigger>
+	 <tabTrigger>npcfunction_wp_func_class</tabTrigger>
 	<!-- Optional: Set a scope to limit where the snippet will trigger -->
     <!--<scope>source.php - variable.other.php</scope>-->
 </snippet>
