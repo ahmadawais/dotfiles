@@ -428,6 +428,7 @@ alias t="trash"
 # Usage
 #     1. First argument is the url E.g. aa.dev
 #     2. Second argument is the Site Title E.g. AA
+# Example: wpdsready local.dev Local
 function wpdsready() {
   echo "${whitef}———————————————————${reset}"
     echo "${whiteb} ${blackf}WP: Core Installing...${reset}"
