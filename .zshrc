@@ -460,6 +460,14 @@ function wpdsready() {
 # Usage: wpp plugin-slug
 alias wpp="wp plugin install $* --activate"
 
+# WP Theme Install
+# Usage: wpt plugin-slug
+alias wpt="wp theme install $* --activate"
+
+# WP Theme Activate
+# Usage: wpta plugin-slug
+alias wpt="wp theme activate $*"
+
 # WP Plugins Activate all
 alias wppaall="wp plugin activate --all"
 
