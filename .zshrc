@@ -457,6 +457,17 @@ function wpdsready() {
 
 }
 
+
+# Install WPTest.io
+function wptest(){
+  curl -OL https://raw.githubusercontent.com/manovotny/wptest/master/wptest.xml
+  wp import wptest.xml --authors=create
+  rm wptest.xml
+}
+
+
+
+
 # WP Plugin Install
 # Usage: wpp plugin-slug
 alias wpp="wp plugin install $* --activate"
