@@ -37,6 +37,7 @@ alias vrcdev="cd ~ && cd vrcoredev"
 alias vrwpdev="cd ~ && cd vrwpdev"
 alias vrhtmldev="cd ~ && cd /Users/ahmadawais/html/vrhtml.dev"
 alias rpdev="cd ~ && cd /Users/ahmadawais/websites/rp.dev/wp-content/plugins/inspiry-real-estate"
+alias ntdev="cd ~ && ntdev"
 alias web="cd ~ && cd /Users/ahmadawais/websites/"
 alias wtwpdev="cd ~ && cd wtwp"
 alias ldev="cd ~ && cd localdev"
@@ -222,7 +223,7 @@ alias gdw="git diff --word-diff"
 
 # Check the changes in last Git Pull/Fetch
 # Usage: gpfchanges branch_name
-alias gpfchanges="git diff --stat $1@{1} $1"
+alias gfpchanges="git diff --stat $1@{1} $1"
 
 # Fun commit messages
 alias yolo="git commit -am '`curl -s http://whatthecommit.com/index.txt`'"
