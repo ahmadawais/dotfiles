@@ -460,6 +460,7 @@ function wpdsready() {
 
 # Install WPTest.io
 function wptest(){
+  wp plugin install wordpress-importer --activate
   curl -OL https://raw.githubusercontent.com/manovotny/wptest/master/wptest.xml
   wp import wptest.xml --authors=create
   rm wptest.xml
