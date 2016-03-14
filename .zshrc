@@ -34,6 +34,7 @@ alias dfiles="cd ~ && cd /Users/ahmadawais/dotFiles"
 alias wtdev="cd ~ && cd /Users/ahmadawais/html/writablehtml.dev"
 alias cfcdev="cd ~ && cd cfc"
 alias vrcdev="cd ~ && cd vrcoredev"
+alias vrc="cd ~ && cd vrcore"
 alias vrwpdev="cd ~ && cd vrwpdev"
 alias vrhtmldev="cd ~ && cd /Users/ahmadawais/html/vrhtml.dev"
 alias rpdev="cd ~ && cd /Users/ahmadawais/websites/rp.dev/wp-content/plugins/inspiry-real-estate"
@@ -452,7 +453,10 @@ function wpdsready() {
     echo "${redb} ${blackf}WP: Removing Hello Dolly...${reset}"
     wp plugin delete hello ;
 
-    echo "${greenb} ${blackf}5. WP: DS Setup Ready. DONE!${reset}"
+    echo "${redb} ${blackf}WP: Setting permalinks to postname...${reset}"
+    wp option update permalink_structure '/%postname%'
+
+    echo "${greenb} ${blackf}WP: DS Setup Ready. DONE!${reset}"
   echo "${whitef}———————————————————${reset}"
 
 }
