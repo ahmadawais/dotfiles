@@ -26,6 +26,10 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 
+# WP related CD
+alias cdwpt="cd wp-content/themes"
+alias cdwpp="cd wp-content/plugins"
+
 # QUICK FOLDERS
 alias html="cd ~ && cd /Users/ahmadawais/html"
 alias dot="cd ~ && cd /Users/ahmadawais/dotFiles"
@@ -893,10 +897,12 @@ function change_line {
 }
 
 
-# Zip the current folder and exclude folders and files.
-# Usage:
+# Zip the current folder and exclude
+# folders and files that are not needed
+# as per Theme Check.
+#
+# Usage: wpzip zipname
 # Link: http://askubuntu.com/a/28482/521222
-# #
 function wpzip(){
   echo "${whitef}———————————————————${reset}"
 
