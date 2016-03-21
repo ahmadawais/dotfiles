@@ -6,7 +6,7 @@
  * @var 	${2:[Type]}
  * @since 	${3:1.0.0}
  */
- ${4:public} \$${5:var_name};
+${4:public} \$${5:var_name};
 
 ]]></content>
 <!-- Optional: Description to show in the menu -->

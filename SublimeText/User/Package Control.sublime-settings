@@ -12,6 +12,7 @@
 		"BracketGuard",
 		"BracketHighlighter",
 		"Clickable URLs",
+		"Codebug",
 		"Color Highlighter",
 		"ColorPicker",
 		"Colorsublime",
@@ -58,7 +59,8 @@
 		"Toggle Words",
 		"Wild Cherry",
 		"WordPress",
-		"WordPress Developer Resources"
+		"WordPress Developer Resources",
+		"Xdebug Client"
 	],
 	"repositories":
 	[

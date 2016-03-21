@@ -207,9 +207,6 @@ function gtagdel(){
 
   echo "${whitef}———————————————————${reset}"
   echo "${greenb} ${blackf}Completed!...${reset}"
-
-
-
 }
 
 # Type `git open` to open the GitHub page or website for a repository.
@@ -225,6 +222,20 @@ alias gdw="git diff --word-diff"
 # Check the changes in last Git Pull/Fetch
 # Usage: gpfchanges branch_name
 alias gfpchanges="git diff --stat $1@{1} $1"
+
+# Git archive the current directory and ignore everything in .gitignore file
+# Usage: garc zipname
+# Link: http://askubuntu.com/a/87693
+# alias garc="git archive -o $1.zip HEAD"
+function garc(){
+  zip_name=$1
+  echo "${whitef}———————————————————${reset}"
+  echo "${greenb} ${blackf}Zipping the current folder...${reset}"
+  git archive -o $zip_name.zip HEAD
+
+  echo "${whitef}———————————————————${reset}"
+  echo "${greenb} ${blackf}Completed! 💯  ${reset}"
+}
 
 # Fun commit messages
 alias yolo="git commit -am '`curl -s http://whatthecommit.com/index.txt`'"
@@ -879,4 +890,29 @@ function change_line {
     local NEW=$(echo "${NEW_LINE}" | escape_slashes)
     sed -i .bak '/'"${OLD_LINE_PATTERN}"'/s/.*/'"${NEW}"'/' "${FILE}"
     mv "${FILE}.bak" /tmp/
+}
+
+
+# Zip the current folder and exclude folders and files.
+# Usage:
+# Link: http://askubuntu.com/a/28482/521222
+# #
+function wpzip(){
+  echo "${whitef}———————————————————${reset}"
+
+    zip_name=$1 # $1 is agrument 1
+
+    # exclude more files (does not work for folders)
+    more_exclude_file=${@:2} # ${@:2} is everything from argument 2 to end
+
+    echo "${whiteb} ${blackf}0. Deleting the old "$zip_name".zip file if present...${reset}"
+    rm $zip_name".zip"
+
+    echo "${whiteb} ${blackf}1. Zipping the current folder as "$zip_name".zip...${reset}"
+
+    # Using noglob to avoid ZSH to trip over *, can also use back slash \
+    noglob zip -r $zip_name.zip . -x *.git* *node_modules* *.zip *.DS_Store $more_exclude_file
+
+    echo "${greenb} ${blackf}3. "$zip_name".zip is ready! 💯  ${reset}"
+  echo "${whitef}———————————————————${reset}"
 }

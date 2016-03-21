@@ -2,7 +2,8 @@
 	<content><![CDATA[
 \$debug_var = ${1:'Working!'};
 echo "<pre>";
-var_dump(\$debug_var);
+var_dump( \$debug_var );
+//print_r( \$debug_var );
 echo "</pre>";
 exit();
 

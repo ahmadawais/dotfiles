@@ -3,10 +3,10 @@
 // ${1:What is it?}.
 wp_enqueue_script(
     '${2:handle}',${3:// handle.}
-    ${4:DIR} . '${4:/ext/name.ext}',${5:// path.}
-    ${6:array( 'jquery' )},${7:// dependencies.}
-    '${8:1.0.0}',${9:// version.}
-    ${10:true}${11:// in_footer.}
+    ${4:DIR} . '${5:/ext/name.ext}',${6:// path.}
+    ${7:array( 'jquery' )},${8:// dependencies.}
+    '${9:1.0.0}',${10:// version.}
+    ${11:true}${12:// in_footer.}
 );
 ]]></content>
 	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
