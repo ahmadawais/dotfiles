@@ -161,6 +161,7 @@ function gcma() {
 
 alias gp="git push"
 alias gpf="git push --force"
+alias gpt="git push --follow-tags"
 
 # delete git and re-inialize git
 alias gdelinit="trash .git && git init"

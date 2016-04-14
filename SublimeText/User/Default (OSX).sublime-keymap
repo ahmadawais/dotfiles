@@ -11,6 +11,14 @@
 	{ "keys": ["super+v"], "command": "paste_and_indent" },
 	{ "keys": ["super+alt+v"], "command": "paste" },
 	{ "keys": ["alt+w"], "command": "close_all" },
-	{ "keys": ["ctrl+alt+m"], "command": "markdown_preview", "args": {"target": "browser", "parser":"markdown"} }
+	{ "keys": ["ctrl+alt+m"], "command": "markdown_preview", "args": {"target": "browser", "parser":"markdown"} },
+
+	{ "keys": ["super+shift+space"], "command": "expand_region" },
+	{
+	  "keys": ["super+u"],
+	  "command": "expand_region",
+	  "args": {"undo": true},
+	  "context": [{ "key": "expand_region_soft_undo" }]
+	},
 
 ]
