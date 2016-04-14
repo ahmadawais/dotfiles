@@ -47,6 +47,12 @@ alias web="cd ~ && cd /Users/ahmadawais/websites/"
 alias wtwpdev="cd ~ && cd wtwp"
 alias ldev="cd ~ && cd localdev"
 
+# Quick Folders to WP plugins.
+alias cf7cwp="cd ~ && cd cf7cwp"
+alias dmdwp="cd ~ && cd dmdwp"
+alias wktcwp="cd ~ && cd wktcwp"
+
+
 function gstreak(){
  cd /Users/ahmadawais/websites/git_test_repo/wpdev ;
  python file.py "$*"
@@ -167,6 +173,9 @@ function gcmap() {
 function gcap() {
     git add . && git ci -m "$* 💯" && gp # With 100 emoji
 }
+function gcall() {
+    git add . && git ci -m "$* 💯" # With 100 emoji
+}
 
 # git add commit and then fix an issue on github
 # usage: gifix 5
@@ -184,6 +193,9 @@ alias gpdt="git push --delete origin"
 alias gf="git fetch"
 alias gpl="git pull"
 alias gfp="git fetch && git pull"
+
+# Open git config file
+alias gconfig="git config --global --edit"
 
 # Git Tags
 # list all tags
@@ -549,7 +561,7 @@ plugins=(git extract sublime web-search svn npm bower brew composer wp-cli emoji
 
 # User configuration
 
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/git/bin:$HOME/.wp-cli:~/bin"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin/git:/usr/local/git/bin:$HOME/.wp-cli:~/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
