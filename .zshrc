@@ -46,11 +46,14 @@ alias ntdev="cd ~ && ntdev"
 alias web="cd ~ && cd /Users/ahmadawais/websites/"
 alias wtwpdev="cd ~ && cd wtwp"
 alias ldev="cd ~ && cd localdev"
+alias lpdev="cd ~ && cd lpluginsdev"
+alias ltdev="cd ~ && cd lthemesdev"
 
 # Quick Folders to WP plugins.
 alias cf7cwp="cd ~ && cd cf7cwp"
 alias dmdwp="cd ~ && cd dmdwp"
 alias wktcwp="cd ~ && cd wktcwp"
+alias fbswp="cd ~ && cd fbswp"
 
 
 function gstreak(){
@@ -113,7 +116,7 @@ alias greset="git reset $@"
 alias ghist="git log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short"
 
 # All remotes
-alias grall="git remotes"
+alias gremotes="git remotes"
 
 # Add Origin
 alias grao="git remote add origin"
@@ -185,6 +188,8 @@ function gifix() {
   issue=$* ;
   git add . && git ci -m "ISSUE: Fixes #$(echo -e "$issue")" && gp
 }
+
+alias gdel="rm -rf .git"
 
 alias gpsuom="git push --set-upstream origin master"
 alias gpsuo="git push --set-upstream origin"
@@ -501,19 +506,19 @@ function wptest(){
 
 
 
-# WP Plugin Install
+# WP Plugin: Install & Acticate
 # Usage: wpp plugin-slug
 alias wpp="wp plugin install $* --activate"
 
-# WP Theme Install
+# WP Theme: Install
 # Usage: wpt plugin-slug
 alias wpt="wp theme install $* --activate"
 
-# WP Theme Activate
+# WP Theme: Activate
 # Usage: wpta plugin-slug
 alias wpt="wp theme activate $*"
 
-# WP Plugins Activate all
+# Activate all WP Plugins
 alias wppaall="wp plugin activate --all"
 
 # Trash all posts in a CPT replace the post-type.
@@ -673,13 +678,14 @@ function gitio() {
 }
 
 
+#
+# Git Clone repo inside current director even if it is not empty.
+#
 # git clone repo . i.e. inside current directory
-# usage: gclhere GitRepoURL
+# usage: gclhere Repo URL
+# usage: gclhere https://github.com/user/repo
 # Equal to rm -rf .* && rm -rf "$(pwd -P)"/* && git clone "$*" .
 #
-# TODO: Caution! This is a dangerous function and needs to be debugged, it deleted
-# pwd's parent folders files. So it should not do that, it should delete the pwd and
-# recreate it instead.
 function gclhere() {
 
   echo "${whitef}———————————————————${reset}"

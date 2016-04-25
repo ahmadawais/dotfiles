@@ -2,11 +2,11 @@
 	<content><![CDATA[
 // ${1:What is it?}.
 wp_enqueue_style(
-    '${2:handle}',${3:// handle.}
-    ${4:DIR} . '${5:/ext/name.ext}',${6:// path.}
-    ${7:array( 'jquery' )},${8:// dependencies.}
-    '${9:1.0.0}',${10:// version.}
-    ${11:'all'}${12:// media default = 'all'  | 'screen' | 'handheld' | 'print'.}
+	'${2:handle}',${3:// handle.}
+	${4:DIR} . '${5:/ext/name.ext}',${6:// path.}
+	${7:array( 'jquery' )},${8:// dependencies.}
+	'${9:1.0.0}',${10:// version.}
+	${11:'all'}${12:// media default = 'all'  | 'screen' | 'handheld' | 'print'.}
 );
 ]]></content>
 	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
