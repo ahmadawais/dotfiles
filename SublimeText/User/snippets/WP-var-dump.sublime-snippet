@@ -1,5 +1,6 @@
 <snippet>
 	<content><![CDATA[
+// // Uncomment to debug.
 \$debug_var = ${1:'Working!'};
 echo "<pre>";
 var_dump( \$debug_var );

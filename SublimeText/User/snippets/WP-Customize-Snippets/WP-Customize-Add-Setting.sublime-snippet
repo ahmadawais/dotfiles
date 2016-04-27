@@ -2,7 +2,7 @@
 	<content><![CDATA[
 
 // Setting: ${1:Name}.
-\$wp_customize->add_setting( '${2:prefix}_setting_${3:id}', array(
+\$wp_customize->add_setting( '${2:prefix}_${3:id}', array(
 	'type'                 => '${4:theme_mod}${5:option}',
 	'default'              => '${6:default}',
 	'transport'            => '${7:refresh}${8:postMessage}', // refresh or postMessage

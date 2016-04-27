@@ -2,9 +2,9 @@
 	<content><![CDATA[
 
 // Setting: ${1:Name}.
-wp.customize( '${2:prefix}_setting_${3:id}', function( value ) {
+wp.customize( '${2:prefix}_${3:id}', function( value ) {
 	value.bind( function( to ) {
-		\$( '.${2:prefix}_setting_${3:id}' ).text( to );
+		\$( '.${2:prefix}_${3:id}' ).text( to );
 	} );
 } );
 
