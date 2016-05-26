@@ -18,6 +18,7 @@
 		"screencast"
 	],
 	"afn_insert_dimensions": false,
+	"auto_complete_selector": "source, text",
 	"bold_folder_labels": true,
 	"caret_extra_bottom": 2,
 	"caret_extra_top": 2,

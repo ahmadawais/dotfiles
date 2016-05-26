@@ -6,7 +6,16 @@
         "-n": ""
     },
     // Execute the sniffer on file save
-    "phpcs_execute_on_save": false,
+    "phpcs_execute_on_save": true,
+
     // Show outline for errors
-    "phpcs_outline_for_errors": false
+    "phpcs_outline_for_errors": false,
+
+
+    // Turn the debug output on/off
+    // "show_debug": true,
+
+    // Show the quick panel
+    // "php_cs_fixer_show_quick_panel": true,
+
 }

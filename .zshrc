@@ -38,7 +38,7 @@ alias dfiles="cd ~ && cd /Users/ahmadawais/dotFiles"
 alias wtdev="cd ~ && cd /Users/ahmadawais/html/writablehtml.dev"
 alias cfcdev="cd ~ && cd cfc"
 alias vrcdev="cd ~ && cd vrcoredev"
-alias vrc="cd ~ && cd vrcore"
+alias vrc="cd ~ && cd vr-core"
 alias vrwpdev="cd ~ && cd vrwpdev"
 alias vrhtmldev="cd ~ && cd /Users/ahmadawais/html/vrhtml.dev"
 alias rpdev="cd ~ && cd /Users/ahmadawais/websites/rp.dev/wp-content/plugins/inspiry-real-estate"
@@ -541,7 +541,7 @@ alias wppaall="wp plugin activate --all"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 COMPLETION_WAITING_DOTS="true"
@@ -567,7 +567,7 @@ plugins=(git extract sublime web-search svn npm bower brew composer wp-cli emoji
 
 # User configuration
 
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin/git:/usr/local/git/bin:$HOME/.wp-cli:~/bin"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin/git:/usr/local/git/bin:$HOME/.wp-cli:~/bin:~/.composer/vendor/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -941,3 +941,16 @@ function wpzip(){
     echo "${greenb} ${blackf}3. "$zip_name".zip is ready! 💯  ${reset}"
   echo "${whitef}———————————————————${reset}"
 }
+
+
+#
+# Resize Images in Terminal
+#
+# Usage: rimg size extension
+# Example: rimg 640 jpg
+#
+alias rimg="sips -Z $@"
+
+
+# Update composer global
+alias cupdate="/usr/local/bin/composer self-update"
