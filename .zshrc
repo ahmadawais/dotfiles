@@ -48,6 +48,7 @@ alias wtwpdev="cd ~ && cd wtwp"
 alias ldev="cd ~ && cd localdev"
 alias lpdev="cd ~ && cd lpluginsdev"
 alias ltdev="cd ~ && cd lthemesdev"
+alias wpcdev="cd ~ && cd wpcdev"
 
 # Quick Folders to WP plugins.
 alias cf7cwp="cd ~ && cd cf7cwp"
