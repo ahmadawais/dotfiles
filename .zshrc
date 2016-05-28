@@ -55,6 +55,8 @@ alias cf7cwp="cd ~ && cd cf7cwp"
 alias dmdwp="cd ~ && cd dmdwp"
 alias wktcwp="cd ~ && cd wktcwp"
 alias fbswp="cd ~ && cd fbswp"
+alias fbqwp="cd ~ && cd fbqwp"
+alias vrcwp="cd ~ && cd vrcwp"
 
 
 function gstreak(){
@@ -273,6 +275,9 @@ alias s="svn"
 alias sst="svn st"
 alias sci="svn ci -m $*"
 alias saddall="svn add --force ."
+
+# SVN Add the assets.
+alias sassets="saddall && svn ci -m 'Adding the assets...'"
 
 
 # Add SVN tag
@@ -955,3 +960,27 @@ alias rimg="sips -Z $@"
 
 # Update composer global
 alias cupdate="/usr/local/bin/composer self-update"
+
+
+#
+# Git Reflow Aliases.
+#
+
+# Usage: grf start aa-feature
+alias grf="git reflow $@"
+
+# Usage: grfs aa-feature
+alias grfs="git reflow start $@"
+
+# Usage: grfr
+alias grfr="git reflow review"
+
+# Usage: grfd
+alias grfd="git reflow deliver"
+
+# Usage: grfrefresh
+alias grfd="git reflow refresh"
+
+
+# Usage: grfst
+alias grfd="git reflow status"
