@@ -1,0 +1,53 @@
+<snippet>
+	<content><![CDATA[
+<?php
+/**
+ * Plugin Name: ${1:Plugin Name}
+ * Plugin URI: ${2:http://AhmadAwais.com/}
+ * Description: ${3:Plugin description}.
+ * Author: mrahmadawais, WPTie${4:, author}
+ * Author URI: ${5:http://AhmadAwais.com/}
+ * Version: ${6:1.0.0}
+ * License: GPL2+
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
+ *
+ * @package ${7:WP}
+ */
+
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+
+/**
+ * Define global constants.
+ *
+ * @since 1.0.0
+ */
+// Plugin version.
+if ( ! defined( '${7:WP}_VERSION' ) ) {
+    define( '${7:WP}_VERSION', '${6:1.0.0}' );
+}
+
+if ( ! defined( '${7:WP}_NAME' ) ) {
+    define( '${7:WP}_NAME', trim( dirname( plugin_basename( __FILE__ ) ), '/' ) );
+}
+
+if ( ! defined('${7:WP}_DIR' ) ) {
+    define( '${7:WP}_DIR', WP_PLUGIN_DIR . '/' . ${7:WP}_NAME );
+}
+
+if ( ! defined('${7:WP}_URL' ) ) {
+    define( '${7:WP}_URL', WP_PLUGIN_URL . '/' . ${7:WP}_NAME );
+}
+
+
+]]></content>
+	<!-- Optional: Description to show in the menu -->
+	<description>WordPress New Plugin</description>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>npwp_new_plugin</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <!--<scope>source.php - variable.other.php</scope>-->
+</snippet>

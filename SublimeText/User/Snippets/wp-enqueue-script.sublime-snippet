@@ -1,0 +1,17 @@
+<snippet>
+	<content><![CDATA[
+// ${1:What is it?}.
+wp_enqueue_script(
+    '${2:handle}',${3:// handle.}
+    ${4:URL} . '${5:/ext/name.ext}',${6:// path.}
+    ${7:array( 'jquery' )},${8:// dependencies.}
+    '${9:1.0.0}',${10:// version.}
+    ${11:true}${12:// in_footer.}
+);
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<description>WordPress Enqueue Script</description>
+	<tabTrigger>npwp_enqueue_script</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>
