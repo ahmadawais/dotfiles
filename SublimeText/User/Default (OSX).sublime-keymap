@@ -20,5 +20,11 @@
 	  "args": {"undo": true},
 	  "context": [{ "key": "expand_region_soft_undo" }]
 	},
+	{ "keys": ["super+\\"], "command": "toggle_side_bar" },
+
+	// Sublime CodeIntel.
+	{ "keys": ["shift+ctrl+space"], "command": "code_intel_auto_complete" },
+	{ "keys": ["alt+up"], "command": "goto_python_definition"},
+	{ "keys": ["super+shift+alt+left"], "command": "back_to_python_definition"}
 
 ]

@@ -49,6 +49,7 @@ alias ldev="cd ~ && cd localdev"
 alias lpdev="cd ~ && cd lpluginsdev"
 alias ltdev="cd ~ && cd lthemesdev"
 alias wpcdev="cd ~ && cd wpcdev"
+alias swpcdev="cd ~ && cd swpc"
 
 # Quick Folders to WP plugins.
 alias cf7cwp="cd ~ && cd cf7cwp"
@@ -110,7 +111,7 @@ function gbdel {
 #get a list of conflicts
 alias conflicts='git diff --name-only --diff-filter=U'
 
-function gammend(){
+function grebase(){
   git rebase -i @~"$*"
 }
 
@@ -789,6 +790,23 @@ function gfpr(){
   echo "${whitef}———————————————————${reset}"
 }
 
+#
+# Git Fetch a Pull Request locally to current branch.
+#
+# Usage: gfpr 8
+#
+# Where 8 is the number of pull request (can be found right after the PR's title).
+#
+function gfpronly() {
+  echo "${whitef}———————————————————${reset}"
+    echo "${whiteb} ${blackf}0. Fetching the pull request...${reset}"
+
+    git fetch origin pull/"${1}"/head:pull_"${1}"
+
+    echo "${greenb} ${blackf}1. PR Fetched Created!${reset}"
+  echo "${whitef}———————————————————${reset}"
+}
+
 # Create a data URL from a file
 function dataurl() {
     local mimeType=$(file -b --mime-type "$1")
@@ -868,16 +886,22 @@ function syncsbl(){
 function synczsh(){
   echo "${whitef}———————————————————${reset}"
 
-    echo "${redb} ${whitef}0. Deleting old .zshrc...${reset}"
+    echo "${redb} ${whitef}0. Deleting old .zshrc and .bash files...${reset}"
 
     dfiles
     sudo trash .zshrc
+    sudo trash .bash_history
+    sudo trash .bash_profile
+    sudo trash .bashrc
 
-    echo "${whiteb} ${blackf}1. Copying new `.zshrc` file...${reset}"
+    echo "${whiteb} ${blackf}1. Copying new `.zshrc` and .bash files ...${reset}"
 
     cp ~/.zshrc /Users/ahmadawais/dotFiles/
+    cp ~/.bash_history /Users/ahmadawais/dotFiles/
+    cp ~/.bash_profile /Users/ahmadawais/dotFiles/
+    cp ~/.bashrc /Users/ahmadawais/dotFiles/
 
-    echo "${greenb} ${blackf}3. Sync zshrc Done!!!${reset}"
+    echo "${greenb} ${blackf}3. Sync of ZSH and BASH Done!!!${reset}"
   echo "${whitef}———————————————————${reset}"
 }
 
@@ -922,12 +946,17 @@ function change_line {
 }
 
 
+#
 # Zip the current folder and exclude
 # folders and files that are not needed
 # as per Theme Check.
 #
 # Usage: wpzip zipname
 # Link: http://askubuntu.com/a/28482/521222
+# Note: It will not include any .zip files
+# in the theme so if you bundle plugins with
+# TGMPA then beware.
+#
 function wpzip(){
   echo "${whitef}———————————————————${reset}"
 
@@ -965,22 +994,46 @@ alias cupdate="/usr/local/bin/composer self-update"
 #
 # Git Reflow Aliases.
 #
+# @link https://github.com/reenhanced/gitreflow
+#
 
 # Usage: grf start aa-feature
 alias grf="git reflow $@"
 
+# 1. Start.
 # Usage: grfs aa-feature
 alias grfs="git reflow start $@"
 
+# 2. Review.
 # Usage: grfr
 alias grfr="git reflow review"
 
+# 3. Deliver.
 # Usage: grfd
 alias grfd="git reflow deliver"
 
 # Usage: grfrefresh
-alias grfd="git reflow refresh"
-
+alias grfrefresh="git reflow refresh"
 
 # Usage: grfst
-alias grfd="git reflow status"
+alias grfst="git reflow status"
+
+#
+# Download and install WPGulp
+#
+# Usage: wpgulp
+function wpgulp() {
+  echo "${whitef}———————————————————${reset}"
+
+    echo "${whiteb} ${blackf}0. Downloading gulpfile.js and pacakge.json in the current folder...${reset}"
+
+    curl -O https://raw.githubusercontent.com/ahmadawais/WPGulp/master/package.json
+    curl -O https://raw.githubusercontent.com/ahmadawais/WPGulp/master/gulpfile.js
+
+    echo "${whiteb} ${blackf}1. Installing NPM dependencies (will take upto 5 minutes)...${reset}"
+
+    sudo npm install
+
+    echo "${greenb} ${blackf}2. WPGulp is ready! Run the command `gulp`  ${reset}"
+  echo "${whitef}———————————————————${reset}"
+}
