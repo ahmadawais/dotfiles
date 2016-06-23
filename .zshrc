@@ -76,8 +76,9 @@ alias deldot="rm -rf .*"
 alias delpwd="rm -rf "$(pwd -P)"/*"
 
 # trash is better
-alias tdot="t .*"
+alias t="sudo trash"
 alias tpwd="t "$(pwd -P)"/*"
+alias tdot="t .*"
 alias ta="tdot ; tpwd"
 
 
@@ -459,7 +460,6 @@ function nfh() {
   npm clean cache;
 }
 
-alias t="trash"
 
 # {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{ WP CLI }}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
 
@@ -1037,3 +1037,6 @@ function wpgulp() {
     echo "${greenb} ${blackf}2. WPGulp is ready! Run the command `gulp`  ${reset}"
   echo "${whitef}———————————————————${reset}"
 }
+
+# Reset DNS cache
+alias resetdnscache="sudo killall -HUP mDNSResponder"

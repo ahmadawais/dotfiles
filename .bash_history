@@ -1,4 +1,3 @@
-git push
 git cleac
 clear
 git add .
@@ -498,3 +497,4 @@ $ curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh 
 $ curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
 $ wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O - | sh
 curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
+zsh
