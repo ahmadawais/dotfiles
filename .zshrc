@@ -1038,5 +1038,5 @@ function wpgulp() {
   echo "${whitef}———————————————————${reset}"
 }
 
-# Reset DNS cache
-alias resetdnscache="sudo killall -HUP mDNSResponder"
+# DNS cache Flush
+alias dnscacheflush="sudo killall -HUP mDNSResponder"

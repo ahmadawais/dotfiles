@@ -34,7 +34,7 @@
 <key>settings</key>
 <dict>
 <key>background</key>
-<string>#fffff10FF</string>
+<string>#19354aFF</string>
 <key>foreground</key>
 <string>#ffffffFF</string>
 <key>caret</key>
@@ -46,15 +46,15 @@
 <key>name</key>
 <string>mon_color</string>
 <key>scope</key>
-<string>mcol_ffffffFF</string>
+<string>mcol_00000066</string>
 <key>settings</key>
 <dict>
 <key>background</key>
-<string>#ffffffFF</string>
+<string>#00000066</string>
 <key>foreground</key>
-<string>#000000FF</string>
+<string>#FFFFFFFF</string>
 <key>caret</key>
-<string>#000000FF</string>
+<string>#FFFFFFFF</string>
 </dict>
 </dict>
 
@@ -62,15 +62,15 @@
 <key>name</key>
 <string>mon_text_color</string>
 <key>scope</key>
-<string>mcol_text_ffffffFF</string>
+<string>mcol_text_00000066</string>
 <key>settings</key>
 <dict>
 <key>background</key>
 <string>#19354aFF</string>
 <key>foreground</key>
-<string>#ffffffFF</string>
+<string>#00000066</string>
 <key>caret</key>
-<string>#000000FF</string>
+<string>#FFFFFFFF</string>
 </dict>
 </dict>
 
