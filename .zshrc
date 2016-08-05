@@ -314,6 +314,9 @@ alias la="ls -l | awk '
 # List only directories
 alias lsd="ls -lF ${colorflag} | grep --color=never '^d'"
 
+# List only dot files
+alias lsdot="ls -ld .??*"
+
 # Enable aliases to be sudo’ed
 # alias sudo='sudo '
 
@@ -385,6 +388,7 @@ alias lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resourc
 alias reload="exec $SHELL -l"
 alias relaod="reload" #typo addressed
 alias reld="reload"
+alias rld="reload"
 
 
 alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to pasteboard.\n'";
@@ -501,6 +505,8 @@ function wpdsready() {
 
 }
 
+alias wpppn="wp option update permalink_structure '/%postname%'"
+
 
 # Install WPTest.io
 function wptest(){
@@ -570,7 +576,7 @@ HIST_STAMPS="dd-mm-yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git extract sublime web-search svn npm bower brew composer wp-cli emoji)
+plugins=(git git-extras extract sublime web-search svn npm bower brew composer wp-cli emoji z)
 
 # User configuration
 
@@ -578,6 +584,10 @@ export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin/git:/us
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
+
+# zsh-syntax-highlighting
+# @link: http://github.com/zsh-users/zsh-syntax-highlighting
+source ~/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 
 # You may need to manually set your language environment
@@ -724,7 +734,7 @@ function gclhere() {
     echo "${blueb} ${whitef}1. Directory is empty. Cloning the repo...${reset}"
 
     echo "${blueb} ${whitef}2. Starting git repo clone...${reset}"
-    git clone "$*" .
+    git clone --recursive "$*" .
     echo "${greenb} ${blackf}3. Git repo cloned! DONE!${reset}"
 
   fi
@@ -979,10 +989,10 @@ function wpzip(){
 
 
 #
-# Resize Images in Terminal
+# Bulk Resize Images in Terminal
 #
 # Usage: rimg size extension
-# Example: rimg 640 jpg
+# Example: rimg 640 *.jpg
 #
 alias rimg="sips -Z $@"
 
@@ -1021,14 +1031,15 @@ alias grfst="git reflow status"
 #
 # Download and install WPGulp
 #
-# Usage: wpgulp
-function wpgulp() {
+# Usage: addwpgulp
+function addwpgulp() {
   echo "${whitef}———————————————————${reset}"
 
     echo "${whiteb} ${blackf}0. Downloading gulpfile.js and pacakge.json in the current folder...${reset}"
 
     curl -O https://raw.githubusercontent.com/ahmadawais/WPGulp/master/package.json
     curl -O https://raw.githubusercontent.com/ahmadawais/WPGulp/master/gulpfile.js
+    curl -O https://raw.githubusercontent.com/ahmadawais/WPGulp/master/.gitignore
 
     echo "${whiteb} ${blackf}1. Installing NPM dependencies (will take upto 5 minutes)...${reset}"
 
@@ -1040,3 +1051,160 @@ function wpgulp() {
 
 # DNS cache Flush
 alias dnscacheflush="sudo killall -HUP mDNSResponder"
+alias dnscf="sudo killall -HUP mDNSResponder"
+
+# Creates README.md, LICENSE.md and CHANGELOG.md files in the current folder.
+alias clr='touch README.md && touch LICENSE.md && touch CHANGELOG.md  && echo "${greenb} ${blackf} Created README.md, LICENSE.md and CHANGELOG.md files. 💯 ${reset}" && ll'
+alias gfiles='touch README.md && touch LICENSE.md && touch CHANGELOG.md  && echo "${greenb} ${blackf} Created README.md, LICENSE.md and CHANGELOG.md files. 💯 ${reset}" && ll'
+
+
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
+ZSH_HIGHLIGHT_PATTERNS=('rm -rf *' 'fg=white,bold,bg=red')
+
+# This will add a 10 second wait before you can confirm a wildcard deletion.
+# Lots of people, myself included, are so used to confirming the removal of files,
+# that we don’t stop to actually read what will be deleted. Better to have it now then
+# add it after you make a mistake!
+setopt RM_STAR_WAIT
+
+# Some options for our Zsh history. These will set our history to allow a ton more entires,
+# ignore duplicate commands, and ignore some of the commands we don’t need a history of.
+# This is useful because if you want to search for that command you ran a few weeks ago,
+# you can do that a lot easier.
+export HISTSIZE=32768;
+export HISTFILESIZE=$HISTSIZE;
+export HISTCONTROL=ignoredups;
+export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help";
+
+# Build a Mac App.
+#
+alias nfrmac="nativefier --full-screen -n "$1" $2"
+
+alias addgitignore="curl -O https://raw.githubusercontent.com/ahmadawais/WPGulp/master/.gitignore"
+
+# Copy pictures to desktop
+#
+# Click on the picture in Photos. Press command i to read its Info. Double-click on the file name then copy it by pressing command c.
+function cpic(){
+  cp "`find Pictures -name "$@" -print`" ~/Desktop/
+}
+
+function cimg(){
+  cp "`find Pictures -name "$@" -print`" ~/Desktop/
+}
+
+# Youtube DL
+# @link https://github.com/rg3/youtube-dl
+# Command-line program to download videos from
+# YouTube.com and other video sites http://rg3.github.io/youtube-dl/
+#
+# Old Command: youtube-dl
+# New Command: dvid
+function dvid() {
+ youtube-dl "$@";
+}
+
+# Dvid config
+alias dvidconfig="st /etc/youtube-dl.conf"
+
+# DVIDRC
+alias dvidrc="st ~/.netrc"
+
+# Dropbox Uploader
+# @link https://github.com/rg3/youtube-dl
+# Dropbox Uploader is a BASH script which can be used to upload,
+# download, list or delete files from Dropbox, an online file sharing,
+# synchronization and backup service. http://www.andreafabrizi.it/?dropbox_uploader
+#
+# Old Command: ./dropbox_uploader.sh
+# New Command: dbx
+function dbx() {
+  ./dropbox_uploader.sh "$@";
+}
+
+
+# Setup SSH key
+# Usage: sshkey name
+function sshkey() {
+  # First parameter
+  path_name=$1
+
+  echo "${whitef}———————————————————${reset}"
+  echo "${whiteb} ${blackf} Let's Add an SSH Key...${reset}"
+  # Add the ssh key
+  ssh-keygen -t rsa
+
+  echo "${greenb} ${blackf} Copy the key below and add it to your host ${reset}"
+  cat /Users/ahmadawais/.ssh/"$path_name".pub
+
+  echo "${greenb} ${blackf} ✔✔✔ KEY ADDED! ✔✔✔︎ ${reset}"
+  echo "${whitef}———————————————————${reset}"
+
+  sshconfig
+
+  echo "${whitef}———————————————————${reset}"
+}
+
+# Add host to ~/.ssh/config
+function sshconfig() {
+  echo "${whiteb} ${blackf} Have you added the key to your host? [y/n]: ${reset}"
+  read -r key_added
+
+  if [[ "$key_added" == "y" ]]; then
+    echo "${greenb} ${blackf} Let's add the host to ~/.ssh/config ${reset}"
+    #st ~/.ssh/config
+
+    echo "${whiteb} ${blackf} Enter the host NAME: ${reset}"
+    read -r host_name
+
+    echo "${whiteb} ${blackf} Enter the IP Address: ${reset}"
+    read -r ip_address
+
+    echo "${whiteb} ${blackf} Enter the IdentityFile's name ~/.ssh/NAME [just the name]: ${reset}"
+    read -r id_name
+
+    echo "\nHost $host_name" >> ~/.ssh/config
+    echo "    HostName $ip_address" >> ~/.ssh/config
+    echo "    Port 22" >> ~/.ssh/config
+    echo "    User root" >> ~/.ssh/config
+    echo "    IdentityFile ~/.ssh/$id_name" >> ~/.ssh/config
+
+    echo "${greenb} ${blackf} Added the following new host to ~/.ssh/config ${reset}"
+    echo "\nHost $host_name"
+    echo "    HostName $ip_address"
+    echo "    Port 22"
+    echo "    User root"
+    echo "    IdentityFile ~/.ssh/$id_name"
+    echo "${greenb} ${blackf} ✔✔✔ Host ADDED! ✔✔✔︎ ${reset}"
+  else
+    echo "${redb} ${whitef} ⅹⅹⅹ No Host Added! ⅹⅹⅹ ${reset}"
+  fi
+}
+
+# Trash $PWD
+alias rmpwd="trash $(pwd)"
+
+# Extract links from a site and save them in a file.
+#
+# Usage: elinks URL Filename.extension
+#        elinks http://domain.com/ links.md
+function elinks() {
+  url=$1
+  domain=$(echo $1 | cut -d'/' -f3 | cut -d':' -f1)
+  links=$2
+
+  echo "${whiteb} ${blackf} -----------STARTING------------- ${reset}"
+  echo "${greenb} ${blackf} Downloading the file... ${reset}"
+  wget $url -O file.html
+  echo "${greenb} ${blackf} Generating links... ${reset}"
+  pup 'a.lesson-index__lesson-link[href] attr{href}' < file.html > $links
+
+  echo "${greenb} ${blackf} Prefixing links... ${reset}"
+  sed -e 's#^#https://'$domain'#' $links > links_new.txt
+  mv links_new.txt $links
+
+  rm file.html
+  echo "${greenb} ${blackf} ✔︎✔︎✔︎ Find links in $links file ✔︎✔︎✔︎ ${reset}"
+  echo "${whiteb} ${blackf} -----------END------------- ${reset}"
+}
+
