@@ -203,7 +203,7 @@ alias gpdt="git push --delete origin"
 # Git fethc & Pull
 alias gf="git fetch"
 alias gpl="git pull"
-alias gfp="git fetch && git pull"
+alias gfp="git fetch && git pull && git submodule update"
 
 # Open git config file
 alias gconfig="git config --global --edit"
@@ -515,9 +515,6 @@ function wptest(){
   wp import wptest.xml --authors=create
   rm wptest.xml
 }
-
-
-
 
 # WP Plugin: Install & Acticate
 # Usage: wpp plugin-slug
@@ -1119,7 +1116,7 @@ alias dvidrc="st ~/.netrc"
 # Old Command: ./dropbox_uploader.sh
 # New Command: dbx
 function dbx() {
-  ./dropbox_uploader.sh "$@";
+  ~/dropbox_uploader.sh "$@";
 }
 
 
@@ -1184,6 +1181,9 @@ function sshconfig() {
 # Trash $PWD
 alias rmpwd="trash $(pwd)"
 
+# Open SSH config
+alias osc="st ~/.ssh/config"
+
 # Extract links from a site and save them in a file.
 #
 # Usage: elinks URL Filename.extension
@@ -1208,3 +1208,48 @@ function elinks() {
   echo "${whiteb} ${blackf} -----------END------------- ${reset}"
 }
 
+# Complete Lynda Download & Upload To Dropbox and Removal from VPS
+function ldu() {
+  # folder_name=$1
+  lynda_link=$1
+
+  folder_name=$(wget -qO- $1 | grep -o "<title>[^<]*" | sed -e 's/<[^>]*>//g')
+
+  mkd "$folder_name"
+
+  echo "${greenb} ${blackf} CREATED THE DIRECTORY CALLED $folder_name ${reset}"
+
+  echo "${whiteb} ${blackf} STARTED DOWNLOADING FROM LYNDA ${reset}"
+
+  dvidl "$lynda_link"
+  echo "${greenb} ${blackf} DOWNLOAD COMPELTED ✔︎ ✔︎ ✔︎ $folder_name ${reset}"
+
+  echo "${whiteb} ${blackf} UPLOADING TO DROPBOX... ${reset}"
+  dbxupwd
+  echo "${whiteb} ${blackf} UPLOAD TO DROPBOX COMPELTED ✔︎ ✔︎ ✔︎ ${reset}"
+
+  cd ..
+  rmv "$folder_name"
+
+  echo "${whiteb} ${redf} The folder $folder_name REMOVED!${reset}"
+
+  echo "${greenb} ${blackf} ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ${reset}"
+  echo "${greenb} ${blackf} ✔︎ ✔︎ ✔︎ DONE! DONE! ✔︎ ✔︎ ✔︎ ${reset}"
+  echo "${greenb} ${blackf} ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ${reset}"
+  echo "${whitef}———————————————————${reset}"
+}
+
+# DBX Upload
+function dbxu() {
+ dbx upload "$@"
+}
+
+# DB Upload PWD
+function dbxupwd() {
+ dbx upload "$PWD" '%q\n' "${PWD##*/}"
+}
+
+# Easy Remove (I know what I am doing)
+function rmv() {
+ rm -rf "$@"
+}
