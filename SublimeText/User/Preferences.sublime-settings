@@ -22,7 +22,7 @@
 	"bold_folder_labels": true,
 	"caret_extra_bottom": 2,
 	"caret_extra_top": 2,
-	"caret_extra_width": 1,
+	"caret_extra_width": 3,
 	"caret_style": "phase",
 	"color_scheme": "Packages/Theme - Cobalt2/cobalt2.tmTheme",
 	"ensure_newline_at_eof_on_save": true,
@@ -36,10 +36,12 @@
 		"CVS",
 		"node_modules"
 	],
-	"font_face": "Source Code Pro",
+	// "font_face": "Source Code Pro",
+	"font_face": "Operator Mono",
 	"font_options":
 	[
-		"no_round"
+		"no_round", "gray_antialias", "no_bold", "subpixel_antialias",
+		// "no_bold", "no_italic", "no_antialias", "gray_antialias", "subpixel_antialias", "no_round",
 	],
 	"font_size": 16,
 	"hayaku_CSS_colors_case": "lowercase",
@@ -57,7 +59,7 @@
 	],
 	"indent_guide_options":
 	[
-		"draw_normal"
+		"draw_normal", "draw_active"
 	],
 	"index_exclude_patterns":
 	[
@@ -77,5 +79,7 @@
 	"theme": "Cobalt2.sublime-theme",
 	"translate_tabs_to_spaces": false,
 	"trim_trailing_white_space_on_save": true,
-	"word_wrap": false
+	"word_wrap": false,
+	"wide_caret": true,
+	"sidebar_xlarge": true,
 }
