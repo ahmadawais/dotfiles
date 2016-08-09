@@ -929,7 +929,8 @@ function syncdfiles(){
 
     gcap DotFiles Synced
 
-    echo "${greenb} ${blackf}3. Sync dotFiles Done!!!${reset}"
+    cd ~
+    echo "${greenb} ${blackf}3. Sync dotFiles Done! ✔︎✔︎✔︎${reset}"
   echo "${whitef}———————————————————${reset}"
 }
 
