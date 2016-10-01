@@ -2,10 +2,9 @@
 	<content><![CDATA[
 // // Uncomment to debug.
 \$debug_var = ${1:'Working!'};
-echo "<pre>";
-var_dump( \$debug_var );
-//print_r( \$debug_var );
-echo "</pre>";
+echo '<pre>';
+var_dump( \$debug_var ); // Or print_r( \$debug_var ); .
+echo '</pre>';
 exit();
 
 ]]></content>

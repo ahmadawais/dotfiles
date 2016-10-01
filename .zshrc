@@ -26,6 +26,10 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 
+# Dropbox
+alias db="cd db"
+alias dbgif="cd dbgif"
+
 # WP related CD
 alias cdwpt="cd wp-content/themes"
 alias cdwpp="cd wp-content/plugins"
@@ -38,9 +42,6 @@ alias dfiles="cd ~ && cd /Users/ahmadawais/dotFiles"
 alias wtdev="cd ~ && cd /Users/ahmadawais/html/writablehtml.dev"
 alias cfcdev="cd ~ && cd cfc"
 alias vrcdev="cd ~ && cd vrcoredev"
-alias vrc="cd ~ && cd vr-core"
-alias vrwpdev="cd ~ && cd vrwpdev"
-alias vrhtmldev="cd ~ && cd /Users/ahmadawais/html/vrhtml.dev"
 alias rpdev="cd ~ && cd /Users/ahmadawais/websites/rp.dev/wp-content/plugins/inspiry-real-estate"
 alias ntdev="cd ~ && ntdev"
 alias web="cd ~ && cd /Users/ahmadawais/websites/"
@@ -50,6 +51,9 @@ alias lpdev="cd ~ && cd lpluginsdev"
 alias ltdev="cd ~ && cd lthemesdev"
 alias wpcdev="cd ~ && cd wpcdev"
 alias swpcdev="cd ~ && cd swpc"
+alias vrcdev="cd ~ && cd vrcdev"
+alias vrdev="cd ~ && cd vrwpdev"
+alias vrhtmldev="cd ~ && cd /Users/ahmadawais/html/vrhtml.dev"
 
 # Quick Folders to WP plugins.
 alias cf7cwp="cd ~ && cd cf7cwp"
@@ -58,6 +62,9 @@ alias wktcwp="cd ~ && cd wktcwp"
 alias fbswp="cd ~ && cd fbswp"
 alias fbqwp="cd ~ && cd fbqwp"
 alias vrcwp="cd ~ && cd vrcwp"
+
+# Git Clones
+alias clone="cd ~ && cd websites/clone"
 
 
 function gstreak(){
@@ -342,7 +349,7 @@ alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; rm -rfv ~/.Trash; sudo rm /p
 alias et="sudo rm -rfv /Volumes/*/.Trashes; rm -rfv ~/.Trash; sudo rm /private/var/vm/sleepimage"
 
 # yes I occasionally 127.0.0.1 twitter.com ;)
-alias hosts='sudo subl /etc/hosts'
+alias hosts='sudo st /etc/hosts'
 
 alias cask='brew cask' # i <3 u cask
 # alias where=which # sometimes i forget
@@ -422,6 +429,7 @@ alias rl="release-it"
 
 alias clive="caffeinate -t $*"
 alias nosleep="caffeinate -t 50000"
+alias nsl="caffeinate -t 50000"
 
 # NPM Quickes   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 # Npm
@@ -1120,6 +1128,8 @@ function dbx() {
   ~/dropbox_uploader.sh "$@";
 }
 
+# Open ssh config file
+alias sshco="st ~/.ssh/config"
 
 # Setup SSH key
 # Usage: sshkey name
@@ -1254,3 +1264,15 @@ function dbxupwd() {
 function rmv() {
  rm -rf "$@"
 }
+
+# Animated Gifs workflows with Gifify
+# Usage: gifit file.gif file.mov
+function gifit() {
+  gifify --colors 255 --compress 0 --fps 30 -o "$1" "$2"
+}
+
+# Open host
+alias hostso="st /etc/hosts"
+
+# Reboot PTCL router.
+alias ptclr="ptcli -r"
