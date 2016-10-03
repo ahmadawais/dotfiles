@@ -1276,3 +1276,45 @@ alias hostso="st /etc/hosts"
 
 # Reboot PTCL router.
 alias ptclr="ptcli -r"
+
+
+# DBX cPanel backup.
+# Usage: dbxcu site.com
+# Make sure the backup is in the root and called b.tar.gz.
+function dbxcu () {
+  SITE=$1
+
+  echo "——————————————————————————————————"
+  echo "⚡️  Downloading backup for: $SITE..."
+  echo "——————————————————————————————————"
+
+  # Make dir.
+  mkd $SITE"/cPanel/"
+
+  # Download the backup
+  wget $SITE/b.tar.gz
+
+  echo "——————————————————————————————————"
+  echo "✔︎✔︎✔︎  DOWNLOADED backup for: $SITE ✔︎✔︎✔︎"
+  echo "——————————————————————————————————"
+
+  # Go back.
+  ..
+
+  echo "——————————————————————————————————"
+  echo "⚡️  UPLOADING to Dropbox for: $SITE..."
+  echo "——————————————————————————————————"
+
+  # Upload the backup.
+  dbxupwd
+
+  # Go back.
+  ..
+
+  echo "——————————————————————————————————"
+  echo "✔︎✔︎✔︎  UPLOADED backup for: $SITE ✔︎✔︎✔︎"
+  echo "——————————————————————————————————"
+
+  # Remove PWD.
+  rm -rf $SITE
+}
