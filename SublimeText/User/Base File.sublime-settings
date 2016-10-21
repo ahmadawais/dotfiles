@@ -5,7 +5,7 @@
         "=", ":"
     ],
 
-    "jsdocs_extra_tags": [ "@author Ahmad Awais", "@since ${1:[version]}"],
+    "jsdocs_extra_tags": [ "@since ${1:[version]}"],
      /**<<enter>>
      function foo (x) {}
 
@@ -13,7 +13,6 @@
       * [functions_description]
       *
       * @return [type]    [description]
-      * @author Ahmad Awais
       * @since  [version]
       */
 

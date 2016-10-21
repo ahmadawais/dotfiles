@@ -1,17 +1,12 @@
 <snippet>
 	<content><![CDATA[
-// // Uncomment to debug.
-\$debug_var = ${1:'Working!'};
-echo '<pre>';
-var_dump( \$debug_var ); // Or print_r( \$debug_var ); .
-echo '</pre>';
-exit();
-
+// End ${1:This}.
 ]]></content>
 <!-- Optional: Description to show in the menu -->
-    <description>WordPress Debug var_dump and exit</description>
+    <description>Brackets ending comment</description>
 	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
-	 <tabTrigger>npwp_var_dump</tabTrigger>
+	 <tabTrigger>bend</tabTrigger>
+	 <!-- <tabTrigger>bracket_end_comment</tabTrigger> -->
 	<!-- Optional: Set a scope to limit where the snippet will trigger -->
     <!--<scope>source.php - variable.other.php</scope>-->
 </snippet>
