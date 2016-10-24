@@ -54,6 +54,10 @@ alias swpcdev="cd ~ && cd swpc"
 alias vrcdev="cd ~ && cd vrcdev"
 alias vrdev="cd ~ && cd vrwpdev"
 alias vrhtmldev="cd ~ && cd /Users/ahmadawais/html/vrhtml.dev"
+alias wpcdev="cd ~ && cd wpcore"
+alias wpcore="cd ~ && cd wpcore"
+alias wpcoredev="cd ~ && cd wpcore"
+
 
 # Quick Folders to WP plugins.
 alias cf7cwp="cd ~ && cd cf7cwp"
@@ -1458,4 +1462,10 @@ function size_pwd() {
 	echo "-"
 	echo "${gb} ${bf}----------->${r} $( du -hd 2 .)${r}"
 	echo "-"
+}
+
+
+# Record terminal.
+function recterm() {
+	asciinema rec
 }
