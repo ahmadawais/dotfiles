@@ -1027,9 +1027,16 @@ function rename() {
 # JPEG Optimization.
 # Usage: jpegoptim 90 | where 90 is the quality.
 function jpegoptim() {
-	echo "${wb}${bf}———————————————— STARTED ————————————————${r}"
-	find . -iname "*.jpg" -exec jpegoptim -m"$1" -o -p --strip-all {} \;
-	echo "${gb}${bf}———————————————— ✔✔✔ OPTIMZED Every JPG file in the PWD! ✔✔✔︎ ————————————————${r}"
+	if [[ "-h" == "$1" ]]; then
+		clear
+		echo "${wb}${bf}———————————————— Help! ————————————————${r}"
+		echo "${wb}${bf}——— Usage: jpegoptim 90 | where 90 is the quality. ———${r}"
+		return 1
+	else
+		echo "${wb}${bf}———————————————— STARTED ————————————————${r}"
+		find . -iname "*.jpg" -exec jpegoptim -m"$1" -o -p --strip-all {} \;
+		echo "${gb}${bf}———————————————— ✔✔✔ OPTIMZED Every JPG file in the PWD! ✔✔✔︎ ————————————————${r}"
+	fi
 }
 
 
