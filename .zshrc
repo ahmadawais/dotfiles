@@ -57,7 +57,7 @@ alias vrhtmldev="cd ~ && cd /Users/ahmadawais/html/vrhtml.dev"
 alias wpcdev="cd ~ && cd wpcore"
 alias wpcore="cd ~ && cd wpcore"
 alias wpcoredev="cd ~ && cd wpcore"
-
+alias writydev="cd ~ && cd writydev"
 
 # Quick Folders to WP plugins.
 alias cf7cwp="cd ~ && cd cf7cwp"
@@ -491,9 +491,6 @@ function wpdsready() {
 		echo "${wb} ${bf}WP: Core Installing...${r}"
 		wp core install --url=$1 --title=$2 --admin_user=root --admin_password=root --admin_email=mrahmadawais@gmail.com
 
-		echo "${wb} ${bf}WP: Core Updating...${r}"
-		wp core update ;
-
 		echo "${wb} ${bf}WP: twentyfifteen Update...${r}"
 		wp theme update twentyfifteen;
 
@@ -511,6 +508,9 @@ function wpdsready() {
 
 		echo "${rb} ${bf}WP: Setting permalinks to postname...${r}"
 		wp option update permalink_structure '/%postname%'
+
+		echo "${wb} ${bf}WP: Core Updating...${r}"
+		wp core update ;
 
 		echo "${gb} ${bf}WP: DS Setup Ready. DONE!${r}"
 	echo "${wf}———————————————————${r}"
@@ -542,6 +542,10 @@ alias wpt="wp theme activate $*"
 
 # Activate all WP Plugins
 alias wppaall="wp plugin activate --all"
+
+# Launch WP with logged in as root admin
+# @link https://aaemnnost.tv/2016/08/26/going-plaidinum/
+alias wplr="wp login create root --launch"
 
 # Trash all posts in a CPT replace the post-type.
 # alias wpdb="wp post delete $(wp post list --post_type='vr_booking' --format=ids)"
@@ -1009,8 +1013,8 @@ function rimg() {
 #
 # @param extension | jpg
 # @param new_name | name
-# Usage: rename jpg new_name
-function rename() {
+# Usage: rname jpg new_name
+function rname() {
 	echo "${wb}${bf}———————————————— STARTED ————————————————${r}"
 
 	# Counter.
@@ -1042,7 +1046,7 @@ function jpegoptim() {
 
 # Handle Stock images optimization.
 #
-# @param $1 rename | new_name.
+# @param $1 rname | new_name.
 # @param $2 resize | 1920 (only width).
 # @param $3 optimize | 85 (quality).
 #
@@ -1063,12 +1067,12 @@ function soptim() {
 		echo "—"
 		echo "${blb}${bf}———————————————— STEP #1. RENAMING to $1-#.jpg ————————————————${r}"
 		echo "—"
-		rename jpg $1
+		rname JPG $1
 
 		echo "—"
 		echo "${blb}${bf}———————————————— STEP #2. RESIZING to $2 width ————————————————${r}"
 		echo "—"
-		rimg jpg $2
+		rimg JPG $2
 
 		clear
 		echo "—"
