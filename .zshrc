@@ -1,0 +1,1533 @@
+# Path to your oh-my-zsh installation.
+export ZSH=/Users/ahmadawais/.oh-my-zsh
+
+# Set name of the theme to load.
+# Look in ~/.oh-my-zsh/themes/
+# Optionally, if you set this to "random", it'll load a random theme each
+# time that oh-my-zsh is loaded.
+ZSH_THEME="cobalt3"
+# ZSH_THEME="cobalt2"
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+alias zs="source ~/.zshrc"
+alias zso="subl ~/.zshrc"
+alias stgc="st ~/.gitconfig"
+
+
+# cd related
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+
+# Dropbox
+alias db="cd db"
+alias dbgif="cd dbgif"
+
+# WP related CD
+alias cdwpt="cd wp-content/themes"
+alias cdwpp="cd wp-content/plugins"
+
+# QUICK FOLDERS
+alias html="cd ~ && cd /Users/ahmadawais/html"
+alias dot="cd ~ && cd /Users/ahmadawais/dotFiles"
+alias gtest="cd ~ && cd /Users/ahmadawais/gtest"
+alias dfiles="cd ~ && cd web/dotFiles"
+alias wtdev="cd ~ && cd /Users/ahmadawais/html/writablehtml.dev"
+alias cfcdev="cd ~ && cd cfc"
+alias vrcdev="cd ~ && cd vrcoredev"
+alias rpdev="cd ~ && cd /Users/ahmadawais/websites/rp.dev/wp-content/plugins/inspiry-real-estate"
+alias ntdev="cd ~ && ntdev"
+alias web="cd ~ && cd web"
+alias dev="cd ~ && cd webdev"
+alias webdev="cd ~ && cd webdev"
+alias wtwpdev="cd ~ && cd wtwp"
+alias ldev="cd ~ && cd localdev"
+alias lpdev="cd ~ && cd lpluginsdev"
+alias ltdev="cd ~ && cd lthemesdev"
+alias wpcdev="cd ~ && cd wpcdev"
+alias swpcdev="cd ~ && cd swpc"
+alias vrcdev="cd ~ && cd vrcdev"
+alias vrdev="cd ~ && cd vrwpdev"
+alias vrhtmldev="cd ~ && cd /Users/ahmadawais/html/vrhtml.dev"
+alias wpcdev="cd ~ && cd wpcore"
+alias wpcore="cd ~ && cd wpcore"
+alias wpcoredev="cd ~ && cd wpcore"
+alias writydev="cd ~ && cd writydev"
+
+# Quick Folders to WP plugins.
+alias cf7cwp="cd ~ && cd cf7cwp"
+alias dmdwp="cd ~ && cd dmdwp"
+alias wktcwp="cd ~ && cd wktcwp"
+alias fbswp="cd ~ && cd fbswp"
+alias fbqwp="cd ~ && cd fbqwp"
+alias vrcwp="cd ~ && cd vrcwp"
+
+# Git Clones
+alias clone="cd ~ && cd websites/clone"
+
+
+function gstreak(){
+ cd /Users/ahmadawais/Documents/web/Git/WPDev ;
+ python file.py "$*"
+}
+
+# Projects I am working on
+alias wt="cd /Users/ahmadawais/html/writablehtml.dev"
+
+
+
+# Removes dotfile or dotfolder in the pwd e.g. .git
+alias deldot="rm -rf .*"
+# Removes everything in pwd
+alias delpwd="rm -rf "$(pwd -P)"/*"
+
+# trash is better
+alias t="sudo trash"
+alias tpwd="t "$(pwd -P)"/*"
+alias tdot="t .*"
+alias ta="tdot ; tpwd"
+
+
+# GIT
+alias g="git"
+alias gi="git init"
+alias gco="git checkout"
+alias gb="git branches"
+alias gbd="git branch -D"
+#create new branch and checkout
+alias gbn='git checkout -b'
+
+#git merge branch
+alias gm="git merge $* && git push"
+
+#git clone realted
+alias gcl="git clone"
+
+# show contributors by commits
+alias gcontributors="git shortlog -sn"
+
+# git commit count
+alias gccount="git rev-list HEAD --count"
+
+#remove local branch
+function gbdel {
+	git branch -D "$1"
+	git push origin :"$1"
+}
+
+#get a list of conflicts
+alias conflicts='git diff --name-only --diff-filter=U'
+
+function grebase(){
+	git rebase -i @~"$*"
+}
+
+alias gref="git reflog"
+alias gr="git r $@"
+alias ghist="git log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short"
+
+# All remotes
+alias gremotes="git remotes"
+
+# Add Origin
+alias grao="git remote add origin"
+
+# Remove remote origin
+alias gdelro="git remote remove origin"
+
+# Be careful that this will create an "alternate reality" for people who
+# have already fetch/pulled/cloned from the remote repository. But in fact, it's quite simple:
+function gdelc() {
+	git r HEAD^ ; # remove commit locally
+	git push origin +HEAD # force-push the new HEAD commit
+}
+
+#delete remote branch
+function gbrdel {
+	git push origin :"$1"
+}
+
+
+alias gsclear="git stash clear"
+alias gfo="git fetch origin"
+alias grh="git r --hard"
+alias gromg="git r --hard origin/master"
+# r to head and remove all untracked files (including npm installs)
+alias gitreverything='git clean -d -x -f; git r --hard'
+
+
+alias gcdf="git clean -d -f"
+alias gbrename="git branch -m"
+
+alias gst="git status"
+alias gss="git status -s"
+alias gsb="git status -sb"
+
+alias lg="git log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(red)%h%C(r) —— %C(bold blue)%an%C(r): %C(white)%s%C(r) %C(dim white)  %C(bold green)(%ar)%C(r) %C(bold yellow)%d%C(r)' --all"
+alias lg2="git log --graph --abbrev-commit --decorate --format=format:'%C(red)%h%C(r) —— %C(bold blue)%an%C(r): %C(white)%s%C(r) %C(dim white)  %C(bold green)(%ar)%C(r) %C(bold yellow)%d%C(r)' --all"
+
+alias gad="git add ."
+alias gc="git ci -m"
+alias gcmall="git add . && git ci -m"
+function gcma() {
+		git add . && git ci -m "$*"
+}
+
+alias gp="git push"
+alias gpf="git push --force"
+alias gpt="git push --tags"
+
+# delete git and re-inialize git
+alias gdelinit="trash .git && git init"
+
+# git add all, git commit with the message and git push
+# git commit all push
+function gcmap() {
+		git add . && git ci -m "$*" && gp
+}
+function gcap() {
+		git add . && git ci -m "$* 💯" && gp # With 100 emoji
+}
+function gcall() {
+		git add . && git ci -m "$* 💯" # With 100 emoji
+}
+
+# git add commit and then fix an issue on github
+# usage: gifix 5
+# Where 5 is the issue number
+function gifix() {
+	issue=$* ;
+	git add . && git ci -m "ISSUE: Fixes #$(echo -e "$issue")" && gp
+}
+
+alias gdel="rm -rf .git"
+
+alias gpsuom="git push --set-upstream origin master"
+alias gpsuo="git push --set-upstream origin"
+alias gpdt="git push --delete origin"
+
+# Git fethc & Pull
+alias gf="git fetch"
+alias gpl="git pull"
+alias gfp="git fetch && git pull && git submodule update"
+
+# Open git config file
+alias gconfig="git config --global --edit"
+
+# Git Tags
+# list all tags
+alias gtag="git tag"
+alias gtagd="git tag -d $*"
+alias gtagdp="git push origin :refs/tags/$*"
+function gtagdel(){
+	the_tag=$*
+
+	echo "${wf}———————————————————${r}"
+	echo "${gb} ${bf}0. Listing all tags...${r}"
+	git tag
+
+	echo "${wf}———————————————————${r}"
+	echo "${rb} ${wf}1. Deleting the tag...${r}"
+	git tag -d $the_tag
+
+	echo "${wf}———————————————————${r}"
+	echo "${rb} ${wf}2. Deleting the tag at remote origin...${r}"
+	git push origin :refs/tags/$the_tag
+
+	echo "${wf}———————————————————${r}"
+	echo "${gb} ${bf}3. Listing all tags again...${r}"
+	git tag
+
+	echo "${wf}———————————————————${r}"
+	echo "${gb} ${bf}Completed!...${r}"
+}
+
+# Type `git open` to open the GitHub page or website for a repository.
+# npm install -g git-open
+alias gio="git open"
+
+# git diff last commit
+alias gd1="git diff HEAD^"
+
+# git diff word diffing
+alias gdw="git diff --word-diff"
+
+# Check the changes in last Git Pull/Fetch
+# Usage: gpfchanges branch_name
+alias gfpchanges="git diff --stat $1@{1} $1"
+
+# Git archive the current directory and ignore everything in .gitignore file
+# Usage: garc zipname
+# Link: http://askubuntu.com/a/87693
+# alias garc="git archive -o $1.zip HEAD"
+function garc(){
+	zip_name=$1
+	echo "${wf}———————————————————${r}"
+	echo "${gb} ${bf}Zipping the current folder...${r}"
+	git archive -o $zip_name.zip HEAD
+
+	echo "${wf}———————————————————${r}"
+	echo "${gb} ${bf}Completed! 💯  ${r}"
+}
+
+# Fun commit messages
+alias yolo="git commit -am '`curl -s http://whatthecommit.com/index.txt`'"
+alias yoloo="git commit -am '`curl -s http://whatthecommit.com/index.txt`' && git push origin master --force"
+
+# Open the pwd in the finder
+alias o="open ."
+
+# SVN related
+# https://wordpress.org/plugins/about/svn/
+alias s="svn"
+alias sst="svn st"
+alias sci="svn ci -m $*"
+alias saddall="svn add --force ."
+
+# SVN Add the assets.
+alias sassets="saddall && svn ci -m 'Adding the assets...'"
+
+
+# Add SVN tag
+# Usage: stag tags/1.0
+alias stag="svn cp trunk"
+#  SVN revert deletes added folders which are not commited but only added
+alias sr="svn revert $@ --depth infinity"
+
+# SVN revert everything like r hard
+alias sra="svn st  | grep '!' | sed 's/!M      \(.*\)$/"\1"/' | xargs svn revert --depth infinity"
+
+# IP addresses
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip="ipconfig getifaddr en1"
+alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
+
+# All the dig info
+alias dig="dig +nocmd any +multiline +noall +answer"
+
+
+# List ALL files (colorized() in long format, show permissions in octal
+alias la="ls -l | awk '
+{
+	k=0;
+	for (i=0;i<=8;i++)
+		k+=((substr(\$1,i+2,1)~/[rwx]/)*2^(8-i));
+	if (k)
+		printf(\"%0o \",k);
+	printf(\" %9s  %3s %2s %5s  %6s  %s %s %s\n\", \$3, \$6, \$7, \$8, \$5, \$9,\$10, \$11);
+}'"
+
+# List only directories
+alias lsd="ls -lF ${colorflag} | grep --color=never '^d'"
+
+# List only dot files
+alias lsdot="ls -ld .??*"
+
+# Enable aliases to be sudo’ed
+# alias sudo='sudo '
+
+# URL-encode strings
+alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
+
+# Copy backup
+# http://www.thegeekstuff.com/2011/01/rsync-exclude-files-and-folders/
+alias copybuildit="rsync -avz --exclude 'node_modules' --exclude 'build' ./* ./build"
+
+# `tre` is a shorthand for `tree` with hidden files and color enabled, ignoring
+# the `.git` directory, listing directories first. The output gets piped into
+# `less` with options to preserve color and line numbers, unless the output is
+# small enough for one screen.
+function tre() {
+	tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX
+}
+# cd Shortcuts
+alias des="cd Desktop"
+
+# Empty the Trash on all mounted volumes and the main HDD. then clear the useless sleepimage
+alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; rm -rfv ~/.Trash; sudo rm /private/var/vm/sleepimage"
+alias et="sudo rm -rfv /Volumes/*/.Trashes; rm -rfv ~/.Trash; sudo rm /private/var/vm/sleepimage"
+
+# yes I occasionally 127.0.0.1 twitter.com ;)
+alias hosts='sudo st /etc/hosts'
+
+alias cask='brew cask' # i <3 u cask
+# alias where=which # sometimes i forget
+alias brwe=brew  #typos
+
+# brew install speedtest-cli
+alias sts='speedtest-cli --share'
+alias stss='speedtest-cli --simple --share'
+
+# Get week number
+alias week='date +%V'
+
+# Stopwatch
+alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
+
+# Recursively delete `.DS_Store` files
+alias rmds="find . -type f -name '*.DS_Store' -ls -delete"
+
+# Show/hide hidden files in Finder
+alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+
+# Hide/show all desktop icons (useful when presenting)
+alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
+alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
+
+# Merge PDF files
+# Usage: `mergepdf -o output.pdf input{1,2,3}.pdf`
+alias mergepdf='/System/Library/Automator/Combine\ PDF\ Pages.action/Contents/Resources/join.py'
+
+# Stuff I never really use but cannot delete either because of http://xkcd.com/530/
+alias stfu="osascript -e 'set volume output muted true'"
+alias pumpitup="osascript -e 'set volume 7'"
+
+# Kill all the tabs in Chrome to free up memory
+# [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
+alias killchrome="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
+
+# Lock the screen (when going AFK)
+alias lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+
+# Reload the shell (i.e. invoke as a login shell)
+alias reload="exec $SHELL -l"
+alias relaod="reload" #typo addressed
+alias reld="reload"
+alias rld="reload"
+
+
+alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to pasteboard.\n'";
+
+alias vup="vagrant up && vagrant provision && vagrant ssh"
+alias vp="vagrant provision"
+alias vs='sites && vagrant ssh'
+alias vag="vagrant"
+
+alias bell='echo "\a"'
+
+alias cdate='date "+%d—%m—%Y"'
+
+#tree structures
+alias ll1="tree --dirsfirst -ChFL 1"
+alias ll2="tree --dirsfirst -ChFL 2"
+alias ll3="tree --dirsfirst -ChFL 3"
+alias ll4="tree --dirsfirst -ChFupDaL 1"
+alias ll5="tree --dirsfirst -ChFupDaL 2"
+alias ll6="tree --dirsfirst -ChFupDaL 3"
+
+#show hidden files and everything
+alias lla="ll -a"
+
+
+alias pc='phpcs --standard="WordPress" $@'
+alias pcf='phpcbf --standard="WordPress" $@'
+alias pcfall='find . | grep .php | xargs phpcbf --standard="WordPress"'
+
+alias rl="release-it"
+
+alias clive="caffeinate -t $*"
+alias nosleep="caffeinate -t 50000"
+alias nsl="caffeinate -t 50000"
+
+# NPM Quickes   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+# Npm
+alias n='npm'
+
+#NPM Install.
+alias ni="npm install"
+
+# Search Packages
+alias n:='npm search'
+
+# Install
+alias ni='npm install'
+alias nis='sudo npm install'
+
+# Install Globally
+alias nig='npm install -g'
+
+# Install Globally and Save
+alias nigs="npm install -g $@ --save"
+
+# Install and Save
+alias niss="npm install $@ --save"
+
+# npm-check to update npm packages https://www.npmjs.com/package/npm-check
+alias ncupg='sudo npm-check -g -u'
+alias ncup='sudo npm-check -u'
+
+# Fix Issues --Hard
+function nf() {
+	rm -rf ./node_modules;
+	npm clear cache;
+	npm clean cache;
+	npm install;
+}
+
+# Fix Issues
+function nfh() {
+	npm clear cache;
+	npm clean cache;
+}
+
+
+# {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{ WP CLI }}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
+
+# WP DesktopServer Setup ready
+# ---Updates the Core and 2015 theme
+# ---Deletes 2013, 2014 and Aksimet
+# Usage
+#     1. First argument is the url E.g. aa.dev
+#     2. Second argument is the Site Title E.g. AA
+# Example: wpdsready local.dev Local
+function wpdsready() {
+	echo "${wf}———————————————————${r}"
+		echo "${wb} ${bf}WP: Core Installing...${r}"
+		wp core install --url=$1 --title=$2 --admin_user=root --admin_password=root --admin_email=mrahmadawais@gmail.com
+
+		echo "${wb} ${bf}WP: twentyfifteen Update...${r}"
+		wp theme update twentyfifteen;
+
+		echo "${rb} ${bf}WP: Removing twentythirteen...${r}"
+		wp theme delete twentythirteen ;
+
+		echo "${rb} ${bf}WP: Removing twentyfourteen...${r}"
+		wp theme delete twentyfourteen ;
+
+		echo "${rb} ${bf}WP: Removing akismet...${r}"
+		wp plugin delete akismet ;
+
+		echo "${rb} ${bf}WP: Removing Hello Dolly...${r}"
+		wp plugin delete hello ;
+
+		echo "${rb} ${bf}WP: Setting permalinks to postname...${r}"
+		wp option update permalink_structure '/%postname%'
+
+		echo "${wb} ${bf}WP: Core Updating...${r}"
+		wp core update ;
+
+		echo "${gb} ${bf}WP: DS Setup Ready. DONE!${r}"
+	echo "${wf}———————————————————${r}"
+
+}
+
+alias wpppn="wp option update permalink_structure '/%postname%'"
+
+
+# Install WPTest.io
+function wptest(){
+	wp plugin install wordpress-importer --activate
+	curl -OL https://raw.githubusercontent.com/manovotny/wptest/master/wptest.xml
+	wp import wptest.xml --authors=create
+	rm wptest.xml
+}
+
+# WP Plugin: Install & Acticate
+# Usage: wpp plugin-slug
+alias wpp="wp plugin install $* --activate"
+
+# WP Theme: Install
+# Usage: wpt plugin-slug
+alias wpt="wp theme install $* --activate"
+
+# WP Theme: Activate
+# Usage: wpta plugin-slug
+alias wpt="wp theme activate $*"
+
+# Activate all WP Plugins
+alias wppaall="wp plugin activate --all"
+
+# Launch WP with logged in as root admin
+# @link https://aaemnnost.tv/2016/08/26/going-plaidinum/
+alias wplr="wp login create root --launch"
+
+# Trash all posts in a CPT replace the post-type.
+# alias wpdb="wp post delete $(wp post list --post_type='vr_booking' --format=ids)"
+
+
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
+
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment the following line to change how often to auto-update (in days).
+# export UPDATE_ZSH_DAYS=13
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+HIST_STAMPS="dd-mm-yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git git-extras extract sublime web-search svn npm bower brew composer wp-cli emoji z)
+
+# User configuration
+
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin/git:/usr/local/git/bin:$HOME/.wp-cli:~/bin:~/.composer/vendor/bin"
+# export MANPATH="/usr/local/man:$MANPATH"
+
+source $ZSH/oh-my-zsh.sh
+
+# zsh-syntax-highlighting
+# @link: http://github.com/zsh-users/zsh-syntax-highlighting
+source ~/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# 10 second wait if you do something that will delete everything.  I wish I'd had this before...
+# setopt RM_STAR_WAIT
+
+
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
+
+# ssh
+# export SSH_KEY_PATH="~/.ssh/dsa_id"
+
+# include z rupa
+. ~/z.sh
+
+####.#### ———————————————————————————————————————————— COLORS ———————————————————————————————————————————— ####.####
+# colors from tput
+# http://stackoverflow.com/a/20983251/950111
+# Num  Colour    #define         R G B
+# 0    black     COLOR_BLACK     0,0,0
+# 1    red       COLOR_RED       1,0,0
+# 2    green     COLOR_GREEN     0,1,0
+# 3    yellow    COLOR_YELLOW    1,1,0
+# 4    blue      COLOR_BLUE      0,0,1
+# 5    magenta   COLOR_MAGENTA   1,0,1
+# 6    cyan      COLOR_CYAN      0,1,1
+# 7    white     COLOR_WHITE     1,1,1
+#
+# tput setab [1-7] # Set the background colour using ANSI escape
+# tput setaf [1-7] # Set the foreground colour using ANSI escape
+# tput sgr0    # Reset text format to the terminal's default
+# tput bel     # Play a bell
+#
+# Usage:
+# red=`tput setaf 1`
+# green=`tput setaf 2`
+# r=`tput sgr0`
+# echo "${rb}red text ${green}green text${r}"
+
+bb=`tput setab 0` #set background black
+bf=`tput setaf 0` #set foreground black
+
+gb=`tput setab 2` # set background green
+gf=`tput setab 2` # set background green
+
+blb=`tput setab 4` # set background blue
+blf=`tput setaf 4` # set foreground blue
+
+rb=`tput setab 1` # set background red
+rf=`tput setaf 1` # set foreground red
+
+wb=`tput setab 7` # set background white
+wf=`tput setaf 7` # set foreground white
+
+r=`tput sgr0`     # r to defaults
+
+# Create a new directory and enter it
+function mkd() {
+		mkdir -p "$@" && cd "$@"
+}
+
+
+# git checkout branch
+function gcb() {
+	git fetch
+		git checkout -b $@ origin/$@
+}
+
+
+# checks if pwd is empty or not
+function dirempty() {
+	# DIR=pwd
+	# look for empty dir
+	if [ "$(ls -A $(pwd -P))" ]; then
+			 echo "$(pwd -P) is NOT Empty"
+	else
+			echo "$(pwd -P) is Empty"
+	fi
+	# rest of the logic
+}
+
+
+# Create a data URL from a file
+function dataurl() {
+	local mimeType=$(file -b --mime-type "$1")
+	if [[ $mimeType == text/* ]]; then
+		mimeType="${mimeType};charset=utf-8"
+	fi
+	echo "data:${mimeType};base64,$(openssl base64 -in "$1" | tr -d '\n')"
+}
+
+
+# Create a git.io short URL
+function gitio() {
+	if [ -z "${1}" -o -z "${2}" ]; then
+		echo "Usage: \`gitio slug url\`"
+		return 1
+	fi
+	curl -i http://git.io/ -F "url=${2}" -F "code=${1}"
+}
+
+
+#
+# Git Clone repo inside current director even if it is not empty.
+#
+# git clone repo . i.e. inside current directory
+# usage: gclhere Repo URL
+# usage: gclhere https://github.com/user/repo
+# Equal to rm -rf .* && rm -rf "$(pwd -P)"/* && git clone "$*" .
+#
+function gclhere() {
+
+	echo "${wf}———————————————————${r}"
+	echo "${wb} ${bf}0. Initializing...${r}"
+
+	#if not empty
+	if [ "$(ls -A $(pwd -P))" ]; then
+
+		echo "${rb} ${bf}1. PWD is not empty, let's delete it...${r}"
+
+		# PWD variable
+		aa_pwd=$PWD
+		# go back
+		cd ..
+		# trash the old PWD where git repo needs to be cloned
+		sudo trash $aa_pwd
+		# recreate the old PWD and cd in it
+		mkdir $aa_pwd && cd $aa_pwd
+
+		echo "${rb} ${bf}2. PWD deleted and recreated...${r}"
+		echo "${blb} ${wf}3. Starting git repo clone...${r}"
+
+		git clone --recursive "$*" .
+		echo "${gb} ${bf}4. Git repo cloned. DONE!${r}"
+
+	# if empty
+	else
+
+		echo "${blb} ${wf}1. Directory is empty. Cloning the repo...${r}"
+
+		echo "${blb} ${wf}2. Starting git repo clone...${r}"
+		git clone --recursive "$*" .
+		echo "${gb} ${bf}3. Git repo cloned! DONE!${r}"
+
+	fi
+
+	echo "${wf}———————————————————${r}"
+
+}
+
+
+function emptypwd() {
+
+ echo "${wf}———————————————————${r}"
+	 echo "${wb} ${bf}0. Initializing...${r}"
+
+	 #if not empty
+	 if [ "$(ls -A $(pwd -P))" ]; then
+
+		 echo "${rb} ${bf}1. PWD is not empty, let's delete it...${r}"
+
+		 # PWD variable
+		 aa_pwd=$PWD
+		 # go back
+		 cd ..
+		 # trash the old PWD where git repo needs to be cloned
+		 trash $aa_pwd
+		 # recreate the old PWD and cd in it
+		 mkdir $aa_pwd && cd $aa_pwd
+
+		 echo "${gb} ${bf}2. PWD deleted and recreated!!!${r}"
+
+	 # if empty
+	 else
+
+		 echo "${gb} ${bf}1. Directory is already empty!!!${r}"
+
+	 fi
+
+	 echo "${wf}———————————————————${r}"
+
+}
+
+
+#
+# Git Checkout a Pull Request locally.
+#
+# Usage: gfpr 8
+#
+# Where 8 is the number of pull request (can be found right after the PR's title).
+#
+function gfpr(){
+	echo "${wf}———————————————————${r}"
+		echo "${wb} ${bf}0. Fetching the pull request...${r}"
+
+		git fetch origin pull/"${1}"/head:pull_"${1}"
+
+		echo "${wb} ${bf}1. PR fetched creating a branch...${r}"
+
+		git checkout pull_"${1}"
+
+		echo "${wb} ${bf}2. Checking out to a new PR branch...${r}"
+
+		echo "${gb} ${bf}3. PR Branch Created!!!${r}"
+	echo "${wf}———————————————————${r}"
+}
+
+#
+# Git Fetch a Pull Request locally to current branch.
+#
+# Usage: gfpr 8
+#
+# Where 8 is the number of pull request (can be found right after the PR's title).
+#
+function gfpronly() {
+	echo "${wf}———————————————————${r}"
+		echo "${wb} ${bf}0. Fetching the pull request...${r}"
+
+		git fetch origin pull/"${1}"/head:pull_"${1}"
+
+		echo "${gb} ${bf}1. PR Fetched Created!${r}"
+	echo "${wf}———————————————————${r}"
+}
+
+# Create a data URL from a file
+function dataurl() {
+		local mimeType=$(file -b --mime-type "$1")
+		local data=""
+		if [[ $mimeType == text/* ]]; then
+				mimeType="${mimeType};charset=utf-8"
+		fi
+		echo "data:${mimeType};base64,$(openssl base64 -in "$1" | tr -d '\n')"
+}
+
+# Get gzipped file size
+function gz() {
+		echo "orig size (bytes): "
+		cat "$1" | wc -c
+		echo "gzipped size (bytes): "
+		gzip -c "$1" | wc -c
+}
+
+# Change Finder window to show current terminal directory
+function finder {
+ osascript -e 'set cwd to do shell script "pwd"'\
+ -e 'tell application "Finder"'\
+ -e "if (${1-1} <= (count Finder windows)) then"\
+ -e "set the target of window ${1-1} to (POSIX file cwd) as string"\
+ -e 'else' -e "open (POSIX file cwd) as string"\
+ -e 'end if' -e 'end tell';\
+};
+
+# Find the CNAMEs
+alias thecname="dig $* +nostats +nocomments +nocmd"
+
+# how2 StackExchange search
+alias how="how2 $*"
+alias howwp="how2 -l wordpress $*"
+alias howphp="how2 -l php $*"
+
+# Usage: how lang then question
+# E.g. howl php create array in OOP
+# $1 is agrument 1
+# ${@:2} is everything from argument 2 to end
+alias howl="how2 -l $1 ${@:2}"
+
+# Copy sublime user folder and delete stuff
+function syncsbl(){
+	echo "${wf}———————————————————${r}"
+
+		echo "${rb} ${wf}0. Deleting old user folder...${r}"
+
+		cd SublimeText
+		rm -rf User
+
+		echo "${wb} ${bf}1. Copying the USER files and folders from Sublime...${r}"
+
+		cp -rfp /Users/ahmadawais/Library/Application\ Support/Sublime\ Text\ 3/Packages/User /Users/ahmadawais/web/dotFiles//SublimeText
+
+		echo "${wb} ${bf}2. Deleting useless stuff...${r}"
+
+		cd user
+		# rm -rf Package\ Control.cache
+		sudo trash Package\ Control.cache
+		sudo trash bh_unicode_properties.cache
+
+		# removes the token
+		change_line 'remove before GitHub' '' Gist.sublime-settings
+
+		cd Color\ Highlighter
+		sudo trash ColorPicker_osx_x64
+
+		...
+
+		echo "${gb} ${bf}3. Sync Done!!!${r}"
+	echo "${wf}———————————————————${r}"
+}
+
+
+# Copy .zshrc to dotfiles
+function synczsh(){
+	echo "${wf}———————————————————${r}"
+
+		echo "${rb} ${wf}0. Deleting old .zshrc and .bash files...${r}"
+
+		dfiles
+		rm .zshrc
+		rm .bash_history
+		rm .bash_profile
+		rm .bashrc
+
+		echo "${wb} ${bf}1. Copying new `.zshrc` and .bash files ...${r}"
+
+		cp ~/.zshrc /Users/ahmadawais/web/dotFiles/
+		cp ~/.bash_history /Users/ahmadawais/web/dotFiles/
+		cp ~/.bash_profile /Users/ahmadawais/web/dotFiles/
+		cp ~/.bashrc /Users/ahmadawais/web/dotFiles/
+
+		echo "${gb} ${bf}3. Sync of ZSH and BASH Done!!!${r}"
+	echo "${wf}———————————————————${r}"
+}
+
+
+# Major Sync dotfiles function
+function syncdfiles(){
+	echo "${wf}———————————————————${r}"
+
+		dfiles
+
+		echo "${wb} ${bf}1. Syncing Sublime...${r}"
+
+		syncsbl
+
+		echo "${wb} ${bf}2. Syncing .zshrc...${r}"
+
+		synczsh
+
+		gcap DotFiles Synced
+
+		cd ~
+		echo "${gb} ${bf}3. Sync dotFiles Done! ✔︎✔︎✔︎${r}"
+	echo "${wf}———————————————————${r}"
+}
+
+# Pull Dotfiles
+function pulldfiles() {
+	# Access dotfiles.
+	dfiles
+
+	# Trash it.
+	#if not empty
+	if [ "$(ls -A $(pwd -P))" ]; then
+
+		echo "${rb} ${bf}PWD is not empty, let's delete it...${r}"
+
+		# PWD variable
+		aa_pwd=$PWD
+		# go back
+		cd ..
+		# trash the old PWD where git repo needs to be cloned
+		rm -rf $aa_pwd
+		# recreate the old PWD and cd in it
+		mkdir $aa_pwd && cd $aa_pwd
+
+		echo "${rb} ${bf}PWD deleted and recreated...${r}"
+	fi
+
+	# Clone the repo.
+	git clone https://github.com/ahmadawais/dotFiles/ .
+	echo "${gb} ${bf}Git repo cloned for dotfiles cloned. DONE!${r}"
+}
+
+# Pull Sublime settings.
+function pullsubl(){
+	echo "${wf}———————————————————${r}"
+		echo "${rb} ${wf}Pulling dotfiles...${r}"
+		pulldfiles
+		echo "${wb} ${bf}Copying the USER files and folders to Sublime...${r}"
+		cp -rfp /Users/ahmadawais/web/dotFiles/SublimeText/User/* /Users/ahmadawais/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
+		echo "${gb} ${bf}Sync Done!!!${r}"
+	echo "${wf}———————————————————${r}"
+}
+
+#
+# Change Line text in a file
+#
+# via http://stackoverflow.com/a/28262057/950111
+#
+# Usage: `change_line "TEXT_TO_BE_REPLACED" "This line is removed by the admin." yourFile`
+function escape_slashes {
+		sed 's/\//\\\//g'
+}
+function change_line {
+		local OLD_LINE_PATTERN=$1; shift
+		local NEW_LINE=$1; shift
+		local FILE=$1
+
+		local NEW=$(echo "${NEW_LINE}" | escape_slashes)
+		sed -i .bak '/'"${OLD_LINE_PATTERN}"'/s/.*/'"${NEW}"'/' "${FILE}"
+		mv "${FILE}.bak" /tmp/
+}
+
+
+#
+# Zip the current folder and exclude
+# folders and files that are not needed
+# as per Theme Check.
+#
+# Usage: wpzip zipname
+# Link: http://askubuntu.com/a/28482/521222
+# Note: It will not include any .zip files
+# in the theme so if you bundle plugins with
+# TGMPA then beware.
+#
+function wpzip(){
+	echo "${wf}———————————————————${r}"
+
+		zip_name=$1 # $1 is agrument 1
+
+		# exclude more files (does not work for folders)
+		more_exclude_file=${@:2} # ${@:2} is everything from argument 2 to end
+
+		echo "${wb} ${bf}0. Deleting the old "$zip_name".zip file if present...${r}"
+		rm $zip_name".zip"
+
+		echo "${wb} ${bf}1. Zipping the current folder as "$zip_name".zip...${r}"
+
+		# Using noglob to avoid ZSH to trip over *, can also use back slash \
+		noglob zip -r $zip_name.zip . -x *.git* *node_modules* *.zip *.DS_Store $more_exclude_file
+
+		echo "${gb} ${bf}3. "$zip_name".zip is ready! 💯  ${r}"
+	echo "${wf}———————————————————${r}"
+}
+
+
+# Bulk Resize Images in Terminal
+#
+# Usage: rimg size extension
+# Example: rimg jpg 640
+function rimg() {
+	sips -Z "$2" *."$1"
+}
+
+# Rename Bullk files.
+# Renames all the files in PWD with the given extension.
+#
+# @param extension | jpg
+# @param new_name | name
+# Usage: rname jpg new_name
+function rname() {
+	echo "${wb}${bf}———————————————— STARTED ————————————————${r}"
+
+	# Counter.
+	COUNTER=1
+
+	# For do loop.
+	for file in *."$1"; do
+		mv "$file" "$2-$COUNTER.$1"
+		COUNTER=$[$COUNTER +1]
+	done
+	echo "${gb}${bf}———————————————— ✔✔✔ RENAMED Every $1 file in the PWD! ✔✔✔︎ ————————————————${r}"
+}
+
+# JPEG Optimization.
+# Usage: jpegoptim 90 | where 90 is the quality.
+function jpegoptim() {
+	if [[ "-h" == "$1" ]]; then
+		clear
+		echo "${wb}${bf}———————————————— Help! ————————————————${r}"
+		echo "${wb}${bf}——— Usage: jpegoptim 90 | where 90 is the quality. ———${r}"
+		return 1
+	else
+		echo "${wb}${bf}———————————————— STARTED ————————————————${r}"
+		find . -iname "*.jpg" -exec jpegoptim -m"$1" -o -p --strip-all {} \;
+		echo "${gb}${bf}———————————————— ✔✔✔ OPTIMZED Every JPG file in the PWD! ✔✔✔︎ ————————————————${r}"
+	fi
+}
+
+
+# Handle Stock images optimization.
+#
+# @param $1 rname | new_name.
+# @param $2 resize | 1920 (only width).
+# @param $3 optimize | 85 (quality).
+#
+# Usage: soptim new_name 1920 85
+function soptim() {
+	if [[ "-h" == "$1" ]]; then
+		clear
+		echo "${wb}${bf}———————————————— Help! ————————————————${r}"
+		echo "${wb}${bf}——— Usage: soptim new_name width jpq_quality ———${r}"
+		echo "${wb}${bf}——— Usage: soptim new_name 1920 85 ———${r}"
+		return 1
+	else
+		clear
+		echo "—"
+		echo "${wb}${bf}———————————————— STARTED ————————————————${r}"
+		echo "—"
+
+		echo "—"
+		echo "${blb}${bf}———————————————— STEP #1. RENAMING to $1-#.jpg ————————————————${r}"
+		echo "—"
+		rname JPG $1
+
+		echo "—"
+		echo "${blb}${bf}———————————————— STEP #2. RESIZING to $2 width ————————————————${r}"
+		echo "—"
+		rimg JPG $2
+
+		clear
+		echo "—"
+		echo "${blb}${bf}———————————————— STEP #3. OPTIMZING to $3 JPG qulity ————————————————${r}"
+		echo "—"
+		jpegoptim $3
+
+		clear
+		echo "—"
+		echo "${gb}${bf}———————————————— ✔✔✔ RENAMED, RESIZED, & OPTIMZED Every Stock JPG file in the PWD! ✔✔✔︎ ————————————————${r}"
+		echo "—"
+	fi
+}
+
+# Update composer global
+alias cupdate="/usr/local/bin/composer self-update"
+
+#
+# Git Reflow Aliases.
+#
+# @link https://github.com/reenhanced/gitreflow
+#
+
+# Usage: grf start aa-feature
+alias grf="git reflow $@"
+
+# 1. Start.
+# Usage: grfs aa-feature
+alias grfs="git reflow start $@"
+
+# 2. Review.
+# Usage: grfr
+alias grfr="git reflow review"
+
+# 3. Deliver.
+# Usage: grfd
+alias grfd="git reflow deliver"
+
+# Usage: grfrefresh
+alias grfrefresh="git reflow refresh"
+
+# Usage: grfst
+alias grfst="git reflow status"
+
+#
+# Download and install WPGulp
+#
+# Usage: addwpgulp
+function addwpgulp() {
+	echo "${wf}———————————————————${r}"
+
+		echo "${wb} ${bf}0. Downloading gulpfile.js and pacakge.json in the current folder...${r}"
+
+		curl -O https://raw.githubusercontent.com/ahmadawais/WPGulp/master/package.json
+		curl -O https://raw.githubusercontent.com/ahmadawais/WPGulp/master/gulpfile.js
+		curl -O https://raw.githubusercontent.com/ahmadawais/WPGulp/master/.gitignore
+
+		echo "${wb} ${bf}1. Installing NPM dependencies (will take upto 5 minutes)...${r}"
+
+		sudo npm install
+
+		echo "${gb} ${bf}2. WPGulp is ready! Run the command `gulp`  ${r}"
+	echo "${wf}———————————————————${r}"
+}
+
+# DNS cache Flush
+alias dnscacheflush="sudo killall -HUP mDNSResponder"
+alias dnscf="sudo killall -HUP mDNSResponder"
+alias dcf="sudo killall -HUP mDNSResponder"
+
+# Creates README.md, LICENSE.md and CHANGELOG.md files in the current folder.
+alias clr='touch README.md && touch LICENSE.md && touch CHANGELOG.md  && echo "${gb} ${bf} Created README.md, LICENSE.md and CHANGELOG.md files. 💯 ${r}" && ll'
+alias gfiles='touch README.md && touch LICENSE.md && touch CHANGELOG.md  && echo "${gb} ${bf} Created README.md, LICENSE.md and CHANGELOG.md files. 💯 ${r}" && ll'
+
+
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
+ZSH_HIGHLIGHT_PATTERNS=('rm -rf *' 'fg=white,bold,bg=red')
+
+# This will add a 10 second wait before you can confirm a wildcard deletion.
+# Lots of people, myself included, are so used to confirming the removal of files,
+# that we don’t stop to actually read what will be deleted. Better to have it now then
+# add it after you make a mistake!
+setopt RM_STAR_WAIT
+
+# Some options for our Zsh history. These will set our history to allow a ton more entires,
+# ignore duplicate commands, and ignore some of the commands we don’t need a history of.
+# This is useful because if you want to search for that command you ran a few weeks ago,
+# you can do that a lot easier.
+export HISTSIZE=32768;
+export HISTFILESIZE=$HISTSIZE;
+export HISTCONTROL=ignoredups;
+export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help";
+
+# Build a Mac App.
+#
+alias nfrmac="nativefier --full-screen -n "$1" $2"
+
+alias addgitignore="curl -O https://raw.githubusercontent.com/ahmadawais/WPGulp/master/.gitignore"
+
+# Copy pictures to desktop
+#
+# Click on the picture in Photos. Press command i to read its Info. Double-click on the file name then copy it by pressing command c.
+function cpic(){
+	cp "`find Pictures -name "$@" -print`" ~/Desktop/
+}
+
+function cimg(){
+	cp "`find Pictures -name "$@" -print`" ~/Desktop/
+}
+
+# Youtube DL
+# @link https://github.com/rg3/youtube-dl
+# Command-line program to download videos from
+# YouTube.com and other video sites http://rg3.github.io/youtube-dl/
+#
+# Old Command: youtube-dl
+# New Command: dvid
+function dvid() {
+ youtube-dl "$@";
+}
+
+# Dvid config
+alias dvidconfig="st /etc/youtube-dl.conf"
+
+# DVIDRC
+alias dvidrc="st ~/.netrc"
+
+# Dropbox Uploader
+# @link https://github.com/rg3/youtube-dl
+# Dropbox Uploader is a BASH script which can be used to upload,
+# download, list or delete files from Dropbox, an online file sharing,
+# synchronization and backup service. http://www.andreafabrizi.it/?dropbox_uploader
+#
+# Old Command: ./dropbox_uploader.sh
+# New Command: dbx
+function dbx() {
+	~/dropbox_uploader.sh "$@";
+}
+
+# Open ssh config file
+alias sshco="st ~/.ssh/config"
+
+# Setup SSH key
+# Usage: sshkey name
+function sshkey() {
+	# First parameter
+	path_name=$1
+
+	echo "${wf}———————————————————${r}"
+	echo "${wb} ${bf} Let's Add an SSH Key...${r}"
+	# Add the ssh key
+	ssh-keygen -t rsa
+
+	echo "${gb} ${bf} Copy the key below and add it to your host ${r}"
+	cat /Users/ahmadawais/.ssh/"$path_name".pub
+
+	echo "${gb} ${bf} ✔✔✔ KEY ADDED! ✔✔✔︎ ${r}"
+	echo "${wf}———————————————————${r}"
+
+	sshconfig
+
+	echo "${wf}———————————————————${r}"
+}
+
+# Add host to ~/.ssh/config
+function sshconfig() {
+	echo "${wb} ${bf} Have you added the key to your host? [y/n]: ${r}"
+	read -r key_added
+
+	if [[ "$key_added" == "y" ]]; then
+		echo "${gb} ${bf} Let's add the host to ~/.ssh/config ${r}"
+		#st ~/.ssh/config
+
+		echo "${wb} ${bf} Enter the host NAME: ${r}"
+		read -r host_name
+
+		echo "${wb} ${bf} Enter the IP Address: ${r}"
+		read -r ip_address
+
+		echo "${wb} ${bf} Enter the IdentityFile's name ~/.ssh/NAME [just the name]: ${r}"
+		read -r id_name
+
+		echo "\nHost $host_name" >> ~/.ssh/config
+		echo "    HostName $ip_address" >> ~/.ssh/config
+		echo "    Port 22" >> ~/.ssh/config
+		echo "    User root" >> ~/.ssh/config
+		echo "    IdentityFile ~/.ssh/$id_name" >> ~/.ssh/config
+
+		echo "${gb} ${bf} Added the following new host to ~/.ssh/config ${r}"
+		echo "\nHost $host_name"
+		echo "    HostName $ip_address"
+		echo "    Port 22"
+		echo "    User root"
+		echo "    IdentityFile ~/.ssh/$id_name"
+		echo "${gb} ${bf} ✔✔✔ Host ADDED! ✔✔✔︎ ${r}"
+	else
+		echo "${rb} ${wf} ⅹⅹⅹ No Host Added! ⅹⅹⅹ ${r}"
+	fi
+}
+
+# Trash $PWD
+alias rmpwd="trash $(pwd)"
+
+# Open SSH config
+alias osc="st ~/.ssh/config"
+
+# Extract links from a site and save them in a file.
+#
+# Usage: elinks URL Filename.extension
+#        elinks http://domain.com/ links.md
+function elinks() {
+	url=$1
+	domain=$(echo $1 | cut -d'/' -f3 | cut -d':' -f1)
+	links=$2
+
+	echo "${wb} ${bf} -----------STARTING------------- ${r}"
+	echo "${gb} ${bf} Downloading the file... ${r}"
+	wget $url -O file.html
+	echo "${gb} ${bf} Generating links... ${r}"
+	pup 'a.lesson-index__lesson-link[href] attr{href}' < file.html > $links
+
+	echo "${gb} ${bf} Prefixing links... ${r}"
+	sed -e 's#^#https://'$domain'#' $links > links_new.txt
+	mv links_new.txt $links
+
+	rm file.html
+	echo "${gb} ${bf} ✔︎✔︎✔︎ Find links in $links file ✔︎✔︎✔︎ ${r}"
+	echo "${wb} ${bf} -----------END------------- ${r}"
+}
+
+# Complete Lynda Download & Upload To Dropbox and Removal from VPS
+function ldu() {
+	# folder_name=$1
+	lynda_link=$1
+
+	folder_name=$(wget -qO- $1 | grep -o "<title>[^<]*" | sed -e 's/<[^>]*>//g')
+
+	mkd "$folder_name"
+
+	echo "${gb} ${bf} CREATED THE DIRECTORY CALLED $folder_name ${r}"
+
+	echo "${wb} ${bf} STARTED DOWNLOADING FROM LYNDA ${r}"
+
+	dvidl "$lynda_link"
+	echo "${gb} ${bf} DOWNLOAD COMPELTED ✔︎ ✔︎ ✔︎ $folder_name ${r}"
+
+	echo "${wb} ${bf} UPLOADING TO DROPBOX... ${r}"
+	dbxupwd
+	echo "${wb} ${bf} UPLOAD TO DROPBOX COMPELTED ✔︎ ✔︎ ✔︎ ${r}"
+
+	cd ..
+	rmv "$folder_name"
+
+	echo "${wb} ${rf} The folder $folder_name REMOVED!${r}"
+
+	echo "${gb} ${bf} ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ${r}"
+	echo "${gb} ${bf} ✔︎ ✔︎ ✔︎ DONE! DONE! ✔︎ ✔︎ ✔︎ ${r}"
+	echo "${gb} ${bf} ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ${r}"
+	echo "${wf}———————————————————${r}"
+}
+
+# DBX Upload
+function dbxu() {
+ dbx upload "$@"
+}
+
+# DB Upload PWD
+function dbxupwd() {
+ dbx upload "$PWD" '%q\n' "${PWD##*/}"
+}
+
+# Easy Remove (I know what I am doing)
+function rmv() {
+ rm -rf "$@"
+}
+
+# Animated Gifs workflows with Gifify
+# Usage: gifit file.gif file.mov
+function gifit() {
+	gifify --colors 255 --compress 0 --fps 30 -o "$1" "$2"
+}
+
+# Open host
+alias hostso="st /etc/hosts"
+
+# Reboot PTCL router.
+alias ptclr="ptcli -r"
+
+
+# DBX cPanel backup.
+# Usage: dbxcu site.com
+# Make sure the backup is in the root and called b.tar.gz.
+function dbxcu () {
+	SITE=$1
+
+	echo "——————————————————————————————————"
+	echo "⚡️  Downloading backup for: $SITE..."
+	echo "——————————————————————————————————"
+
+	# Make dir.
+	mkd $SITE"/cPanel/"
+
+	# Download the backup
+	wget $SITE/b.tar.gz
+
+	echo "——————————————————————————————————"
+	echo "✔︎✔︎✔︎  DOWNLOADED backup for: $SITE ✔︎✔︎✔︎"
+	echo "——————————————————————————————————"
+
+	# Go back.
+	..
+
+	echo "——————————————————————————————————"
+	echo "⚡️  UPLOADING to Dropbox for: $SITE..."
+	echo "——————————————————————————————————"
+
+	# Upload the backup.
+	dbxupwd
+
+	# Go back.
+	..
+
+	echo "——————————————————————————————————"
+	echo "✔︎✔︎✔︎  UPLOADED backup for: $SITE ✔︎✔︎✔︎"
+	echo "——————————————————————————————————"
+
+	# Remove PWD.
+	rm -rf $SITE
+}
+
+# Run this function to get a random tip from this document (parses Markdown and extracts an item):
+# @link https://github.com/jlevy/the-art-of-command-line
+function taocl() {
+	curl -s https://raw.githubusercontent.com/jlevy/the-art-of-command-line/master/README.md |
+	pandoc -f markdown -t html |
+	xmlstarlet fo --html --dropdtd |
+	xmlstarlet sel -t -v "(html/body/ul/li[count(p)>0])[$RANDOM mod last()+1]" |
+	xmlstarlet unesc | fmt -80
+}
+
+####.#### ———————————————————————————————————————————— PHPCS ———————————————————————————————————————————— ####.####
+
+# Check standards installed.
+alias phpcsi="phpcs -i"
+
+# Use PHPCS with WPCS.
+# Usage: checkwpcs file.php
+function checkwpcs() {
+	phpcs --standard=WordPress "$@"
+}
+
+# Update PHPCS, PHPMD, and WPCS
+# Usage: updatewpcs
+function updatewpcs() {
+	clear
+	cd ~/bin/
+	echo "${wb}${bf}———————————————— STARTED ————————————————${r}"
+	echo "—"
+	echo "${blb}${wf}———————————————— ⏲  PHPCS updating... ————————————————${r}"
+	cd phpcs && git fetch && git pull
+	echo "—"
+	echo "${gb}${bf}———————————————— PHPCS UPDATED!  ✔︎ ————————————————${r}"
+	echo "—"
+	echo "${blb}${wf}———————————————— ⏲  PHPMD updating... ————————————————${r}"
+	cd .. && cd phpmd && git fetch && git pull
+	echo "—"
+	echo "${gb}${bf}———————————————— PHPMD UPDATED! ✔︎ ————————————————${r}"
+	echo "—"
+	echo "${blb}${wf}———————————————— ⏲  WPCS updating... ————————————————${r}"
+	cd .. && cd wpcs && git fetch && git pull
+	echo "—"
+	echo "${gb}${bf}———————————————— WPCS UPDATED! ✔︎ ————————————————${r}"
+	echo "—"
+	echo "${gb}${bf}———————————————— ✔✔✔ Everything is UPDATED! ✔✔✔︎ ————————————————${r}"
+}
+
+
+# Set right permissions.
+# Usage: perms
+function perms() {
+	echo "-"
+	echo "--------------- ⏲  LET' START... ---------------"
+	echo "-"
+	echo "${wb} ${bf}- ⏲️  Setting the right permissions for: $PWD... -${r}"
+	echo "-"
+	sudo find $PWD/ -type f -exec chmod 644 {} +
+	sudo find $PWD/ -type d -exec chmod 755 {} +
+	echo "-"
+	echo "${gb} ${bf}--------------- ✔︎✔︎✔︎ DONE!!! 💯 🎉 ✔✔✔ ---------------${r}"
+	echo "-"
+}
+
+# PWD Size.
+function size_pwd() {
+	clear
+	echo "-"
+	echo "${wb} ${bf}- ⚡️️ The total size of PWD is:${r}"
+	echo "-"
+	echo "${gb} ${bf}----------->${r} $( du -hd 2 .)${r}"
+	echo "-"
+}
+
+
+# Record terminal.
+function recterm() {
+	asciinema rec
+}
+source /Users/ahmadawais/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+
+# NVM install
+# export NVM_DIR="$HOME/.nvm"
+#   . "/usr/local/opt/nvm/nvm.sh"
+export NVM_DIR=~/.nvm
+source $(brew --prefix nvm)/nvm.sh
+
