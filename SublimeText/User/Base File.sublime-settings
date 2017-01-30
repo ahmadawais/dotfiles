@@ -1,0 +1,26 @@
+{
+    // The mid-line characters to align in a multi-line selection, changing
+    // this to an empty array will disable mid-line alignment
+    "alignment_chars": [
+        "=", ":"
+    ],
+
+    "jsdocs_extra_tags": [ "@since ${1:[version]}"],
+     /**<<enter>>
+     function foo (x) {}
+
+     /**
+      * [functions_description]
+      *
+      * @return [type]    [description]
+      * @since  [version]
+      */
+
+     //jsdocs_spacer_between_sections (Boolean|String) If true, then extra blank lines are inserted between the sections of the docblock.
+     //If set to "after_description" then a spacer will only be added between the description and the first tag. Default: false.
+	"jsdocs_spacer_between_sections": "after_description",
+	"jsdocs_newline_after_block"    :true,
+	"jsdocs_extra_tags_go_after"    :true,
+	"jsdocs_return_description": false,
+	"jsdocs_param_description": false
+}

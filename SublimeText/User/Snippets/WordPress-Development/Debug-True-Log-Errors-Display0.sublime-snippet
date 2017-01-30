@@ -1,0 +1,22 @@
+<snippet>
+	<content><![CDATA[
+// Enable WP_DEBUG mode.
+define( 'WP_DEBUG', true );
+
+// Enable Debug logging to the /wp-content/debug.log file.
+// Create this file yourself.
+define( 'WP_DEBUG_LOG', true );
+
+// Disable display of errors and warnings.
+define( 'WP_DEBUG_DISPLAY', false );
+@ini_set( 'display_errors', 0 );
+
+]]></content>
+<!-- Optional: Description to show in the menu -->
+    <description>Debug-True-Log-Errors-Display0</description>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>npwpdebugtrue</tabTrigger>
+	 <!-- <tabTrigger>bracket_end_comment</tabTrigger> -->
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <scope>source.php - variable.other.php</scope>
+</snippet>

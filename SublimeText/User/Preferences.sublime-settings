@@ -1,0 +1,86 @@
+{
+	"added_words":
+	[
+		"admin",
+		"workflow",
+		"titanframework",
+		"php",
+		"Blog",
+		"online",
+		"Plugin",
+		"Wikipedia",
+		"Callout",
+		"plugin",
+		"internet",
+		"checkbox",
+		"metabox",
+		"screenshot",
+		"screencast"
+	],
+	"afn_insert_dimensions": false,
+	"auto_complete_selector": "source, text",
+	"bold_folder_labels": true,
+	"caret_extra_bottom": 2,
+	"caret_extra_top": 2,
+	"caret_extra_width": 3,
+	"caret_style": "phase",
+	"color_scheme": "Packages/Theme - Cobalt2/cobalt2.tmTheme",
+	"ensure_newline_at_eof_on_save": true,
+	"fade_fold_buttons": false,
+	"findreplace_small": true,
+	"folder_exclude_patterns":
+	[
+		".svn",
+		".git",
+		".hg",
+		"CVS",
+		"node_modules"
+	],
+	"font_face": "Operator Mono",
+	"font_options":
+	[
+		"no_round",
+		"gray_antialias",
+		"no_bold",
+		"subpixel_antialias"
+	],
+	"font_size": 14,
+	"hayaku_CSS_colors_case": "lowercase",
+	"hayaku_CSS_disable_inline_comment": true,
+	"highlight_line": true,
+	"highlight_modified_tabs": true,
+	"ignored_packages":
+	[
+		"Markdown",
+		"Vintage"
+	],
+	"ignored_words":
+	[
+		"Storybuilder"
+	],
+	"indent_guide_options":
+	[
+		"draw_normal",
+		"draw_active"
+	],
+	"index_exclude_patterns":
+	[
+		"*.log",
+		"node_modules"
+	],
+	"line_padding_bottom": 1,
+	"line_padding_top": 1,
+	"open_files_in_new_window": true,
+	"scroll_past_end": true,
+	"show_encoding": true,
+	"sidebar_font_small": true,
+	"sidebar_xlarge": true,
+	"spell_check": false,
+	"tab_size": 4,
+	"tabs_small": true,
+	"theme": "Cobalt2.sublime-theme",
+	"translate_tabs_to_spaces": false,
+	"trim_trailing_white_space_on_save": true,
+	"wide_caret": true,
+	"word_wrap": false
+}
