@@ -1,0 +1,11 @@
+<snippet>
+	<content><![CDATA[
+# Debugger.
+echo "ℹ️ | DEBUG: ${1:text...} | ℹ️ "
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>npbdebug</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.sh, source.ssh, source</scope>
+	<description>Bash Debug Snippet.</description>
+</snippet>

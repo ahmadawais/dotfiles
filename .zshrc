@@ -27,6 +27,10 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 
+alias d="cd ~/Documents/Dropbox"
+alias dl="cd ~/Downloads"
+alias dt="cd ~/Desktop"
+
 # Dropbox
 alias db="cd db"
 alias dbgif="cd dbgif"
@@ -260,6 +264,9 @@ alias gd1="git diff HEAD^"
 # git diff word diffing
 alias gdw="git diff --word-diff"
 
+# Git Diff so fancy
+alias gdsf="git diff --color | diff-so-fancy"
+
 # Check the changes in last Git Pull/Fetch
 # Usage: gpfchanges branch_name
 alias gfpchanges="git diff --stat $1@{1} $1"
@@ -431,8 +438,6 @@ alias lla="ll -a"
 alias pc='phpcs --standard="WordPress" $@'
 alias pcf='phpcbf --standard="WordPress" $@'
 alias pcfall='find . | grep .php | xargs phpcbf --standard="WordPress"'
-
-alias rl="release-it"
 
 alias clive="caffeinate -t $*"
 alias nosleep="caffeinate -t 50000"
@@ -841,12 +846,13 @@ function dataurl() {
 		echo "data:${mimeType};base64,$(openssl base64 -in "$1" | tr -d '\n')"
 }
 
-# Get gzipped file size
+# Compare original and gzipped file size
 function gz() {
-		echo "orig size (bytes): "
-		cat "$1" | wc -c
-		echo "gzipped size (bytes): "
-		gzip -c "$1" | wc -c
+	local origsize=$(wc -c < "$1");
+	local gzipsize=$(gzip -c "$1" | wc -c);
+	local ratio=$(echo "$gzipsize * 100 / $origsize" | bc -l);
+	printf "orig: %d bytes\n" "$origsize";
+	printf "gzip: %d bytes (%2.2f%%)\n" "$gzipsize" "$ratio";
 }
 
 # Change Finder window to show current terminal directory
@@ -1531,3 +1537,186 @@ source /Users/ahmadawais/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 export NVM_DIR=~/.nvm
 source $(brew --prefix nvm)/nvm.sh
 
+####.#### ———————————————————————————————————————————— RELEASE IT ———————————————————————————————————————————— ####.####
+function rl() {
+	release-it "$@" -c ~/workflow/.release.json
+}
+
+####.#### ———————————————————————————————————————————— UTILITIES ———————————————————————————————————————————— ####.####
+
+# Open man page as PDF.
+function manpdf() {
+ man -t "${1}" | open -f -a /Applications/Preview.app/
+}
+
+# Extra many types of compressed packages
+# Credit: http://nparikh.org/notes/zshrc.txt
+extract() {
+  if [ -f "$1" ]; then
+    case "$1" in
+      *.tar.bz2)  tar -jxvf "$1"                        ;;
+      *.tar.gz)   tar -zxvf "$1"                        ;;
+      *.bz2)      bunzip2 "$1"                          ;;
+      *.dmg)      hdiutil mount "$1"                    ;;
+      *.gz)       gunzip "$1"                           ;;
+      *.tar)      tar -xvf "$1"                         ;;
+      *.tbz2)     tar -jxvf "$1"                        ;;
+      *.tgz)      tar -zxvf "$1"                        ;;
+      *.zip)      unzip "$1"                            ;;
+      *.ZIP)      unzip "$1"                            ;;
+      *.pax)      cat "$1" | pax -r                     ;;
+      *.pax.Z)    uncompress "$1" --stdout | pax -r     ;;
+      *.Z)        uncompress "$1"                       ;;
+      *) echo "'$1' cannot be extracted/mounted via extract()" ;;
+    esac
+  else
+     echo "'$1' is not a valid file to extract"
+  fi
+}
+
+# Change working directory to the top-most Finder window location
+function cdf() { # short for `cdfinder`
+	cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')";
+}
+
+# Create a .tar.gz archive, using `zopfli`, `pigz` or `gzip` for compression
+function targz() {
+	local tmpFile="${@%/}.tar";
+	tar -cvf "${tmpFile}" --exclude=".DS_Store" "${@}" || return 1;
+
+	size=$(
+		stat -f"%z" "${tmpFile}" 2> /dev/null; # macOS `stat`
+		stat -c"%s" "${tmpFile}" 2> /dev/null;  # GNU `stat`
+	);
+
+	local cmd="";
+	if (( size < 52428800 )) && hash zopfli 2> /dev/null; then
+		# the .tar file is smaller than 50 MB and Zopfli is available; use it
+		cmd="zopfli";
+	else
+		if hash pigz 2> /dev/null; then
+			cmd="pigz";
+		else
+			cmd="gzip";
+		fi;
+	fi;
+
+	echo "Compressing .tar ($((size / 1000)) kB) using \`${cmd}\`…";
+	"${cmd}" -v "${tmpFile}" || return 1;
+	[ -f "${tmpFile}" ] && rm "${tmpFile}";
+
+	zippedSize=$(
+		stat -f"%z" "${tmpFile}.gz" 2> /dev/null; # macOS `stat`
+		stat -c"%s" "${tmpFile}.gz" 2> /dev/null; # GNU `stat`
+	);
+
+	echo "${tmpFile}.gz ($((zippedSize / 1000)) kB) created successfully.";
+}
+
+# Determine size of a file or total size of a directory
+function fs() {
+	if du -b /dev/null > /dev/null 2>&1; then
+		local arg=-sbh;
+	else
+		local arg=-sh;
+	fi
+	if [[ -n "$@" ]]; then
+		du $arg -- "$@";
+	else
+		du $arg .[^.]* ./*;
+	fi;
+}
+
+# UTF-8-encode a string of Unicode symbols
+function escape() {
+	printf "\\\x%s" $(printf "$@" | xxd -p -c1 -u);
+	# print a newline unless we’re piping the output to another program
+	if [ -t 1 ]; then
+		echo ""; # newline
+	fi;
+}
+
+# Decode \x{ABCD}-style Unicode escape sequences
+function unidecode() {
+	perl -e "binmode(STDOUT, ':utf8'); print \"$@\"";
+	# print a newline unless we’re piping the output to another program
+	if [ -t 1 ]; then
+		echo ""; # newline
+	fi;
+}
+
+# Get a character’s Unicode code point
+function codepoint() {
+	perl -e "use utf8; print sprintf('U+%04X', ord(\"$@\"))";
+	# print a newline unless we’re piping the output to another program
+	if [ -t 1 ]; then
+		echo ""; # newline
+	fi;
+}
+
+# Show all the names (CNs and SANs) listed in the SSL certificate
+# for a given domain
+function getcertnames() {
+	if [ -z "${1}" ]; then
+		echo "ERROR: No domain specified.";
+		return 1;
+	fi;
+
+	local domain="${1}";
+	echo "Testing ${domain}…";
+	echo ""; # newline
+
+	local tmp=$(echo -e "GET / HTTP/1.0\nEOT" \
+		| openssl s_client -connect "${domain}:443" -servername "${domain}" 2>&1);
+
+	if [[ "${tmp}" = *"-----BEGIN CERTIFICATE-----"* ]]; then
+		local certText=$(echo "${tmp}" \
+			| openssl x509 -text -certopt "no_aux, no_header, no_issuer, no_pubkey, \
+			no_serial, no_sigdump, no_signame, no_validity, no_version");
+		echo "Common Name:";
+		echo ""; # newline
+		echo "${certText}" | grep "Subject:" | sed -e "s/^.*CN=//" | sed -e "s/\/emailAddress=.*//";
+		echo ""; # newline
+		echo "Subject Alternative Name(s):";
+		echo ""; # newline
+		echo "${certText}" | grep -A 1 "Subject Alternative Name:" \
+			| sed -e "2s/DNS://g" -e "s/ //g" | tr "," "\n" | tail -n +2;
+		return 0;
+	else
+		echo "ERROR: Certificate not found.";
+		return 1;
+	fi;
+}
+
+# `tre` is a shorthand for `tree` with hidden files and color enabled, ignoring
+# the `.git` directory, listing directories first. The output gets piped into
+# `less` with options to preserve color and line numbers, unless the output is
+# small enough for one screen.
+function tre() {
+	tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX;
+}
+
+# Get week number
+alias week='date +%V'
+
+# Google Chrome
+alias chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
+
+# IP addresses
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip="ipconfig getifaddr en0"
+alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
+
+# Print each PATH entry on a separate line
+alias path='echo -e ${PATH//:/\\n}'
+
+# Prefer US English and use UTF-8.
+export LANG='en_US.UTF-8';
+export LC_ALL='en_US.UTF-8';
+
+# ⭐️ Gaze at repos you've starred
+# https://github.com/jez/stargaze
+alias bored='stargaze random'
+
+# Ratio Ghost
+alias rt="/Applications/RG/Ratio\ Ghost; exit;"
