@@ -2,12 +2,15 @@
 	"always_show_minimap_viewport": false,
 	"auto_complete": false,
 	"auto_complete_selector": "source - comment, text.html.markdown",
-	"color_scheme": "Packages/MarkdownEditing/MarkdownEditor.tmTheme",
+	// "color_scheme": "Packages/MarkdownEditing/MarkdownEditor.tmTheme",
 	"enable_table_editor": true,
 	"gutter": true,
-	"margin": 10,
+	"margin": 4,
 	"spell_check": true,
 	"word_wrap": true,
 	"wrap_width": 100,
-	"font_size": 16
+	"font_size": 16,
+	"color_scheme": "Packages/Theme - Cobalt2/cobalt2.tmTheme",
+	"theme": "Cobalt2.sublime-theme",
+	"highlight_modified_tabs": true,
 }

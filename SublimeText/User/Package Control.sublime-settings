@@ -2,8 +2,6 @@
 	"bootstrapped": true,
 	"in_process_packages":
 	[
-		"EncodingHelper",
-		"LineEndings"
 	],
 	"installed_packages":
 	[
@@ -34,6 +32,7 @@
 		"ExpandRegion",
 		"FindKeyConflicts",
 		"Flexbox Snippets",
+		"FullScreenStatus",
 		"Function Name Display",
 		"GhostText",
 		"Gist",
@@ -54,6 +53,9 @@
 		"Log Highlight",
 		"Markdown Preview",
 		"MarkdownEditing",
+		"MarkdownHighlighting",
+		"MarkdownLight",
+		"MarkdownLivePreview",
 		"Origami",
 		"Package Control",
 		"PHP-Twig",

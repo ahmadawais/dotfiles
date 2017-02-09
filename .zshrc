@@ -58,9 +58,12 @@ alias lpdev="cd ~ && cd lpluginsdev"
 alias ltdev="cd ~ && cd lthemesdev"
 alias wpcdev="cd ~ && cd wpcdev"
 alias swpcdev="cd ~ && cd swpc"
+
 alias vrcdev="cd ~ && cd vrcdev"
-alias vrdev="cd ~ && cd vrwpdev"
-alias vrhtmldev="cd ~ && cd /Users/ahmadawais/html/vrhtml.dev"
+alias vrpdev="cd ~ && cd vrpdev"
+alias vrtdev="cd ~ && cd vrtdev"
+alias vrdoc="cd ~ && cd vrdoc"
+
 alias wpcdev="cd ~ && cd wpcore"
 alias wpcore="cd ~ && cd wpcore"
 alias wpcoredev="cd ~ && cd wpcore"
@@ -500,13 +503,17 @@ function wpdsready() {
 		wp core install --url=$1 --title=$2 --admin_user=root --admin_password=root --admin_email=mrahmadawais@gmail.com
 
 		echo "${wb} ${bf}WP: twentyfifteen Update...${r}"
-		wp theme update twentyfifteen;
+		wp theme update twentyfifteen ;
+		wp theme activate twentyfifteen ;
 
 		echo "${rb} ${bf}WP: Removing twentythirteen...${r}"
 		wp theme delete twentythirteen ;
 
 		echo "${rb} ${bf}WP: Removing twentyfourteen...${r}"
 		wp theme delete twentyfourteen ;
+
+		echo "${rb} ${bf}WP: Removing twentysixteen...${r}"
+		wp theme delete twentysixteen ;
 
 		echo "${rb} ${bf}WP: Removing akismet...${r}"
 		wp plugin delete akismet ;
@@ -553,11 +560,23 @@ alias wppaall="wp plugin activate --all"
 
 # Launch WP with logged in as root admin
 # @link https://aaemnnost.tv/2016/08/26/going-plaidinum/
+#
+# Install dependencies:
+# 	wp package install aaemnnosttv/wp-cli-login-command
+# 	On a WP install run wpli.
+#
 alias wplr="wp login create root --launch"
+alias wpli="wp login install --activate --yes"
+
+# Install WP Log Viewer.
+alias wplv="wpp wp-log-viewer"
+
 
 # Trash all posts in a CPT replace the post-type.
 # alias wpdb="wp post delete $(wp post list --post_type='vr_booking' --format=ids)"
+alias wpdtall="wp post delete $(wp post list --post_status=trash --format=ids)"
 
+# {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{ WP CLI END }}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -1719,4 +1738,38 @@ export LC_ALL='en_US.UTF-8';
 alias bored='stargaze random'
 
 # Ratio Ghost
-alias rt="/Applications/RG/Ratio\ Ghost; exit;"
+alias rg="/Applications/RG/Ratio\ Ghost; exit;"
+
+# MkDocs.
+function mk() {
+	mkdocs "$@"
+}
+
+# mkdocs build
+alias mkb="mk build"
+
+# mkdocs serve
+alias mks="mk serve"
+
+# mkdocs gh-deploy
+alias mkgd="mk gh-deploy --force -m BUILD!"
+
+# Mkdocs build and deploy
+function mkdp(){
+	echo "-"
+	echo "${wb} ${bf}--------------- ⏲  DOCS: Let's deploy em... ---------------${r}"
+	echo "-"
+
+	echo "${wb} ${bf}--------------- ✔︎  DOCS: Deploying... ---------------${r}"
+	mkgd
+
+	echo "${wb} ${bf}--------------- ✔︎  DOCS: Git pushing... ---------------${r}"
+	gcap '👉 '
+
+	echo "-"
+	echo "${gb} ${bf}--------------- ✔︎✔︎✔︎ DONE!!! 💯 🎉 ✔✔✔ ---------------${r}"
+	echo "-"
+}
+
+#  You can use existing Terminal window and cd to selected directory in Finder by cdf command.
+alias cdf="eval \"cd \\\"\\\`osascript -e 'tell app \\\\\\\"Finder\\\\\\\" to return the POSIX path of (target of window 1 as alias)'\\\`\\\"\""

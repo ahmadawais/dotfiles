@@ -51,9 +51,11 @@
 	"highlight_modified_tabs": true,
 	"ignored_packages":
 	[
-		"EncodingHelper",
-		"LineEndings",
 		"Markdown",
+		"Markdown Preview",
+		"MarkdownHighlighting",
+		"MarkdownLight",
+		"MarkdownLivePreview",
 		"Vintage"
 	],
 	"ignored_words":
