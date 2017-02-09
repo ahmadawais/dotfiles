@@ -574,7 +574,7 @@ alias wplv="wpp wp-log-viewer"
 
 # Trash all posts in a CPT replace the post-type.
 # alias wpdb="wp post delete $(wp post list --post_type='vr_booking' --format=ids)"
-alias wpdtall="wp post delete $(wp post list --post_status=trash --format=ids)"
+# alias wpdtall="wp post delete $(wp post list --post_status=trash --format=ids)"
 
 # {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{ WP CLI END }}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
 
