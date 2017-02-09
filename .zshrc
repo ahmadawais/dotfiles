@@ -946,7 +946,8 @@ function synczsh(){
 		echo "${wb} ${bf}1. Copying new `.zshrc` and .bash files ...${r}"
 
 		cp ~/.zshrc /Users/ahmadawais/web/dotFiles/
-		cp ~/.bash_history /Users/ahmadawais/web/dotFiles/
+		# TODO: Should we do that?
+		# cp ~/.bash_history /Users/ahmadawais/web/dotFiles/
 		cp ~/.bash_profile /Users/ahmadawais/web/dotFiles/
 		cp ~/.bashrc /Users/ahmadawais/web/dotFiles/
 
