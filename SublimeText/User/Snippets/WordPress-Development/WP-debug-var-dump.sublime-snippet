@@ -1,8 +1,11 @@
 <snippet>
 	<content><![CDATA[
-// Uncomment to debug.
+// DEBUG START: ------------------------------.
+echo '<div class="error notice is-dismissible">';
 echo '<pre>' . var_dump( ${1:'Working!'} ) . '</pre>';
+echo '</div>';
 exit();
+// DEBUG END: --------------------------------.
 
 ]]></content>
 <!-- Optional: Description to show in the menu -->

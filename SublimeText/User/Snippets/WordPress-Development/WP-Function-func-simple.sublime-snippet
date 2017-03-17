@@ -1,15 +1,17 @@
 <snippet>
 	<content><![CDATA[
-/**
- * ${1:[Function Name]}.
- *
- * @since ${2:1.0.0}
- */
-if ( ! function_exists( '${3:funciton_name}' ) ) {
-	function ${3:funciton_name}() {
-		${5:Start here...}
-	}
-}
+// Make sure the function is unique.
+if ( ! function_exists( '${1:funciton_name}' ) ) {
+	// Hook.
+	/**
+	 * ${2:[Function Name]}.
+	 *
+	 * @since ${3:1.0.0}
+	 */
+	function ${1:funciton_name}() {
+		${4:Start here...}
+	} // End fucntion ${1:funciton_name}().
+} // End if().
 ]]></content>
 <!-- Optional: Description to show in the menu -->
     <description>WordPress Function</description>

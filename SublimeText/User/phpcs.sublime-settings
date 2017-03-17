@@ -13,4 +13,8 @@
 
     // Turn the debug output on/off
     // "show_debug": true,
+
+    // Show the quick panel
+    // "php_cs_fixer_show_quick_panel": true,
+
 }

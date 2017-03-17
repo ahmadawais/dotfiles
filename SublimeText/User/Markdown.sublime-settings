@@ -9,7 +9,6 @@
 	"spell_check": true,
 	"word_wrap": true,
 	"wrap_width": 100,
-	"font_size": 16,
 	"color_scheme": "Packages/Theme - Cobalt2/cobalt2.tmTheme",
 	"theme": "Cobalt2.sublime-theme",
 	"highlight_modified_tabs": true,

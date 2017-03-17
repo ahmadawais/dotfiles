@@ -46,23 +46,24 @@ alias gtest="cd ~ && cd /Users/ahmadawais/gtest"
 alias dfiles="cd ~ && cd web/dotFiles"
 alias wtdev="cd ~ && cd /Users/ahmadawais/html/writablehtml.dev"
 alias cfcdev="cd ~ && cd cfc"
-alias vrcdev="cd ~ && cd vrcoredev"
 alias rpdev="cd ~ && cd /Users/ahmadawais/websites/rp.dev/wp-content/plugins/inspiry-real-estate"
 alias ntdev="cd ~ && ntdev"
 alias web="cd ~ && cd web"
 alias dev="cd ~ && cd webdev"
 alias webdev="cd ~ && cd webdev"
 alias wtwpdev="cd ~ && cd wtwp"
-alias ldev="cd ~ && cd localdev"
-alias lpdev="cd ~ && cd lpluginsdev"
-alias ltdev="cd ~ && cd lthemesdev"
+alias ldev="cd ~ && cd ldev"
+alias lpdev="cd ~ && cd ldev/wp-content/plugins/"
+alias ltdev="cd ~ && cd ldev/wp-content/themes/"
 alias wpcdev="cd ~ && cd wpcdev"
 alias swpcdev="cd ~ && cd swpc"
 
+# VR.
 alias vrcdev="cd ~ && cd vrcdev"
 alias vrpdev="cd ~ && cd vrpdev"
 alias vrtdev="cd ~ && cd vrtdev"
 alias vrdoc="cd ~ && cd vrdoc"
+alias vra="wppa vrcore && wpta vr"
 
 alias wpcdev="cd ~ && cd wpcore"
 alias wpcore="cd ~ && cd wpcore"
@@ -515,6 +516,9 @@ function wpdsready() {
 		echo "${rb} ${bf}WP: Removing twentysixteen...${r}"
 		wp theme delete twentysixteen ;
 
+		echo "${rb} ${bf}WP: Removing twentyseventeen...${r}"
+		wp theme delete twentyseventeen ;
+
 		echo "${rb} ${bf}WP: Removing akismet...${r}"
 		wp plugin delete akismet ;
 
@@ -575,6 +579,12 @@ alias wplv="wpp wp-log-viewer"
 # Trash all posts in a CPT replace the post-type.
 # alias wpdb="wp post delete $(wp post list --post_type='vr_booking' --format=ids)"
 # alias wpdtall="wp post delete $(wp post list --post_status=trash --format=ids)"
+
+# One Click Demo Import and friends.
+alias ocdis="wpp one-click-demo-import && wpp widget-importer-exporter && wpp customizer-export-import"
+
+# Debug Setup.
+alias wpds="wpp query-monitor && wpp debug-bar && wpp debug-meta-data && wpp jarvis && wpp wp-log-viewer && wpp wp-reset"
 
 # {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{ WP CLI END }}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
 
@@ -970,7 +980,10 @@ function syncdfiles(){
 
 		synczsh
 
-		gcap DotFiles Synced
+
+		cp -rfp /Users/ahmadawais/workflow/.release.json /Users/ahmadawais/web/dotFiles/Users/ahmadawais/workflow/
+
+		gcap 'DotFiles Synced'
 
 		cd ~
 		echo "${gb} ${bf}3. Sync dotFiles Done! ✔︎✔︎✔︎${r}"
@@ -1070,7 +1083,7 @@ function wpzip(){
 
 # Bulk Resize Images in Terminal
 #
-# Usage: rimg size extension
+# Usage: rimg extension size
 # Example: rimg jpg 640
 function rimg() {
 	sips -Z "$2" *."$1"
@@ -1562,6 +1575,18 @@ function rl() {
 	release-it "$@" -c ~/workflow/.release.json
 }
 
+####.#### ———————————————————————————————————————————— TEACHING ———————————————————————————————————————————— ####.####
+
+function lsn() {
+	clear
+	name=$@
+	echo "${wb} ${bf}--------------- ⏲  LET' START... ---------------${r}"
+	mkdir "$name"
+	echo "# $name" >> "$name"/content.md
+	echo "${gb} ${bf}--------------- 🎯  Done: "$name"... ---------------${r}"
+}
+
+
 ####.#### ———————————————————————————————————————————— UTILITIES ———————————————————————————————————————————— ####.####
 
 # Open man page as PDF.
@@ -1774,3 +1799,19 @@ function mkdp(){
 
 #  You can use existing Terminal window and cd to selected directory in Finder by cdf command.
 alias cdf="eval \"cd \\\"\\\`osascript -e 'tell app \\\\\\\"Finder\\\\\\\" to return the POSIX path of (target of window 1 as alias)'\\\`\\\"\""
+
+# Delet .DS_Store
+alias dstdel="find . -name ‘*.DS_Store’ -type f -delete"
+
+# Remove query strings from ExerciseFiles
+function rmquery() {
+  for file in *.zip\?*; do mv "$file" "${file%%\?*}"; done
+}
+alias rmq="rmquery"
+
+# Remove query strings from custom files.
+function rmqc() {
+  for file in *."$@"\?*; do mv "$file" "${file%%\?*}"; done
+}
+
+
