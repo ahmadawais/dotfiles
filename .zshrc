@@ -980,7 +980,8 @@ function syncdfiles(){
 
 		synczsh
 
-
+		# Workflow stuff.
+		mkdir -p /Users/ahmadawais/web/dotFiles/Users/ahmadawais/workflow/
 		cp -rfp /Users/ahmadawais/workflow/.release.json /Users/ahmadawais/web/dotFiles/Users/ahmadawais/workflow/
 
 		gcap 'DotFiles Synced'
