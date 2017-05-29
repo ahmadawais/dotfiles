@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/ahmadawais/.oh-my-zsh
+export ZSH=/Users/$USER/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -20,6 +20,11 @@ alias zs="source ~/.zshrc"
 alias zso="subl ~/.zshrc"
 alias stgc="st ~/.gitconfig"
 
+if [ -f ~/Dropbox/bin/.exports ]; then
+    source ~/Dropbox/bin/.exports
+else
+    print "404: ~/Dropbox/bin/.exports not found."
+fi
 
 # cd related
 alias ..="cd .."
@@ -40,13 +45,13 @@ alias cdwpt="cd wp-content/themes"
 alias cdwpp="cd wp-content/plugins"
 
 # QUICK FOLDERS
-alias html="cd ~ && cd /Users/ahmadawais/html"
-alias dot="cd ~ && cd /Users/ahmadawais/dotFiles"
-alias gtest="cd ~ && cd /Users/ahmadawais/gtest"
+alias html="cd ~ && cd /Users/$USER/html"
+alias dot="cd ~ && cd /Users/$USER/dotFiles"
+alias gtest="cd ~ && cd /Users/$USER/gtest"
 alias dfiles="cd ~ && cd web/dotFiles"
-alias wtdev="cd ~ && cd /Users/ahmadawais/html/writablehtml.dev"
+alias wtdev="cd ~ && cd /Users/$USER/html/writablehtml.dev"
 alias cfcdev="cd ~ && cd cfc"
-alias rpdev="cd ~ && cd /Users/ahmadawais/websites/rp.dev/wp-content/plugins/inspiry-real-estate"
+alias rpdev="cd ~ && cd /Users/$USER/websites/rp.dev/wp-content/plugins/inspiry-real-estate"
 alias ntdev="cd ~ && ntdev"
 alias web="cd ~ && cd web"
 alias dev="cd ~ && cd webdev"
@@ -57,6 +62,15 @@ alias lpdev="cd ~ && cd ldev/wp-content/plugins/"
 alias ltdev="cd ~ && cd ldev/wp-content/themes/"
 alias wpcdev="cd ~ && cd wpcdev"
 alias swpcdev="cd ~ && cd swpc"
+alias wd="cd ~ && cd webdev"
+alias phpdev="cd ~ && cd phpdev"
+alias phpd="cd ~ && cd phpdev"
+alias wprabd="cd ~ && cd wprabdev"
+alias wprabt="cd ~ && cd wprabwpt"
+alias wprabp="cd ~ && cd wprabwpp"
+
+# Teach
+alias aatf="cd ~ && cd aatfdev"
 
 # VR.
 alias vrcdev="cd ~ && cd vrcdev"
@@ -83,12 +97,12 @@ alias clone="cd ~ && cd websites/clone"
 
 
 function gstreak(){
- cd /Users/ahmadawais/Documents/web/Git/WPDev ;
+ cd /Users/$USER/Documents/web/Git/WPDev ;
  python file.py "$*"
 }
 
 # Projects I am working on
-alias wt="cd /Users/ahmadawais/html/writablehtml.dev"
+alias wt="cd /Users/$USER/html/writablehtml.dev"
 
 
 
@@ -167,9 +181,10 @@ function gbrdel {
 alias gsclear="git stash clear"
 alias gfo="git fetch origin"
 alias grh="git r --hard"
-alias gromg="git r --hard origin/master"
+alias grhom="git r --hard origin/master"
 # r to head and remove all untracked files (including npm installs)
 alias gitreverything='git clean -d -x -f; git r --hard'
+alias grhc='git clean -d -x -f; git reset --hard'
 
 
 alias gcdf="git clean -d -f"
@@ -437,6 +452,8 @@ alias ll6="tree --dirsfirst -ChFupDaL 3"
 
 #show hidden files and everything
 alias lla="ll -a"
+# Another useful flag we can use with ls is -S, which will sort the results of ls by file size, instead of the default sorting by name.
+alias lls="ls -lhS"
 
 
 alias pc='phpcs --standard="WordPress" $@'
@@ -583,7 +600,7 @@ alias wplv="wpp wp-log-viewer"
 # One Click Demo Import and friends.
 alias ocdis="wpp one-click-demo-import && wpp widget-importer-exporter && wpp customizer-export-import"
 
-# Debug Setup.
+# Dev Setup.
 alias wpds="wpp query-monitor && wpp debug-bar && wpp debug-meta-data && wpp jarvis && wpp wp-log-viewer && wpp wp-reset"
 
 # {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{ WP CLI END }}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
@@ -739,7 +756,7 @@ function gitio() {
 		echo "Usage: \`gitio slug url\`"
 		return 1
 	fi
-	curl -i http://git.io/ -F "url=${2}" -F "code=${1}"
+	curl -i https://git.io/ -F "url=${2}" -F "code=${1}"
 }
 
 
@@ -919,7 +936,7 @@ function syncsbl(){
 
 		echo "${wb} ${bf}1. Copying the USER files and folders from Sublime...${r}"
 
-		cp -rfp /Users/ahmadawais/Library/Application\ Support/Sublime\ Text\ 3/Packages/User /Users/ahmadawais/web/dotFiles//SublimeText
+		cp -rfp /Users/$USER/Library/Application\ Support/Sublime\ Text\ 3/Packages/User /Users/$USER/web/dotFiles//SublimeText
 
 		echo "${wb} ${bf}2. Deleting useless stuff...${r}"
 
@@ -955,11 +972,11 @@ function synczsh(){
 
 		echo "${wb} ${bf}1. Copying new `.zshrc` and .bash files ...${r}"
 
-		cp ~/.zshrc /Users/ahmadawais/web/dotFiles/
+		cp ~/.zshrc /Users/$USER/web/dotFiles/
 		# TODO: Should we do that?
-		# cp ~/.bash_history /Users/ahmadawais/web/dotFiles/
-		cp ~/.bash_profile /Users/ahmadawais/web/dotFiles/
-		cp ~/.bashrc /Users/ahmadawais/web/dotFiles/
+		# cp ~/.bash_history /Users/$USER/web/dotFiles/
+		cp ~/.bash_profile /Users/$USER/web/dotFiles/
+		cp ~/.bashrc /Users/$USER/web/dotFiles/
 
 		echo "${gb} ${bf}3. Sync of ZSH and BASH Done!!!${r}"
 	echo "${wf}———————————————————${r}"
@@ -981,8 +998,8 @@ function syncdfiles(){
 		synczsh
 
 		# Workflow stuff.
-		mkdir -p /Users/ahmadawais/web/dotFiles/Users/ahmadawais/workflow/
-		cp -rfp /Users/ahmadawais/workflow/.release.json /Users/ahmadawais/web/dotFiles/Users/ahmadawais/workflow/
+		mkdir -p /Users/$USER/web/dotFiles/Users/$USER/workflow/
+		cp -rfp /Users/$USER/workflow/.release.json /Users/$USER/web/dotFiles/Users/$USER/workflow/
 
 		gcap 'DotFiles Synced'
 
@@ -1015,7 +1032,7 @@ function pulldfiles() {
 	fi
 
 	# Clone the repo.
-	git clone https://github.com/ahmadawais/dotFiles/ .
+	git clone https://github.com/$USER/dotFiles/ .
 	echo "${gb} ${bf}Git repo cloned for dotfiles cloned. DONE!${r}"
 }
 
@@ -1025,7 +1042,7 @@ function pullsubl(){
 		echo "${rb} ${wf}Pulling dotfiles...${r}"
 		pulldfiles
 		echo "${wb} ${bf}Copying the USER files and folders to Sublime...${r}"
-		cp -rfp /Users/ahmadawais/web/dotFiles/SublimeText/User/* /Users/ahmadawais/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
+		cp -rfp /Users/$USER/web/dotFiles/SublimeText/User/* /Users/$USER/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
 		echo "${gb} ${bf}Sync Done!!!${r}"
 	echo "${wf}———————————————————${r}"
 }
@@ -1208,9 +1225,9 @@ function addwpgulp() {
 
 		echo "${wb} ${bf}0. Downloading gulpfile.js and pacakge.json in the current folder...${r}"
 
-		curl -O https://raw.githubusercontent.com/ahmadawais/WPGulp/master/package.json
-		curl -O https://raw.githubusercontent.com/ahmadawais/WPGulp/master/gulpfile.js
-		curl -O https://raw.githubusercontent.com/ahmadawais/WPGulp/master/.gitignore
+		curl -O https://raw.githubusercontent.com/$USER/WPGulp/master/package.json
+		curl -O https://raw.githubusercontent.com/$USER/WPGulp/master/gulpfile.js
+		curl -O https://raw.githubusercontent.com/$USER/WPGulp/master/.gitignore
 
 		echo "${wb} ${bf}1. Installing NPM dependencies (will take upto 5 minutes)...${r}"
 
@@ -1252,7 +1269,7 @@ export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help";
 #
 alias nfrmac="nativefier --full-screen -n "$1" $2"
 
-alias addgitignore="curl -O https://raw.githubusercontent.com/ahmadawais/WPGulp/master/.gitignore"
+alias addgitignore="curl -O https://raw.githubusercontent.com/$USER/WPGulp/master/.gitignore"
 
 # Copy pictures to desktop
 #
@@ -1309,7 +1326,7 @@ function sshkey() {
 	ssh-keygen -t rsa
 
 	echo "${gb} ${bf} Copy the key below and add it to your host ${r}"
-	cat /Users/ahmadawais/.ssh/"$path_name".pub
+	cat /Users/$USER/.ssh/"$path_name".pub
 
 	echo "${gb} ${bf} ✔✔✔ KEY ADDED! ✔✔✔︎ ${r}"
 	echo "${wf}———————————————————${r}"
@@ -1562,7 +1579,7 @@ function size_pwd() {
 function recterm() {
 	asciinema rec
 }
-source /Users/ahmadawais/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /Users/$USER/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 
 # NVM install
@@ -1586,6 +1603,12 @@ function lsn() {
 	echo "# $name" >> "$name"/content.md
 	echo "${gb} ${bf}--------------- 🎯  Done: "$name"... ---------------${r}"
 }
+
+####.#### ———————————————————————————————————————————— Browser Sync ———————————————————————————————————————————— ####.####
+function bsstrt() {
+	browser-sync start "$@" -s -f '**/*' --cors
+}
+
 
 
 ####.#### ———————————————————————————————————————————— UTILITIES ———————————————————————————————————————————— ####.####
@@ -1816,3 +1839,187 @@ function rmqc() {
 }
 
 
+alias diffh="diff2html"
+
+# Bitly short URL
+# @link https://github.com/specious/bitly-client
+# @usage surl http://url.com/file/
+function surl() {
+	bitly-client --domain ahmda.ws "$@"
+}
+
+# RSYNC FTP type server trasnfer.
+# @usage rsyncsendy local_path IP server_path
+# @usage rsyncserver local_path IP server_path
+function rsyncsendy() {
+	rsync -chavz --partial --progress --stats "$1" root@"$2":"$3"
+}
+function rsyncserver() {
+	rsync -chavz --partial --progress --stats "$1" root@"$2":"$3"
+}
+
+
+# Add Normalize CSS.
+alias addncss="curl -O https://raw.githubusercontent.com/necolas/normalize.css/master/normalize.css"
+
+
+# WP Core Patch.
+function wpcp() {
+
+	if [[ "-h" == "$1" ]]; then
+		clear
+		echo "${wb}${bf}———————————————— Help! ————————————————${r}"
+		echo "${wb}${bf}——— Usage: wpcp PATCH_NUMBER ———${r}"
+		return 1
+	else
+
+		echo "-"
+		echo "${wb} ${bf}--------------- ⏲  START: Let's create a patch... ---------------${r}"
+		echo "-"
+
+		git diff -- . ':(exclude)Gruntfile.js' >> "$1".patch
+
+		echo "-"
+		echo "${gb} ${bf}--------------- ✔︎✔︎✔︎ DONE!!! "$1".patch Created! 💯 🎉 ✔✔✔ ---------------${r}"
+		echo "-"
+	fi
+}
+
+# Better SSH Tunnel Persistance
+# @link http://ashayhumane.blogspot.com/2014/11/autossh-mac-os-x.html
+alias autossh='autossh -M $(($RANDOM%6400 + 1024))'
+alias assh='autossh -M $(($RANDOM%6400 + 1024))'
+
+# FreeDNS Update and SSH.
+function ash() {
+	# Update FDNS.
+	curl -k -s -L "https://ahmda.ws/srv_fdns"  # > /dev/null 2>&1
+
+	# Keep assh as is.
+	ssh "$@"
+}
+
+# Update FDNS.
+# # > /dev/null 2>&1
+alias fdns="curl -k -s -L 'https://ahmda.ws/srv_fdns'"
+
+
+####.#### ———————————————————————————————————————————— Todolist http://todolist.site/ ———————————————————————————————————————————— ####.####
+# Alias it all.
+function td() {
+	todolist "$@"
+}
+
+# Init.
+alias tdi="todolist init"
+
+# Add.
+function tda() {
+	todolist add "$@"
+}
+
+# List.
+function tdl() {
+	todolist list "$@"
+}
+
+# List by priority.
+alias tdgc="todolist l p"
+
+# Due.
+function tdld() {
+	todolist list due "$@"
+}
+
+# Edit.
+function tde() {
+	todolist e "$@"
+}
+
+# Complete.
+function tdc() {
+	todolist c "$@"
+}
+
+# Archive Complete.
+function tdac() {
+	todolist ac "$@"
+}
+
+# Prioritize.
+function tdp() {
+	todolist p "$@"
+}
+
+# Delete.
+function tdd() {
+	todolist d "$@"
+}
+
+# Expanding existing todos.
+function tdex() {
+	todolist ex "$@"
+}
+
+# Archived todos will only show up when running.
+alias tdla="todolist list archived"
+
+# The web view.
+alias tdla="todolist web"
+
+# Garbage Collection. Deletes all archived todos.
+alias tdgc="todolist gc"
+
+# Todo Dir.
+alias tdir="cd ~ && cd tdir"
+
+# Empty mail.
+alias emptymail="echo > /var/mail/ahmadawais && echo 'DONE!!! 💯'"
+
+# http://stackoverflow.com/a/26655887/950111
+function parse_json() {
+    echo $1 | \
+    sed -e 's/[{}]/''/g' | \
+    sed -e 's/", "/'\",\"'/g' | \
+    sed -e 's/" ,"/'\",\"'/g' | \
+    sed -e 's/" , "/'\",\"'/g' | \
+    sed -e 's/","/'\"---SEPERATOR---\"'/g' | \
+    awk -F=':' -v RS='---SEPERATOR---' "\$1~/\"$2\"/ {print}" | \
+    sed -e "s/\"$2\"://" | \
+    tr -d "\n\t" | \
+    sed -e 's/\\"/"/g' | \
+    sed -e 's/\\\\/\\/g' | \
+    sed -e 's/^[ \t]*//g' | \
+    sed -e 's/^"//'  -e 's/"$//'
+}
+
+
+####.#### ———————————————————————————————————————————— REST API ———————————————————————————————————————————— ####.####
+
+# Get summary of 10 latest posts.
+function get_summary() {
+	curl https://"$1"/wp-json/wp/v2/posts | jq '[.[] | { title: .title.rendered, link: .link, excerpt: .excerpt.rendered}]'
+}
+
+alias cl="clear"
+
+# Squash last X commits with a Commit message.
+# Usage: squash X COMMIT_MSG
+# where X= Number of last commits.
+# where COMMIT_MSG= New commit msg.
+function squash() {
+	if [ -z "${1}" -o -z "${2}" ]; then
+		echo "Usage: \`squash X COMMIT_MSG\`"
+		echo "X= Number of last commits."
+		echo "COMMIT_MSG= New commit msg."
+		return 1
+	fi
+
+	git reset --soft HEAD~"$1"
+	git add . && git ci -m "$2 💯" # With 100 emoji
+	git push --force
+}
+
+
+# Right perms for gulp-notify
+alias fixgnotify="sudo chmod -R a+rwx ..."

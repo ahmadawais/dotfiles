@@ -1,0 +1,17 @@
+<snippet>
+	<content><![CDATA[
+( function( \$ ) {
+	\$( document ).ready( function() {
+		// ${1:Start here..}
+	}); // End ready().
+})( jQuery ); // End IIFE.
+
+]]></content>
+<!-- Optional: Description to show in the menu -->
+    <description>JS IIFE Ready</description>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>jiifeready</tabTrigger>
+	 <!-- <tabTrigger>bracket_end_comment</tabTrigger> -->
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <scope>source.js - variable.other.js</scope>
+</snippet>

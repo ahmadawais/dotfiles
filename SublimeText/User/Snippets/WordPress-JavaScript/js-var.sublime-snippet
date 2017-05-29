@@ -1,0 +1,14 @@
+<snippet>
+	<content><![CDATA[
+// Add: ${2:}.
+${1:var} ${2:} = '${3:}';
+${4:}
+]]></content>
+<!-- Optional: Description to show in the menu -->
+    <description>JS var const</description>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>jvarconst</tabTrigger>
+	 <!-- <tabTrigger>bracket_end_comment</tabTrigger> -->
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <scope>source.js - variable.other.js</scope>
+</snippet>

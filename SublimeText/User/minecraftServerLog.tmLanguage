@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>keyEquivalent</key>
+  <string>^~M</string>
+  <key>firstLineMatch</key>
+  <string>\[\d\d:\d\d:\d\d\] \[Server</string>
+  <key>name</key>
+  <string>Minecraft Server Log</string>
+  <key>patterns</key>
+  <array>
+    <dict>
+      <key>match</key>
+      <string>^\[(\d\d:\d\d:\d\d)\]</string>
+      <key>name</key>
+      <string>comment.time.mc-log</string>
+    </dict>
+    <dict>
+      <key>match</key>
+      <string>\[.+?/WARN\]</string>
+      <key>name</key>
+      <string>keyword.warn.mc-log</string>
+    </dict>
+    <dict>
+      <key>match</key>
+      <string>: (/.+)</string>
+      <key>name</key>
+      <string>support.cmd.mc-log</string>
+    </dict>
+    <dict>
+      <key>match</key>
+      <string>\s\[.+?/ERROR\]:</string>
+      <key>name</key>
+      <string>invalid.error.mc-log</string>
+    </dict>
+    <dict>
+      <key>match</key>
+      <string>\tat\s.+</string>
+      <key>name</key>
+      <string>comment.exception.mc-log</string>
+    </dict>
+    <dict>
+      <key>match</key>
+      <string>\w+?\[/\d+?\.\d+?\.\d+?\.\d+?\:\d+?\]</string>
+      <key>name</key>
+      <string>entity.name.function.ip.mc-log</string>
+    </dict>
+    <dict>
+      <key>begin</key>
+      <string>\s(\[.+?/INFO\]: )((\[CHAT\] (.+?:))|(\[.+\])?)</string>
+      <key>end</key>
+      <string> </string>
+      <key>beginCaptures</key>
+      <dict>
+        <key>1</key>
+        <dict>
+          <key>name</key>
+          <string>string.tag.mc-log</string>
+        </dict>
+        <key>3</key>
+        <dict>
+          <key>name</key>
+          <string>storage.function.chat.mc-log</string>
+        </dict>
+        <key>5</key>
+        <dict>
+          <key>name</key>
+          <string>storage.function.chat.mc-log</string>
+        </dict>
+        <key>4</key>
+        <dict>
+          <key>name</key>
+          <string>variable.language.chat.name.mc-log</string>
+        </dict>
+      </dict>
+    </dict>
+  </array>
+  <key>scopeName</key>
+  <string>source.mc-log</string>
+  <key>uuid</key>
+  <string>26251B19-6B1D-11D9-AFDB-000D93589AF6</string>
+</dict>
+</plist>

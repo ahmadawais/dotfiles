@@ -1,0 +1,18 @@
+<snippet>
+	<content><![CDATA[
+// GET JSON.
+\$.getJSON( ${1:URL}, function(${3: ${2:data} }) {
+	// Console Log data.
+	console.info( 'DATA: ', ${2:data} );
+}); // End getJSON().
+
+${4:}
+]]></content>
+<!-- Optional: Description to show in the menu -->
+    <description>JS GET JSON</description>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>jgetjson</tabTrigger>
+	 <!-- <tabTrigger>bracket_end_comment</tabTrigger> -->
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <scope>source.js - variable.other.js</scope>
+</snippet>

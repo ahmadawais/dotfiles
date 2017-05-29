@@ -1,0 +1,18 @@
+<snippet>
+	<content><![CDATA[
+// Looped iteration with .each.
+\$.each( ${1:data}, function( ${2:i}, ${3:single} ) {
+	// Console Log ${3:single} with iterator ${2:i}.
+	console.log( '# ' + ${2:i}, ${3:single} );
+}); // End each().
+
+${4:}
+]]></content>
+<!-- Optional: Description to show in the menu -->
+    <description>JS Each Loop</description>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>jeachloop</tabTrigger>
+	 <!-- <tabTrigger>bracket_end_comment</tabTrigger> -->
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <scope>source.js - variable.other.js</scope>
+</snippet>

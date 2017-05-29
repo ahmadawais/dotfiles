@@ -1,0 +1,64 @@
+<snippet>
+	<content><![CDATA[
+// Singleton Class. Make sure the class is unique.
+if ( ! class_exists( '${1:[Class_Name]}' ) ) {
+	/**
+	 * ${1:[Class Name]}.
+	 *
+	 * ${2:[Long Description]}.
+	 *
+	 * @usage Class the class ${1:[Class Name]}::singleton();
+	 * @since ${3:1.0.0}
+	 */
+	class ${1:[Class_Name]} {
+		// ${4:Start here...}
+
+		/**
+		 * Setup.
+		 *
+		 * Setup actions and filters.
+		 *
+		 * @since 1.0
+		 */
+		private function setup() {
+			// add_action( 'action_name', array( \$this, 'function' ) );
+			// add_filter( 'filter_name', array( \$this, 'function' ) );
+		}
+
+		/**
+		 * Return singleton instance of the class.
+		 *
+		 * @since ${3:1.0.0}
+		 * @return object
+		 */
+		public static function singleton() {
+			// Static Instance.
+			static \$instance;
+
+			// Get a new instance.
+			if ( ! \$instance ) {
+				\$instance = new self();
+
+				// Setup the class.
+				\$instance->setup();
+			}
+			return \$instance;
+		}
+
+		/**
+		 * Dummy constructor.
+		 *
+		 * @since  ${3:1.0.0}
+		 */
+		public function __construct() {}
+	} // End class.
+} // End if().
+
+]]></content>
+<!-- Optional: Description to show in the menu -->
+    <description>WordPress Class Singleton</description>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>npclasssingleton_wp</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <!--<scope>source.php - variable.other.php</scope>-->
+</snippet>

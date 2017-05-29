@@ -34,4 +34,17 @@
 
 	// Allignement.
 	{ "keys": ["super+ctrl+a"], "command": "alignment" },
+
+	// Inc Dec Values.
+	{ "keys": ["alt+super+up"],        "command": "inc_dec_value", "args": { "action": "inc_min" } },
+	{ "keys": ["alt+super+down"],      "command": "inc_dec_value", "args": { "action": "dec_min" } },
+	{ "keys": ["alt+super+insert"],    "command": "inc_dec_value", "args": { "action": "ins_min" } },
+
+	{ "keys": ["shift+alt+super+up"],        "command": "inc_dec_value", "args": { "action": "inc_max" } },
+	{ "keys": ["shift+alt+super+down"],      "command": "inc_dec_value", "args": { "action": "dec_max" } },
+	{ "keys": ["shift+alt+super+insert"],    "command": "inc_dec_value", "args": { "action": "ins_max" } },
+
+	{ "keys": ["super+alt+shift+up"],   "command": "inc_dec_value", "args": { "action": "inc_all" } },
+	{ "keys": ["super+alt+shift+down"], "command": "inc_dec_value", "args": { "action": "dec_all" } },
+	{ "keys": ["super+alt+shift+insert"],"command":"inc_dec_value", "args": { "action": "ins_all" } }
 ]
