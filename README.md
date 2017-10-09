@@ -1,9 +1,7 @@
-#dotFiles
-
-
+# dotFiles
 Collection of my dotFiles.
 
-##TODO
+## TODO
 - [x] Add .gitignore
 - [x] Add .gitconfig
 - [x] Add .zshrc
