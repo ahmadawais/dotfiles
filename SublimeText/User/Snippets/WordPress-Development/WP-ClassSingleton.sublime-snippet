@@ -1,58 +1,55 @@
 <snippet>
 	<content><![CDATA[
-// Singleton Class. Make sure the class is unique.
-if ( ! class_exists( '${1:[Class_Name]}' ) ) {
+/**
+ * ${1:[Class Name]}.
+ *
+ * ${2:[Long Description]}.
+ *
+ * @usage Class the class ${1:[Class Name]}::singleton();
+ * @since ${3:1.0.0}
+ */
+class ${1:[Class_Name]} {
+	// ${4:Start here...}
+
 	/**
-	 * ${1:[Class Name]}.
+	 * Setup.
 	 *
-	 * ${2:[Long Description]}.
+	 * Setup actions and filters.
 	 *
-	 * @usage Class the class ${1:[Class Name]}::singleton();
-	 * @since ${3:1.0.0}
+	 * @since 1.0
 	 */
-	class ${1:[Class_Name]} {
-		// ${4:Start here...}
+	private function setup() {
+		// add_action( 'action_name', array( \$this, 'function' ) );
+		// add_filter( 'filter_name', array( \$this, 'function' ) );
+	}
 
-		/**
-		 * Setup.
-		 *
-		 * Setup actions and filters.
-		 *
-		 * @since 1.0
-		 */
-		private function setup() {
-			// add_action( 'action_name', array( \$this, 'function' ) );
-			// add_filter( 'filter_name', array( \$this, 'function' ) );
+	/**
+	 * Return singleton instance of the class.
+	 *
+	 * @since ${3:1.0.0}
+	 * @return object
+	 */
+	public static function singleton() {
+		// Static Instance.
+		static \$instance;
+
+		// Get a new instance.
+		if ( ! \$instance ) {
+			\$instance = new self();
+
+			// Setup the class.
+			\$instance->setup();
 		}
+		return \$instance;
+	}
 
-		/**
-		 * Return singleton instance of the class.
-		 *
-		 * @since ${3:1.0.0}
-		 * @return object
-		 */
-		public static function singleton() {
-			// Static Instance.
-			static \$instance;
-
-			// Get a new instance.
-			if ( ! \$instance ) {
-				\$instance = new self();
-
-				// Setup the class.
-				\$instance->setup();
-			}
-			return \$instance;
-		}
-
-		/**
-		 * Dummy constructor.
-		 *
-		 * @since  ${3:1.0.0}
-		 */
-		public function __construct() {}
-	} // End class.
-} // End if().
+	/**
+	 * Dummy constructor.
+	 *
+	 * @since  ${3:1.0.0}
+	 */
+	public function __construct() {}
+} // End class ${1:[Class_Name]}.
 
 ]]></content>
 <!-- Optional: Description to show in the menu -->

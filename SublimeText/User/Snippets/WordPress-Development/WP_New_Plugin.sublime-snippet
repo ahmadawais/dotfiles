@@ -19,7 +19,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-
 /**
  * Define global constants.
  *
@@ -27,21 +26,20 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 // Plugin version.
 if ( ! defined( '${7:WP}_VERSION' ) ) {
-    define( '${7:WP}_VERSION', '${6:1.0.0}' );
+	define( '${7:WP}_VERSION', '${6:1.0.0}' );
 }
 
 if ( ! defined( '${7:WP}_NAME' ) ) {
-    define( '${7:WP}_NAME', trim( dirname( plugin_basename( __FILE__ ) ), '/' ) );
+	define( '${7:WP}_NAME', trim( dirname( plugin_basename( __FILE__ ) ), '/' ) );
 }
 
-if ( ! defined('${7:WP}_DIR' ) ) {
-    define( '${7:WP}_DIR', WP_PLUGIN_DIR . '/' . ${7:WP}_NAME );
+if ( ! defined( '${7:WP}_DIR' ) ) {
+	define( '${7:WP}_DIR', WP_PLUGIN_DIR . '/' . ${7:WP}_NAME );
 }
 
-if ( ! defined('${7:WP}_URL' ) ) {
-    define( '${7:WP}_URL', WP_PLUGIN_URL . '/' . ${7:WP}_NAME );
+if ( ! defined( '${7:WP}_URL' ) ) {
+	define( '${7:WP}_URL', WP_PLUGIN_URL . '/' . ${7:WP}_NAME );
 }
-
 
 ]]></content>
 	<!-- Optional: Description to show in the menu -->
@@ -49,5 +47,5 @@ if ( ! defined('${7:WP}_URL' ) ) {
 	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
 	<tabTrigger>npwp_new_plugin</tabTrigger>
 	<!-- Optional: Set a scope to limit where the snippet will trigger -->
-    <!--<scope>source.php - variable.other.php</scope>-->
+	<!--<scope>source.php - variable.other.php</scope>-->
 </snippet>

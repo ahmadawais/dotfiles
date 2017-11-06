@@ -47,7 +47,7 @@
 		"no_bold",
 		"subpixel_antialias"
 	],
-	"font_size": 16,
+	"font_size": 17,
 	"hayaku_CSS_colors_case": "lowercase",
 	"hayaku_CSS_disable_inline_comment": true,
 	"highlight_line": true,

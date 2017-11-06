@@ -1,20 +1,28 @@
 {
-    "phpcs_executable_path" : "/usr/local/bin/phpcs",
-    "phpmd_executable_path" : "/usr/local/bin/phpmd",
-    "phpcs_additional_args": {
-        "--standard": "~/bin/no_spacing_check_ruleset.xml",
-        "-n": ""
+	"phpcs_executable_path" : "/usr/local/bin/phpcs",
+	"phpmd_executable_path" : "/usr/local/bin/phpmd",
+	"phpcs_additional_args": {
+		"--standard": "~/bin/phpcs.xml",
+		"-n": ""
+	},
+	// Execute the sniffer on file save
+	"phpcs_execute_on_save": false,
+
+	// Show outline for errors
+	// "phpcs_outline_for_errors": true,
+
+	// Turn the debug output on/off
+	// "show_debug": true,
+
+	// Show the quick panel
+	// "php_cs_fixer_show_quick_panel": true,
+
+	// PHP_CodeSniffer comes with the PHP Code Beautifier
+    // script which can automatically fix errors.
+    // Again, tell the plugin which coding standards to use...
+    "phpcbf_additional_args": {
+		"--standard": "~/bin/phpcs.xml",
     },
-    // Execute the sniffer on file save
-    "phpcs_execute_on_save": false,
-
-    // Show outline for errors
-    "phpcs_outline_for_errors": false,
-
-    // Turn the debug output on/off
-    // "show_debug": true,
-
-    // Show the quick panel
-    // "php_cs_fixer_show_quick_panel": true,
-
+    // ...and where to find the beautifier executable.
+    "phpcbf_executable_path": "/usr/local/bin/phpcbf",
 }

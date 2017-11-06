@@ -1,12 +1,19 @@
 <snippet>
-	<content><![CDATA[
-/* ----------------------------------------------------------------------------
- * ${1:What?}
- * ------------------------------------------------------------------------- */
+    <content><![CDATA[
+/**
+ * ----------------------------------------------------------------------------
+ * #.# ${1:CSS}
+ *
+ * ${2:Description of section, whether or not it has media queries, etc.}
+ * ----------------------------------------------------------------------------
+ */
+
+${3:/* START HERE */}
 ]]></content>
+	<!-- Optional: Description to show in the menu -->
+    <description>CSS Comment</description>
 	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
-    <description>CSS Block Comment</description>
-	<tabTrigger>npcc</tabTrigger>
+	 <tabTrigger>npcc</tabTrigger>
 	<!-- Optional: Set a scope to limit where the snippet will trigger -->
-	<!-- <scope>source.css,source.scss</scope> -->
+    <scope>source.css</scope>
 </snippet>

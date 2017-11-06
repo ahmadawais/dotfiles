@@ -1,6 +1,9 @@
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/$USER/.oh-my-zsh
 
+# Pass https://www.passwordstore.org/
+# source /usr/local/etc/bash_completion.d/password-store
+
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
@@ -35,6 +38,7 @@ alias .....="cd ../../../.."
 alias d="cd ~/Documents/Dropbox"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
+alias sbx="cd ~/sbx"
 
 # Dropbox
 alias db="cd db"
@@ -46,6 +50,7 @@ alias cdwpp="cd wp-content/plugins"
 
 # QUICK FOLDERS
 alias html="cd ~ && cd /Users/$USER/html"
+alias sb="cd ~ && cd sb"
 alias dot="cd ~ && cd /Users/$USER/dotFiles"
 alias gtest="cd ~ && cd /Users/$USER/gtest"
 alias dfiles="cd ~ && cd web/dotFiles"
@@ -95,6 +100,14 @@ alias vrcwp="cd ~ && cd vrcwp"
 # Git Clones
 alias clone="cd ~ && cd websites/clone"
 
+# Git Blame Someone else (used for when my wife uses my laptop to code and forgets to switch profiles).
+function gbse() {
+	git blame-someone-else "$@"
+}
+# Same as above
+function gmb() {
+	git blame-someone-else "Maedah Batool <MaedahBatool@gmail.com>" "$@"
+}
 
 function gstreak(){
  cd /Users/$USER/Documents/web/Git/WPDev ;
@@ -112,7 +125,7 @@ alias deldot="rm -rf .*"
 alias delpwd="rm -rf "$(pwd -P)"/*"
 
 # trash is better
-alias t="sudo trash"
+# alias t="sudo trash"
 alias tpwd="t "$(pwd -P)"/*"
 alias tdot="t .*"
 alias ta="tdot ; tpwd"
@@ -124,7 +137,7 @@ alias gi="git init"
 alias gco="git checkout"
 alias gb="git branches"
 alias gbd="git branch -D"
-#create new branch and checkout
+# Create new branch and checkout.
 alias gbn='git checkout -b'
 
 #git merge branch
@@ -183,7 +196,7 @@ alias gfo="git fetch origin"
 alias grh="git r --hard"
 alias grhom="git r --hard origin/master"
 # r to head and remove all untracked files (including npm installs)
-alias gitreverything='git clean -d -x -f; git r --hard'
+alias gitreverything='git clean -d -x -f; git reset --hard'
 alias grhc='git clean -d -x -f; git reset --hard'
 
 
@@ -372,8 +385,10 @@ alias copybuildit="rsync -avz --exclude 'node_modules' --exclude 'build' ./* ./b
 # `less` with options to preserve color and line numbers, unless the output is
 # small enough for one screen.
 function tre() {
-	tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX
+	tree -a --ignore '.git|node_modules|bower_components|.DS_Store' "$@"
 }
+
+alias t="tree -a --ignore '.git|node_modules|bower_components|.DS_Store' -l 3"
 # cd Shortcuts
 alias des="cd Desktop"
 
@@ -643,7 +658,7 @@ HIST_STAMPS="dd-mm-yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-extras extract sublime web-search svn npm bower brew composer wp-cli emoji z)
+plugins=(git git-extras extract sublime web-search svn npm bower brew composer wp-cli emoji z zsh-autosuggestions)
 
 # User configuration
 
@@ -652,9 +667,15 @@ export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin/git:/us
 
 source $ZSH/oh-my-zsh.sh
 
-# zsh-syntax-highlighting
+#.# zsh-syntax-highlighting
+#
+# Fish shell like syntax highlighting for Zsh
+#
 # @link: http://github.com/zsh-users/zsh-syntax-highlighting
 source ~/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
+ZSH_HIGHLIGHT_PATTERNS=('rm -rf *' 'fg=white,bold,bg=red') # To have commands starting with `rm -rf` in red:
+
 
 
 # You may need to manually set your language environment
@@ -726,6 +747,8 @@ function gcb() {
 		git checkout -b $@ origin/$@
 }
 
+# Remove .DS_Store files from a Git repository?
+alias grmds="find . -name .DS_Store -print0 | xargs -0 git rm -f --ignore-unmatch && addgitignore"
 
 # checks if pwd is empty or not
 function dirempty() {
@@ -1129,7 +1152,7 @@ function rname() {
 
 # JPEG Optimization.
 # Usage: jpegoptim 90 | where 90 is the quality.
-function jpegoptim() {
+function jpgoptim() {
 	if [[ "-h" == "$1" ]]; then
 		clear
 		echo "${wb}${bf}———————————————— Help! ————————————————${r}"
@@ -1138,6 +1161,7 @@ function jpegoptim() {
 	else
 		echo "${wb}${bf}———————————————— STARTED ————————————————${r}"
 		find . -iname "*.jpg" -exec jpegoptim -m"$1" -o -p --strip-all {} \;
+		find . -iname "*.JPG" -exec jpegoptim -m"$1" -o -p --strip-all {} \;
 		echo "${gb}${bf}———————————————— ✔✔✔ OPTIMZED Every JPG file in the PWD! ✔✔✔︎ ————————————————${r}"
 	fi
 }
@@ -1245,10 +1269,6 @@ alias dcf="sudo killall -HUP mDNSResponder"
 # Creates README.md, LICENSE.md and CHANGELOG.md files in the current folder.
 alias clr='touch README.md && touch LICENSE.md && touch CHANGELOG.md  && echo "${gb} ${bf} Created README.md, LICENSE.md and CHANGELOG.md files. 💯 ${r}" && ll'
 alias gfiles='touch README.md && touch LICENSE.md && touch CHANGELOG.md  && echo "${gb} ${bf} Created README.md, LICENSE.md and CHANGELOG.md files. 💯 ${r}" && ll'
-
-
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
-ZSH_HIGHLIGHT_PATTERNS=('rm -rf *' 'fg=white,bold,bg=red')
 
 # This will add a 10 second wait before you can confirm a wildcard deletion.
 # Lots of people, myself included, are so used to confirming the removal of files,
@@ -1456,6 +1476,7 @@ function gifit() {
 
 # Open host
 alias hostso="st /etc/hosts"
+alias khostso="st ~/.ssh/known_hosts"
 
 # Reboot PTCL router.
 alias ptclr="ptcli -r"
@@ -1523,6 +1544,17 @@ function checkwpcs() {
 	phpcs --standard=WordPress "$@"
 }
 
+# Use PHPCS with WPCS.
+function add_phpcs() {
+	cp ~/bin/phpcs.xml .
+}
+
+# Use PHPCS with Custom Ruleset.
+function pcsc() {
+	phpcs . --standard='~/bin/phpcs.xml' -n "$@"
+}
+
+alias phpcss="phpcs -s --extensions=php --report=emacs . | ack -o '(?<=\()\w+(\.\w+)+(?=\)$)' | sort | uniq -c | sort -nr"
 # Update PHPCS, PHPMD, and WPCS
 # Usage: updatewpcs
 function updatewpcs() {
@@ -1531,7 +1563,7 @@ function updatewpcs() {
 	echo "${wb}${bf}———————————————— STARTED ————————————————${r}"
 	echo "—"
 	echo "${blb}${wf}———————————————— ⏲  PHPCS updating... ————————————————${r}"
-	cd phpcs && git fetch && git pull
+	cd phpcs && git fetch && git pull && git checkout 2.9
 	echo "—"
 	echo "${gb}${bf}———————————————— PHPCS UPDATED!  ✔︎ ————————————————${r}"
 	echo "—"
@@ -1579,8 +1611,6 @@ function size_pwd() {
 function recterm() {
 	asciinema rec
 }
-source /Users/$USER/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
 
 # NVM install
 # export NVM_DIR="$HOME/.nvm"
@@ -1607,6 +1637,14 @@ function lsn() {
 ####.#### ———————————————————————————————————————————— Browser Sync ———————————————————————————————————————————— ####.####
 function bsstrt() {
 	browser-sync start "$@" -s -f '**/*' --cors
+}
+
+function bsr() {
+	browser-sync start "$@" -s -f './index.html' --index './index.html'
+}
+
+function bsstrtd() {
+	browser-sync start --proxy "$1" -f '**/*' --cors
 }
 
 
@@ -1862,25 +1900,32 @@ function rsyncserver() {
 # Add Normalize CSS.
 alias addncss="curl -O https://raw.githubusercontent.com/necolas/normalize.css/master/normalize.css"
 
-
-# WP Core Patch.
+# Create a DIff/patch.
 function wpcp() {
-
 	if [[ "-h" == "$1" ]]; then
-		clear
+		echo "-"
 		echo "${wb}${bf}———————————————— Help! ————————————————${r}"
-		echo "${wb}${bf}——— Usage: wpcp PATCH_NUMBER ———${r}"
+		echo "${wb}${bf}————————————————-------————————————————${r}"
+		echo "${wb}${bf}——— Usage: wpcp ———${r}"
+		echo "-"
 		return 1
 	else
-
 		echo "-"
 		echo "${wb} ${bf}--------------- ⏲  START: Let's create a patch... ---------------${r}"
 		echo "-"
 
-		git diff -- . ':(exclude)Gruntfile.js' >> "$1".patch
+		wpcore
 
 		echo "-"
-		echo "${gb} ${bf}--------------- ✔︎✔︎✔︎ DONE!!! "$1".patch Created! 💯 🎉 ✔✔✔ ---------------${r}"
+		echo "—————————————————————————————"
+		echo "${wb} ${bf}➤  Ticket # (3456 or 3456.1):${r}"
+		echo "—————————————————————————————"
+		read -r WPC_PATCH_NAME
+
+		git diff -- . ':(exclude)Gruntfile.js' > $WPC_PATCH_NAME.diff
+
+		echo "-"
+		echo "${gb} ${bf}--------------- ✔︎✔︎✔︎ DONE!!! "$WPC_PATCH_NAME".diff Created! 💯 🎉 ✔✔✔ ---------------${r}"
 		echo "-"
 	fi
 }
@@ -2023,3 +2068,177 @@ function squash() {
 
 # Right perms for gulp-notify
 alias fixgnotify="sudo chmod -R a+rwx ..."
+
+####.#### ———————————————————————————————————————————— Babel ———————————————————————————————————————————— ####.####
+
+# Babel
+function babel() {
+	# echo '---NOTE: Running local babel via zshrc ---'
+	./node_modules/.bin/babel "$@"
+}
+
+####.#### ———————————————————————————————————————————— TLDR ———————————————————————————————————————————— ####.####
+
+# TLDR Master wrapper.
+function tl() {
+	tldr -t ocean "$@"
+}
+
+# doctoc Master wrapper.
+function toc() {
+	doctoc --title '**Table of Contents**' "$@"
+}
+
+alias ej="emoji-finder --dango"
+
+####.#### ———————————————————————————————————————————— GIT ———————————————————————————————————————————— ####.####
+
+#.# Better Git Logs.
+
+# ADD.
+function gcapa() {
+	gcap "ADD: $@"
+}
+
+# FIX.
+function gcapf() {
+	gcap "FIX: $@"
+}
+
+# REMOVE.
+function gcapr() {
+	gcap "REMOVE: $@"
+}
+
+# IMPROVE.
+function gimp() {
+	gcap "IMPROVE: $@"
+}
+
+# NEW.
+function gnew() {
+	gcap "NEW: $@"
+}
+
+# FIX.
+function gfix() {
+	gcap "FIX: $@"
+}
+
+#.# Create Git Repo + Add Repo on GitHub.
+function grinit() {
+	echo "-"
+	echo "—————————————————————————————"
+	echo "${wb} ${bf}➤  Are you inside the right folder? (y/n):${r}"
+	echo "—————————————————————————————"
+	read -r THE_GH_REPO_RIGHT
+
+	if [[ 'y' != THE_GH_REPO_RIGHT ]]; then
+		return 0;
+	fi
+
+
+	echo "-"
+	echo "—————————————————————————————"
+	echo "${wb} ${bf}➤  GitHub Repo Name:${r}"
+	echo "—————————————————————————————"
+	read -r THE_GH_REPO_NAME
+
+	echo "-"
+	echo "—————————————————————————————"
+	echo "${wb} ${bf}➤  GitHub Repo Description:${r}"
+	echo "—————————————————————————————"
+	read -r THE_GH_REPO_DSC
+
+	echo "-"
+	echo "—————————————————————————————"
+	echo "${wb} ${bf}➤  Is It:${r}"
+	echo "—————————————————————————————"
+	read -r THE_GH_REPO_DSC
+}
+
+# GH New repo.
+function ghinit() {
+	gh re --new "$1" --description "$2"
+}
+
+####.#### ———————————————————————————————————————————— Command line magic ———————————————————————————————————————————— ####.####
+# Command line magic.
+function rainbow() {
+	yes "$(seq 231 -1 16)" | while read i; do printf "\x1b[48;5;${i}m\n"; sleep .02; done
+}
+
+# Trash all the node modules in the PWD
+function trash_node_modules() {
+	echo "-"
+	echo "—————————————————————————————"
+	echo "${wb} ${bf}➤ Trash all the node modules in the PWD? (y/n):${r}"
+	echo "—————————————————————————————"
+	read -r IS_MOVE_FORWARD
+
+	if [[ 'y' != IS_MOVE_FORWARD ]]; then
+		return 0;
+	fi
+
+	echo "Trashing all the node modules in the PWD.";
+	find . -name node_modules -type d -prune -exec trash {} +
+}
+
+
+####.#### ———————————————————————————————————————————— Mac Backups ———————————————————————————————————————————— ####.####
+# Backup Entire Photos Library.
+function bkpics() {
+	echo "-"
+	echo "—————————————————————————————"
+	echo "${wb} ${bf}➤ Backing up Entire Photos Library. :${r}"
+	echo "—————————————————————————————"
+	RSP_PARAM="-av"
+	BKP_DST="/Volumes/AhmadAwais.com/Z-BACKUPS/Pictures"
+	rsync "$RSP_PARAM" ~/Pictures/ "$BKP_DST" |\
+		pv -lep -s $(rsync "$RSP_PARAM"n ~/Pictures/ "$BKP_DST" | awk 'NF' | wc -l)
+
+	echo "-"
+	echo "${gb} ${bf}--------------- ✔︎✔︎✔︎ DONE!!! 💯 🎉 ✔✔✔ ---------------${r}"
+	echo "-"
+}
+
+# Backup Anything.
+# Usage: bk path
+# E.g. bk ~/Documents/Audio will create /Volumes/AhmadAwais.com/Z-BACKUPS/Audio backup.
+function bk() {
+	echo "-"
+	RS_PARAM="-av"
+	BK_SRC="$1"
+	BK_DST="/Volumes/AhmadAwais.com/Z-BACKUPS/"
+	echo "—————————————————————————————"
+	echo "${wb} ${bf}➤ Backing up "$1" :${r}"
+	echo "—————————————————————————————"
+	rsync "$RS_PARAM" "$BK_SRC" "$BK_DST" |\
+		pv -lep -s $(rsync "$RS_PARAM"n "$BK_SRC" "$BK_DST" | awk 'NF' | wc -l)
+	echo "-"
+	echo "${gb} ${bf}--------------- ✔︎✔︎✔︎ DONE!!! 💯 🎉 ✔✔✔ ---------------${r}"
+	echo "-"
+}
+
+
+
+####.#### ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————— ####.####
+
+
+
+####.#### ———————————————————————————————————————————— Everything Else: Other Snippets ———————————————————————————————————————————— ####.####
+# Show Battery Percentage
+function battery() {
+	pmset -g batt | egrep "([0-9]+\%).*" -o --colour=auto | cut -f1 -d';'
+}
+
+# Show Wi-Fi Network Passwords
+# Exchange SSID with the SSID of the access point you wish to query the password from.
+function wifipass() {
+	security find-generic-password -D "AirPort network password" -a "$@" -gw
+}
+
+# Turn on Wi-Fi Adapter
+function offwifi() {
+	networksetup -setairportpower en0 on
+}

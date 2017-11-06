@@ -2,12 +2,8 @@
 	<content><![CDATA[
 /**
  * ${1:[What?]}.
- *
- * @since ${2:1.0.0}
  */
-if ( file_exists( ${3:[DIR]} . '${4:/path/file.ext}' ) ) {
-    require_once( ${3:[DIR]} . '${4:/path/file.ext}' );
-}
+require_once( ${2:[DIR]} . '${3:/path/file.ext}' );
 ]]></content>
 <!-- Optional: Description to show in the menu -->
     <description>WordPress Require Once Include</description>

@@ -1,9 +1,6 @@
 <snippet>
 	<content><![CDATA[
-// Console Log.
-console.log(${3: '${1:}: ', ${1:}  });
-
-${4:}
+console.log(${3: '${1:}: ', ${1:} });
 ]]></content>
 <!-- Optional: Description to show in the menu -->
     <description>JS Console Log</description>

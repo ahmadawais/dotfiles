@@ -129,7 +129,11 @@
                 // 			BEM filters
                 // 			C is the comment filter which has all the class names in it
                 "html" : {
-                        "filters" : "php, html, bem, c"
+                        "filters" : "php, html, bem, c",
                 },
+
+                "jsx": {
+	                // "attr_quotes": "single"
+                }
         }
 }
