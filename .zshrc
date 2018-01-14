@@ -21,7 +21,14 @@ ZSH_THEME="cobalt3"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias zs="source ~/.zshrc"
 alias zso="subl ~/.zshrc"
+alias zco="co ~/.zshrc"
 alias stgc="st ~/.gitconfig"
+
+# Current global node_modules path.
+alias gnm="cd ~/.nvm/versions/node/v9.1.0/lib/node_modules/"
+
+# VSCode open folder
+alias co="code ."
 
 if [ -f ~/Dropbox/bin/.exports ]; then
     source ~/Dropbox/bin/.exports
@@ -39,6 +46,8 @@ alias d="cd ~/Documents/Dropbox"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
 alias sbx="cd ~/sbx"
+alias gglc="cd ~ &&  ~/ggl"
+alias dsjs="cd ~ &&  ~/dsjs"
 
 # Dropbox
 alias db="cd db"
@@ -64,6 +73,7 @@ alias webdev="cd ~ && cd webdev"
 alias wtwpdev="cd ~ && cd wtwp"
 alias ldev="cd ~ && cd ldev"
 alias lpdev="cd ~ && cd ldev/wp-content/plugins/"
+alias llpdev="cd ~ && llpdev"
 alias ltdev="cd ~ && cd ldev/wp-content/themes/"
 alias wpcdev="cd ~ && cd wpcdev"
 alias swpcdev="cd ~ && cd swpc"
@@ -230,10 +240,10 @@ function gcmap() {
 		git add . && git ci -m "$*" && gp
 }
 function gcap() {
-		git add . && git ci -m "$* 💯" && gp # With 100 emoji
+		git add . && git ci -m "$*" && gp
 }
 function gcall() {
-		git add . && git ci -m "$* 💯" # With 100 emoji
+		git add . && git ci -m "$*"
 }
 
 # git add commit and then fix an issue on github
@@ -830,7 +840,7 @@ function gclhere() {
 	echo "${wf}———————————————————${r}"
 
 }
-
+alias gclh="gclhere"
 
 function emptypwd() {
 
@@ -876,15 +886,15 @@ function gfpr(){
 	echo "${wf}———————————————————${r}"
 		echo "${wb} ${bf}0. Fetching the pull request...${r}"
 
-		git fetch origin pull/"${1}"/head:pull_"${1}"
+		git fetch origin pull/"${1}"/head:PR#"${1}"
 
 		echo "${wb} ${bf}1. PR fetched creating a branch...${r}"
 
-		git checkout pull_"${1}"
+		git checkout PR#"${1}"
 
 		echo "${wb} ${bf}2. Checking out to a new PR branch...${r}"
 
-		echo "${gb} ${bf}3. PR Branch Created!!!${r}"
+		echo "✅ — ${gb} ${bf}3. PR Branch Created!${r}"
 	echo "${wf}———————————————————${r}"
 }
 
@@ -2061,7 +2071,7 @@ function squash() {
 	fi
 
 	git reset --soft HEAD~"$1"
-	git add . && git ci -m "$2 💯" # With 100 emoji
+	git add . && git ci -m "$2"
 	git push --force
 }
 
@@ -2096,33 +2106,38 @@ alias ej="emoji-finder --dango"
 #.# Better Git Logs.
 
 # ADD.
-function gcapa() {
-	gcap "ADD: $@"
-}
-
-# FIX.
-function gcapf() {
-	gcap "FIX: $@"
+function gadd() {
+	gcap "➕ ADD: $@"
 }
 
 # REMOVE.
-function gcapr() {
-	gcap "REMOVE: $@"
+function grem() {
+	gcap "♻ REMOVE: $@"
 }
 
 # IMPROVE.
 function gimp() {
-	gcap "IMPROVE: $@"
+	gcap "👌 IMPROVE: $@"
 }
 
 # NEW.
 function gnew() {
-	gcap "NEW: $@"
+	gcap "📦 NEW: $@"
 }
 
 # FIX.
 function gfix() {
-	gcap "FIX: $@"
+	gcap "🐛 FIX: $@"
+}
+
+# RELEASE.
+function grelz() {
+	gcap "🚀 RELEASE: $@"
+}
+
+# DOC.
+function gdoc() {
+	gcap "📖 DOC: $@"
 }
 
 #.# Create Git Repo + Add Repo on GitHub.
@@ -2241,4 +2256,9 @@ function wifipass() {
 # Turn on Wi-Fi Adapter
 function offwifi() {
 	networksetup -setairportpower en0 on
+}
+
+# Delete all node_modules inside the current dir.
+function del_node_modules_here() {
+	find . -name "node_modules" -exec rm -rf '{}' +
 }

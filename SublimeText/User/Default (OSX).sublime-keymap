@@ -11,9 +11,9 @@
 	{ "keys": ["alt+w"], "command": "close_all" },
 	{ "keys": ["ctrl+alt+m"], "command": "markdown_preview", "args": {"target": "browser", "parser":"markdown"} },
 
-	{ "keys": ["super+shift+space"], "command": "expand_region" },
+	{ "keys": ["alt+up"], "command": "expand_region" },
 	{
-	  "keys": ["super+u"],
+	  "keys": ["alt+down"],
 	  "command": "expand_region",
 	  "args": {"undo": true},
 	  "context": [{ "key": "expand_region_soft_undo" }]
@@ -22,7 +22,7 @@
 
 	// Sublime CodeIntel.
 	{ "keys": ["shift+ctrl+space"], "command": "code_intel_auto_complete" },
-	{ "keys": ["alt+up"], "command": "goto_python_definition"},
+	{ "keys": ["shift+ctrl+alt+up"], "command": "goto_python_definition"},
 	{ "keys": ["super+shift+alt+left"], "command": "back_to_python_definition"},
 
 	// Codebug.
