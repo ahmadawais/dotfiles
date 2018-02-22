@@ -25,18 +25,22 @@ alias zco="co ~/.zshrc"
 alias stgc="st ~/.gitconfig"
 
 # Current global node_modules path.
-alias gnm="cd ~/.nvm/versions/node/v9.1.0/lib/node_modules/"
+alias gnm="cd ~/.nvm/versions/node/v9.4.0/lib/node_modules/"
 
-# VSCode open folder
-alias co="code ."
-
+# Private exports are shy, they stay in Dropbox.
 if [ -f ~/Dropbox/bin/.exports ]; then
     source ~/Dropbox/bin/.exports
 else
     print "404: ~/Dropbox/bin/.exports not found."
 fi
 
-# cd related
+# Open Exports in VSCode.
+alias expo="cd /Users/$USER/Dropbox/bin && co"
+
+# VSCode open folder
+alias co="code ."
+
+# Change Directory related Aliases.
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
@@ -75,6 +79,7 @@ alias ldev="cd ~ && cd ldev"
 alias lpdev="cd ~ && cd ldev/wp-content/plugins/"
 alias llpdev="cd ~ && llpdev"
 alias ltdev="cd ~ && cd ldev/wp-content/themes/"
+alias lltdev="cd ~ && lltdev"
 alias wpcdev="cd ~ && cd wpcdev"
 alias swpcdev="cd ~ && cd swpc"
 alias wd="cd ~ && cd webdev"
@@ -107,9 +112,6 @@ alias fbswp="cd ~ && cd fbswp"
 alias fbqwp="cd ~ && cd fbqwp"
 alias vrcwp="cd ~ && cd vrcwp"
 
-# Git Clones
-alias clone="cd ~ && cd websites/clone"
-
 # Git Blame Someone else (used for when my wife uses my laptop to code and forgets to switch profiles).
 function gbse() {
 	git blame-someone-else "$@"
@@ -123,11 +125,6 @@ function gstreak(){
  cd /Users/$USER/Documents/web/Git/WPDev ;
  python file.py "$*"
 }
-
-# Projects I am working on
-alias wt="cd /Users/$USER/html/writablehtml.dev"
-
-
 
 # Removes dotfile or dotfolder in the pwd e.g. .git
 alias deldot="rm -rf .*"
@@ -417,13 +414,21 @@ alias brwe=brew  #typos
 alias sts='speedtest-cli --share'
 alias stss='speedtest-cli --simple --share'
 
+# Sublime's subl.
+# Install subl as st by running the following
+# ln -s "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" /usr/local/bin/st
+# Relaod the terminal.
+# Now Open a file with → st filename.ext
+# Open a folder in Sublime.
+alias stt="st ."
+
 # Get week number
 alias week='date +%V'
 
 # Stopwatch
 alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
 
-# Recursively delete `.DS_Store` files
+# Recursively delete all `.DS_Store` files in the pwd.
 alias rmds="find . -type f -name '*.DS_Store' -ls -delete"
 
 # Show/hide hidden files in Finder
@@ -745,11 +750,11 @@ wf=`tput setaf 7` # set foreground white
 
 r=`tput sgr0`     # r to defaults
 
-# Create a new directory and enter it
+# Create a new directory and cd into it.
+# USAGE: mkd new-dir
 function mkd() {
-		mkdir -p "$@" && cd "$@"
+	mkdir -p "$@" && cd "$@"
 }
-
 
 # git checkout branch
 function gcb() {
@@ -1321,6 +1326,26 @@ function cimg(){
 # New Command: dvid
 function dvid() {
  youtube-dl "$@";
+}
+
+function dvideh() {
+	youtube-dl --download-archive "$1/archive.txt" -o "$1/%(playlist_index)s_%(title)s" "https://egghead.io/courses/$1"
+}
+
+function dwistia() {
+	youtube-dl http://fast.wistia.net/embed/iframe/"$@";
+}
+
+
+function dwisfile() {
+	filename='wistia.md'
+	echo "Start"
+	while read p; do
+		echo "⚡️ DOWNLOADING — $p"
+		youtube-dl http://fast.wistia.net/embed/iframe/"$p";
+		echo "✅ DONE — $p"
+	done < $filename
+	echo "End"
 }
 
 # Dvid config
@@ -2075,6 +2100,19 @@ function squash() {
 	git push --force
 }
 
+function sq() {
+	if [ -z "${1}" -o -z "${2}" ]; then
+		echo "Usage: \`squash X COMMIT_MSG\`"
+		echo "X= Number of last commits."
+		echo "COMMIT_MSG= New commit msg."
+		return 1
+	fi
+
+	git reset --soft HEAD~"$1"
+	git add . && git ci -m "$2"
+	git push --force
+}
+
 
 # Right perms for gulp-notify
 alias fixgnotify="sudo chmod -R a+rwx ..."
@@ -2262,3 +2300,18 @@ function offwifi() {
 function del_node_modules_here() {
 	find . -name "node_modules" -exec rm -rf '{}' +
 }
+
+# Use Git to fine total lines of code in a repo.
+# Usage: Browse a git repo and run `gloc``
+function gloc() {
+	git ls-files | xargs wc -l
+}
+
+# Use Git to fine total lines of code in a repo by each author.
+# Usage: Browse a git repo and run `glocba``
+function glocba() {
+	git ls-files -z | xargs -0n1 git blame -w | perl -n -e '/^.*\((.*?)\s*[\d]{4}/; print $1,"\n"' | sort -f | uniq -c | sort -n
+}
+
+# Run QB64.
+alias qb="/Users/ahmadawais/Documents/QB/qb64/qb64_start_osx.command"
