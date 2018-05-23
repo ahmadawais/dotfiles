@@ -8,8 +8,8 @@ export ZSH=/Users/$USER/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="cobalt3"
-# ZSH_THEME="cobalt2"
+ZSH_THEME="shades-of-purple"
+# ZSH_THEME="cobalt3"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -40,6 +40,9 @@ alias expo="cd /Users/$USER/Dropbox/bin && co"
 # VSCode open folder
 alias co="code ."
 
+# VSCodeInsider open folder
+alias coi="code-insiders ."
+
 # Change Directory related Aliases.
 alias ..="cd .."
 alias ...="cd ../.."
@@ -52,6 +55,11 @@ alias dt="cd ~/Desktop"
 alias sbx="cd ~/sbx"
 alias gglc="cd ~ &&  ~/ggl"
 alias dsjs="cd ~ &&  ~/dsjs"
+alias devcp="cd ~ &&  ~/devcp"
+alias devct="cd ~ &&  ~/devct"
+alias vscsop="cd ~ &&  ~/vscsop"
+alias vss="cd ~ &&  ~/vscs"
+alias vse="cd ~ &&  ~/vsce"
 
 # Dropbox
 alias db="cd db"
@@ -676,10 +684,12 @@ HIST_STAMPS="dd-mm-yyyy"
 plugins=(git git-extras extract sublime web-search svn npm bower brew composer wp-cli emoji z zsh-autosuggestions)
 
 # User configuration
-
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin/git:/usr/local/git/bin:$HOME/.wp-cli:~/bin:~/.composer/vendor/bin"
-# export MANPATH="/usr/local/man:$MANPATH"
 
+# Go installation.
+export GOPATH="${HOME}/.go"
+export GOROOT="$(brew --prefix golang)/libexec"
+export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
 source $ZSH/oh-my-zsh.sh
 
 #.# zsh-syntax-highlighting
@@ -1177,6 +1187,7 @@ function jpgoptim() {
 		echo "${wb}${bf}———————————————— STARTED ————————————————${r}"
 		find . -iname "*.jpg" -exec jpegoptim -m"$1" -o -p --strip-all {} \;
 		find . -iname "*.JPG" -exec jpegoptim -m"$1" -o -p --strip-all {} \;
+
 		echo "${gb}${bf}———————————————— ✔✔✔ OPTIMZED Every JPG file in the PWD! ✔✔✔︎ ————————————————${r}"
 	fi
 }
@@ -1206,19 +1217,19 @@ function soptim() {
 		echo "${blb}${bf}———————————————— STEP #1. RENAMING to $1-#.jpg ————————————————${r}"
 		echo "—"
 		rname JPG $1
+		rname jpg $1
 
 		echo "—"
 		echo "${blb}${bf}———————————————— STEP #2. RESIZING to $2 width ————————————————${r}"
 		echo "—"
 		rimg JPG $2
+		rimg jpg $2
 
-		clear
 		echo "—"
 		echo "${blb}${bf}———————————————— STEP #3. OPTIMZING to $3 JPG qulity ————————————————${r}"
 		echo "—"
-		jpegoptim $3
+		jpgoptim $3
 
-		clear
 		echo "—"
 		echo "${gb}${bf}———————————————— ✔✔✔ RENAMED, RESIZED, & OPTIMZED Every Stock JPG file in the PWD! ✔✔✔︎ ————————————————${r}"
 		echo "—"
@@ -1304,7 +1315,8 @@ export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help";
 #
 alias nfrmac="nativefier --full-screen -n "$1" $2"
 
-alias addgitignore="curl -O https://raw.githubusercontent.com/$USER/WPGulp/master/.gitignore"
+# Silently add git ignore but if it fails, then show the error.
+alias addgitignore="curl --fail --silent --show-error -O https://raw.githubusercontent.com/ahmadawais/DotGitIgnore/master/.gitignore"
 
 # Copy pictures to desktop
 #
@@ -1671,7 +1683,7 @@ function lsn() {
 
 ####.#### ———————————————————————————————————————————— Browser Sync ———————————————————————————————————————————— ####.####
 function bsstrt() {
-	browser-sync start "$@" -s -f '**/*' --cors
+	browser-sync start "$@" -s './' --cors -w -f '**/*'
 }
 
 function bsr() {
@@ -2143,24 +2155,14 @@ alias ej="emoji-finder --dango"
 
 #.# Better Git Logs.
 
-# ADD.
-function gadd() {
-	gcap "➕ ADD: $@"
-}
-
-# REMOVE.
-function grem() {
-	gcap "♻ REMOVE: $@"
+# NEW.
+function gnew() {
+	gcap "📦 NEW: $@"
 }
 
 # IMPROVE.
 function gimp() {
 	gcap "👌 IMPROVE: $@"
-}
-
-# NEW.
-function gnew() {
-	gcap "📦 NEW: $@"
 }
 
 # FIX.
@@ -2169,13 +2171,18 @@ function gfix() {
 }
 
 # RELEASE.
-function grelz() {
+function grlz() {
 	gcap "🚀 RELEASE: $@"
 }
 
 # DOC.
 function gdoc() {
 	gcap "📖 DOC: $@"
+}
+
+# TEST.
+function gtst() {
+	gcap "✅ TEST: $@"
 }
 
 #.# Create Git Repo + Add Repo on GitHub.
@@ -2212,7 +2219,17 @@ function grinit() {
 
 # GH New repo.
 function ghinit() {
-	gh re --new "$1" --description "$2"
+	echo "${wb} ${bf}➤  Creating GitHub Repo…${r}"
+	gh re --new "$1" --description "$2" --type "$3"
+	echo "${wb} ${bf}➤  CD to "$1" directory… ${r}"
+	cd "$1"
+	echo "${wb} ${bf}➤  Adding .gitignore file…${r}"
+	addgitignore
+	echo "${wb} ${bf}➤  Creating the README.md file…${r}"
+	echo "# $1 \n > $2" >> README.md
+	gcap '🔥'
+	echo "${gb} ${bf}🎉  DONE! Repo https://github.com/ahmadawais/"$1" ${r}"
+	echo ''
 }
 
 ####.#### ———————————————————————————————————————————— Command line magic ———————————————————————————————————————————— ####.####
@@ -2255,24 +2272,139 @@ function bkpics() {
 	echo "-"
 }
 
-# Backup Anything.
-# Usage: bk path
-# E.g. bk ~/Documents/Audio will create /Volumes/AhmadAwais.com/Z-BACKUPS/Audio backup.
+# Rsync based backup for Mac.
+# .
+# Usage: bk ~/path/to/backup/
+# E.g. bk ~/Documents/Audio will create /Volumes/AhmadAwais.com/Z-BACKUPS/Users/Documents/Audio backup.
 function bk() {
+	# Halt the script on any errors.
+	set -e
 	echo "-"
-	RS_PARAM="-av"
+
+	#  -a is archive mode so it keeps your original created and modified properties.
+	#  -v is verbose mode to get a bit of extra output (useful for debugging).
+	#  -R is relative mode. It ensures the included paths get created on the target.
+	RS_PARAM="-avR"
+
+	# The input from user.
 	BK_SRC="$1"
+
+	# Your backup HDD's volume path.
 	BK_DST="/Volumes/AhmadAwais.com/Z-BACKUPS/"
+
 	echo "—————————————————————————————"
-	echo "${wb} ${bf}➤ Backing up "$1" :${r}"
+	echo "➤ ${wb} ${bf} Backing up "$1" :${r}"
 	echo "—————————————————————————————"
-	rsync "$RS_PARAM" "$BK_SRC" "$BK_DST" |\
-		pv -lep -s $(rsync "$RS_PARAM"n "$BK_SRC" "$BK_DST" | awk 'NF' | wc -l)
+
+	rsync "$RS_PARAM" --exclude="node_modules" --exclude=".git" "$BK_SRC" "$BK_DST" |\
+		pv -lep -s $(rsync "$RS_PARAM"n --exclude="node_modules" --exclude=".git" "$BK_SRC" "$BK_DST" | awk 'NF' | wc -l)
 	echo "-"
 	echo "${gb} ${bf}--------------- ✔︎✔︎✔︎ DONE!!! 💯 🎉 ✔✔✔ ---------------${r}"
 	echo "-"
 }
 
+# Rsync based backup from WD to Transcend HDD for Mac.
+# .
+# Usage: bkwt ~/path/to/backup/
+# E.g. bk /Volumes/AhmadAwais.com/Z-BACKUPS/Users/Documents/Audio will create /Volumes/AATranscend/Z-BACKUPS/Users/Documents/Audio backup.
+function bkwt() {
+	# Halt the script on any errors.
+	set -e
+	echo "-"
+
+	#  -a is archive mode so it keeps your original created and modified properties.
+	#  -v is verbose mode to get a bit of extra output (useful for debugging).
+	#  -R is relative mode. It ensures the included paths get created on the target.
+	RS_PARAM="-avR"
+
+	# The input from user.
+	BK_SRC="$1"
+
+	# Your backup HDD's volume path.
+	BK_DST="/Volumes/AATranscend/Z-BACKUPS/"
+
+	echo "—————————————————————————————"
+	echo "➤ ${wb} ${bf} Backing up "$1" :${r}"
+	echo "—————————————————————————————"
+
+	rsync "$RS_PARAM" --exclude="node_modules" --exclude=".git" "$BK_SRC" "$BK_DST" |\
+		pv -lep -s $(rsync "$RS_PARAM"n --exclude="node_modules" --exclude=".git" "$BK_SRC" "$BK_DST" | awk 'NF' | wc -l)
+	echo "-"
+	echo "${gb} ${bf}--------------- ✔︎✔︎✔︎ DONE!!! 💯 🎉 ✔✔✔ ---------------${r}"
+	echo "-"
+}
+
+
+function bkmac() {
+	# Halt the script on any errors.
+	set -e
+
+	# This would be the path to your external HD or wherever you're backing up
+	# your files. If you're on WSL, all of your drives can be found in /mnt.
+	target_path="/Volumes/AhmadAwais.com/Z-BACKUPS/"
+
+	# Create the target path if it doesn't exist. This command is smart enough to
+	# not do anything if it already exists, which is important for later because
+	# we'll be running this script on an automated schedule.
+	mkdir -p "${target_path}"
+
+	# A list of absolute paths to backup. In the case of WSL, ${HOME} is inside of
+	# the WSL file system. This is where most of your dotfiles would be located.
+	#
+	# The /mnt/e paths happens to be an internal HD I use to store all of my data.
+	include_paths=(
+	"${HOME}/documents"
+	"/.ssh/"
+	"/.dotfiles/"
+	"/Library/Keychains/*"
+	"/Library/Application?Support/Paragon?Software/"
+	"/Library/Application?Support/Paragon?Updater/"
+	"/Library/Application?Support/GitHub?for?Mac/"
+	)
+
+	# A list of folder names and files to exclude. There's no point backing up
+	# massive folders such as node_modules, plus you'll likely end up getting max
+	# file path copy errors because npm nests directories so deep it breaks Windows.
+	exclude_paths=(
+	".asset-cache"
+	".bundle"
+	".jekyll-cache"
+	".tweet-cache"
+	"_site"
+	"node_modules"
+	"tmp"
+	".git"
+	)
+
+	# rsync allows you to exclude certain paths. We're just looping over all of the
+	# excluded items and build up separate --exclude flags for each one.
+	for item in "${exclude_paths[@]}"
+	do
+	exclude_flags="${exclude_flags} --exclude=${item}"
+	done
+
+	# rsync allows you to pass in a list of paths to copy. It expects a space separated
+	# string, so that's what we're building up here.
+	for item in "${include_paths[@]}"
+	do
+	include_args="${include_args} ${item}"
+	done
+
+	echo "—————————————————————————————"
+	echo "${wb} ${bf}➤ Backing up "$1" :${r}"
+	echo "—————————————————————————————"
+
+	# Finally, we just run rsync with a few flags:
+	#  -a is archive mode so it keeps your original created and modified properties.
+	#  -v is verbose mode to get a bit of extra output (useful for debugging).
+	#  -R is relative mode. It ensures the included paths get created on the target.
+	#  --dry-run ensures nothing gets written to the target (for testing purposes).
+	rsync -avR --dry-run ${exclude_flags} ${include_args} ${target_path}  |\
+		pv -lep -s $(rsync "$RS_PARAM"n "$BK_SRC" "$BK_DST" | awk 'NF' | wc -l)
+	echo "-"
+	echo "${gb} ${bf}--------------- ✔︎✔︎✔︎ DONE!!! 💯 🎉 ✔✔✔ ---------------${r}"
+	echo "-"
+}
 
 
 ####.#### ————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————— ####.####
@@ -2315,3 +2447,63 @@ function glocba() {
 
 # Run QB64.
 alias qb="/Users/ahmadawais/Documents/QB/qb64/qb64_start_osx.command"
+
+# Chrome.
+alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome"
+alias chrome-canary="/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary"
+alias chromium="/Applications/Chromium.app/Contents/MacOS/Chromium"
+
+
+
+# Project Writy
+alias wtp="cd ~/wtp"
+alias wtt="cd ~/wtt"
+
+# Writy update.
+function wtupdate() {
+	echo "-"
+	echo "${wb} ${bf}--------------- ⏲  Updating Writy Plugin Pro... ---------------${r}"
+	echo "-"
+	cd ~/wtp
+	git fetch && git pull
+
+	echo "-"
+	echo "${wb} ${bf}--------------- ⏲  Updating Writy Theme... ---------------${r}"
+	echo "-"
+
+	cd ~/wtt
+	git fetch && git pull
+
+	echo "-"
+	echo "${gb} ${bf}--------------- ✅ DONE! ---------------${r}"
+	echo "-"
+}
+
+
+# Show ANSI Colors in the terminal.
+function showansicolors() {
+	for attr in 0 1 4 5 7 ; do
+    echo "----------------------------------------------------------------"
+    printf "ESC[%s;Foreground;Background - \n" $attr
+    for fore in 30 31 32 33 34 35 36 37; do
+        for back in 40 41 42 43 44 45 46 47; do
+            printf '\033[%s;%s;%sm %02s;%02s  ' $attr $fore $back $fore $back
+        done
+    printf '\n'
+    done
+    printf '\033[0m'
+done
+}
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /Users/ahmadawais/.nvm/versions/node/v9.7.1/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/ahmadawais/.nvm/versions/node/v9.7.1/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /Users/ahmadawais/.nvm/versions/node/v9.7.1/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/ahmadawais/.nvm/versions/node/v9.7.1/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
+
+
+# Rename files by removing Query String names of static files downloaded via wget.
+# Usage rmqs jpg
+function rmqs() {
+	for file in *."$1"\?*; do mv "$file" "${file%%\?*}"; done
+}
