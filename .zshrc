@@ -56,7 +56,9 @@ alias sbx="cd ~/sbx"
 alias gglc="cd ~ &&  ~/ggl"
 alias dsjs="cd ~ &&  ~/dsjs"
 alias devcp="cd ~ &&  ~/devcp"
-alias devct="cd ~ &&  ~/devct"
+alias devct="cd ~ &&  ~/devct && cd cptheme"
+alias devcpapi="cd ~ &&  ~/cpapi"
+alias devcs="/Users/ahmadawais/Library/Application\ Support/Local\ by\ Flywheel/ssh-entry/B1EmufW5M.sh"
 alias vscsop="cd ~ &&  ~/vscsop"
 alias vss="cd ~ &&  ~/vscs"
 alias vse="cd ~ &&  ~/vsce"
@@ -631,7 +633,7 @@ alias wpli="wp login install --activate --yes"
 alias wplv="wpp wp-log-viewer"
 
 
-# Trash all posts in a CPT replace the post-type.
+# Trash all posts in a cpT replace the post-type.
 # alias wpdb="wp post delete $(wp post list --post_type='vr_booking' --format=ids)"
 # alias wpdtall="wp post delete $(wp post list --post_status=trash --format=ids)"
 
@@ -690,6 +692,15 @@ export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin/git:/us
 export GOPATH="${HOME}/.go"
 export GOROOT="$(brew --prefix golang)/libexec"
 export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
+
+# Brew.
+export PATH="/usr/local/sbin:$PATH"
+## To use PHP7.1 on CLI, add this to .bash_profile
+# export PATH="$(brew --prefix homebrew/php/php71)/bin:$PATH"
+export PATH="/usr/local/opt/php@7.1/bin:$PATH"
+export PATH="/usr/local/opt/php@7.1/sbin:$PATH"
+
+# Oh My Zsh.
 source $ZSH/oh-my-zsh.sh
 
 #.# zsh-syntax-highlighting
@@ -1318,6 +1329,9 @@ alias nfrmac="nativefier --full-screen -n "$1" $2"
 # Silently add git ignore but if it fails, then show the error.
 alias addgitignore="curl --fail --silent --show-error -O https://raw.githubusercontent.com/ahmadawais/DotGitIgnore/master/.gitignore"
 
+# Remove cached but now gitignored files from remote after adding gitignore
+alias grmcached="git rm -r --cached . && gfix 'Sync .gitignore'"
+
 # Copy pictures to desktop
 #
 # Click on the picture in Photos. Press command i to read its Info. Double-click on the file name then copy it by pressing command c.
@@ -1529,7 +1543,7 @@ alias khostso="st ~/.ssh/known_hosts"
 alias ptclr="ptcli -r"
 
 
-# DBX cPanel backup.
+# DBX cpanel backup.
 # Usage: dbxcu site.com
 # Make sure the backup is in the root and called b.tar.gz.
 function dbxcu () {
@@ -1540,7 +1554,7 @@ function dbxcu () {
 	echo "——————————————————————————————————"
 
 	# Make dir.
-	mkd $SITE"/cPanel/"
+	mkd $SITE"/cpanel/"
 
 	# Download the backup
 	wget $SITE/b.tar.gz
@@ -1610,7 +1624,8 @@ function updatewpcs() {
 	echo "${wb}${bf}———————————————— STARTED ————————————————${r}"
 	echo "—"
 	echo "${blb}${wf}———————————————— ⏲  PHPCS updating... ————————————————${r}"
-	cd phpcs && git fetch && git pull && git checkout 2.9
+	# cd phpcs && git fetch && git pull && git checkout 2.9
+	cd phpcs && git fetch && git pull
 	echo "—"
 	echo "${gb}${bf}———————————————— PHPCS UPDATED!  ✔︎ ————————————————${r}"
 	echo "—"
@@ -1620,10 +1635,14 @@ function updatewpcs() {
 	echo "${gb}${bf}———————————————— PHPMD UPDATED! ✔︎ ————————————————${r}"
 	echo "—"
 	echo "${blb}${wf}———————————————— ⏲  WPCS updating... ————————————————${r}"
-	cd .. && cd wpcs && git fetch && git pull
+	cd .. && cd wpcs && git fetch && git pull && git checkout master
 	echo "—"
 	echo "${gb}${bf}———————————————— WPCS UPDATED! ✔︎ ————————————————${r}"
 	echo "—"
+	echo "${gb}${bf}———————————————— Reconfiguring... ✔︎ ————————————————${r}"
+	./phpcs/bin/phpcs --config-set installed_paths ../wpcs
+	./phpcs/bin/phpcs -i
+	./phpcs/bin/phpcs --config-show
 	echo "${gb}${bf}———————————————— ✔✔✔ Everything is UPDATED! ✔✔✔︎ ————————————————${r}"
 }
 
@@ -2263,7 +2282,7 @@ function bkpics() {
 	echo "${wb} ${bf}➤ Backing up Entire Photos Library. :${r}"
 	echo "—————————————————————————————"
 	RSP_PARAM="-av"
-	BKP_DST="/Volumes/AhmadAwais.com/Z-BACKUPS/Pictures"
+	BKP_DST="/Volumes/AhmadAwais.com/Z-BACKUPS/Users/ahmadawais/Pictures"
 	rsync "$RSP_PARAM" ~/Pictures/ "$BKP_DST" |\
 		pv -lep -s $(rsync "$RSP_PARAM"n ~/Pictures/ "$BKP_DST" | awk 'NF' | wc -l)
 
@@ -2306,7 +2325,7 @@ function bk() {
 # Rsync based backup from WD to Transcend HDD for Mac.
 # .
 # Usage: bkwt ~/path/to/backup/
-# E.g. bk /Volumes/AhmadAwais.com/Z-BACKUPS/Users/Documents/Audio will create /Volumes/AATranscend/Z-BACKUPS/Users/Documents/Audio backup.
+# E.g. bkwt /Volumes/AhmadAwais.com/Z-BACKUPS/Users/Documents/Audio will create /Volumes/AATranscend/Z-BACKUPS/Users/Documents/Audio backup.
 function bkwt() {
 	# Halt the script on any errors.
 	set -e
@@ -2506,4 +2525,14 @@ done
 # Usage rmqs jpg
 function rmqs() {
 	for file in *."$1"\?*; do mv "$file" "${file%%\?*}"; done
+}
+
+
+# Personal tfoo.
+alias rt="cd ~ && cd web/tfoo && node rtl.js $*"
+alias tq="cd ~ && cd web/tfoo && node quote.js"
+
+# Start a PHP Server.
+function phpServer() {
+	php -S localhost:8000
 }
