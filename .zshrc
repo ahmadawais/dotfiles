@@ -712,6 +712,11 @@ source ~/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 ZSH_HIGHLIGHT_PATTERNS=('rm -rf *' 'fg=white,bold,bg=red') # To have commands starting with `rm -rf` in red:
 
+# NVM install
+# export NVM_DIR="$HOME/.nvm"
+#   . "/usr/local/opt/nvm/nvm.sh"
+export NVM_DIR=~/.nvm
+source $(brew --prefix nvm)/nvm.sh
 
 
 # You may need to manually set your language environment
@@ -1606,9 +1611,17 @@ function checkwpcs() {
 }
 
 # Use PHPCS with WPCS.
-function add_phpcs() {
-	cp ~/bin/phpcs.xml .
+function addphpcs() {
+	# cp ~/bin/phpcs.xml .
+	cp ~/bin/wpaa/wpaa/ruleset.xml ./phpcs.xml
 }
+
+# Use PHPCS with WPCS.
+function lpcs() {
+	phpcs -q --standard='./phpcs.xml' "$@"
+}
+
+
 
 # Use PHPCS with Custom Ruleset.
 function pcsc() {
@@ -1677,12 +1690,6 @@ function size_pwd() {
 function recterm() {
 	asciinema rec
 }
-
-# NVM install
-# export NVM_DIR="$HOME/.nvm"
-#   . "/usr/local/opt/nvm/nvm.sh"
-export NVM_DIR=~/.nvm
-source $(brew --prefix nvm)/nvm.sh
 
 ####.#### ———————————————————————————————————————————— RELEASE IT ———————————————————————————————————————————— ####.####
 function rl() {
@@ -2513,13 +2520,6 @@ function showansicolors() {
     printf '\033[0m'
 done
 }
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /Users/ahmadawais/.nvm/versions/node/v9.7.1/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/ahmadawais/.nvm/versions/node/v9.7.1/lib/node_modules/serverless/node_modules/tabtab/.completions/serverless.zsh
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /Users/ahmadawais/.nvm/versions/node/v9.7.1/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/ahmadawais/.nvm/versions/node/v9.7.1/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
-
 
 # Rename files by removing Query String names of static files downloaded via wget.
 # Usage rmqs jpg
@@ -2534,5 +2534,26 @@ alias tq="cd ~ && cd web/tfoo && node quote.js"
 
 # Start a PHP Server.
 function phpServer() {
-	php -S localhost:8000
+	if [[ -z "$1" ]]; then
+		php -S localhost:8000
+	else
+		php -S localhost:"$1"
+	fi
 }
+
+# Composer Alias.
+function pcmp() {
+	composer "$@"
+}
+
+
+# Helpfulp quick definitions. Like the idea.
+commandsfx() {
+	echo ""
+	echo "TO THE POINT EXPLANATIONS:"
+    echo "${gb}${bf} Symlink ${r}: ln -s /path/to/file /path/to/symlink"
+    echo "${gb}${bf} Copy ${r}: cp /file/to/copy /destination/to/send/copy"
+	echo ""
+}
+
+alias 'cmds'=commandsfx
