@@ -1,3 +1,6 @@
+# Profiling ZSH performance.
+# zmodload zsh/zprof
+
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/$USER/.oh-my-zsh
 
@@ -5,33 +8,57 @@ export ZSH=/Users/$USER/.oh-my-zsh
 # source /usr/local/etc/bash_completion.d/password-store
 
 # Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
 ZSH_THEME="shades-of-purple"
-# ZSH_THEME="cobalt3"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
+#.# zsh-syntax-highlighting
+# @link: http://github.com/zsh-users/zsh-syntax-highlighting
+source ~/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
+ZSH_HIGHLIGHT_PATTERNS=('rm -rf *' 'fg=white,bold,bg=red') # To have commands starting with `rm -rf` in red:
+
+# Uncomment the following line to change how often to auto-update (in days).
+export UPDATE_ZSH_DAYS=15
+
+# Uncomment the following line to enable command auto-correction.
+ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+HIST_STAMPS="yyyy-mm-dd"
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# plugins=(git git-extras extract npm bower brew composer wp-cli emoji z zsh-autosuggestions)
+plugins=(git git-extras npm zsh-autosuggestions)
+# User configuration
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin/git:/usr/local/git/bin:$HOME/.wp-cli:~/bin:~/.composer/vendor/bin"
+
+# Oh My Zsh.
+# Should inlcude after themes and plugins are set.
+source $ZSH/oh-my-zsh.sh
+
 # Aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 alias zs="source ~/.zshrc"
 alias zso="subl ~/.zshrc"
-alias zco="co ~/.zshrc"
+alias zco="code ~/.zshrc"
 alias stgc="st ~/.gitconfig"
-
-# Current global node_modules path.
-alias gnm="cd ~/.nvm/versions/node/v9.4.0/lib/node_modules/"
 
 # Private exports are shy, they stay in Dropbox.
 if [ -f ~/Dropbox/bin/.exports ]; then
     source ~/Dropbox/bin/.exports
 else
     print "404: ~/Dropbox/bin/.exports not found."
+fi
+
+# Project paths.
+if [ -f ~/Dropbox/bin/.paths ]; then
+    source ~/Dropbox/bin/.paths
+else
+    print "404: ~/Dropbox/bin/.paths not found."
 fi
 
 # Open Exports in VSCode.
@@ -43,12 +70,16 @@ alias co="code ."
 # VSCodeInsider open folder
 alias coi="code-insiders ."
 
-# Change Directory related Aliases.
+# Easier navigation: .., ..., ~ and -
 alias ..="cd .."
+alias cd..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
+alias ~="cd ~"
+alias -- -="cd -" # type - only.
 
+# Projects.
 alias d="cd ~/Documents/Dropbox"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
@@ -131,7 +162,7 @@ function gmb() {
 	git blame-someone-else "Maedah Batool <MaedahBatool@gmail.com>" "$@"
 }
 
-function gstreak(){
+function gstrk(){
  cd /Users/$USER/Documents/web/Git/WPDev ;
  python file.py "$*"
 }
@@ -266,6 +297,12 @@ alias gdel="rm -rf .git"
 alias gpsuom="git push --set-upstream origin master"
 alias gpsuo="git push --set-upstream origin"
 alias gpdt="git push --delete origin"
+
+# Ammend the last commit message.
+function gamend() {
+	git commit --amend -m "$@"
+	git push --force
+}
 
 # Git fethc & Pull
 alias gf="git fetch"
@@ -423,6 +460,11 @@ alias brwe=brew  #typos
 # brew install speedtest-cli
 alias sts='speedtest-cli --share'
 alias stss='speedtest-cli --simple --share'
+
+# Update installed Ruby gems, Homebrew, npm, and their installed packages
+alias brew_update="brew -v update; brew upgrade --force-bottle --cleanup; brew cleanup; brew cask cleanup; brew prune; brew doctor; npm-check -g -u"
+alias update_brew_npm_gem='brew_update; npm install npm -g; npm update -g; sudo gem update --system; sudo gem update --no-document'
+
 
 # Sublime's subl.
 # Install subl as st by running the following
@@ -645,48 +687,6 @@ alias wpds="wpp query-monitor && wpp debug-bar && wpp debug-meta-data && wpp jar
 
 # {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{ WP CLI END }}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}}
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
-
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-HIST_STAMPS="dd-mm-yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-extras extract sublime web-search svn npm bower brew composer wp-cli emoji z zsh-autosuggestions)
-
-# User configuration
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin/git:/usr/local/git/bin:$HOME/.wp-cli:~/bin:~/.composer/vendor/bin"
 
 # Go installation.
 export GOPATH="${HOME}/.go"
@@ -700,24 +700,22 @@ export PATH="/usr/local/sbin:$PATH"
 export PATH="/usr/local/opt/php@7.1/bin:$PATH"
 export PATH="/usr/local/opt/php@7.1/sbin:$PATH"
 
-# Oh My Zsh.
-source $ZSH/oh-my-zsh.sh
-
-#.# zsh-syntax-highlighting
-#
-# Fish shell like syntax highlighting for Zsh
-#
-# @link: http://github.com/zsh-users/zsh-syntax-highlighting
-source ~/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
-ZSH_HIGHLIGHT_PATTERNS=('rm -rf *' 'fg=white,bold,bg=red') # To have commands starting with `rm -rf` in red:
-
 # NVM install
 # export NVM_DIR="$HOME/.nvm"
 #   . "/usr/local/opt/nvm/nvm.sh"
-export NVM_DIR=~/.nvm
-source $(brew --prefix nvm)/nvm.sh
+# export NVM_DIR=~/.nvm
+# source $(brew --prefix nvm)/nvm.sh
+# alias load_nvm=". /usr/local/opt/nvm/nvm.sh"
 
+# nvm now.
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm.
+# function load_nvm() {
+# 	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm.
+# 	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# }
+# alias node='unalias node ; unalias npm ; load_nvm ; nvm use default ; node $@'
+# alias npm='unalias node ; unalias npm ; load_nvm ; nvm use default ; npm $@'
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -732,8 +730,9 @@ source $(brew --prefix nvm)/nvm.sh
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
+# I don't use z.
 # include z rupa
-. ~/z.sh
+# . ~/z.sh
 
 ####.#### ———————————————————————————————————————————— COLORS ———————————————————————————————————————————— ####.####
 # colors from tput
@@ -1322,10 +1321,12 @@ setopt RM_STAR_WAIT
 # ignore duplicate commands, and ignore some of the commands we don’t need a history of.
 # This is useful because if you want to search for that command you ran a few weeks ago,
 # you can do that a lot easier.
-export HISTSIZE=32768;
+# export HISTSIZE=32768;
+export HISTSIZE=1000;
 export HISTFILESIZE=$HISTSIZE;
 export HISTCONTROL=ignoredups;
 export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help";
+export SAVEHIST=1000
 
 # Build a Mac App.
 #
@@ -1711,6 +1712,7 @@ function lsn() {
 function bsstrt() {
 	browser-sync start "$@" -s './' --cors -w -f '**/*'
 }
+alias bstrt="bsstrt"
 
 function bsr() {
 	browser-sync start "$@" -s -f './index.html' --index './index.html'
@@ -2245,16 +2247,15 @@ function grinit() {
 
 # GH New repo.
 function ghinit() {
-	echo "${wb} ${bf}➤  Creating GitHub Repo…${r}"
+	echo "${wb} ${bf}➤  Creating the GitHub Repo in PWD…${r}"
 	gh re --new "$1" --description "$2" --type "$3"
-	echo "${wb} ${bf}➤  CD to "$1" directory… ${r}"
 	cd "$1"
-	echo "${wb} ${bf}➤  Adding .gitignore file…${r}"
 	addgitignore
-	echo "${wb} ${bf}➤  Creating the README.md file…${r}"
-	echo "# $1 \n > $2" >> README.md
-	gcap '🔥'
-	echo "${gb} ${bf}🎉  DONE! Repo https://github.com/ahmadawais/"$1" ${r}"
+	echo "# $1 \n\n > $2" >> README.md
+	gnew 'First commit'
+	echo ''
+	echo "🎉  ${gb} ${bf}DONE!${r}"
+	echo "Repo → https://github.com/ahmadawais/$1"
 	echo ''
 }
 
@@ -2304,7 +2305,7 @@ function bkpics() {
 # E.g. bk ~/Documents/Audio will create /Volumes/AhmadAwais.com/Z-BACKUPS/Users/Documents/Audio backup.
 function bk() {
 	# Halt the script on any errors.
-	set -e
+	# set -e
 	echo "-"
 
 	#  -a is archive mode so it keeps your original created and modified properties.
@@ -2325,7 +2326,7 @@ function bk() {
 	rsync "$RS_PARAM" --exclude="node_modules" --exclude=".git" "$BK_SRC" "$BK_DST" |\
 		pv -lep -s $(rsync "$RS_PARAM"n --exclude="node_modules" --exclude=".git" "$BK_SRC" "$BK_DST" | awk 'NF' | wc -l)
 	echo "-"
-	echo "${gb} ${bf}--------------- ✔︎✔︎✔︎ DONE!!! 💯 🎉 ✔✔✔ ---------------${r}"
+	echo "✅  DONE!"
 	echo "-"
 }
 
@@ -2557,3 +2558,79 @@ commandsfx() {
 }
 
 alias 'cmds'=commandsfx
+
+alias timezsh="time  zsh -i -c exit"
+
+alias rmhist="rm $HISTFILE"
+
+alias diskspace="df -P -kHl"
+
+# File size
+alias fs="stat -f \"%z bytes\""
+
+# List all files, long format, colorized, permissions in octal
+function la(){
+ 	ls -l  "$@" | awk '
+    {
+      k=0;
+      for (i=0;i<=8;i++)
+        k+=((substr($1,i+2,1)~/[rwx]/) *2^(8-i));
+      if (k)
+        printf("%0o ",k);
+      printf(" %9s  %3s %2s %5s  %6s  %s %s %s\n", $3, $6, $7, $8, $5, $9,$10, $11);
+    }'
+}
+
+# whois a domain or a URL
+function whois() {
+	local domain=$(echo "$1" | awk -F/ '{print $3}') # get domain from URL
+	if [ -z $domain ] ; then
+		domain=$1
+	fi
+	echo "Getting whois record for: $domain …"
+
+	# avoid recursion
+					# this is the best whois server
+													# strip extra fluff
+	/usr/bin/whois -h whois.internic.net $domain | sed '/NOTICE:/q'
+}
+
+# who is using the laptop's iSight camera?
+camerausedby() {
+	echo "Checking to see who is using the iSight camera… 📷"
+	usedby=$(lsof | grep -w "AppleCamera\|USBVDC\|iSight" | awk '{printf $2"\n"}' | xargs ps)
+	echo -e "Recent camera uses:\n$usedby"
+}
+
+# direct it all to /dev/null
+function nullify() {
+  "$@" >/dev/null 2>&1
+}
+
+# `shellswitch [bash |zsh]`
+#   Must be in /etc/shells
+shellswitch () {
+	chsh -s $(brew --prefix)/bin/$1
+}
+
+# Create a Symlink and dump its alias to paths.
+lns () {
+	THE_PWD=$PWD
+	cd ~
+	ln -s $THE_PWD $1
+	echo "alias $1='cd ~ ; cd $1'" >> ~/Dropbox/bin/.paths
+	source ~/Dropbox/bin/.paths
+	cd $1
+	echo "✅ DONE!"
+}
+
+# Default screenshots format.
+shotpng() {
+	defaults write com.apple.screencapture type png;killall SystemUIServer
+}
+shotjpg() {
+	defaults write com.apple.screencapture type jpg;killall SystemUIServer
+}
+
+# Profiling ZSH performance.
+# zprof
