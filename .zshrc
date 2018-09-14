@@ -1064,7 +1064,7 @@ function syncdfiles(){
 		mkdir -p /Users/$USER/web/dotFiles/Users/$USER/workflow/
 		cp -rfp /Users/$USER/workflow/.release.json /Users/$USER/web/dotFiles/Users/$USER/workflow/
 
-		gcap 'DotFiles Synced'
+		gimp 'DotFiles Synced'
 
 		cd ~
 		echo "${gb} ${bf}3. Sync dotFiles Done! ✔︎✔︎✔︎${r}"
