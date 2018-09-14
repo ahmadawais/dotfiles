@@ -299,6 +299,8 @@ alias gpsuo="git push --set-upstream origin"
 alias gpdt="git push --delete origin"
 
 # Ammend the last commit message.
+# Push the changes to remote by force.
+# USAGE: gamend "Your New Commit Msg"
 function gamend() {
 	git commit --amend -m "$@"
 	git push --force
