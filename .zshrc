@@ -77,7 +77,9 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
 alias ~="cd ~"
-alias -- -="cd -" # type - only.
+
+# Type `-` only to go back to prev directory.
+alias -- -="cd -"
 
 # Projects.
 alias d="cd ~/Documents/Dropbox"
@@ -298,12 +300,12 @@ alias gpsuom="git push --set-upstream origin master"
 alias gpsuo="git push --set-upstream origin"
 alias gpdt="git push --delete origin"
 
-# Ammend the last commit message.
+# Amend the last commit message.
 # Push the changes to remote by force.
 # USAGE: gamend "Your New Commit Msg"
 function gamend() {
 	git commit --amend -m "$@"
-	git push --force
+	git push --force-with-lease
 }
 
 # Git fethc & Pull
