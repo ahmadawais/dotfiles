@@ -70,13 +70,13 @@ alias co="code ."
 # VSCodeInsider open folder
 alias coi="code-insiders ."
 
-# Easier navigation: .., ..., ~ and -
-alias ..="cd .."
-alias cd..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
-alias .....="cd ../../../.."
+# Easier directory navigation.
 alias ~="cd ~"
+alias .="cd .."
+alias ..="cd ../.."
+alias ...="cd ../../.."
+alias ....="cd ../../../.."
+alias cd..="cd .." # Typo addressed.
 
 # Type `-` only to go back to prev directory.
 alias -- -="cd -"
@@ -202,10 +202,25 @@ alias gcontributors="git shortlog -sn"
 # git commit count
 alias gccount="git rev-list HEAD --count"
 
-#remove local branch
+# Checkout to master
+alias gcm="git checkout master"
+
+# Create new branch and checkout.
+alias gbn='git checkout -b'
+
+# Remove local branch
 function gbdel {
-	git branch -D "$1"
-	git push origin :"$1"
+	# Branch name present?
+	if [[ -z "$1" ]]; then
+		echo "\n🤔 Oops… you forgot to provide the branch name"
+		echo "👉 E.g. gbdel branch_name\n"
+	else
+		# Start deleteing.
+		echo "\n⏳ Deleting…\n"
+		git branch -D "$1" # Local delete.
+		git push origin --delete "$1" # Remote delete.
+		echo "\n✅ Git branch $1 was deleted from local and remote.\n"
+	fi
 }
 
 #get a list of conflicts
@@ -268,6 +283,8 @@ function gcma() {
 }
 
 alias gp="git push"
+alias gpu="git push -u"
+alias gpp="git push -u"
 alias gpf="git push --force"
 alias gpt="git push --tags"
 
@@ -712,8 +729,23 @@ export PATH="/usr/local/opt/php@7.1/sbin:$PATH"
 # alias load_nvm=". /usr/local/opt/nvm/nvm.sh"
 
 # nvm now.
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm.
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm.
+
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# asdf
+source $HOME/.asdf/asdf.sh
+source $HOME/.asdf/completions/asdf.bash
+
+
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
 # function load_nvm() {
 # 	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm.
 # 	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -2365,6 +2397,37 @@ function bkwt() {
 	echo "-"
 }
 
+# Rsync based backup for Mac.
+# .
+# Usage: bkt ~/path/to/backup/
+# E.g. bkt ~/Documents/Audio will create /Volumes/AATranscend/Z-BACKUPS/Volumes/AhmadAwais.com/Z-BACKUPS/Users/Documents/Audio backup.
+function bkt() {
+	# Halt the script on any errors.
+	# set -e
+	echo "-"
+
+	#  -a is archive mode so it keeps your original created and modified properties.
+	#  -v is verbose mode to get a bit of extra output (useful for debugging).
+	#  -R is relative mode. It ensures the included paths get created on the target.
+	RS_PARAM="-avR"
+
+	# The input from user.
+	BK_SRC="$1"
+
+	# Your backup HDD's volume path.
+	BK_DST="/Volumes/AATranscend/Z-BACKUPS/"
+
+	echo "—————————————————————————————"
+	echo "➤ ${wb} ${bf} Backing up "$1" :${r}"
+	echo "—————————————————————————————"
+
+	rsync "$RS_PARAM" --exclude="node_modules" --exclude=".git" "$BK_SRC" "$BK_DST" |\
+		pv -lep -s $(rsync "$RS_PARAM"n --exclude="node_modules" --exclude=".git" "$BK_SRC" "$BK_DST" | awk 'NF' | wc -l)
+	echo "-"
+	echo "✅  DONE!"
+	echo "-"
+}
+
 
 function bkmac() {
 	# Halt the script on any errors.
@@ -2634,6 +2697,15 @@ shotpng() {
 }
 shotjpg() {
 	defaults write com.apple.screencapture type jpg;killall SystemUIServer
+}
+
+# RUBY
+#  eval "$(rbenv init -)"
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
+# HTTP Header Checker
+function headerCheck() {
+	wget https://site.to.check/ --header="User-Agent: Mozilla/5.0 (Windows NT 5.1; rv:23.0) Gecko/20100101 Firefox/23.0" --header="Accept: image/png,image/*;q=0.8,*/*;q=0.5" --header="Accept-Language: en-US,en;q=0.5" --header="Accept-Encoding: gzip, deflate" --header="Referer: https://referring.site/"
 }
 
 # Profiling ZSH performance.
