@@ -1084,10 +1084,12 @@ function synczsh(){
 		echo "${wb}${bf}1. Copying new `.zshrc` and .bash files ...${r}"
 
 		cp ~/.zshrc /Users/$USER/web/dotFiles/
+
 		# TODO: Should we do that?
 		# cp ~/.bash_history /Users/$USER/web/dotFiles/
 		cp ~/.bash_profile /Users/$USER/web/dotFiles/
 		cp ~/.bashrc /Users/$USER/web/dotFiles/
+		cp ~/.gitconfig /Users/$USER/web/dotFiles/
 
 		echo "${gb}${bf}3. Sync of ZSH and BASH Done!!!${r}"
 	echo "${wf}———————————————————${r}"

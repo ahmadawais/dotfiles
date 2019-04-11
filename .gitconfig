@@ -1,49 +1,22 @@
-# user {{{
 [user]
 	name = Ahmad Awais
-	email = mrahmadawais@gmail.com
-# }}}
-#
-# filter {{{
+	email = me@AhmadAwais.com
 [filter "media"]
 	required = true
 	clean = git media clean %f
 	smudge = git media smudge %f
 [filter "lfs"]
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
 	required = true
-# }}}
-#
-# core {{{
+	process = git-lfs filter-process
 [core]
-	excludesfile = /Users/ahmadawais/.gitignore_global
-	editor = subl -n -w
-# }}}
-#
-## {{
+	excludesfile = ~/.gitignore
+	editor = code --wait
 [log]
   date = relative
-# }}}
-#
-# difftools {{{
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path =
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
-# }}}
-#
-# push/ {{{
-#[push]
-#	default = simple
-	#default = current
-# }}}
-#
-# Color {{{
 [color]
-	# Use colors in Git commands that are capable of colored output when outputting to the terminal
+	# Use colors in Git commands that are capable of colored output when outputting to the terminal.
 	ui = auto
 [color "branch"]
 	current = yellow reverse
@@ -58,9 +31,6 @@
 	added = yellow
 	changed = green
 	untracked = cyan
-# }}}
-#
-# URL shorthands {{{
 [url "git@github.com:"]
 	insteadOf = "gh:"
 	pushInsteadOf = "github:"
@@ -73,99 +43,98 @@
 	pushInsteadOf = "git://gist.github.com/"
 [url "git://gist.github.com/"]
 	insteadOf = "gist:"
-# }}}
-#
-# help commands {{{
 [help]
-	# Automatically correct and execute mistyped commands
+	# Automatically correct and execute mistyped commands.
 	autocorrect = 1
-# }}}
-#
-# alias {{{
 [alias]
 	st = status
-
 	ci = commit
 	cm = commit -m
-
 	ca = commit --amend
     amend = commit --amend
-
 	co = checkout
-
 	br = branch
-
-	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
-
 	type = cat-file -t
-
 	dump = cat-file -p
-
-	#logs
+	hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+	changelog = "!_() { t=$(git describe --abbrev=0 --tags); git log ${t}..HEAD --no-merges --pretty=format:'* %s'; }; _"
 	le = log --oneline --decorate
 	ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
 	ls1 = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
 	lds = log --pretty=format:"%C(yellow)%h\\ %C(green)%ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short --graph
 	ls = log --pretty=format:"%C(green)%h\\ %C(yellow)[%ad]%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative
-
 	lg1 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(red)%h%C(reset) —— %C(bold blue)%an%C(reset): %C(white)%s%C(reset) %C(dim white)  %C(bold green)(%ar)%C(reset) %C(bold yellow)%d%C(reset)' --all
 	lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
 	lg3 = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
 	lg = !"git lg1"
-
 	lnc = log --pretty=format:"%h\\ %s\\ [%cn]"
-
-    #list all aliases
+    # List all aliases.
     la = "!git config -l | grep alias | cut -c 7-"
 
-    #list modified files in last commit
+    # List modified files in last commit.
     dl = "!git ll -1"
-    #diff last commit
+
+    # Diff last commit.
     dlc = diff --cached HEAD^
 
-    #list remotes
+    # List remotes.
     rem="!git config -l | grep remote.*url | tail -n +2"
 
-    # Show the diff between the latest commit and the current state
+    # Show the diff between the latest commit and the current state.
 	d = !"git diff-index --quiet HEAD -- || clear; git diff --patch-with-stat"
 
-	# Show verbose output about tags, branches or remotes
+	# Show verbose output about tags, branches or remotes.
 	tags = tag -l
-	branches = branch -a
+	branches = !legit branches
 	remotes = remote -v
-	# Credit an author on the latest commit
+
+	# Credit an author on the latest commit.
 	credit = "!f() { git commit --amend --author \"$1 <$2>\" -C HEAD; }; f"
-	# Interactive rebase with the given number of latest commits
+
+	# Interactive rebase with the given number of latest commits.
 	reb = "!r() { git rebase -i HEAD~$1; }; r"
-	# Remove branches that have already been merged with master
-	# a.k.a. ‘delete merged’
+
+	# Remove branches that have already been merged with master.
+	# a.k.a. ‘delete merged’.
 	dm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
 
-	# List contributors with number of commits
+	# List contributors with number of commits.
 	contributors = shortlog --summary --numbered
 
-	# Pull in remote changes for the current repository and all its submodules
+	# Pull in remote changes for the current repository and all its submodules.
     pl = !"git pull; git submodule foreach git pull origin master"
 
-    # Clone a repository including all submodules
+    # Clone a repository including all submodules.
     cl = clone
     clr = clone --recursive
 
-    # Switch to a branch, creating it if necessary
+    # Switch to a branch, creating it if necessary.
     go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
 
-    # Remove the old tag with this name and tag the latest commit with it.
+    # Remove the old tag with this name and tag the latest commit with it..
     retag = "!r() { git tag -d $1 && git push origin :refs/tags/$1 && git tag $1; }; r"
 
-    # Merge GitHub pull request on top of the `master` branch
-    mpr = "!f() { \
-        if [ $(printf \"%s\" \"$1\" | grep '^[0-9]\\+$' > /dev/null; printf $?) -eq 0 ]; then \
-            git fetch origin refs/pull/$1/head:pr/$1 && \
-            git rebase master pr/$1 && \
-            git checkout master && \
-            git merge pr/$1 && \
-            git branch -D pr/$1 && \
-            git commit --amend -m \"$(git log -1 --pretty=%B)\n\nCloses #$1.\"; \
-        fi \
-    }; f"
-# }}}
+	publish = !legit publish
+	unpublish = !legit unpublish
+	sync = !legit sync
+	switch = !legit switch
+	resync = !legit resync
+	undo = !legit undo
+[include]
+	path = /Users/ahmadawais/.gitconfig.reflow
+[merge]
+	tool = code
+[diff]
+    tool = default-difftool
+[difftool "default-difftool"]
+    cmd = code --wait --diff $LOCAL $REMOTE
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path =
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+# https://stackoverflow.com/a/22933955/950111
+# Now do git push -u
+[push]
+	default = current
