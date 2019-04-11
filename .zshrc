@@ -1,6 +1,74 @@
 # Profiling ZSH performance.
 # zmodload zsh/zprof
 
+alias gglc="cd ~ &&  ~/ggl"
+alias dsjs="cd ~ &&  ~/dsjs"
+alias devcp="cd ~ &&  ~/devcp"
+alias devct="cd ~ &&  ~/devct && cd cptheme"
+alias devcpapi="cd ~ &&  ~/cpapi"
+alias devcs="/Users/ahmadawais/Library/Application\ Support/Local\ by\ Flywheel/ssh-entry/B1EmufW5M.sh"
+alias vscsop="cd ~ &&  ~/vscsop"
+alias vss="cd ~ &&  ~/vscs"
+alias vse="cd ~ &&  ~/vsce"
+
+# Dropbox
+alias db="cd db"
+alias dbgif="cd dbgif"
+
+# WP related CD
+alias cdwpt="cd wp-content/themes"
+alias cdwpp="cd wp-content/plugins"
+
+# QUICK FOLDERS
+alias html="cd ~ && cd /Users/$USER/html"
+alias sb="cd ~ && cd sb"
+alias dot="cd ~ && cd /Users/$USER/dotFiles"
+alias gtest="cd ~ && cd /Users/$USER/gtest"
+alias dfiles="cd ~ && cd web/dotFiles"
+alias wtdev="cd ~ && cd /Users/$USER/html/writablehtml.dev"
+alias cfcdev="cd ~ && cd cfc"
+alias ntdev="cd ~ && ntdev"
+alias web="cd ~ && cd web"
+alias dev="cd ~ && cd webdev"
+alias webdev="cd ~ && cd webdev"
+alias wtwpdev="cd ~ && cd wtwp"
+alias ldev="cd ~ && cd ldev"
+alias lpdev="cd ~ && cd ldev/wp-content/plugins/"
+alias llpdev="cd ~ && llpdev"
+alias ltdev="cd ~ && cd ldev/wp-content/themes/"
+alias lltdev="cd ~ && lltdev"
+alias wpcdev="cd ~ && cd wpcdev"
+alias swpcdev="cd ~ && cd swpc"
+alias wd="cd ~ && cd webdev"
+alias phpdev="cd ~ && cd phpdev"
+alias phpd="cd ~ && cd phpdev"
+alias wprabd="cd ~ && cd wprabdev"
+alias wprabt="cd ~ && cd wprabwpt"
+alias wprabp="cd ~ && cd wprabwpp"
+
+# Teach
+alias aatf="cd ~ && cd aatfdev"
+
+# VR.
+alias vrcdev="cd ~ && cd vrcdev"
+alias vrpdev="cd ~ && cd vrpdev"
+alias vrtdev="cd ~ && cd vrtdev"
+alias vrdoc="cd ~ && cd vrdoc"
+alias vra="wppa vrcore && wpta vr"
+
+alias wpcdev="cd ~ && cd wpcore"
+alias wpcore="cd ~ && cd wpcore"
+alias wpcoredev="cd ~ && cd wpcore"
+alias writydev="cd ~ && cd writydev"
+
+# Quick Folders to WP plugins.
+alias cf7cwp="cd ~ && cd cf7cwp"
+alias dmdwp="cd ~ && cd dmdwp"
+alias wktcwp="cd ~ && cd wktcwp"
+alias fbswp="cd ~ && cd fbswp"
+alias fbqwp="cd ~ && cd fbqwp"
+alias vrcwp="cd ~ && cd vrcwp"
+
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/$USER/.oh-my-zsh
 
@@ -86,74 +154,6 @@ alias d="cd ~/Documents/Dropbox"
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
 alias sbx="cd ~/sbx"
-alias gglc="cd ~ &&  ~/ggl"
-alias dsjs="cd ~ &&  ~/dsjs"
-alias devcp="cd ~ &&  ~/devcp"
-alias devct="cd ~ &&  ~/devct && cd cptheme"
-alias devcpapi="cd ~ &&  ~/cpapi"
-alias devcs="/Users/ahmadawais/Library/Application\ Support/Local\ by\ Flywheel/ssh-entry/B1EmufW5M.sh"
-alias vscsop="cd ~ &&  ~/vscsop"
-alias vss="cd ~ &&  ~/vscs"
-alias vse="cd ~ &&  ~/vsce"
-
-# Dropbox
-alias db="cd db"
-alias dbgif="cd dbgif"
-
-# WP related CD
-alias cdwpt="cd wp-content/themes"
-alias cdwpp="cd wp-content/plugins"
-
-# QUICK FOLDERS
-alias html="cd ~ && cd /Users/$USER/html"
-alias sb="cd ~ && cd sb"
-alias dot="cd ~ && cd /Users/$USER/dotFiles"
-alias gtest="cd ~ && cd /Users/$USER/gtest"
-alias dfiles="cd ~ && cd web/dotFiles"
-alias wtdev="cd ~ && cd /Users/$USER/html/writablehtml.dev"
-alias cfcdev="cd ~ && cd cfc"
-alias rpdev="cd ~ && cd /Users/$USER/websites/rp.dev/wp-content/plugins/inspiry-real-estate"
-alias ntdev="cd ~ && ntdev"
-alias web="cd ~ && cd web"
-alias dev="cd ~ && cd webdev"
-alias webdev="cd ~ && cd webdev"
-alias wtwpdev="cd ~ && cd wtwp"
-alias ldev="cd ~ && cd ldev"
-alias lpdev="cd ~ && cd ldev/wp-content/plugins/"
-alias llpdev="cd ~ && llpdev"
-alias ltdev="cd ~ && cd ldev/wp-content/themes/"
-alias lltdev="cd ~ && lltdev"
-alias wpcdev="cd ~ && cd wpcdev"
-alias swpcdev="cd ~ && cd swpc"
-alias wd="cd ~ && cd webdev"
-alias phpdev="cd ~ && cd phpdev"
-alias phpd="cd ~ && cd phpdev"
-alias wprabd="cd ~ && cd wprabdev"
-alias wprabt="cd ~ && cd wprabwpt"
-alias wprabp="cd ~ && cd wprabwpp"
-
-# Teach
-alias aatf="cd ~ && cd aatfdev"
-
-# VR.
-alias vrcdev="cd ~ && cd vrcdev"
-alias vrpdev="cd ~ && cd vrpdev"
-alias vrtdev="cd ~ && cd vrtdev"
-alias vrdoc="cd ~ && cd vrdoc"
-alias vra="wppa vrcore && wpta vr"
-
-alias wpcdev="cd ~ && cd wpcore"
-alias wpcore="cd ~ && cd wpcore"
-alias wpcoredev="cd ~ && cd wpcore"
-alias writydev="cd ~ && cd writydev"
-
-# Quick Folders to WP plugins.
-alias cf7cwp="cd ~ && cd cf7cwp"
-alias dmdwp="cd ~ && cd dmdwp"
-alias wktcwp="cd ~ && cd wktcwp"
-alias fbswp="cd ~ && cd fbswp"
-alias fbqwp="cd ~ && cd fbqwp"
-alias vrcwp="cd ~ && cd vrcwp"
 
 # Git Blame Someone else (used for when my wife uses my laptop to code and forgets to switch profiles).
 function gbse() {
@@ -189,6 +189,11 @@ alias gb="git branches"
 alias gbd="git branch -D"
 # Create new branch and checkout.
 alias gbn='git checkout -b'
+alias gfu='git fetch upstream && git pull upstream master'
+function gbnf() {
+	git fetch --all
+  git checkout -b $@ upstream/master
+}
 
 #git merge branch
 alias gm="git merge $* && git push"
@@ -342,23 +347,23 @@ function gtagdel(){
 	the_tag=$*
 
 	echo "${wf}———————————————————${r}"
-	echo "${gb} ${bf}0. Listing all tags...${r}"
+	echo "${gb}${bf}0. Listing all tags...${r}"
 	git tag
 
 	echo "${wf}———————————————————${r}"
-	echo "${rb} ${wf}1. Deleting the tag...${r}"
+	echo "${rb}${wf}1. Deleting the tag...${r}"
 	git tag -d $the_tag
 
 	echo "${wf}———————————————————${r}"
-	echo "${rb} ${wf}2. Deleting the tag at remote origin...${r}"
+	echo "${rb}${wf}2. Deleting the tag at remote origin...${r}"
 	git push origin :refs/tags/$the_tag
 
 	echo "${wf}———————————————————${r}"
-	echo "${gb} ${bf}3. Listing all tags again...${r}"
+	echo "${gb}${bf}3. Listing all tags again...${r}"
 	git tag
 
 	echo "${wf}———————————————————${r}"
-	echo "${gb} ${bf}Completed!...${r}"
+	echo "${gb}${bf}Completed!...${r}"
 }
 
 # Type `git open` to open the GitHub page or website for a repository.
@@ -376,7 +381,7 @@ alias gdsf="git diff --color | diff-so-fancy"
 
 # Check the changes in last Git Pull/Fetch
 # Usage: gpfchanges branch_name
-alias gfpchanges="git diff --stat $1@{1} $1"
+alias gfpchanges="git diff --stat $1@{1}$1"
 
 # Git archive the current directory and ignore everything in .gitignore file
 # Usage: garc zipname
@@ -385,11 +390,11 @@ alias gfpchanges="git diff --stat $1@{1} $1"
 function garc(){
 	zip_name=$1
 	echo "${wf}———————————————————${r}"
-	echo "${gb} ${bf}Zipping the current folder...${r}"
+	echo "${gb}${bf}Zipping the current folder...${r}"
 	git archive -o $zip_name.zip HEAD
 
 	echo "${wf}———————————————————${r}"
-	echo "${gb} ${bf}Completed! 💯  ${r}"
+	echo "${gb}${bf}Completed! 💯  ${r}"
 }
 
 # Fun commit messages
@@ -532,6 +537,7 @@ alias reload="exec $SHELL -l"
 alias relaod="reload" #typo addressed
 alias reld="reload"
 alias rld="reload"
+alias rf="source ~/.zshrc"
 
 
 alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to pasteboard.\n'";
@@ -620,38 +626,38 @@ function nfh() {
 # Example: wpdsready local.dev Local
 function wpdsready() {
 	echo "${wf}———————————————————${r}"
-		echo "${wb} ${bf}WP: Core Installing...${r}"
+		echo "${wb}${bf}WP: Core Installing...${r}"
 		wp core install --url=$1 --title=$2 --admin_user=root --admin_password=root --admin_email=mrahmadawais@gmail.com
 
-		echo "${wb} ${bf}WP: twentyfifteen Update...${r}"
+		echo "${wb}${bf}WP: twentyfifteen Update...${r}"
 		wp theme update twentyfifteen ;
 		wp theme activate twentyfifteen ;
 
-		echo "${rb} ${bf}WP: Removing twentythirteen...${r}"
+		echo "${rb}${bf}WP: Removing twentythirteen...${r}"
 		wp theme delete twentythirteen ;
 
-		echo "${rb} ${bf}WP: Removing twentyfourteen...${r}"
+		echo "${rb}${bf}WP: Removing twentyfourteen...${r}"
 		wp theme delete twentyfourteen ;
 
-		echo "${rb} ${bf}WP: Removing twentysixteen...${r}"
+		echo "${rb}${bf}WP: Removing twentysixteen...${r}"
 		wp theme delete twentysixteen ;
 
-		echo "${rb} ${bf}WP: Removing twentyseventeen...${r}"
+		echo "${rb}${bf}WP: Removing twentyseventeen...${r}"
 		wp theme delete twentyseventeen ;
 
-		echo "${rb} ${bf}WP: Removing akismet...${r}"
+		echo "${rb}${bf}WP: Removing akismet...${r}"
 		wp plugin delete akismet ;
 
-		echo "${rb} ${bf}WP: Removing Hello Dolly...${r}"
+		echo "${rb}${bf}WP: Removing Hello Dolly...${r}"
 		wp plugin delete hello ;
 
-		echo "${rb} ${bf}WP: Setting permalinks to postname...${r}"
+		echo "${rb}${bf}WP: Setting permalinks to postname...${r}"
 		wp option update permalink_structure '/%postname%'
 
-		echo "${wb} ${bf}WP: Core Updating...${r}"
+		echo "${wb}${bf}WP: Core Updating...${r}"
 		wp core update ;
 
-		echo "${gb} ${bf}WP: DS Setup Ready. DONE!${r}"
+		echo "${gb}${bf}WP: DS Setup Ready. DONE!${r}"
 	echo "${wf}———————————————————${r}"
 
 }
@@ -800,8 +806,14 @@ bf=`tput setaf 0` #set foreground black
 gb=`tput setab 2` # set background green
 gf=`tput setab 2` # set background green
 
+yb=`tput setab 3` # set background yellow
+yf=`tput setaf 3` # set foreground yellow
+
 blb=`tput setab 4` # set background blue
 blf=`tput setaf 4` # set foreground blue
+
+mb=`tput setab 5` # set background magenta
+mf=`tput setaf 5` # set foreground magenta
 
 rb=`tput setab 1` # set background red
 rf=`tput setaf 1` # set foreground red
@@ -870,12 +882,12 @@ function gitio() {
 function gclhere() {
 
 	echo "${wf}———————————————————${r}"
-	echo "${wb} ${bf}0. Initializing...${r}"
+	echo "${wb}${bf}0. Initializing...${r}"
 
 	#if not empty
 	if [ "$(ls -A $(pwd -P))" ]; then
 
-		echo "${rb} ${bf}1. PWD is not empty, let's delete it...${r}"
+		echo "${rb}${bf}1. PWD is not empty, let's delete it...${r}"
 
 		# PWD variable
 		aa_pwd=$PWD
@@ -886,20 +898,20 @@ function gclhere() {
 		# recreate the old PWD and cd in it
 		mkdir $aa_pwd && cd $aa_pwd
 
-		echo "${rb} ${bf}2. PWD deleted and recreated...${r}"
-		echo "${blb} ${wf}3. Starting git repo clone...${r}"
+		echo "${rb}${bf}2. PWD deleted and recreated...${r}"
+		echo "${blb}${wf}3. Starting git repo clone...${r}"
 
 		git clone --recursive "$*" .
-		echo "${gb} ${bf}4. Git repo cloned. DONE!${r}"
+		echo "${gb}${bf}4. Git repo cloned. DONE!${r}"
 
 	# if empty
 	else
 
-		echo "${blb} ${wf}1. Directory is empty. Cloning the repo...${r}"
+		echo "${blb}${wf}1. Directory is empty. Cloning the repo...${r}"
 
-		echo "${blb} ${wf}2. Starting git repo clone...${r}"
+		echo "${blb}${wf}2. Starting git repo clone...${r}"
 		git clone --recursive "$*" .
-		echo "${gb} ${bf}3. Git repo cloned! DONE!${r}"
+		echo "${gb}${bf}3. Git repo cloned! DONE!${r}"
 
 	fi
 
@@ -911,12 +923,12 @@ alias gclh="gclhere"
 function emptypwd() {
 
  echo "${wf}———————————————————${r}"
-	 echo "${wb} ${bf}0. Initializing...${r}"
+	 echo "${wb}${bf}0. Initializing...${r}"
 
 	 #if not empty
 	 if [ "$(ls -A $(pwd -P))" ]; then
 
-		 echo "${rb} ${bf}1. PWD is not empty, let's delete it...${r}"
+		 echo "${rb}${bf}1. PWD is not empty, let's delete it...${r}"
 
 		 # PWD variable
 		 aa_pwd=$PWD
@@ -927,12 +939,12 @@ function emptypwd() {
 		 # recreate the old PWD and cd in it
 		 mkdir $aa_pwd && cd $aa_pwd
 
-		 echo "${gb} ${bf}2. PWD deleted and recreated!!!${r}"
+		 echo "${gb}${bf}2. PWD deleted and recreated!!!${r}"
 
 	 # if empty
 	 else
 
-		 echo "${gb} ${bf}1. Directory is already empty!!!${r}"
+		 echo "${gb}${bf}1. Directory is already empty!!!${r}"
 
 	 fi
 
@@ -950,17 +962,17 @@ function emptypwd() {
 #
 function gfpr(){
 	echo "${wf}———————————————————${r}"
-		echo "${wb} ${bf}0. Fetching the pull request...${r}"
+		echo "${wb}${bf}0. Fetching the pull request...${r}"
 
 		git fetch origin pull/"${1}"/head:PR#"${1}"
 
-		echo "${wb} ${bf}1. PR fetched creating a branch...${r}"
+		echo "${wb}${bf}1. PR fetched creating a branch...${r}"
 
 		git checkout PR#"${1}"
 
-		echo "${wb} ${bf}2. Checking out to a new PR branch...${r}"
+		echo "${wb}${bf}2. Checking out to a new PR branch...${r}"
 
-		echo "✅ — ${gb} ${bf}3. PR Branch Created!${r}"
+		echo "✅ — ${gb}${bf}3. PR Branch Created!${r}"
 	echo "${wf}———————————————————${r}"
 }
 
@@ -973,11 +985,11 @@ function gfpr(){
 #
 function gfpronly() {
 	echo "${wf}———————————————————${r}"
-		echo "${wb} ${bf}0. Fetching the pull request...${r}"
+		echo "${wb}${bf}0. Fetching the pull request...${r}"
 
 		git fetch origin pull/"${1}"/head:pull_"${1}"
 
-		echo "${gb} ${bf}1. PR Fetched Created!${r}"
+		echo "${gb}${bf}1. PR Fetched Created!${r}"
 	echo "${wf}———————————————————${r}"
 }
 
@@ -1028,16 +1040,16 @@ alias howl="how2 -l $1 ${@:2}"
 function syncsbl(){
 	echo "${wf}———————————————————${r}"
 
-		echo "${rb} ${wf}0. Deleting old user folder...${r}"
+		echo "${rb}${wf}0. Deleting old user folder...${r}"
 
 		cd SublimeText
 		rm -rf User
 
-		echo "${wb} ${bf}1. Copying the USER files and folders from Sublime...${r}"
+		echo "${wb}${bf}1. Copying the USER files and folders from Sublime...${r}"
 
 		cp -rfp /Users/$USER/Library/Application\ Support/Sublime\ Text\ 3/Packages/User /Users/$USER/web/dotFiles//SublimeText
 
-		echo "${wb} ${bf}2. Deleting useless stuff...${r}"
+		echo "${wb}${bf}2. Deleting useless stuff...${r}"
 
 		cd user
 		# rm -rf Package\ Control.cache
@@ -1052,7 +1064,7 @@ function syncsbl(){
 
 		...
 
-		echo "${gb} ${bf}3. Sync Done!!!${r}"
+		echo "${gb}${bf}3. Sync Done!!!${r}"
 	echo "${wf}———————————————————${r}"
 }
 
@@ -1061,7 +1073,7 @@ function syncsbl(){
 function synczsh(){
 	echo "${wf}———————————————————${r}"
 
-		echo "${rb} ${wf}0. Deleting old .zshrc and .bash files...${r}"
+		echo "${rb}${wf}0. Deleting old .zshrc and .bash files...${r}"
 
 		dfiles
 		rm .zshrc
@@ -1069,7 +1081,7 @@ function synczsh(){
 		rm .bash_profile
 		rm .bashrc
 
-		echo "${wb} ${bf}1. Copying new `.zshrc` and .bash files ...${r}"
+		echo "${wb}${bf}1. Copying new `.zshrc` and .bash files ...${r}"
 
 		cp ~/.zshrc /Users/$USER/web/dotFiles/
 		# TODO: Should we do that?
@@ -1077,7 +1089,7 @@ function synczsh(){
 		cp ~/.bash_profile /Users/$USER/web/dotFiles/
 		cp ~/.bashrc /Users/$USER/web/dotFiles/
 
-		echo "${gb} ${bf}3. Sync of ZSH and BASH Done!!!${r}"
+		echo "${gb}${bf}3. Sync of ZSH and BASH Done!!!${r}"
 	echo "${wf}———————————————————${r}"
 }
 
@@ -1088,11 +1100,11 @@ function syncdfiles(){
 
 		dfiles
 
-		echo "${wb} ${bf}1. Syncing Sublime...${r}"
+		echo "${wb}${bf}1. Syncing Sublime...${r}"
 
 		syncsbl
 
-		echo "${wb} ${bf}2. Syncing .zshrc...${r}"
+		echo "${wb}${bf}2. Syncing .zshrc...${r}"
 
 		synczsh
 
@@ -1103,7 +1115,7 @@ function syncdfiles(){
 		gimp 'DotFiles Synced'
 
 		cd ~
-		echo "${gb} ${bf}3. Sync dotFiles Done! ✔︎✔︎✔︎${r}"
+		echo "${gb}${bf}3. Sync dotFiles Done! ✔︎✔︎✔︎${r}"
 	echo "${wf}———————————————————${r}"
 }
 
@@ -1116,7 +1128,7 @@ function pulldfiles() {
 	#if not empty
 	if [ "$(ls -A $(pwd -P))" ]; then
 
-		echo "${rb} ${bf}PWD is not empty, let's delete it...${r}"
+		echo "${rb}${bf}PWD is not empty, let's delete it...${r}"
 
 		# PWD variable
 		aa_pwd=$PWD
@@ -1127,22 +1139,22 @@ function pulldfiles() {
 		# recreate the old PWD and cd in it
 		mkdir $aa_pwd && cd $aa_pwd
 
-		echo "${rb} ${bf}PWD deleted and recreated...${r}"
+		echo "${rb}${bf}PWD deleted and recreated...${r}"
 	fi
 
 	# Clone the repo.
 	git clone https://github.com/$USER/dotFiles/ .
-	echo "${gb} ${bf}Git repo cloned for dotfiles cloned. DONE!${r}"
+	echo "${gb}${bf}Git repo cloned for dotfiles cloned. DONE!${r}"
 }
 
 # Pull Sublime settings.
 function pullsubl(){
 	echo "${wf}———————————————————${r}"
-		echo "${rb} ${wf}Pulling dotfiles...${r}"
+		echo "${rb}${wf}Pulling dotfiles...${r}"
 		pulldfiles
-		echo "${wb} ${bf}Copying the USER files and folders to Sublime...${r}"
+		echo "${wb}${bf}Copying the USER files and folders to Sublime...${r}"
 		cp -rfp /Users/$USER/web/dotFiles/SublimeText/User/* /Users/$USER/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
-		echo "${gb} ${bf}Sync Done!!!${r}"
+		echo "${gb}${bf}Sync Done!!!${r}"
 	echo "${wf}———————————————————${r}"
 }
 
@@ -1185,15 +1197,15 @@ function wpzip(){
 		# exclude more files (does not work for folders)
 		more_exclude_file=${@:2} # ${@:2} is everything from argument 2 to end
 
-		echo "${wb} ${bf}0. Deleting the old "$zip_name".zip file if present...${r}"
+		echo "${wb}${bf}0. Deleting the old "$zip_name".zip file if present...${r}"
 		rm $zip_name".zip"
 
-		echo "${wb} ${bf}1. Zipping the current folder as "$zip_name".zip...${r}"
+		echo "${wb}${bf}1. Zipping the current folder as "$zip_name".zip...${r}"
 
 		# Using noglob to avoid ZSH to trip over *, can also use back slash \
 		noglob zip -r $zip_name.zip . -x *.git* *node_modules* *.zip *.DS_Store $more_exclude_file
 
-		echo "${gb} ${bf}3. "$zip_name".zip is ready! 💯  ${r}"
+		echo "${gb}${bf}3. "$zip_name".zip is ready! 💯  ${r}"
 	echo "${wf}———————————————————${r}"
 }
 
@@ -1324,17 +1336,17 @@ alias grfst="git reflow status"
 function addwpgulp() {
 	echo "${wf}———————————————————${r}"
 
-		echo "${wb} ${bf}0. Downloading gulpfile.js and pacakge.json in the current folder...${r}"
+		echo "${wb}${bf}0. Downloading gulpfile.js and pacakge.json in the current folder...${r}"
 
 		curl -O https://raw.githubusercontent.com/$USER/WPGulp/master/package.json
 		curl -O https://raw.githubusercontent.com/$USER/WPGulp/master/gulpfile.js
 		curl -O https://raw.githubusercontent.com/$USER/WPGulp/master/.gitignore
 
-		echo "${wb} ${bf}1. Installing NPM dependencies (will take upto 5 minutes)...${r}"
+		echo "${wb}${bf}1. Installing NPM dependencies (will take upto 5 minutes)...${r}"
 
 		sudo npm install
 
-		echo "${gb} ${bf}2. WPGulp is ready! Run the command `gulp`  ${r}"
+		echo "${gb}${bf}2. WPGulp is ready! Run the command `gulp`  ${r}"
 	echo "${wf}———————————————————${r}"
 }
 
@@ -1344,8 +1356,8 @@ alias dnscf="sudo killall -HUP mDNSResponder"
 alias dcf="sudo killall -HUP mDNSResponder"
 
 # Creates README.md, LICENSE.md and CHANGELOG.md files in the current folder.
-alias clr='touch README.md && touch LICENSE.md && touch CHANGELOG.md  && echo "${gb} ${bf} Created README.md, LICENSE.md and CHANGELOG.md files. 💯 ${r}" && ll'
-alias gfiles='touch README.md && touch LICENSE.md && touch CHANGELOG.md  && echo "${gb} ${bf} Created README.md, LICENSE.md and CHANGELOG.md files. 💯 ${r}" && ll'
+alias clr='touch README.md && touch LICENSE.md && touch CHANGELOG.md  && echo "${gb}${bf} Created README.md, LICENSE.md and CHANGELOG.md files. 💯 ${r}" && ll'
+alias gfiles='touch README.md && touch LICENSE.md && touch CHANGELOG.md  && echo "${gb}${bf} Created README.md, LICENSE.md and CHANGELOG.md files. 💯 ${r}" && ll'
 
 # This will add a 10 second wait before you can confirm a wildcard deletion.
 # Lots of people, myself included, are so used to confirming the removal of files,
@@ -1444,14 +1456,14 @@ function sshkey() {
 	path_name=$1
 
 	echo "${wf}———————————————————${r}"
-	echo "${wb} ${bf} Let's Add an SSH Key...${r}"
+	echo "${wb}${bf} Let's Add an SSH Key...${r}"
 	# Add the ssh key
 	ssh-keygen -t rsa
 
-	echo "${gb} ${bf} Copy the key below and add it to your host ${r}"
+	echo "${gb}${bf} Copy the key below and add it to your host ${r}"
 	cat /Users/$USER/.ssh/"$path_name".pub
 
-	echo "${gb} ${bf} ✔✔✔ KEY ADDED! ✔✔✔︎ ${r}"
+	echo "${gb}${bf} ✔✔✔ KEY ADDED! ✔✔✔︎ ${r}"
 	echo "${wf}———————————————————${r}"
 
 	sshconfig
@@ -1461,20 +1473,20 @@ function sshkey() {
 
 # Add host to ~/.ssh/config
 function sshconfig() {
-	echo "${wb} ${bf} Have you added the key to your host? [y/n]: ${r}"
+	echo "${wb}${bf} Have you added the key to your host? [y/n]: ${r}"
 	read -r key_added
 
 	if [[ "$key_added" == "y" ]]; then
-		echo "${gb} ${bf} Let's add the host to ~/.ssh/config ${r}"
+		echo "${gb}${bf} Let's add the host to ~/.ssh/config ${r}"
 		#st ~/.ssh/config
 
-		echo "${wb} ${bf} Enter the host NAME: ${r}"
+		echo "${wb}${bf} Enter the host NAME: ${r}"
 		read -r host_name
 
-		echo "${wb} ${bf} Enter the IP Address: ${r}"
+		echo "${wb}${bf} Enter the IP Address: ${r}"
 		read -r ip_address
 
-		echo "${wb} ${bf} Enter the IdentityFile's name ~/.ssh/NAME [just the name]: ${r}"
+		echo "${wb}${bf} Enter the IdentityFile's name ~/.ssh/NAME [just the name]: ${r}"
 		read -r id_name
 
 		echo "\nHost $host_name" >> ~/.ssh/config
@@ -1483,15 +1495,15 @@ function sshconfig() {
 		echo "    User root" >> ~/.ssh/config
 		echo "    IdentityFile ~/.ssh/$id_name" >> ~/.ssh/config
 
-		echo "${gb} ${bf} Added the following new host to ~/.ssh/config ${r}"
+		echo "${gb}${bf} Added the following new host to ~/.ssh/config ${r}"
 		echo "\nHost $host_name"
 		echo "    HostName $ip_address"
 		echo "    Port 22"
 		echo "    User root"
 		echo "    IdentityFile ~/.ssh/$id_name"
-		echo "${gb} ${bf} ✔✔✔ Host ADDED! ✔✔✔︎ ${r}"
+		echo "${gb}${bf} ✔✔✔ Host ADDED! ✔✔✔︎ ${r}"
 	else
-		echo "${rb} ${wf} ⅹⅹⅹ No Host Added! ⅹⅹⅹ ${r}"
+		echo "${rb}${wf} ⅹⅹⅹ No Host Added! ⅹⅹⅹ ${r}"
 	fi
 }
 
@@ -1510,19 +1522,19 @@ function elinks() {
 	domain=$(echo $1 | cut -d'/' -f3 | cut -d':' -f1)
 	links=$2
 
-	echo "${wb} ${bf} -----------STARTING------------- ${r}"
-	echo "${gb} ${bf} Downloading the file... ${r}"
+	echo "${wb}${bf} -----------STARTING------------- ${r}"
+	echo "${gb}${bf} Downloading the file... ${r}"
 	wget $url -O file.html
-	echo "${gb} ${bf} Generating links... ${r}"
+	echo "${gb}${bf} Generating links... ${r}"
 	pup 'a.lesson-index__lesson-link[href] attr{href}' < file.html > $links
 
-	echo "${gb} ${bf} Prefixing links... ${r}"
+	echo "${gb}${bf} Prefixing links... ${r}"
 	sed -e 's#^#https://'$domain'#' $links > links_new.txt
 	mv links_new.txt $links
 
 	rm file.html
-	echo "${gb} ${bf} ✔︎✔︎✔︎ Find links in $links file ✔︎✔︎✔︎ ${r}"
-	echo "${wb} ${bf} -----------END------------- ${r}"
+	echo "${gb}${bf} ✔︎✔︎✔︎ Find links in $links file ✔︎✔︎✔︎ ${r}"
+	echo "${wb}${bf} -----------END------------- ${r}"
 }
 
 # Complete Lynda Download & Upload To Dropbox and Removal from VPS
@@ -1534,25 +1546,25 @@ function ldu() {
 
 	mkd "$folder_name"
 
-	echo "${gb} ${bf} CREATED THE DIRECTORY CALLED $folder_name ${r}"
+	echo "${gb}${bf} CREATED THE DIRECTORY CALLED $folder_name ${r}"
 
-	echo "${wb} ${bf} STARTED DOWNLOADING FROM LYNDA ${r}"
+	echo "${wb}${bf} STARTED DOWNLOADING FROM LYNDA ${r}"
 
 	dvidl "$lynda_link"
-	echo "${gb} ${bf} DOWNLOAD COMPELTED ✔︎ ✔︎ ✔︎ $folder_name ${r}"
+	echo "${gb}${bf} DOWNLOAD COMPELTED ✔︎ ✔︎ ✔︎ $folder_name ${r}"
 
-	echo "${wb} ${bf} UPLOADING TO DROPBOX... ${r}"
+	echo "${wb}${bf} UPLOADING TO DROPBOX... ${r}"
 	dbxupwd
-	echo "${wb} ${bf} UPLOAD TO DROPBOX COMPELTED ✔︎ ✔︎ ✔︎ ${r}"
+	echo "${wb}${bf} UPLOAD TO DROPBOX COMPELTED ✔︎ ✔︎ ✔︎ ${r}"
 
 	cd ..
 	rmv "$folder_name"
 
-	echo "${wb} ${rf} The folder $folder_name REMOVED!${r}"
+	echo "${wb}${rf} The folder $folder_name REMOVED!${r}"
 
-	echo "${gb} ${bf} ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ${r}"
-	echo "${gb} ${bf} ✔︎ ✔︎ ✔︎ DONE! DONE! ✔︎ ✔︎ ✔︎ ${r}"
-	echo "${gb} ${bf} ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ${r}"
+	echo "${gb}${bf} ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ${r}"
+	echo "${gb}${bf} ✔︎ ✔︎ ✔︎ DONE! DONE! ✔︎ ✔︎ ✔︎ ${r}"
+	echo "${gb}${bf} ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ✔︎ ${r}"
 	echo "${wf}———————————————————${r}"
 }
 
@@ -1703,12 +1715,12 @@ function perms() {
 	echo "-"
 	echo "--------------- ⏲  LET' START... ---------------"
 	echo "-"
-	echo "${wb} ${bf}- ⏲️  Setting the right permissions for: $PWD... -${r}"
+	echo "${wb}${bf}- ⏲️  Setting the right permissions for: $PWD... -${r}"
 	echo "-"
 	sudo find $PWD/ -type f -exec chmod 644 {} +
 	sudo find $PWD/ -type d -exec chmod 755 {} +
 	echo "-"
-	echo "${gb} ${bf}--------------- ✔︎✔︎✔︎ DONE!!! 💯 🎉 ✔✔✔ ---------------${r}"
+	echo "${gb}${bf}--------------- ✔︎✔︎✔︎ DONE!!! 💯 🎉 ✔✔✔ ---------------${r}"
 	echo "-"
 }
 
@@ -1716,9 +1728,9 @@ function perms() {
 function size_pwd() {
 	clear
 	echo "-"
-	echo "${wb} ${bf}- ⚡️️ The total size of PWD is:${r}"
+	echo "${wb}${bf}- ⚡️️ The total size of PWD is:${r}"
 	echo "-"
-	echo "${gb} ${bf}----------->${r} $( du -hd 2 .)${r}"
+	echo "${gb}${bf}----------->${r}$( du -hd 2 .)${r}"
 	echo "-"
 }
 
@@ -1738,10 +1750,10 @@ function rl() {
 function lsn() {
 	clear
 	name=$@
-	echo "${wb} ${bf}--------------- ⏲  LET' START... ---------------${r}"
+	echo "${wb}${bf}--------------- ⏲  LET' START... ---------------${r}"
 	mkdir "$name"
 	echo "# $name" >> "$name"/content.md
-	echo "${gb} ${bf}--------------- 🎯  Done: "$name"... ---------------${r}"
+	echo "${gb}${bf}--------------- 🎯  Done: "$name"... ---------------${r}"
 }
 
 ####.#### ———————————————————————————————————————————— Browser Sync ———————————————————————————————————————————— ####.####
@@ -1956,17 +1968,17 @@ alias mkgd="mk gh-deploy --force -m BUILD!"
 # Mkdocs build and deploy
 function mkdp(){
 	echo "-"
-	echo "${wb} ${bf}--------------- ⏲  DOCS: Let's deploy em... ---------------${r}"
+	echo "${wb}${bf}--------------- ⏲  DOCS: Let's deploy em... ---------------${r}"
 	echo "-"
 
-	echo "${wb} ${bf}--------------- ✔︎  DOCS: Deploying... ---------------${r}"
+	echo "${wb}${bf}--------------- ✔︎  DOCS: Deploying... ---------------${r}"
 	mkgd
 
-	echo "${wb} ${bf}--------------- ✔︎  DOCS: Git pushing... ---------------${r}"
+	echo "${wb}${bf}--------------- ✔︎  DOCS: Git pushing... ---------------${r}"
 	gcap '👉 '
 
 	echo "-"
-	echo "${gb} ${bf}--------------- ✔︎✔︎✔︎ DONE!!! 💯 🎉 ✔✔✔ ---------------${r}"
+	echo "${gb}${bf}--------------- ✔︎✔︎✔︎ DONE!!! 💯 🎉 ✔✔✔ ---------------${r}"
 	echo "-"
 }
 
@@ -2022,21 +2034,21 @@ function wpcp() {
 		return 1
 	else
 		echo "-"
-		echo "${wb} ${bf}--------------- ⏲  START: Let's create a patch... ---------------${r}"
+		echo "${wb}${bf}--------------- ⏲  START: Let's create a patch... ---------------${r}"
 		echo "-"
 
 		wpcore
 
 		echo "-"
 		echo "—————————————————————————————"
-		echo "${wb} ${bf}➤  Ticket # (3456 or 3456.1):${r}"
+		echo "${wb}${bf}➤  Ticket # (3456 or 3456.1):${r}"
 		echo "—————————————————————————————"
 		read -r WPC_PATCH_NAME
 
 		git diff -- . ':(exclude)Gruntfile.js' > $WPC_PATCH_NAME.diff
 
 		echo "-"
-		echo "${gb} ${bf}--------------- ✔︎✔︎✔︎ DONE!!! "$WPC_PATCH_NAME".diff Created! 💯 🎉 ✔✔✔ ---------------${r}"
+		echo "${gb}${bf}--------------- ✔︎✔︎✔︎ DONE!!! "$WPC_PATCH_NAME".diff Created! 💯 🎉 ✔✔✔ ---------------${r}"
 		echo "-"
 	fi
 }
@@ -2249,11 +2261,16 @@ function gtst() {
 	gcap "✅ TEST: $@"
 }
 
+# Git Stash all.
+function stash() {
+	git stash save --include-untracked
+}
+
 #.# Create Git Repo + Add Repo on GitHub.
 function grinit() {
 	echo "-"
 	echo "—————————————————————————————"
-	echo "${wb} ${bf}➤  Are you inside the right folder? (y/n):${r}"
+	echo "${wb}${bf}➤  Are you inside the right folder? (y/n):${r}"
 	echo "—————————————————————————————"
 	read -r THE_GH_REPO_RIGHT
 
@@ -2264,33 +2281,33 @@ function grinit() {
 
 	echo "-"
 	echo "—————————————————————————————"
-	echo "${wb} ${bf}➤  GitHub Repo Name:${r}"
+	echo "${wb}${bf}➤  GitHub Repo Name:${r}"
 	echo "—————————————————————————————"
 	read -r THE_GH_REPO_NAME
 
 	echo "-"
 	echo "—————————————————————————————"
-	echo "${wb} ${bf}➤  GitHub Repo Description:${r}"
+	echo "${wb}${bf}➤  GitHub Repo Description:${r}"
 	echo "—————————————————————————————"
 	read -r THE_GH_REPO_DSC
 
 	echo "-"
 	echo "—————————————————————————————"
-	echo "${wb} ${bf}➤  Is It:${r}"
+	echo "${wb}${bf}➤  Is It:${r}"
 	echo "—————————————————————————————"
 	read -r THE_GH_REPO_DSC
 }
 
 # GH New repo.
 function ghinit() {
-	echo "${wb} ${bf}➤  Creating the GitHub Repo in PWD…${r}"
+	echo "${wb}${bf}➤  Creating the GitHub Repo in PWD…${r}"
 	gh re --new "$1" --description "$2" --type "$3"
 	cd "$1"
 	addgitignore
 	echo "# $1 \n\n > $2" >> README.md
 	gnew 'First commit'
 	echo ''
-	echo "🎉  ${gb} ${bf}DONE!${r}"
+	echo "🎉  ${gb}${bf}DONE!${r}"
 	echo "Repo → https://github.com/ahmadawais/$1"
 	echo ''
 }
@@ -2305,7 +2322,7 @@ function rainbow() {
 function trash_node_modules() {
 	echo "-"
 	echo "—————————————————————————————"
-	echo "${wb} ${bf}➤ Trash all the node modules in the PWD? (y/n):${r}"
+	echo "${wb}${bf}➤ Trash all the node modules in the PWD? (y/n):${r}"
 	echo "—————————————————————————————"
 	read -r IS_MOVE_FORWARD
 
@@ -2323,7 +2340,7 @@ function trash_node_modules() {
 function bkpics() {
 	echo "-"
 	echo "—————————————————————————————"
-	echo "${wb} ${bf}➤ Backing up Entire Photos Library. :${r}"
+	echo "${wb}${bf}➤ Backing up Entire Photos Library. :${r}"
 	echo "—————————————————————————————"
 	RSP_PARAM="-av"
 	BKP_DST="/Volumes/AhmadAwais.com/Z-BACKUPS/Users/ahmadawais/Pictures"
@@ -2331,7 +2348,7 @@ function bkpics() {
 		pv -lep -s $(rsync "$RSP_PARAM"n ~/Pictures/ "$BKP_DST" | awk 'NF' | wc -l)
 
 	echo "-"
-	echo "${gb} ${bf}--------------- ✔︎✔︎✔︎ DONE!!! 💯 🎉 ✔✔✔ ---------------${r}"
+	echo "${gb}${bf}--------------- ✔︎✔︎✔︎ DONE!!! 💯 🎉 ✔✔✔ ---------------${r}"
 	echo "-"
 }
 
@@ -2356,7 +2373,7 @@ function bk() {
 	BK_DST="/Volumes/AhmadAwais.com/Z-BACKUPS/"
 
 	echo "—————————————————————————————"
-	echo "➤ ${wb} ${bf} Backing up "$1" :${r}"
+	echo "➤ ${wb}${bf} Backing up "$1" :${r}"
 	echo "—————————————————————————————"
 
 	rsync "$RS_PARAM" --exclude="node_modules" --exclude=".git" "$BK_SRC" "$BK_DST" |\
@@ -2387,13 +2404,13 @@ function bkwt() {
 	BK_DST="/Volumes/AATranscend/Z-BACKUPS/"
 
 	echo "—————————————————————————————"
-	echo "➤ ${wb} ${bf} Backing up "$1" :${r}"
+	echo "➤ ${wb}${bf} Backing up "$1" :${r}"
 	echo "—————————————————————————————"
 
 	rsync "$RS_PARAM" --exclude="node_modules" --exclude=".git" "$BK_SRC" "$BK_DST" |\
 		pv -lep -s $(rsync "$RS_PARAM"n --exclude="node_modules" --exclude=".git" "$BK_SRC" "$BK_DST" | awk 'NF' | wc -l)
 	echo "-"
-	echo "${gb} ${bf}--------------- ✔︎✔︎✔︎ DONE!!! 💯 🎉 ✔✔✔ ---------------${r}"
+	echo "${gb}${bf}--------------- ✔︎✔︎✔︎ DONE!!! 💯 🎉 ✔✔✔ ---------------${r}"
 	echo "-"
 }
 
@@ -2418,7 +2435,7 @@ function bkt() {
 	BK_DST="/Volumes/AATranscend/Z-BACKUPS/"
 
 	echo "—————————————————————————————"
-	echo "➤ ${wb} ${bf} Backing up "$1" :${r}"
+	echo "➤ ${wb}${bf} Backing up "$1" :${r}"
 	echo "—————————————————————————————"
 
 	rsync "$RS_PARAM" --exclude="node_modules" --exclude=".git" "$BK_SRC" "$BK_DST" |\
@@ -2481,11 +2498,11 @@ function bkmac() {
 	# string, so that's what we're building up here.
 	for item in "${include_paths[@]}"
 	do
-	include_args="${include_args} ${item}"
+	include_args="${include_args}${item}"
 	done
 
 	echo "—————————————————————————————"
-	echo "${wb} ${bf}➤ Backing up "$1" :${r}"
+	echo "${wb}${bf}➤ Backing up "$1" :${r}"
 	echo "—————————————————————————————"
 
 	# Finally, we just run rsync with a few flags:
@@ -2493,10 +2510,10 @@ function bkmac() {
 	#  -v is verbose mode to get a bit of extra output (useful for debugging).
 	#  -R is relative mode. It ensures the included paths get created on the target.
 	#  --dry-run ensures nothing gets written to the target (for testing purposes).
-	rsync -avR --dry-run ${exclude_flags} ${include_args} ${target_path}  |\
+	rsync -avR --dry-run ${exclude_flags}${include_args}${target_path}  |\
 		pv -lep -s $(rsync "$RS_PARAM"n "$BK_SRC" "$BK_DST" | awk 'NF' | wc -l)
 	echo "-"
-	echo "${gb} ${bf}--------------- ✔︎✔︎✔︎ DONE!!! 💯 🎉 ✔✔✔ ---------------${r}"
+	echo "${gb}${bf}--------------- ✔︎✔︎✔︎ DONE!!! 💯 🎉 ✔✔✔ ---------------${r}"
 	echo "-"
 }
 
@@ -2533,7 +2550,7 @@ function gloc() {
 	git ls-files | xargs wc -l
 }
 
-# Use Git to fine total lines of code in a repo by each author.
+# Use Git to find total lines of code in a repo by each author.
 # Usage: Browse a git repo and run `glocba``
 function glocba() {
 	git ls-files -z | xargs -0n1 git blame -w | perl -n -e '/^.*\((.*?)\s*[\d]{4}/; print $1,"\n"' | sort -f | uniq -c | sort -n
@@ -2556,20 +2573,20 @@ alias wtt="cd ~/wtt"
 # Writy update.
 function wtupdate() {
 	echo "-"
-	echo "${wb} ${bf}--------------- ⏲  Updating Writy Plugin Pro... ---------------${r}"
+	echo "${wb}${bf}--------------- ⏲  Updating Writy Plugin Pro... ---------------${r}"
 	echo "-"
 	cd ~/wtp
 	git fetch && git pull
 
 	echo "-"
-	echo "${wb} ${bf}--------------- ⏲  Updating Writy Theme... ---------------${r}"
+	echo "${wb}${bf}--------------- ⏲  Updating Writy Theme... ---------------${r}"
 	echo "-"
 
 	cd ~/wtt
 	git fetch && git pull
 
 	echo "-"
-	echo "${gb} ${bf}--------------- ✅ DONE! ---------------${r}"
+	echo "${gb}${bf}--------------- ✅ DONE! ---------------${r}"
 	echo "-"
 }
 
@@ -2598,6 +2615,8 @@ function rmqs() {
 
 # Personal tfoo.
 alias rt="cd ~ && cd web/tfoo && node rtl.js $*"
+alias tl="cd ~ && cd web/tfoo && node l.js $*"
+alias tr="cd ~ && cd web/tfoo && node r.js $*"
 alias tq="cd ~ && cd web/tfoo && node quote.js"
 
 # Start a PHP Server.
@@ -2706,6 +2725,141 @@ if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 # HTTP Header Checker
 function headerCheck() {
 	wget https://site.to.check/ --header="User-Agent: Mozilla/5.0 (Windows NT 5.1; rv:23.0) Gecko/20100101 Firefox/23.0" --header="Accept: image/png,image/*;q=0.8,*/*;q=0.5" --header="Accept-Language: en-US,en;q=0.5" --header="Accept-Encoding: gzip, deflate" --header="Referer: https://referring.site/"
+}
+
+# GitHub Contributors List.
+function gclist() {
+	npx github-contributors-list --owner ahmadawais --repo "$1" --cols 6 --sortOrder desc --showlogin true --imagesize "117" --filter gitter-badger,abdullah1908 | pbcopy
+	echo "✅  Copied!"
+}
+
+# Course: Rename final files.
+function cPrepFinal() {
+	echo '\n'
+	echo "⏲  ${wb}${bf}Preparing final files… ${r}"
+	mkdir -p "__FINAL"
+	echo "💥 ${wb}${bf}CREATE DIR: __FINAL ${r}"
+	echo '\n'
+
+	for i in *; do
+		FOLDER_NAME=$(basename $i)
+		[[ $FOLDER_NAME =~ ^(__FINAL|_RENDER_TEMPLATE|_AUDITION_PRESET)$ ]] && continue # Ignore all these folders.
+
+		if [ -f "$i/_FINAL.mp4" ]; then
+			mv "$i/_FINAL.mp4" "$i/$i.mp4" ; # Renames _FINAL.mp4 file to the same name as the folder name.
+			mv "$i/$i.mp4" "$i/_`echo $i.mp4 | cut -c 3-`" ; # Renames the files by removing '✅ ' from their names
+			# cp "$i/_`echo $i.mp4 | cut -c 3-`" ./__FINAL # Copy files to __FINAL folder.
+		fi
+
+		cp "$i/_`echo $i.mp4`" ./__FINAL # Copy files to __FINAL folder.
+
+		echo "	→ DONE: _$i.mp4"
+	done
+
+	cd __FINAL
+	for FILE in *; do
+		NEW_NAME=$(echo $FILE | cut -c 2-)
+		mv "$FILE" "`echo $NEW_NAME | tr " " "-" | tr -s "\--"`" ; # Renames the files by removing '_' from their names
+		# mv "$NEW_NAME" "`echo $FILE | tr " " "-" | tr -s "\--"`" ; # Renames the files by removing '_' from their names
+	done
+	cd ..
+
+	echo '\n'
+	echo "️✅ ${gb}${bf} DONE ${r}"
+	echo '\n'
+
+}
+
+# Course files length in seconds.
+function courseLength() {
+	echo '\n'
+	echo "⏲  ${wb}${bf} Calculating… ${r}"
+
+	SECONDS=`find . -maxdepth 1 -iname '*.mp4' -exec ffprobe -v quiet -of csv=p=0 -show_entries format=duration {} \; | paste -sd+ -| bc`
+
+	echo "TOTAL SECONDS: $SECONDS"
+	echo '\n'
+	convertSeconds $SECONDS
+	echo '\n'
+}
+
+# Convert seconds to hr min sec.
+function convertSeconds() {
+	h=$(bc <<< "${1}/3600")
+	m=$(bc <<< "(${1}%3600)/60")
+	s=$(bc <<< "${1}%60")
+	printf "${blb}${bf} %02d ${r} HOURS : ${yb}${bf} %02d ${r} MINUTES : ${mb}${bf} %05.2f ${r} SECONDS \n" $h $m $s
+}
+
+function vtimes() {
+	for f in *.mp4; do
+	    _t=$(ffmpeg -i "$f" 2>&1 | grep "Duration" | grep -o " [0-9:.]*, " | head -n1 | tr ',' ' ' | awk -F: '{ print ($1 * 3600) + 	($2 * 60) + $3 }')
+	    times+=("$_t")
+	done
+	echo "${times[@]}" | sed 's/ /+/g' | bc
+}
+
+# Course Order folders.
+function cOrderFolders() {
+	echo '\n'
+	echo "⏲  ${wb}${bf} Ordering folders… ${r}"
+	COUNT=1
+	for i in *; do
+		FOLDER_NAME=$(basename $i)
+		[[ $FOLDER_NAME =~ ^(__FINAL|_RENDER_TEMPLATE|_AUDITION_PRESET)$ ]] && continue # Ignore all these folders.
+
+		NEW_NAME=$(printf "%02d- `echo $i | cut -c 5-`" "$COUNT")
+		mv -i -- "$i" "$NEW_NAME"
+		echo "	→ DONE: $NEW_NAME"
+		let COUNT=COUNT+1
+	done
+	echo '\n'
+	echo "️✅ ${gb}${bf} DONE ${r}"
+	echo '\n'
+}
+
+# Remove last 4 chars from end.
+function rm_last_four() {
+	echo '\n'
+	echo "⏲  ${wb}${bf} Renaming folders… ${r}"
+	for i in *; do
+		mv -i -- "$i" "`echo $i | rev | cut -c 5- | rev`"
+		echo "	→ DONE: `echo $i | rev | cut -c 5- | rev`"
+	done
+	echo '\n'
+	echo "️✅ ${gb}${bf} DONE ${r}"
+	echo '\n'
+}
+
+# npm.
+alias ns="npm start"
+alias nb="npm run build"
+alias nrs="npm run serve"
+alias nbs="npm run build && npm run serve"
+alias nrr="npm run release"
+alias nrt="npm run test"
+alias nt="npm test"
+alias ys="yarn start"
+alias yb="yarn build"
+
+
+alias cppp="cat /Users/ahmadawais/cpapi/class/PPP.php"
+
+function ppp() {
+	echo '\n'
+	grep "'$1'" /Users/ahmadawais/cpapi/class/PPP.php
+	echo '\n'
+}
+
+function cpvsc() {
+	cd ~/cpapi
+	sed -i -e "s/=> '.*'/=> '$@'/g" ~/cpapi/class/CustomersCount.php
+	git add class/CustomersCount.php >/dev/null 2>&1
+	git commit -m "👌 IMPROVE: Customer stats" >/dev/null 2>&1
+	git push >/dev/null 2>&1
+	cd ~
+	echo "️\n✅ VSCode.pro customers now: ${gb}${bf} $1 ${r}\n"
+
 }
 
 # Profiling ZSH performance.
