@@ -1,6 +1,7 @@
 [user]
 	name = Ahmad Awais
 	email = me@AhmadAwais.com
+	signingkey = E73BD42BA2C6BF7F
 [filter "media"]
 	required = true
 	clean = git media clean %f
@@ -128,13 +129,11 @@
     tool = default-difftool
 [difftool "default-difftool"]
     cmd = code --wait --diff $LOCAL $REMOTE
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path =
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
 # https://stackoverflow.com/a/22933955/950111
 # Now do git push -u
 [push]
 	default = current
+[credential]
+	helper = store
+[commit]
+	gpgsign = true

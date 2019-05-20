@@ -72,6 +72,9 @@ alias vrcwp="cd ~ && cd vrcwp"
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/$USER/.oh-my-zsh
 
+# Deno installation.
+export PATH="/Users/$USER/.deno/bin:$PATH"
+
 # Pass https://www.passwordstore.org/
 # source /usr/local/etc/bash_completion.d/password-store
 
@@ -113,6 +116,7 @@ source $ZSH/oh-my-zsh.sh
 alias zs="source ~/.zshrc"
 alias zso="subl ~/.zshrc"
 alias zco="code ~/.zshrc"
+alias bco="code `bat --config-file`"
 alias stgc="st ~/.gitconfig"
 
 # Private exports are shy, they stay in Dropbox.
@@ -120,6 +124,13 @@ if [ -f ~/Dropbox/bin/.exports ]; then
     source ~/Dropbox/bin/.exports
 else
     print "404: ~/Dropbox/bin/.exports not found."
+fi
+
+# PrivateRC is shy, they stay in Dropbox.
+if [ -f ~/Dropbox/bin/.privaterc ]; then
+    source ~/Dropbox/bin/.privaterc
+else
+    print "404: ~/Dropbox/bin/.privaterc not found."
 fi
 
 # Project paths.
@@ -509,9 +520,16 @@ alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date
 # Recursively delete all `.DS_Store` files in the pwd.
 alias rmds="find . -type f -name '*.DS_Store' -ls -delete"
 
-# Show/hide hidden files in Finder
+
+# Show/hide hidden files/directories in Finder
 alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
 alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+
+# Hide a directory or file.
+# @usage: hidden fileOrDirName
+function hidden() {
+	chflags hidden "$@"
+}
 
 # Hide/show all desktop icons (useful when presenting)
 alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
@@ -1449,7 +1467,7 @@ function dbx() {
 }
 
 # Open ssh config file
-alias sshco="st ~/.ssh/config"
+alias sshco="code ~/.ssh/config"
 
 # Setup SSH key
 # Usage: sshkey name
@@ -2309,10 +2327,23 @@ function ghinit() {
 	echo "# $1 \n\n > $2" >> README.md
 	gnew 'First commit'
 	echo ''
-	echo "🎉  ${gb}${bf}DONE!${r}"
-	echo "Repo → https://github.com/ahmadawais/$1"
+	echo "✅ DONE! Repo → https://github.com/ahmadawais/$1"
 	echo ''
 }
+
+# GH New repo private.
+function ghinitp() {
+	echo "${wb}${bf}➤  Creating the GitHub Repo in PWD…${r}"
+	gh re --new "$1" --description "$2" --type "private"
+	cd "$1"
+	addgitignore
+	echo "# $1 \n\n > $2" >> README.md
+	gnew 'First commit'
+	echo ''
+	echo "✅ DONE! Repo → https://github.com/ahmadawais/$1"
+	echo ''
+}
+
 
 ####.#### ———————————————————————————————————————————— Command line magic ———————————————————————————————————————————— ####.####
 # Command line magic.
@@ -2856,13 +2887,28 @@ function ppp() {
 function cpvsc() {
 	cd ~/cpapi
 	sed -i -e "s/=> '.*'/=> '$@'/g" ~/cpapi/class/CustomersCount.php
+	rm class/CustomersCount.php-e >/dev/null 2>&1
 	git add class/CustomersCount.php >/dev/null 2>&1
 	git commit -m "👌 IMPROVE: Customer stats" >/dev/null 2>&1
 	git push >/dev/null 2>&1
 	cd ~
 	echo "️\n✅ VSCode.pro customers now: ${gb}${bf} $1 ${r}\n"
-
 }
 
 # Profiling ZSH performance.
 # zprof
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+
+# alias gmeow="cd /Users/ahmadawais/sbx/bash"
+
+function gmeow() {
+	echo "$@"
+}
+
+# GPG Keys
+alias gpgls="gpg --list-secret-keys --keyid-format LONG"
+
+# On gpg access fail.
+alias gpgexpo="export GPG_TTY=$(tty)"
