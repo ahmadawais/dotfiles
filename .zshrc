@@ -2912,3 +2912,6 @@ alias gpgls="gpg --list-secret-keys --keyid-format LONG"
 
 # On gpg access fail.
 alias gpgexpo="export GPG_TTY=$(tty)"
+# export GPG_TTY=$(tty)
+alias gpgkill="gpgconf --kill gpg-agent"
+alias gpginit="gpg-agent --daemon"
