@@ -33,9 +33,7 @@ alias dev="cd ~ && cd webdev"
 alias webdev="cd ~ && cd webdev"
 alias wtwpdev="cd ~ && cd wtwp"
 alias ldev="cd ~ && cd ldev"
-alias lpdev="cd ~ && cd ldev/wp-content/plugins/"
 alias llpdev="cd ~ && llpdev"
-alias ltdev="cd ~ && cd ldev/wp-content/themes/"
 alias lltdev="cd ~ && lltdev"
 alias wpcdev="cd ~ && cd wpcdev"
 alias swpcdev="cd ~ && cd swpc"
@@ -2868,6 +2866,7 @@ function rm_last_four() {
 alias ns="npm start"
 alias nb="npm run build"
 alias nrs="npm run serve"
+alias nrd="npm run dev"
 alias nbs="npm run build && npm run serve"
 alias nrr="npm run release"
 alias nrt="npm run test"
@@ -2875,6 +2874,11 @@ alias nt="npm test"
 alias ys="yarn start"
 alias yb="yarn build"
 
+function nbin { (PATH=$(npm bin):$PATH; eval $@;) }
+
+function nr() {
+	npm run $@
+}
 
 alias cppp="cat /Users/ahmadawais/cpapi/class/PPP.php"
 
@@ -2900,13 +2904,6 @@ function cpvsc() {
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-
-# alias gmeow="cd /Users/ahmadawais/sbx/bash"
-
-function gmeow() {
-	echo "$@"
-}
-
 # GPG Keys
 alias gpgls="gpg --list-secret-keys --keyid-format LONG"
 
@@ -2915,3 +2912,13 @@ alias gpgexpo="export GPG_TTY=$(tty)"
 # export GPG_TTY=$(tty)
 alias gpgkill="gpgconf --kill gpg-agent"
 alias gpginit="gpg-agent --daemon"
+
+function yw() {
+	yarn workspace "$@"
+}
+
+# Delete this.
+alias create-cloudinary-headshot="/Users/ahmadawais/work/headshot/cli/index.js"
+
+# Del all node modules from current dir and inside there in more dirs recursively.
+alias delnm="find . -name "node_modules" -type d -prune -exec rm -rf '{}' +"
