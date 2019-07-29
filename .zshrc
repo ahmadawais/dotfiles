@@ -114,6 +114,7 @@ source $ZSH/oh-my-zsh.sh
 alias zs="source ~/.zshrc"
 alias zso="subl ~/.zshrc"
 alias zco="code ~/.zshrc"
+alias mco="code ~/.mackup.cfg"
 alias bco="code `bat --config-file`"
 alias stgc="st ~/.gitconfig"
 
@@ -199,9 +200,10 @@ alias gbd="git branch -D"
 # Create new branch and checkout.
 alias gbn='git checkout -b'
 alias gfu='git fetch upstream && git pull upstream master'
+alias gpu='git pull upstream master'
 function gbnf() {
 	git fetch --all
-  git checkout -b $@ upstream/master
+	git checkout -b $@ upstream/master
 }
 
 #git merge branch
@@ -271,9 +273,11 @@ function gbrdel {
 
 
 alias gsclear="git stash clear"
+alias gsc="git stash clear"
+alias gsa="git stash apply"
 alias gfo="git fetch origin"
-alias grh="git r --hard"
-alias grhom="git r --hard origin/master"
+alias grh="git reset --hard"
+alias grhom="git reset --hard origin/master"
 # r to head and remove all untracked files (including npm installs)
 alias gitreverything='git clean -d -x -f; git reset --hard'
 alias grhc='git clean -d -x -f; git reset --hard'
@@ -297,25 +301,12 @@ function gcma() {
 }
 
 alias gp="git push"
-alias gpu="git push -u"
 alias gpp="git push -u"
 alias gpf="git push --force"
 alias gpt="git push --tags"
 
 # delete git and re-inialize git
 alias gdelinit="trash .git && git init"
-
-# git add all, git commit with the message and git push
-# git commit all push
-function gcmap() {
-		git add . && git ci -m "$*" && gp
-}
-function gcap() {
-		git add . && git ci -m "$*" && gp
-}
-function gcall() {
-		git add . && git ci -m "$*"
-}
 
 # git add commit and then fix an issue on github
 # usage: gifix 5
@@ -517,6 +508,10 @@ alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date
 
 # Recursively delete all `.DS_Store` files in the pwd.
 alias rmds="find . -type f -name '*.DS_Store' -ls -delete"
+
+# Del all node modules from current dir and inside there in more dirs recursively.
+alias delnm="find . -name "node_modules" -type d -prune -exec rm -rf '{}' +"
+alias rmnm="find . -name "node_modules" -type d -prune -exec rm -rf '{}' +"
 
 
 # Show/hide hidden files/directories in Finder
@@ -2249,6 +2244,18 @@ alias ej="emoji-finder --dango"
 
 #.# Better Git Logs.
 
+# git add all, git commit with the message and git push
+# git commit all push
+function gcmap() {
+		git add . && git ci -m "$*" && gp
+}
+function gcap() {
+		git add . && git ci -m "$*" && gp
+}
+function gcall() {
+		git add . && git ci -m "$*"
+}
+
 # NEW.
 function gnew() {
 	gcap "📦 NEW: $@"
@@ -2341,7 +2348,6 @@ function ghinitp() {
 	echo "✅ DONE! Repo → https://github.com/ahmadawais/$1"
 	echo ''
 }
-
 
 ####.#### ———————————————————————————————————————————— Command line magic ———————————————————————————————————————————— ####.####
 # Command line magic.
@@ -2920,5 +2926,32 @@ function yw() {
 # Delete this.
 alias create-cloudinary-headshot="/Users/ahmadawais/work/headshot/cli/index.js"
 
-# Del all node modules from current dir and inside there in more dirs recursively.
-alias delnm="find . -name "node_modules" -type d -prune -exec rm -rf '{}' +"
+# Gif to video.
+# https://web.dev/replace-gifs-with-videos/
+function gif2vid() {
+	if [[ "-h" == "$1" ]]; then
+		echo "-"
+		echo "${wb}${bf}— Help! —${r}"
+		echo "${wb}${bf}USAGE: rgif2vid some.gif nameOfVideos${r}"
+		echo "-"
+		return 1
+	else
+		ffmpeg -i "$1" "$2".mp4
+		ffmpeg -i "$1" -c vp9 -b:v 0 -crf 41 "$2".webm
+	fi
+}
+
+
+# Release it.
+function rlz() {
+	release-it --config '/Users/ahmadawais/Dropbox/bin/.release-it.json' "$@"
+}
+
+# Templates
+function ti() {
+	template install "$@"
+}
+
+function tc() {
+	template create "$@"
+}
