@@ -815,7 +815,7 @@ bb=`tput setab 0` #set background black
 bf=`tput setaf 0` #set foreground black
 
 gb=`tput setab 2` # set background green
-gf=`tput setab 2` # set background green
+gf=`tput setaf 2` # set foreground green
 
 yb=`tput setab 3` # set background yellow
 yf=`tput setaf 3` # set foreground yellow
@@ -2327,6 +2327,7 @@ function grinit() {
 function ghinit() {
 	echo "${wb}${bf}➤  Creating the GitHub Repo in PWD…${r}"
 	gh re --new "$1" --description "$2" --type "$3"
+	gh re --user "ahmadawais" --repo "$1" --clone
 	cd "$1"
 	addgitignore
 	echo "# $1 \n\n > $2" >> README.md
@@ -2340,6 +2341,7 @@ function ghinit() {
 function ghinitp() {
 	echo "${wb}${bf}➤  Creating the GitHub Repo in PWD…${r}"
 	gh re --new "$1" --description "$2" --type "private"
+	gh re --user "ahmadawais" --repo "$1" --clone
 	cd "$1"
 	addgitignore
 	echo "# $1 \n\n > $2" >> README.md
@@ -2347,6 +2349,11 @@ function ghinitp() {
 	echo ''
 	echo "✅ DONE! Repo → https://github.com/ahmadawais/$1"
 	echo ''
+}
+
+# Del a repo.
+function ghdel() {
+	gh re --delete "$1"
 }
 
 ####.#### ———————————————————————————————————————————— Command line magic ———————————————————————————————————————————— ####.####
@@ -2954,4 +2961,18 @@ function ti() {
 
 function tc() {
 	template create "$@"
+}
+
+# Init node module.
+function inm() {
+	clear
+	echo ''
+	echo "${yf}❯ 1️⃣ INITIALIZING…${r}"
+	template create nm "$1"
+	cd "$1"
+	sh init.sh
+	gnew 'First commit' 2> /dev/null
+	echo ''
+	echo "${gf}❯ ✅ DONE! → https://github.com/ahmadawais/$1 ${r}"
+	echo ''
 }
