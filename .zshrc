@@ -2966,13 +2966,18 @@ function tc() {
 # Init node module.
 function inm() {
 	clear
-	echo ''
-	echo "${yf}❯ 1️⃣ INITIALIZING…${r}"
+
+	echo "\n${yf}❯ 📟 INITIALIZING…${r}\n"
+
 	template create nm "$1"
 	cd "$1"
-	sh init.sh
-	gnew 'First commit' 2> /dev/null
-	echo ''
-	echo "${gf}❯ ✅ DONE! → https://github.com/ahmadawais/$1 ${r}"
-	echo ''
+
+	echo "\n${yf}❯ 📥 GIT REPOSITORY…${r}\n"
+
+	sh init.sh 2> /dev/null
+	git add . 2> /dev/null
+	git ci -m "📦 NEW: First commit" 2> /dev/null
+	git push 2> /dev/null
+
+	echo "\n${gf}❯ ✅ DONE: https://github.com/ahmadawais/$1 ${r}\n"
 }
