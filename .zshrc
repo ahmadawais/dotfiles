@@ -1127,7 +1127,7 @@ function syncdfiles() {
 	brew list > ./brew/brew-list.txt
 	brew cask list > ./brew/cask-list.txt
 
-	echo "\n${yf}❯ Listing brew files${r}"
+	echo "\n${yf}❯ Listing npm files${r}"
 	npm list -g --depth 0 > ./npm/global-packages-list.txt
 
 	echo "\n${yf}❯ Git commit/push in progress…${r}"

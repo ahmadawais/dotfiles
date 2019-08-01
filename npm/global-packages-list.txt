@@ -1,0 +1,36 @@
+/Users/ahmadawais/.asdf/installs/nodejs/10.11.0/.npm/lib
+├── @aws-amplify/cli@1.6.6
+├── @fabiospampinato/template@1.1.4
+├── auto-changelog@1.14.1
+├── awesome-lint@0.8.0
+├── browser-sync@2.24.7
+├── cliflix@1.10.2
+├── decktape@2.9.2
+├── fast-cli@2.3.0
+├── forkz@0.6.0
+├── fx@3.0.2
+├── gatsby-cli@2.4.3
+├── generator-nm@5.1.0
+├── gh@1.17.5
+├── git-open@2.0.0
+├── grunt-cli@1.3.2
+├── how-to-markdown@1.6.0
+├── localtunnel@1.9.1
+├── mdx-go@2.0.0-25
+├── mediumexporter@0.1.6
+├── netlify-cli@2.7.0
+├── now@15.5.0
+├── npm@6.10.2
+├── npm-check@5.9.0
+├── ntl@3.2.4
+├── release-it@12.3.4
+├── splash-cli@3.0.2
+├── starz@0.0.2
+├── subfont@3.6.2
+├── surge@0.20.1
+├── taskbook@0.3.0
+├── trash-cli@2.0.0
+├── vimeo-cli@0.0.11
+├── yarn@1.16.0
+└── yo@3.1.0
+
