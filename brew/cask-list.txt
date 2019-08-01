@@ -1,0 +1,14 @@
+betterzip
+buttercup
+firefox
+graphiql
+imageoptim
+insomnia
+kap
+mounty
+opera
+qlcolorcode
+qlimagesize
+qlmarkdown
+qlstephen
+quicklook-json

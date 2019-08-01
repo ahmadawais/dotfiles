@@ -1,4 +1,0 @@
-phinze/cask/brew-cask
-phantomjs
-subversion
-z

@@ -1,6 +1,8 @@
-#Spectacle mappings
-**Note**: This is not a configuration file you run, you manually set these inside spectacle preferences.
+# Spectacle Mappings
 
+> [Spectacle](https://www.spectacleapp.com/) preferences.
+
+**Note**: This is now automated via [Shortcuts][s] .
 
 |        New         | "Description"  |      Default       |
 |--------------------|----------------|--------------------|
@@ -17,6 +19,4 @@
 | Ctrl-Opt-Sft-Right | "Make Larger"  | Cmd-Opt-Sft-Right  |
 | Ctrl-Opt-Sft-Left  | "Make Smaller" | Cmd-Opt-Sft-Left   |
 
-
-  
-  
+[s]: /Shortcuts.json
