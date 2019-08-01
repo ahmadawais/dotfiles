@@ -174,9 +174,9 @@ function gmb() {
 	git blame-someone-else "Maedah Batool <MaedahBatool@gmail.com>" "$@"
 }
 
-function gstrk(){
- cd /Users/$USER/Documents/web/Git/WPDev ;
- python file.py "$*"
+function gstrk() {
+	cd /Users/$USER/Documents/web/Git/WPDev ;
+	python file.py "$*"
 }
 
 # Removes dotfile or dotfolder in the pwd e.g. .git
@@ -242,7 +242,7 @@ function gbdel {
 #get a list of conflicts
 alias conflicts='git diff --name-only --diff-filter=U'
 
-function grebase(){
+function grebase() {
 	git rebase -i @~"$*"
 }
 
@@ -343,7 +343,7 @@ alias gconfig="git config --global --edit"
 alias gtag="git tag"
 alias gtagd="git tag -d $*"
 alias gtagdp="git push origin :refs/tags/$*"
-function gtagdel(){
+function gtagdel() {
 	the_tag=$*
 
 	echo "${wf}———————————————————${r}"
@@ -387,7 +387,7 @@ alias gfpchanges="git diff --stat $1@{1}$1"
 # Usage: garc zipname
 # Link: http://askubuntu.com/a/87693
 # alias garc="git archive -o $1.zip HEAD"
-function garc(){
+function garc() {
 	zip_name=$1
 	echo "${wf}———————————————————${r}"
 	echo "${gb}${bf}Zipping the current folder...${r}"
@@ -677,7 +677,7 @@ alias wpppn="wp option update permalink_structure '/%postname%'"
 
 
 # Install WPTest.io
-function wptest(){
+function wptest() {
 	wp plugin install wordpress-importer --activate
 	curl -OL https://raw.githubusercontent.com/manovotny/wptest/master/wptest.xml
 	wp import wptest.xml --authors=create
@@ -971,7 +971,7 @@ function emptypwd() {
 #
 # Where 8 is the number of pull request (can be found right after the PR's title).
 #
-function gfpr(){
+function gfpr() {
 	echo "${wf}———————————————————${r}"
 		echo "${wb}${bf}0. Fetching the pull request...${r}"
 
@@ -1048,7 +1048,7 @@ alias howphp="how2 -l php $*"
 alias howl="how2 -l $1 ${@:2}"
 
 # Copy sublime user folder and delete stuff
-function syncsbl(){
+function syncsbl() {
 	echo "${wf}———————————————————${r}"
 
 		echo "${rb}${wf}0. Deleting old user folder...${r}"
@@ -1081,7 +1081,7 @@ function syncsbl(){
 
 
 # Copy .zshrc to dotfiles
-function synczsh(){
+function synczsh() {
 	echo "${wf}———————————————————${r}"
 
 		echo "${rb}${wf}0. Deleting old .zshrc and .bash files...${r}"
@@ -1107,29 +1107,20 @@ function synczsh(){
 }
 
 
-# Major Sync dotfiles function
-function syncdfiles(){
-	echo "${wf}———————————————————${r}"
-
-		dfiles
-
-		echo "${wb}${bf}1. Syncing Sublime...${r}"
-
-		syncsbl
-
-		echo "${wb}${bf}2. Syncing .zshrc...${r}"
-
-		synczsh
-
-		# Workflow stuff.
-		mkdir -p /Users/$USER/web/dotFiles/Users/$USER/workflow/
-		cp -rfp /Users/$USER/workflow/.release.json /Users/$USER/web/dotFiles/Users/$USER/workflow/
-
-		gimp 'DotFiles Synced'
-
-		cd ~
-		echo "${gb}${bf}3. Sync dotFiles Done! ✔︎✔︎✔︎${r}"
-	echo "${wf}———————————————————${r}"
+# Sync dotfiles.
+alias syncd="syncdfiles"
+function syncdfiles() {
+	REMEMBERERD_DIR="$(cd "$(dirname "$0")" && pwd)"
+	dfiles # Symlink goes to web/dotfiles.
+	rmds # Del DS_STORE.
+	cp ~/.zshrc .
+	cp ~/.bashrc .
+	cp ~/.bash_profile .
+	cp ~/.gitconfig .
+	cp "/Users/ahmadawais/Library/Application Support/Code/User/spellright.dict" .
+	gimp 'Sync dotfiles'
+	cd $REMEMBERERD_DIR
+	echo "${gf}✅ DONE!${r}"
 }
 
 # Pull Dotfiles
@@ -1161,7 +1152,7 @@ function pulldfiles() {
 }
 
 # Pull Sublime settings.
-function pullsubl(){
+function pullsubl() {
 	echo "${wf}———————————————————${r}"
 		echo "${rb}${wf}Pulling dotfiles...${r}"
 		pulldfiles
@@ -1202,7 +1193,7 @@ function change_line {
 # in the theme so if you bundle plugins with
 # TGMPA then beware.
 #
-function wpzip(){
+function wpzip() {
 	echo "${wf}———————————————————${r}"
 
 		zip_name=$1 # $1 is agrument 1
@@ -1402,11 +1393,11 @@ alias grmcached="git rm -r --cached . && gfix 'Sync .gitignore'"
 # Copy pictures to desktop
 #
 # Click on the picture in Photos. Press command i to read its Info. Double-click on the file name then copy it by pressing command c.
-function cpic(){
+function cpic() {
 	cp "`find Pictures -name "$@" -print`" ~/Desktop/
 }
 
-function cimg(){
+function cimg() {
 	cp "`find Pictures -name "$@" -print`" ~/Desktop/
 }
 
@@ -1979,7 +1970,7 @@ alias mks="mk serve"
 alias mkgd="mk gh-deploy --force -m BUILD!"
 
 # Mkdocs build and deploy
-function mkdp(){
+function mkdp() {
 	echo "-"
 	echo "${wb}${bf}--------------- ⏲  DOCS: Let's deploy em... ---------------${r}"
 	echo "-"
@@ -2260,30 +2251,48 @@ function gcall() {
 function gnew() {
 	gcap "📦 NEW: $@"
 }
+function gnewl() {
+	gcall "📦 NEW: $@"
+}
 
 # IMPROVE.
 function gimp() {
 	gcap "👌 IMPROVE: $@"
+}
+function gimpl() {
+	gcall "👌 IMPROVE: $@"
 }
 
 # FIX.
 function gfix() {
 	gcap "🐛 FIX: $@"
 }
+function gfixl() {
+	gcall "🐛 FIX: $@"
+}
 
 # RELEASE.
 function grlz() {
 	gcap "🚀 RELEASE: $@"
+}
+function grlzl() {
+	gcall "🚀 RELEASE: $@"
 }
 
 # DOC.
 function gdoc() {
 	gcap "📖 DOC: $@"
 }
+function gdocl() {
+	gcall "📖 DOC: $@"
+}
 
 # TEST.
 function gtst() {
 	gcap "✅ TEST: $@"
+}
+function gtstl() {
+	gcapll"✅ TEST: $@"
 }
 
 # Git Stash all.
@@ -2699,7 +2708,7 @@ alias diskspace="df -P -kHl"
 alias fs="stat -f \"%z bytes\""
 
 # List all files, long format, colorized, permissions in octal
-function la(){
+function la() {
  	ls -l  "$@" | awk '
     {
       k=0;
@@ -2912,8 +2921,19 @@ function cpvsc() {
 	echo "️\n✅ VSCode.pro customers now: ${gb}${bf} $1 ${r}\n"
 }
 
-# Profiling ZSH performance.
-# zprof
+# Silent Git.
+silentGit() {
+    stdout=$(tempfile)
+    stderr=$(tempfile)
+
+    if ! git "$@" </dev/null >$stdout 2>$stderr; then
+        cat $stderr >&2
+        rm -f $stdout $stderr
+        exit 1
+    fi
+
+    rm -f $stdout $stderr
+}
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -2948,7 +2968,6 @@ function gif2vid() {
 	fi
 }
 
-
 # Release it.
 function rlz() {
 	release-it --config '/Users/ahmadawais/Dropbox/bin/.release-it.json' "$@"
@@ -2972,12 +2991,23 @@ function inm() {
 	template create nm "$1"
 	cd "$1"
 
-	echo "\n${yf}❯ 📥 GIT REPOSITORY…${r}\n"
+	echo "\n${yf}❯ 📥 GIT REPOSITORY…${r}"
 
-	sh init.sh 2> /dev/null
-	git add . 2> --quiet /dev/null
-	git ci -m "📦 NEW: First commit" --quiet 2> /dev/null
-	git push --quiet 2> /dev/null
+	sh init.sh &> /dev/null
+	git add . >/dev/null 2>&1
+	git ci -m "📦 NEW: First commit" >/dev/null 2>&1
+	git push >/dev/null 2>&1
 
 	echo "\n${gf}❯ ✅ DONE: https://github.com/ahmadawais/$1 ${r}\n"
 }
+
+function npmname() {
+	npx npm-name-cli "$@"
+}
+
+function grename() {
+	git mv -f "$1" "$2"
+}
+
+# Profiling ZSH performance.
+# zprof
