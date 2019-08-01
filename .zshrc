@@ -1111,7 +1111,7 @@ function synczsh() {
 alias syncd="syncdfiles"
 function syncdfiles() {
 	clear
-	echo "${yf}❯ BACKING UP DOTFILES! ${r}"
+	echo "\n${yf}❯ BACKING UP DOTFILES! ${r}"
 	REMEMBERERD_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 	echo "\n${yf}❯ Copying files${r}"
