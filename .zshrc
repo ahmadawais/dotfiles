@@ -1110,6 +1110,8 @@ function synczsh() {
 # Sync dotfiles.
 alias syncd="syncdfiles"
 function syncdfiles() {
+	clear
+	echo "${yf}❯ Copying files${r}"
 	REMEMBERERD_DIR="$(cd "$(dirname "$0")" && pwd)"
 	dfiles # Symlink goes to web/dotfiles.
 	rmds # Del DS_STORE.
@@ -1118,9 +1120,12 @@ function syncdfiles() {
 	cp ~/.bash_profile .
 	cp ~/.gitconfig .
 	cp "/Users/ahmadawais/Library/Application Support/Code/User/spellright.dict" .
-	gimp 'Sync dotfiles'
-	cd $REMEMBERERD_DIR
+	echo "${yf}❯ Git commit/push in progress…${r}"
+	gimp 'Sync dotfiles' >/dev/null 2>&1
+	echo "${gf}❯ https://github.com/ahmadawais/dotFiles.git${r}"
+	echo
 	echo "${gf}✅ DONE!${r}"
+	cd $REMEMBERERD_DIR
 }
 
 # Pull Dotfiles
