@@ -1110,9 +1110,9 @@ function synczsh() {
 # Sync dotfiles.
 alias syncd="syncdfiles"
 function syncdfiles() {
+	clear
 	echo "${yf}❯ BACKING UP DOTFILES! ${r}"
 	REMEMBERERD_DIR="$(cd "$(dirname "$0")" && pwd)"
-	clear
 
 	echo "\n${yf}❯ Copying files${r}"
 	dfiles # Symlink goes to web/dotfiles.
