@@ -1111,7 +1111,7 @@ function synczsh() {
 alias syncd="syncdfiles"
 function syncdfiles() {
 	clear
-	echo "${yf}❯ Copying files${r}"
+	echo "\n${yf}❯ Copying files${r}"
 	REMEMBERERD_DIR="$(cd "$(dirname "$0")" && pwd)"
 	dfiles # Symlink goes to web/dotfiles.
 	rmds # Del DS_STORE.
@@ -1123,8 +1123,7 @@ function syncdfiles() {
 	echo "${yf}❯ Git commit/push in progress…${r}"
 	gimp 'Sync dotfiles' >/dev/null 2>&1
 	echo "${gf}❯ https://github.com/ahmadawais/dotFiles.git${r}"
-	echo
-	echo "${gf}✅ DONE!${r}"
+	echo "\n${gf}✅ DONE!${r}\n"
 	cd $REMEMBERERD_DIR
 }
 
