@@ -1127,7 +1127,10 @@ function syncdfiles() {
 	brew list > ./brew/brew-list.txt
 	brew cask list > ./brew/cask-list.txt
 
-	echo "${yf}❯ Git commit/push in progress…${r}"
+	echo "\n${yf}❯ Listing brew files${r}"
+	npm list -g --depth 0 > ./npm/global-packages-list.txt
+
+	echo "\n${yf}❯ Git commit/push in progress…${r}"
 	gimp 'Sync dotfiles' >/dev/null 2>&1
 	echo "${gf}❯ https://github.com/ahmadawais/dotFiles.git${r}"
 	cd $REMEMBERERD_DIR
