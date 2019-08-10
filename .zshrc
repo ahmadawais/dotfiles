@@ -551,7 +551,7 @@ alias rld="reload"
 alias rf="source ~/.zshrc"
 
 
-alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to pasteboard.\n'";
+alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to clipboard.\n'";
 
 alias vup="vagrant up && vagrant provision && vagrant ssh"
 alias vp="vagrant provision"
@@ -1560,7 +1560,7 @@ function elinks() {
 # Complete Lynda Download & Upload To Dropbox and Removal from VPS
 function ldu() {
 	# folder_name=$1
-	lynda_link=$1
+	LYNDA_LINK=$1
 
 	folder_name=$(wget -qO- $1 | grep -o "<title>[^<]*" | sed -e 's/<[^>]*>//g')
 
@@ -1570,7 +1570,7 @@ function ldu() {
 
 	echo "${wb}${bf} STARTED DOWNLOADING FROM LYNDA ${r}"
 
-	dvidl "$lynda_link"
+	dvidl "$LYNDA_LINK"
 	echo "${gb}${bf} DOWNLOAD COMPELTED ✔︎ ✔︎ ✔︎ $folder_name ${r}"
 
 	echo "${wb}${bf} UPLOADING TO DROPBOX... ${r}"
@@ -2683,10 +2683,37 @@ function rmqs() {
 
 
 # Personal tfoo.
-alias rt="cd ~ && cd web/tfoo && node rtl.js $*"
-alias tl="cd ~ && cd web/tfoo && node l.js $*"
-alias tr="cd ~ && cd web/tfoo && node r.js $*"
-alias tq="cd ~ && cd web/tfoo && node quote.js"
+function rt() {
+	REMEMBERERD_DIR="$(cd "$(dirname "$0")" && pwd)"
+	cd ~
+	cd web/tfoo
+	node rtl.js $*
+	cd $REMEMBERERD_DIR
+}
+
+function tl() {
+	REMEMBERERD_DIR="$(cd "$(dirname "$0")" && pwd)"
+	cd ~
+	cd web/tfoo
+	node l.js $*
+	cd $REMEMBERERD_DIR
+}
+
+function tr() {
+	REMEMBERERD_DIR="$(cd "$(dirname "$0")" && pwd)"
+	cd ~
+	cd web/tfoo
+	node r.js $*
+	cd $REMEMBERERD_DIR
+}
+
+function tq() {
+	REMEMBERERD_DIR="$(cd "$(dirname "$0")" && pwd)"
+	cd ~
+	cd web/tfoo
+	node quote.js
+	cd $REMEMBERERD_DIR
+}
 
 # Start a PHP Server.
 function phpServer() {
@@ -2927,6 +2954,7 @@ function ppp() {
 }
 
 function cpvsc() {
+	REMEMBERERD_DIR="$(cd "$(dirname "$0")" && pwd)"
 	cd ~/cpapi
 	sed -i -e "s/=> '.*'/=> '$@'/g" ~/cpapi/class/CustomersCount.php
 	rm class/CustomersCount.php-e >/dev/null 2>&1
@@ -2934,6 +2962,7 @@ function cpvsc() {
 	git commit -m "👌 IMPROVE: Customer stats" >/dev/null 2>&1
 	git push >/dev/null 2>&1
 	cd ~
+	cd $REMEMBERERD_DIR
 	echo "️\n✅ VSCode.pro customers now: ${gb}${bf} $1 ${r}\n"
 }
 
@@ -3017,13 +3046,17 @@ function inm() {
 	echo "\n${gf}❯ ✅ DONE: https://github.com/ahmadawais/$1 ${r}\n"
 }
 
+alias npmn="npmname"
 function npmname() {
-	npx npm-name-cli "$@"
+	npm-name "$@"
 }
 
 function grename() {
 	git mv -f "$1" "$2"
 }
 
+function clog() {
+	auto-changelog --package --unreleased --output 'changelog.md' --commit-limit 'false' --template '/Users/ahmadawais/Dropbox/bin/changelog.hbs' && git add . && git commit -m ' 📖 DOC: Changelog update' && git push
+}
 # Profiling ZSH performance.
 # zprof

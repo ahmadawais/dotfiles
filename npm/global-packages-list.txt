@@ -20,8 +20,9 @@
 ├── mediumexporter@0.1.6
 ├── netlify-cli@2.7.0
 ├── now@15.5.0
-├── npm@6.10.2
+├── npm@6.10.3
 ├── npm-check@5.9.0
+├── npm-name-cli@2.6.0
 ├── ntl@3.2.4
 ├── release-it@12.3.4
 ├── splash-cli@3.0.2
