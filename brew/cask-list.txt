@@ -5,6 +5,7 @@ graphiql
 imageoptim
 insomnia
 kap
+maccy
 mounty
 opera
 qlcolorcode

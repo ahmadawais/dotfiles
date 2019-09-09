@@ -47,6 +47,22 @@
 [help]
 	# Automatically correct and execute mistyped commands.
 	autocorrect = 1
+[merge]
+	tool = code
+[diff]
+    tool = default-difftool
+[difftool "default-difftool"]
+    cmd = code --wait --diff $LOCAL $REMOTE
+# https://stackoverflow.com/a/22933955/950111
+# Now do git push -u
+[push]
+	default = current
+[credential]
+	helper = store
+[commit]
+	gpgsign = true
+[gpg]
+	program = gpg
 [alias]
 	st = status
 	ci = commit
@@ -121,21 +137,3 @@
 	switch = !legit switch
 	resync = !legit resync
 	undo = !legit undo
-[include]
-	path = /Users/ahmadawais/.gitconfig.reflow
-[merge]
-	tool = code
-[diff]
-    tool = default-difftool
-[difftool "default-difftool"]
-    cmd = code --wait --diff $LOCAL $REMOTE
-# https://stackoverflow.com/a/22933955/950111
-# Now do git push -u
-[push]
-	default = current
-[credential]
-	helper = store
-[commit]
-	gpgsign = true
-[gpg]
-	program = gpg

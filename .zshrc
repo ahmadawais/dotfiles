@@ -343,26 +343,26 @@ alias gconfig="git config --global --edit"
 alias gtag="git tag"
 alias gtagd="git tag -d $*"
 alias gtagdp="git push origin :refs/tags/$*"
+
+function gtagit() {
+	git tag $@
+	git push origin --tags
+}
+
+function wprlz() {
+	grlz $@
+	gtagit $@
+}
+
 function gtagdel() {
 	the_tag=$*
 
-	echo "${wf}———————————————————${r}"
-	echo "${gb}${bf}0. Listing all tags...${r}"
-	git tag
-
-	echo "${wf}———————————————————${r}"
 	echo "${rb}${wf}1. Deleting the tag...${r}"
 	git tag -d $the_tag
 
-	echo "${wf}———————————————————${r}"
 	echo "${rb}${wf}2. Deleting the tag at remote origin...${r}"
 	git push origin :refs/tags/$the_tag
 
-	echo "${wf}———————————————————${r}"
-	echo "${gb}${bf}3. Listing all tags again...${r}"
-	git tag
-
-	echo "${wf}———————————————————${r}"
 	echo "${gb}${bf}Completed!...${r}"
 }
 
@@ -976,6 +976,22 @@ function gfpr() {
 		echo "${wb}${bf}0. Fetching the pull request...${r}"
 
 		git fetch origin pull/"${1}"/head:PR#"${1}"
+
+		echo "${wb}${bf}1. PR fetched creating a branch...${r}"
+
+		git checkout PR#"${1}"
+
+		echo "${wb}${bf}2. Checking out to a new PR branch...${r}"
+
+		echo "✅ — ${gb}${bf}3. PR Branch Created!${r}"
+	echo "${wf}———————————————————${r}"
+}
+
+function gfupr() {
+	echo "${wf}———————————————————${r}"
+		echo "${wb}${bf}0. Fetching the pull request...${r}"
+
+		git fetch upstream pull/"${1}"/head:PR#"${1}"
 
 		echo "${wb}${bf}1. PR fetched creating a branch...${r}"
 
@@ -3060,3 +3076,18 @@ function clog() {
 }
 # Profiling ZSH performance.
 # zprof
+# NorthStack START
+PATH=/Users/ahmadawais/.local/bin:$PATH
+# NorthStack END
+
+function fosslowercase() {
+	git mv README.md readme.md  >/dev/null 2>&1
+	git mv ReadMe.md readme.md  >/dev/null 2>&1
+	git mv CHANGELOG.md changelog.md  >/dev/null 2>&1
+	git mv CODE-OF-CONDUCT.md code-of-conduct.md  >/dev/null 2>&1
+	git mv CONTRIBUTE.md contribute.md  >/dev/null 2>&1
+	git mv CONTRIBUTING.md contributing.md  >/dev/null 2>&1
+	git mv LICENSE.md license.md  >/dev/null 2>&1
+	git mv LICENSE license  >/dev/null 2>&1
+	gimp 'Lower-case names'
+}
