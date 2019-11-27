@@ -36,11 +36,13 @@ git-town
 glib
 gmp
 gnu-getopt
+gnu-sed
 gnupg
 gnutls
 go
 gobject-introspection
 graphite2
+grep
 guetzli
 harfbuzz
 help2man
@@ -100,6 +102,7 @@ mas
 mcrypt
 mhash
 mongodb
+mp4v2
 nasm
 ncurses
 nettle

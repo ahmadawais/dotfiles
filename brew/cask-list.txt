@@ -1,5 +1,6 @@
 betterzip
 buttercup
+chromedriver
 firefox
 graphiql
 imageoptim

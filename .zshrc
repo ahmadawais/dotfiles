@@ -171,7 +171,7 @@ function gbse() {
 }
 # Same as above
 function gmb() {
-	git blame-someone-else "Maedah Batool <MaedahBatool@gmail.com>" "$@"
+	git blame-someone-else "Maedah Batool <root@gmail.com>" "$@"
 }
 
 function gstrk() {
@@ -383,19 +383,9 @@ alias gdsf="git diff --color | diff-so-fancy"
 # Usage: gpfchanges branch_name
 alias gfpchanges="git diff --stat $1@{1}$1"
 
-# Git archive the current directory and ignore everything in .gitignore file
+# Git archive the current directory and ignore everything in .gitignore file.
 # Usage: garc zipname
-# Link: http://askubuntu.com/a/87693
-# alias garc="git archive -o $1.zip HEAD"
-function garc() {
-	zip_name=$1
-	echo "${wf}———————————————————${r}"
-	echo "${gb}${bf}Zipping the current folder...${r}"
-	git archive -o $zip_name.zip HEAD
-
-	echo "${wf}———————————————————${r}"
-	echo "${gb}${bf}Completed! 💯  ${r}"
-}
+alias garc="git archive -o $1.zip HEAD"
 
 # Fun commit messages
 alias yolo="git commit -am '`curl -s http://whatthecommit.com/index.txt`'"
@@ -509,24 +499,27 @@ alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date
 # Recursively delete all `.DS_Store` files in the pwd.
 alias rmds="find . -type f -name '*.DS_Store' -ls -delete"
 
+# Recursively delete all `.nfo` files in the pwd.
+alias rmnfo="find . -type f -name '*.nfo' -ls -delete"
+
 # Del all node modules from current dir and inside there in more dirs recursively.
 alias delnm="find . -name "node_modules" -type d -prune -exec rm -rf '{}' +"
 alias rmnm="find . -name "node_modules" -type d -prune -exec rm -rf '{}' +"
 
-
-# Show/hide hidden files/directories in Finder
+# Show/Hide hidden files/directories in macOS Finder.
 alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
 alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+
+# Show/Hide all desktop icons (useful when presenting or recording).
+alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
+alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
+
 
 # Hide a directory or file.
 # @usage: hidden fileOrDirName
 function hidden() {
 	chflags hidden "$@"
 }
-
-# Hide/show all desktop icons (useful when presenting)
-alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
-alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
 
 # Merge PDF files
 # Usage: `mergepdf -o output.pdf input{1,2,3}.pdf`
@@ -543,13 +536,14 @@ alias killchrome="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v exten
 # Lock the screen (when going AFK)
 alias lock="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
 
-# Reload the shell (i.e. invoke as a login shell)
+# Reload the shell (i.e. invoke as a login shell).
 alias reload="exec $SHELL -l"
-alias relaod="reload" #typo addressed
-alias reld="reload"
-alias rld="reload"
 alias rf="source ~/.zshrc"
 
+# Typos addressed.
+alias relaod="reload"
+alias reld="reload"
+alias rld="reload"
 
 alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | printf '=> Public key copied to clipboard.\n'";
 
@@ -638,7 +632,7 @@ function nfh() {
 function wpdsready() {
 	echo "${wf}———————————————————${r}"
 		echo "${wb}${bf}WP: Core Installing...${r}"
-		wp core install --url=$1 --title=$2 --admin_user=root --admin_password=root --admin_email=mrahmadawais@gmail.com
+		wp core install --url=$1 --title=$2 --admin_user=root --admin_password=root --admin_email=root@root.com
 
 		echo "${wb}${bf}WP: twentyfifteen Update...${r}"
 		wp theme update twentyfifteen ;
@@ -2272,9 +2266,18 @@ alias ej="emoji-finder --dango"
 function gcmap() {
 		git add . && git ci -m "$*" && gp
 }
+
+# Git Commit, Add all and Push — in one step.
 function gcap() {
-		git add . && git ci -m "$*" && gp
+    git add . && git commit -m "$*" && git push
 }
+
+# Git Add, Commit (Msg + Desc), and Push — in one step.
+# @usage gcapd "Message" "Description"
+function gcapd() {
+    git add . && git commit -m "$1" -m "$2" && git push
+}
+
 function gcall() {
 		git add . && git ci -m "$*"
 }
@@ -2629,8 +2632,8 @@ function del_node_modules_here() {
 	find . -name "node_modules" -exec rm -rf '{}' +
 }
 
-# Use Git to fine total lines of code in a repo.
-# Usage: Browse a git repo and run `gloc``
+# Use Git to find total lines of code in a repository.
+# @usage: Browse a git repo and run `gloc`.
 function gloc() {
 	git ls-files | xargs wc -l
 }
@@ -2779,17 +2782,22 @@ function la() {
     }'
 }
 
-# whois a domain or a URL
+# Check the whois of a domain or form a URL.
+# @usage: whois google.com
+# @usage: whois https://google.com
+# @link: https://gist.github.com/56261539c39a9f66c762989b14c510a4
 function whois() {
-	local domain=$(echo "$1" | awk -F/ '{print $3}') # get domain from URL
+	# Get domain from URL and strip http or https.
+	local domain=$(echo "$1" | awk -F/ '{print $3}')
 	if [ -z $domain ] ; then
 		domain=$1
 	fi
+
 	echo "Getting whois record for: $domain …"
 
-	# avoid recursion
-					# this is the best whois server
-													# strip extra fluff
+	# Avoid recursion
+					# This is the best whois server AFAIK.
+												# Strip extra fluff
 	/usr/bin/whois -h whois.internic.net $domain | sed '/NOTICE:/q'
 }
 
@@ -2832,11 +2840,11 @@ shotjpg() {
 
 # RUBY
 #  eval "$(rbenv init -)"
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+# if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 # HTTP Header Checker
 function headerCheck() {
-	wget https://site.to.check/ --header="User-Agent: Mozilla/5.0 (Windows NT 5.1; rv:23.0) Gecko/20100101 Firefox/23.0" --header="Accept: image/png,image/*;q=0.8,*/*;q=0.5" --header="Accept-Language: en-US,en;q=0.5" --header="Accept-Encoding: gzip, deflate" --header="Referer: https://referring.site/"
+	wget "$@" --header="User-Agent: Mozilla/5.0 (Windows NT 5.1; rv:23.0) Gecko/20100101 Firefox/23.0" --header="Accept: image/png,image/*;q=0.8,*/*;q=0.5" --header="Accept-Language: en-US,en;q=0.5" --header="Accept-Encoding: gzip, deflate" --header="Referer: https://referring.site/"
 }
 
 # GitHub Contributors List.
@@ -2943,7 +2951,7 @@ function rm_last_four() {
 	echo '\n'
 }
 
-# npm.
+# Common npm & yarn aliases.
 alias ns="npm start"
 alias nb="npm run build"
 alias nrs="npm run serve"
@@ -3072,8 +3080,15 @@ function grename() {
 }
 
 function clog() {
-	auto-changelog --package --unreleased --output 'changelog.md' --commit-limit 'false' --template '/Users/ahmadawais/Dropbox/bin/changelog.hbs' && git add . && git commit -m ' 📖 DOC: Changelog update' && git push
+	auto-changelog --package --unreleased --output 'changelog.md' --commit-limit 'false' --template '/Users/ahmadawais/Dropbox/bin/changelog.hbs' --config '/Users/ahmadawais/Dropbox/bin/.auto-changelog'
+	git add . && git commit -m ' 📖 DOC: Changelog' && git push
 }
+
+function clogx() {
+	auto-changelog --package --unreleased --output 'changelog.md' --commit-limit 'false' --template '/Users/ahmadawais/Dropbox/bin/changelogx.hbs' --config '/Users/ahmadawais/Dropbox/bin/.auto-changelog'
+	git add . && git commit -m ' 📖 DOC: Changelog' && git push
+}
+
 # Profiling ZSH performance.
 # zprof
 # NorthStack START
@@ -3090,4 +3105,9 @@ function fosslowercase() {
 	git mv LICENSE.md license.md  >/dev/null 2>&1
 	git mv LICENSE license  >/dev/null 2>&1
 	gimp 'Lower-case names'
+}
+
+# Generates a file tree in an HTML file.
+functions fileTreeToHTML() {
+	tree -H '.' -L 1 --noreport --charset utf-8 -C > index.html
 }
