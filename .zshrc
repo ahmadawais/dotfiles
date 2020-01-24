@@ -2962,6 +2962,7 @@ alias nrt="npm run test"
 alias nt="npm test"
 alias ys="yarn start"
 alias yb="yarn build"
+alias yd="yarn dev"
 
 function nbin { (PATH=$(npm bin):$PATH; eval $@;) }
 
@@ -3043,6 +3044,7 @@ function rlz() {
 }
 
 # Templates
+# https://github.com/fabiospampinato/template
 function ti() {
 	template install "$@"
 }
@@ -3110,4 +3112,11 @@ function fosslowercase() {
 # Generates a file tree in an HTML file.
 functions fileTreeToHTML() {
 	tree -H '.' -L 1 --noreport --charset utf-8 -C > index.html
+}
+
+# Site download.
+# siteDownload https://AhmadAwais.com/
+# https://twitter.com/philhawksworth/status/1214942635300982785
+function siteDownload() {
+	wget -H -E -k -p $*
 }
