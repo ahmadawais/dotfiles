@@ -1,13 +1,15 @@
 /Users/ahmadawais/.asdf/installs/nodejs/12.13.0/.npm/lib
 ├── @aws-amplify/cli@4.12.0
+├── @fabiospampinato/template@1.1.4
 ├── auto-changelog@1.16.2
 ├── browser-sync@2.26.7
 ├── forkz@0.6.0
 ├── gh@2.8.3
 ├── git-open@2.1.0
 ├── now@16.7.3
-├── npm@6.13.4
+├── npm@6.13.7
 ├── npm-check@5.9.0
+├── release-it@12.4.3
 ├── starz@0.0.2
 └── yarn@1.19.1
 

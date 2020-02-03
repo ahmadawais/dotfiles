@@ -2286,7 +2286,7 @@ function gcall() {
 function gnew() {
 	gcap "📦 NEW: $@"
 }
-function gnewl() {
+function gnewx() {
 	gcall "📦 NEW: $@"
 }
 
@@ -2294,7 +2294,7 @@ function gnewl() {
 function gimp() {
 	gcap "👌 IMPROVE: $@"
 }
-function gimpl() {
+function gimpx() {
 	gcall "👌 IMPROVE: $@"
 }
 
@@ -2302,7 +2302,7 @@ function gimpl() {
 function gfix() {
 	gcap "🐛 FIX: $@"
 }
-function gfixl() {
+function gfixx() {
 	gcall "🐛 FIX: $@"
 }
 
@@ -2310,7 +2310,7 @@ function gfixl() {
 function grlz() {
 	gcap "🚀 RELEASE: $@"
 }
-function grlzl() {
+function grlzx() {
 	gcall "🚀 RELEASE: $@"
 }
 
@@ -2318,16 +2318,16 @@ function grlzl() {
 function gdoc() {
 	gcap "📖 DOC: $@"
 }
-function gdocl() {
+function gdocx() {
 	gcall "📖 DOC: $@"
 }
 
 # TEST.
 function gtst() {
-	gcap "✅ TEST: $@"
+    gcap "🤖 TEST: $@"
 }
-function gtstl() {
-	gcapll"✅ TEST: $@"
+function gtstx() {
+	gcapll "🤖 TEST: $@"
 }
 
 # Git Stash all.
@@ -2956,6 +2956,7 @@ alias ns="npm start"
 alias nb="npm run build"
 alias nrs="npm run serve"
 alias nrd="npm run dev"
+alias nrc="npm run clean"
 alias nbs="npm run build && npm run serve"
 alias nrr="npm run release"
 alias nrt="npm run test"
