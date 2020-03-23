@@ -44,6 +44,9 @@ alias wprabd="cd ~ && cd wprabdev"
 alias wprabt="cd ~ && cd wprabwpt"
 alias wprabp="cd ~ && cd wprabwpp"
 
+# Dummy testing.
+alias gpmt="rmnm && rmv package.json rmv package-lock.json && npm init -y && rmv yarn.lock && rmv yarn-error.log && /Users/ahmadawais/.asdf/installs/nodejs/12.13.0/.npm/bin/gpm"
+
 # Teach
 alias aatf="cd ~ && cd aatfdev"
 
@@ -584,6 +587,7 @@ alias n='npm'
 
 #NPM Install.
 alias ni="npm install"
+alias nrm="npm rm"
 
 # Search Packages
 alias n:='npm search'
@@ -2330,6 +2334,14 @@ function gtstx() {
 	gcapll "🤖 TEST: $@"
 }
 
+# BREAKING CHANGE.
+function gbrk() {
+    gcap "‼️ BREAKING: $@"
+}
+function gbrkx() {
+	gcapll "‼️ BREAKING: $@"
+}
+
 # Git Stash all.
 function stash() {
 	git stash save --include-untracked
@@ -3041,7 +3053,7 @@ function gif2vid() {
 
 # Release it.
 function rlz() {
-	release-it --config '/Users/ahmadawais/Dropbox/bin/.release-it.json' "$@"
+	release-it --ci --config '/Users/ahmadawais/Dropbox/bin/.release-it.json' "$@"
 }
 
 # Templates
@@ -3069,6 +3081,8 @@ function inm() {
 	git add . >/dev/null 2>&1
 	git ci -m "📦 NEW: First commit" >/dev/null 2>&1
 	git push >/dev/null 2>&1
+	copy-github-labels -t "${GITHUB_TOKEN}" ahmadawais/create-guten-block "ahmadawais/$1" >/dev/null 2>&1
+	github-label-remove -t "${GITHUB_TOKEN}" -r "ahmadawais/$1" -d >/dev/null 2>&1
 
 	echo "\n${gf}❯ ✅ DONE: https://github.com/ahmadawais/$1 ${r}\n"
 }
@@ -3082,11 +3096,13 @@ function grename() {
 	git mv -f "$1" "$2"
 }
 
+# Generate Change log.
 function clog() {
 	auto-changelog --package --unreleased --output 'changelog.md' --commit-limit 'false' --template '/Users/ahmadawais/Dropbox/bin/changelog.hbs' --config '/Users/ahmadawais/Dropbox/bin/.auto-changelog'
 	git add . && git commit -m ' 📖 DOC: Changelog' && git push
 }
 
+# Generate Change log without ads.
 function clogx() {
 	auto-changelog --package --unreleased --output 'changelog.md' --commit-limit 'false' --template '/Users/ahmadawais/Dropbox/bin/changelogx.hbs' --config '/Users/ahmadawais/Dropbox/bin/.auto-changelog'
 	git add . && git commit -m ' 📖 DOC: Changelog' && git push
@@ -3121,3 +3137,5 @@ functions fileTreeToHTML() {
 function siteDownload() {
 	wget -H -E -k -p $*
 }
+
+[ -f "/Users/ahmadawais/.shopify-app-cli/shopify.sh" ] && source "/Users/ahmadawais/.shopify-app-cli/shopify.sh"
