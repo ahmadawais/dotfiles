@@ -3137,5 +3137,3 @@ functions fileTreeToHTML() {
 function siteDownload() {
 	wget -H -E -k -p $*
 }
-
-[ -f "/Users/ahmadawais/.shopify-app-cli/shopify.sh" ] && source "/Users/ahmadawais/.shopify-app-cli/shopify.sh"
