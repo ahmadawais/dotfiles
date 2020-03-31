@@ -507,6 +507,7 @@ alias rmnfo="find . -type f -name '*.nfo' -ls -delete"
 
 # Del all node modules from current dir and inside there in more dirs recursively.
 alias delnm="find . -name "node_modules" -type d -prune -exec rm -rf '{}' +"
+alias nmrmv="find . -name "node_modules" -type d -prune -exec rm -rf '{}' +"
 alias rmnm="find . -name "node_modules" -type d -prune -exec rm -rf '{}' +"
 
 # Show/Hide hidden files/directories in macOS Finder.
@@ -2382,11 +2383,11 @@ function grinit() {
 # GH New repo.
 function ghinit() {
 	echo "${wb}${bf}➤  Creating the GitHub Repo in PWD…${r}"
-	gh re --new "$1" --description "$2" --type "$3"
+	gh re --new "$1" --description "$2" --type "$3" --homepage "https://twitter.com/MrAhmadAwais/"
 	gh re --user "ahmadawais" --repo "$1" --clone
 	cd "$1"
 	addgitignore
-	echo "# $1 \n\n > $2" >> README.md
+	echo "# $1 \n\n > $2" >> readme.md
 	gnew 'First commit'
 	echo ''
 	echo "✅ DONE! Repo → https://github.com/ahmadawais/$1"
@@ -2396,11 +2397,11 @@ function ghinit() {
 # GH New repo private.
 function ghinitp() {
 	echo "${wb}${bf}➤  Creating the GitHub Repo in PWD…${r}"
-	gh re --new "$1" --description "$2" --type "private"
+	gh re --new "$1" --description "$2" --type "private" --homepage "https://twitter.com/MrAhmadAwais/"
 	gh re --user "ahmadawais" --repo "$1" --clone
 	cd "$1"
 	addgitignore
-	echo "# $1 \n\n > $2" >> README.md
+	echo "# $1 \n\n > $2" >> readme.md
 	gnew 'First commit'
 	echo ''
 	echo "✅ DONE! Repo → https://github.com/ahmadawais/$1"
@@ -3087,6 +3088,27 @@ function inm() {
 	echo "\n${gf}❯ ✅ DONE: https://github.com/ahmadawais/$1 ${r}\n"
 }
 
+# Init node module CLI.
+function inmc() {
+	clear
+
+	echo "\n${yf}❯ 📟 INITIALIZING…${r}\n"
+
+	template create nmc "$1"
+	cd "$1"
+
+	echo "\n${yf}❯ 📥 GIT REPOSITORY…${r}"
+
+	sh init.sh &> /dev/null
+	git add . >/dev/null 2>&1
+	git ci -m "📦 NEW: First commit" >/dev/null 2>&1
+	git push >/dev/null 2>&1
+	copy-github-labels -t "${GITHUB_TOKEN}" ahmadawais/create-guten-block "ahmadawais/$1" >/dev/null 2>&1
+	github-label-remove -t "${GITHUB_TOKEN}" -r "ahmadawais/$1" -d >/dev/null 2>&1
+
+	echo "\n${gf}❯ ✅ DONE: https://github.com/ahmadawais/$1 ${r}\n"
+}
+
 alias npmn="npmname"
 function npmname() {
 	npm-name "$@"
@@ -3119,6 +3141,7 @@ function fosslowercase() {
 	git mv ReadMe.md readme.md  >/dev/null 2>&1
 	git mv CHANGELOG.md changelog.md  >/dev/null 2>&1
 	git mv CODE-OF-CONDUCT.md code-of-conduct.md  >/dev/null 2>&1
+	git mv CODE_OF_CONDUCT.md code-of-conduct.md  >/dev/null 2>&1
 	git mv CONTRIBUTE.md contribute.md  >/dev/null 2>&1
 	git mv CONTRIBUTING.md contributing.md  >/dev/null 2>&1
 	git mv LICENSE.md license.md  >/dev/null 2>&1
@@ -3136,4 +3159,23 @@ functions fileTreeToHTML() {
 # https://twitter.com/philhawksworth/status/1214942635300982785
 function siteDownload() {
 	wget -H -E -k -p $*
+}
+
+# Remove a directory from git/github history and ignore it permanently.
+function grmd() {
+	DIR_TO_BE_REMOVED="$1"
+	git filter-branch --tree-filter "rm -rf $DIR_TO_BE_REMOVED" --prune-empty HEAD
+	git for-each-ref --format="%(refname)" refs/original/ | xargs -n 1 git update-ref -d
+	echo "$DIR_TO_BE_REMOVED"/ >> .gitignore
+	git add .gitignore
+	git commit -m "👌 IMPROVE: Removing "$DIR_TO_BE_REMOVED" from history"
+	git gc
+	git push origin master --force
+}
+
+# Upgrade Sendy.
+function sendyupgrade() {
+	rm includes/config.php
+	rm -rf uploads
+	rm .htaccess
 }
