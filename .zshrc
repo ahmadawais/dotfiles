@@ -986,6 +986,22 @@ function gfpr() {
 	echo "${wf}———————————————————${r}"
 }
 
+function gpr() {
+	echo "${wf}———————————————————${r}"
+		echo "${wb}${bf}0. Fetching the pull request...${r}"
+
+		git fetch origin pull/"${1}"/head:PR#"${1}"
+
+		echo "${wb}${bf}1. PR fetched creating a branch...${r}"
+
+		git checkout PR#"${1}"
+
+		echo "${wb}${bf}2. Checking out to a new PR branch...${r}"
+
+		echo "✅ — ${gb}${bf}3. PR Branch Created!${r}"
+	echo "${wf}———————————————————${r}"
+}
+
 function gfupr() {
 	echo "${wf}———————————————————${r}"
 		echo "${wb}${bf}0. Fetching the pull request...${r}"
@@ -1700,6 +1716,10 @@ function addphpcs() {
 	cp ~/bin/wpaa/wpaa/ruleset.xml ./phpcs.xml
 }
 
+function openWPAA() {
+	code ~/bin/wpaa/wpaa/ruleset.xml
+}
+
 # Use PHPCS with WPCS.
 function lpcs() {
 	phpcs -q --standard='./phpcs.xml' "$@"
@@ -1776,7 +1796,7 @@ function recterm() {
 }
 
 ####.#### ———————————————————————————————————————————— RELEASE IT ———————————————————————————————————————————— ####.####
-function rl() {
+function xxrl() {
 	release-it "$@" -c ~/workflow/.release.json
 }
 
@@ -1804,8 +1824,6 @@ function bsr() {
 function bsstrtd() {
 	browser-sync start --proxy "$1" -f '**/*' --cors
 }
-
-
 
 ####.#### ———————————————————————————————————————————— UTILITIES ———————————————————————————————————————————— ####.####
 
@@ -2990,19 +3008,6 @@ function ppp() {
 	echo '\n'
 	grep "'$1'" /Users/ahmadawais/cpapi/class/PPP.php
 	echo '\n'
-}
-
-function cpvsc() {
-	REMEMBERERD_DIR="$(cd "$(dirname "$0")" && pwd)"
-	cd ~/cpapi
-	sed -i -e "s/=> '.*'/=> '$@'/g" ~/cpapi/class/CustomersCount.php
-	rm class/CustomersCount.php-e >/dev/null 2>&1
-	git add class/CustomersCount.php >/dev/null 2>&1
-	git commit -m "👌 IMPROVE: Customer stats" >/dev/null 2>&1
-	git push >/dev/null 2>&1
-	cd ~
-	cd $REMEMBERERD_DIR
-	echo "️\n✅ VSCode.pro customers now: ${gb}${bf} $1 ${r}\n"
 }
 
 # Silent Git.

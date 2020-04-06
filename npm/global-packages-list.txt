@@ -1,12 +1,13 @@
 /Users/ahmadawais/.asdf/installs/nodejs/12.13.0/.npm/lib
 ├── @aws-amplify/cli@4.12.0
 ├── @fabiospampinato/template@1.1.4
+├── @wordpress/env@1.1.0
 ├── auto-changelog@1.16.2
 ├── awesome-lint@0.12.1
 ├── browser-sync@2.26.7
 ├── cloudycam-monorepo@ -> /Users/ahmadawais/Documents/Web/Sandbox/cloudinary/cloudycam-monorepo
 ├── copy-github-labels-cli@1.0.0
-├── corona-cli@3.8.6 -> /Users/ahmadawais/Documents/Web/Sandbox/corona-cli
+├── corona-cli@4.1.2 -> /Users/ahmadawais/Documents/Web/Sandbox/corona-cli
 ├──  error: ENOENT: no such file or directory, lstat '/Users/ahmadawais/Documents/Web/Sandbox/create-wp-release
 ├── UNMET PEER DEPENDENCY eslint@>=3.14.1
 ├── eslint-config-prettier@6.10.0
@@ -21,12 +22,13 @@
 ├── github-label-remove@1.2.0
 ├── github-labeller@1.3.10
 ├── local-wpcli@1.0.0
+├── node-sass@4.13.1
 ├── now@17.0.4
 ├── npm@6.14.2
 ├── npm-check@5.9.2
 ├── prettier@1.19.1
 ├── ptcl-cli@2.5.3 -> /Users/ahmadawais/Documents/Web/Sandbox/ptcl-cli
-├── release-it@13.3.1
+├── release-it@13.5.1
 ├── starz@0.0.2
 ├── wp-continuous-deployment@1.7.1 -> /Users/ahmadawais/Documents/Web/Sandbox/wp-continuous-deployment
 ├── wp-release-it@0.7.2 -> /Users/ahmadawais/Documents/Web/Sandbox/wp-release-it
