@@ -143,7 +143,7 @@ else
 fi
 
 # Open Exports in VSCode.
-alias expo="cd /Users/$USER/Dropbox/bin && co"
+alias expo="code --folder-uri $HOME/Dropbox/bin"
 
 # VSCode open folder
 alias co="code ."
@@ -3059,7 +3059,13 @@ function gif2vid() {
 
 # Release it.
 function rlz() {
-	release-it --ci --config '/Users/ahmadawais/Dropbox/bin/.release-it.json' "$@"
+	release-it --ci --config "$HOME/Dropbox/bin/.release-it.json" "$@"
+}
+
+# Release it.
+function rlzv() {
+	release-it --ci --config "$HOME/Dropbox/bin/.release-it.json" "$@"
+	npx vsce publish -p $VSCODE_PAT
 }
 
 # Templates
