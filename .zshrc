@@ -3065,7 +3065,7 @@ function rlz() {
 # Release it.
 function rlzv() {
 	release-it --ci --config "$HOME/Dropbox/bin/.release-it.json" "$@"
-	npx vsce publish -p $VSCODE_PAT
+	npx vsce publish
 }
 
 # Templates
@@ -3189,4 +3189,8 @@ function sendyupgrade() {
 	rm includes/config.php
 	rm -rf uploads
 	rm .htaccess
+}
+
+function slug(){
+	slugify "$@" | ghead -c -1 | pbcopy
 }
