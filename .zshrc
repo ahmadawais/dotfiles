@@ -45,7 +45,7 @@ alias wprabt="cd ~ && cd wprabwpt"
 alias wprabp="cd ~ && cd wprabwpp"
 
 # Dummy testing.
-alias gpmt="rmnm && rmv package.json rmv package-lock.json && npm init -y && rmv yarn.lock && rmv yarn-error.log && /Users/ahmadawais/.asdf/installs/nodejs/12.13.0/.npm/bin/gpm"
+# alias gpmt="rmnm && rmv package.json rmv package-lock.json && npm init -y && rmv yarn.lock && rmv yarn-error.log && /Users/ahmadawais/.aCHANGEsdf/installs/nodejs/12.13.0/.npm/bin/gpm"
 
 # Teach
 alias aatf="cd ~ && cd aatfdev"
@@ -109,6 +109,15 @@ plugins=(git git-extras npm zsh-autosuggestions)
 # User configuration
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin/git:/usr/local/git/bin:$HOME/.wp-cli:~/bin:~/.composer/vendor/bin"
 
+# Homebrew completions.
+# https://docs.brew.sh/Shell-Completion#configuring-completions-in-zsh
+# if type brew &>/dev/null; then
+#   FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+
+#   autoload -Uz compinit
+#   compinit
+# fi
+
 # Oh My Zsh.
 # Should inlcude after themes and plugins are set.
 source $ZSH/oh-my-zsh.sh
@@ -127,6 +136,8 @@ if [ -f ~/Dropbox/bin/.exports ]; then
 else
     print "404: ~/Dropbox/bin/.exports not found."
 fi
+
+alias rldexpo="source ~/Dropbox/bin/.exports"
 
 # PrivateRC is shy, they stay in Dropbox.
 if [ -f ~/Dropbox/bin/.privaterc ]; then
@@ -213,7 +224,9 @@ function gbnf() {
 alias gm="git merge $* && git push"
 
 #git clone realted
-alias gcl="git clone"
+function gcl() {
+	git clone "$1" && cd "$(basename "$1" .git)"
+}
 
 # show contributors by commits
 alias gcontributors="git shortlog -sn"
@@ -242,7 +255,7 @@ function gbdel {
 	fi
 }
 
-#get a list of conflicts
+# Get a list of conflicts
 alias conflicts='git diff --name-only --diff-filter=U'
 
 function grebase() {
@@ -425,6 +438,7 @@ alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
 # All the dig info
 alias dig="dig +nocmd any +multiline +noall +answer"
 
+alias l="exa --long --all --header --git-ignore --group-directories-first --git --ignore-glob=\".git|node_modules\" --sort=\"ext\""
 
 # List ALL files (colorized() in long format, show permissions in octal
 alias la="ls -l | awk '
@@ -583,12 +597,17 @@ alias nosleep="caffeinate -t 50000"
 alias nsl="caffeinate -t 50000"
 
 # NPM Quickes   - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-# Npm
-alias n='npm'
+# npm
+# alias n='npm'
+# alias nx='/usr/local/bin/n'
+alias n='/usr/local/bin/n'
 
 #NPM Install.
 alias ni="npm install"
 alias nrm="npm rm"
+alias nd="npm run dev"
+alias nl="npm link"
+alias nu="npm unlink"
 
 # Search Packages
 alias n:='npm search'
@@ -599,6 +618,7 @@ alias nis='sudo npm install'
 
 # Install Globally
 alias nig='npm install -g'
+alias nrmg='npm uninstall -g'
 
 # Install Globally and Save
 alias nigs="npm install -g $@ --save"
@@ -753,8 +773,8 @@ export PATH="/usr/local/opt/php@7.1/sbin:$PATH"
 # [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # asdf
-source $HOME/.asdf/asdf.sh
-source $HOME/.asdf/completions/asdf.bash
+# source $HOME/.asdf/asdf.sh
+# source $HOME/.asdf/completions/asdf.bash
 
 
 # export NVM_DIR="$HOME/.nvm"
@@ -1828,8 +1848,9 @@ function bsstrtd() {
 ####.#### ———————————————————————————————————————————— UTILITIES ———————————————————————————————————————————— ####.####
 
 # Open man page as PDF.
+# USAGE: manpdf cat
 function manpdf() {
- man -t "${1}" | open -f -a /Applications/Preview.app/
+	man -t "${1}" | open -f -a /Applications/Preview.app/
 }
 
 # Extra many types of compressed packages
@@ -1896,7 +1917,7 @@ function targz() {
 	echo "${tmpFile}.gz ($((zippedSize / 1000)) kB) created successfully.";
 }
 
-# Determine size of a file or total size of a directory
+# Determine size of a file or total size of a directory.
 function fs() {
 	if du -b /dev/null > /dev/null 2>&1; then
 		local arg=-sbh;
@@ -1910,21 +1931,21 @@ function fs() {
 	fi;
 }
 
-# UTF-8-encode a string of Unicode symbols
+# UTF-8-encode a string of Unicode symbols.
 function escape() {
 	printf "\\\x%s" $(printf "$@" | xxd -p -c1 -u);
-	# print a newline unless we’re piping the output to another program
+	# print a newline unless we’re piping the output to another program.
 	if [ -t 1 ]; then
 		echo ""; # newline
 	fi;
 }
 
-# Decode \x{ABCD}-style Unicode escape sequences
+# Decode \x{ABCD}-style Unicode escape sequences.
 function unidecode() {
 	perl -e "binmode(STDOUT, ':utf8'); print \"$@\"";
-	# print a newline unless we’re piping the output to another program
+	# print a newline unless we’re piping the output to another program.
 	if [ -t 1 ]; then
-		echo ""; # newline
+		echo ""; # newline.
 	fi;
 }
 
@@ -2094,7 +2115,7 @@ function wpcp() {
 
 		echo "-"
 		echo "—————————————————————————————"
-		echo "${wb}${bf}➤  Ticket # (3456 or 3456.1):${r}"
+		echo "${yf}❯  Ticket # (3456 or 3456.1):${r}"
 		echo "—————————————————————————————"
 		read -r WPC_PATCH_NAME
 
@@ -2370,7 +2391,7 @@ function stash() {
 function grinit() {
 	echo "-"
 	echo "—————————————————————————————"
-	echo "${wb}${bf}➤  Are you inside the right folder? (y/n):${r}"
+	echo "${yf}❯  Are you inside the right folder? (y/n):${r}"
 	echo "—————————————————————————————"
 	read -r THE_GH_REPO_RIGHT
 
@@ -2381,54 +2402,68 @@ function grinit() {
 
 	echo "-"
 	echo "—————————————————————————————"
-	echo "${wb}${bf}➤  GitHub Repo Name:${r}"
+	echo "${yf}❯  GitHub Repo Name:${r}"
 	echo "—————————————————————————————"
 	read -r THE_GH_REPO_NAME
 
 	echo "-"
 	echo "—————————————————————————————"
-	echo "${wb}${bf}➤  GitHub Repo Description:${r}"
+	echo "${yf}❯  GitHub Repo Description:${r}"
 	echo "—————————————————————————————"
 	read -r THE_GH_REPO_DSC
 
 	echo "-"
 	echo "—————————————————————————————"
-	echo "${wb}${bf}➤  Is It:${r}"
+	echo "${yf}❯  Is It:${r}"
 	echo "—————————————————————————————"
 	read -r THE_GH_REPO_DSC
 }
 
 # GH New repo.
 function ghinit() {
-	echo "${wb}${bf}➤  Creating the GitHub Repo in PWD…${r}"
+	echo "\n${yf}❯ Creating the GitHub Repo in PWD…${r}\n"
 	gh re --new "$1" --description "$2" --type "$3" --homepage "https://twitter.com/MrAhmadAwais/"
 	gh re --user "ahmadawais" --repo "$1" --clone
 	cd "$1"
 	addgitignore
 	echo "# $1 \n\n > $2" >> readme.md
 	gnew 'First commit'
-	echo ''
-	echo "✅ DONE! Repo → https://github.com/ahmadawais/$1"
-	echo ''
+	echo "\n${gf}✅ DONE! Repo → https://github.com/ahmadawais/$1${r}\n"
 }
 
 # GH New repo private.
 function ghinitp() {
-	echo "${wb}${bf}➤  Creating the GitHub Repo in PWD…${r}"
-	gh re --new "$1" --description "$2" --type "private" --homepage "https://twitter.com/MrAhmadAwais/"
-	gh re --user "ahmadawais" --repo "$1" --clone
-	cd "$1"
-	addgitignore
-	echo "# $1 \n\n > $2" >> readme.md
-	gnew 'First commit'
-	echo ''
-	echo "✅ DONE! Repo → https://github.com/ahmadawais/$1"
-	echo ''
+	ghinit "$1" "$2" "private"
+}
+
+function ghinitx() {
+	git init  >/dev/null 2>&1
+	echo "${yf}❯  Creating the GitHub Repo in PWD…${r}"
+	gh re --new "$1" --description "$2" --type "$3" --homepage "https://twitter.com/MrAhmadAwais/"  >/dev/null 2>&1
+	git remote remove origin  >/dev/null 2>&1
+	git remote add origin "https://github.com/ahmadawais/$1"  >/dev/null 2>&1
+	addgitignore  >/dev/null 2>&1
+	gnew 'First commit'  >/dev/null 2>&1
+	echo "\\n✅ DONE! Repo → https://github.com/ahmadawais/$1\\n"
+}
+
+function ghinitpx() {
+	ghinitx "$1" "$2" "private"
 }
 
 # Del a repo.
 function ghdel() {
 	gh re --delete "$1"
+}
+
+function scarf() {
+	echo "\n${yf}❯ Adding scarf analytics (npm i)${r}"
+	npm i @scarf/scarf >/dev/null 2>&1
+	echo "${yf}❯ Commiting to GitHub${r}"
+	gnew 'Analyze' >/dev/null 2>&1
+	echo "${yf}❯ Releasing on npm${r}"
+	rlz patch | tail -n 3
+	echo "${gf}❯ All done!${r}\n"
 }
 
 ####.#### ———————————————————————————————————————————— Command line magic ———————————————————————————————————————————— ####.####
@@ -2441,7 +2476,7 @@ function rainbow() {
 function trash_node_modules() {
 	echo "-"
 	echo "—————————————————————————————"
-	echo "${wb}${bf}➤ Trash all the node modules in the PWD? (y/n):${r}"
+	echo "${yf}❯ Trash all the node modules in the PWD? (y/n):${r}"
 	echo "—————————————————————————————"
 	read -r IS_MOVE_FORWARD
 
@@ -2459,7 +2494,7 @@ function trash_node_modules() {
 function bkpics() {
 	echo "-"
 	echo "—————————————————————————————"
-	echo "${wb}${bf}➤ Backing up Entire Photos Library. :${r}"
+	echo "${yf}❯ Backing up Entire Photos Library. :${r}"
 	echo "—————————————————————————————"
 	RSP_PARAM="-av"
 	BKP_DST="/Volumes/AhmadAwais.com/Z-BACKUPS/Users/ahmadawais/Pictures"
@@ -2529,7 +2564,7 @@ function bkwt() {
 	rsync "$RS_PARAM" --exclude="node_modules" --exclude=".git" "$BK_SRC" "$BK_DST" |\
 		pv -lep -s $(rsync "$RS_PARAM"n --exclude="node_modules" --exclude=".git" "$BK_SRC" "$BK_DST" | awk 'NF' | wc -l)
 	echo "-"
-	echo "${gb}${bf}--------------- ✔︎✔︎✔︎ DONE!!! 💯 🎉 ✔✔✔ ---------------${r}"
+	echo "✅  DONE!"
 	echo "-"
 }
 
@@ -2562,6 +2597,10 @@ function bkt() {
 	echo "-"
 	echo "✅  DONE!"
 	echo "-"
+}
+
+function bkpwd() {
+	bkt "$(pwd -P)"
 }
 
 
@@ -2621,7 +2660,7 @@ function bkmac() {
 	done
 
 	echo "—————————————————————————————"
-	echo "${wb}${bf}➤ Backing up "$1" :${r}"
+	echo "${yf}❯ Backing up "$1" :${r}"
 	echo "—————————————————————————————"
 
 	# Finally, we just run rsync with a few flags:
@@ -2632,7 +2671,7 @@ function bkmac() {
 	rsync -avR --dry-run ${exclude_flags}${include_args}${target_path}  |\
 		pv -lep -s $(rsync "$RS_PARAM"n "$BK_SRC" "$BK_DST" | awk 'NF' | wc -l)
 	echo "-"
-	echo "${gb}${bf}--------------- ✔︎✔︎✔︎ DONE!!! 💯 🎉 ✔✔✔ ---------------${r}"
+	echo "✅  DONE!"
 	echo "-"
 }
 
@@ -2649,7 +2688,7 @@ function battery() {
 
 # Show Wi-Fi Network Passwords
 # Exchange SSID with the SSID of the access point you wish to query the password from.
-function wifipass() {
+function wifipswd() {
 	security find-generic-password -D "AirPort network password" -a "$@" -gw
 }
 
@@ -2922,16 +2961,16 @@ function cPrepFinal() {
 }
 
 # Course files length in seconds.
+alias cptime="courseLength"
+alias cplength="courseLength"
+
 function courseLength() {
-	echo '\n'
-	echo "⏲  ${wb}${bf} Calculating… ${r}"
+	echo "\\n⏲  ${wb}${bf} Calculating… ${r}\\n"
 
 	SECONDS=`find . -maxdepth 1 -iname '*.mp4' -exec ffprobe -v quiet -of csv=p=0 -show_entries format=duration {} \; | paste -sd+ -| bc`
 
 	echo "TOTAL SECONDS: $SECONDS"
-	echo '\n'
-	convertSeconds $SECONDS
-	echo '\n'
+	echo "\\n $(convertSeconds $SECONDS) \\n"
 }
 
 # Convert seconds to hr min sec.
@@ -3194,3 +3233,57 @@ function sendyupgrade() {
 function slug(){
 	slugify "$@" | ghead -c -1 | pbcopy
 }
+
+function pdfr() {
+	 pdf-redact-tools --sanitize "$@"
+}
+
+function colors() {
+	msgcat --color=test
+}
+
+function mic100() {
+	osascript -e "set volume input volume 100"
+}
+
+# export PATH="/Users/ahmadawais/.deno/bin:$PATH"
+
+function printPATH() {
+	echo -e ${PATH//:/\\n}
+}
+
+# n related.
+# https://github.com/tj/n
+export N_PRESERVE_NPM=1
+
+# fzf theme.
+# Base16 Atelier Plateau Light
+_gen_fzf_default_opts() {
+
+local color00='#2D2B55'
+local color01='#1E1E3F'
+local color02='#A599E9'
+local color03='#A599E9'
+local color04='#A599E9'
+local color05='#A599E9'
+local color06='#fad000'
+local color07='#1b1818'
+local color08='#fad000'
+local color09='#b45a3c'
+local color0A='#B362FF'
+local color0B='#4b8b8b'
+local color0C='#fad000'
+local color0D='#7272ca'
+local color0E='#8464c4'
+local color0F='#bd5187'
+
+export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS"\
+" --color=bg+:$color01,bg:$color00,spinner:$color0C,hl:$color0D"\
+" --color=fg:$color04,header:$color0D,info:$color0A,pointer:$color0C"\
+" --color=marker:$color0C,fg+:$color06,prompt:$color0A,hl+:$color0D"
+
+}
+
+_gen_fzf_default_opts
+
+function mans () { man $1 | less -p "^ +$2"; }

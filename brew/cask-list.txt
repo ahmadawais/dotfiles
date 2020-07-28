@@ -1,3 +1,4 @@
+alacritty
 betterzip
 buttercup
 chromedriver
