@@ -57,6 +57,9 @@
 # Now do git push -u
 [push]
 	default = current
+# Since git 2.27 — https://stackoverflow.com/q/62653114/950111
+[pull]
+	ff = only
 [credential]
 	helper = store
 [commit]

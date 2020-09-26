@@ -3,18 +3,27 @@
 ├── @fabiospampinato/template@1.1.4
 ├── auto-changelog@2.0.0
 ├── awais@4.2.0 -> /Users/ahmadawais/Documents/Teach/NodeCLI/awais
-├── cli-a11y@1.1.1
+├── check-serp@0.0.1 -> /Users/ahmadawais/Documents/Web/Sandbox/check-serp
+├── cli-a11y@1.1.2
 ├── cli-sbx@0.0.1 -> /Users/ahmadawais/Documents/Teach/NodeCLI/repo/cli-sbx
 ├── contributors@0.5.1
-├── corona-cli@5.3.2 -> /Users/ahmadawais/Documents/Web/Sandbox/corona-cli
+├── corona-cli@5.3.3 -> /Users/ahmadawais/Documents/Web/Sandbox/corona-cli
+├── cpcli@0.0.1 -> /Users/ahmadawais/Documents/Web/Sandbox/cpcli
 ├── figlet-cli@0.1.1
+├── firebase-tools@8.9.2
+├── forkz@0.6.0
 ├── gh@2.8.8
 ├── git-open@2.1.0
 ├── loadtest@5.0.4
-├── n@6.6.0
-├── npm@6.14.6
+├── tuns@1.0.0 -> /Users/ahmadawais/Documents/Web/Sandbox/twitter-cli
+├── n@6.7.0
+├── npm@6.14.7
 ├── npm-check@5.9.2
+├── npmrc@1.1.1
 ├── ptcl-cli@2.7.0 -> /Users/ahmadawais/Documents/Web/Sandbox/ptcl-cli
 ├── release-it@13.6.5
-└── vercel@19.2.0
+├── sbxcli@0.0.1 -> /Users/ahmadawais/Documents/Web/Sandbox/sbxcli
+├── starz@0.0.2
+├── vercel@20.1.0
+└── verdaccio@4.8.1
 

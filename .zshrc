@@ -1309,6 +1309,10 @@ function rname() {
 	echo "${gb}${bf}———————————————— ✔✔✔ RENAMED Every $1 file in the PWD! ✔✔✔︎ ————————————————${r}"
 }
 
+function pngtojpg() {
+	for i in *.png ; do convert "$i" "${i%.*}.jpg" ; done
+}
+
 # JPEG Optimization.
 # Usage: jpegoptim 90 | where 90 is the quality.
 function jpgoptim() {
@@ -1453,6 +1457,9 @@ alias nfrmac="nativefier --full-screen -n "$1" $2"
 
 # Silently add git ignore but if it fails, then show the error.
 alias addgitignore="curl --fail --silent --show-error -O https://raw.githubusercontent.com/ahmadawais/DotGitIgnore/master/.gitignore"
+
+# Silently add .prettierrc but if it fails, then show the error.
+alias addprettier="curl --fail --silent --show-error -O https://raw.githubusercontent.com/ahmadawais/cli-meow-help/master/.prettierrc"
 
 # Remove cached but now gitignored files from remote after adding gitignore
 alias grmcached="git rm -r --cached . && gfix 'Sync .gitignore'"
@@ -2460,7 +2467,17 @@ function scarf() {
 	echo "\n${yf}❯ Adding scarf analytics (npm i)${r}"
 	npm i @scarf/scarf >/dev/null 2>&1
 	echo "${yf}❯ Commiting to GitHub${r}"
-	gnew 'Analyze' >/dev/null 2>&1
+	gnewx 'Analyze' >/dev/null 2>&1
+	echo "${yf}❯ Releasing on npm${r}"
+	rlz patch | tail -n 3
+	echo "${gf}❯ All done!${r}\n"
+}
+
+function rmscarf() {
+	echo "\n${yf}❯ Removing scarf analytics (npm rm)${r}"
+	npm rm @scarf/scarf >/dev/null 2>&1
+	echo "${yf}❯ Commiting to GitHub${r}"
+	gimpx "Remove Scarf" >/dev/null 2>&1
 	echo "${yf}❯ Releasing on npm${r}"
 	rlz patch | tail -n 3
 	echo "${gf}❯ All done!${r}\n"
@@ -3287,3 +3304,12 @@ export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS"\
 _gen_fzf_default_opts
 
 function mans () { man $1 | less -p "^ +$2"; }
+
+# Video cutting.
+function cut1min() {
+	for i in *.mp4;
+	do name=`echo "$i" | cut -d'.' -f1`
+	echo "$name"
+	ffmpeg -ss 00:00:00.000 -i "$i" -t 60 -c:v libx264 -c:a copy "${name}-1min.mp4"
+	done
+}

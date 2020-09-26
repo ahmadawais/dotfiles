@@ -8,7 +8,6 @@ asciinema
 aspell
 autoconf
 automake
-azure-cli
 bat
 boost
 brotli
@@ -16,8 +15,10 @@ c-ares
 cairo
 coreutils
 curl-openssl
+dav1d
 deno
-earthly
+docbook
+docbook-xsl
 exa
 exiftool
 ffmpeg
@@ -28,6 +29,7 @@ freetype
 frei0r
 fribidi
 fzf
+gd
 gdbm
 gettext
 ghostscript
@@ -52,6 +54,7 @@ help2man
 heroku
 heroku-node
 highlight
+httpd
 httpie
 hub
 hugo
@@ -79,6 +82,7 @@ libheif
 libidn
 libidn2
 libksba
+liblqr
 libmetalink
 libogg
 libomp
@@ -124,7 +128,6 @@ opencore-amr
 openexr
 openjpeg
 openldap
-openssl
 openssl@1.1
 opus
 p11-kit
@@ -150,6 +153,7 @@ python@3.8
 qrencode
 qt
 randomize-lines
+rav1e
 rbenv
 readline
 rtmpdump
@@ -163,6 +167,7 @@ snappy
 speedtest
 speex
 sqlite
+srt
 stargaze
 tesseract
 texi2html
@@ -180,9 +185,11 @@ webp
 wget
 x264
 x265
+xmlto
 xvid
 xz
 yarn
 yasm
 youtube-dl
 zsh
+zstd
