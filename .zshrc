@@ -204,13 +204,13 @@ alias tpwd="t "$(pwd -P)"/*"
 alias tdot="t .*"
 alias ta="tdot ; tpwd"
 
-
 # GIT
 alias g="git"
 alias gi="git init"
 alias gco="git checkout"
 alias gb="git branches"
 alias gbd="git branch -D"
+
 # Create new branch and checkout.
 alias gbn='git checkout -b'
 alias gfu='git fetch upstream && git pull upstream master'
@@ -218,6 +218,11 @@ alias gpu='git pull upstream master'
 function gbnf() {
 	git fetch --all
 	git checkout -b $@ upstream/master
+}
+
+function gbnu() {
+	git fetch --all
+	git checkout -b $@ upstream/main
 }
 
 #git merge branch
@@ -1483,7 +1488,7 @@ function cimg() {
 # Old Command: youtube-dl
 # New Command: dvid
 function dvid() {
- youtube-dl "$@";
+ youtube-dl "$@" -o '%(title)s.%(ext)s'
 }
 
 function dvideh() {
@@ -1507,10 +1512,10 @@ function dwisfile() {
 }
 
 # Dvid config
-alias dvidconfig="st /etc/youtube-dl.conf"
+alias dvidconfig="code /etc/youtube-dl.conf"
 
 # DVIDRC
-alias dvidrc="st ~/.netrc"
+alias dvidrc="code ~/.netrc"
 
 # Dropbox Uploader
 # @link https://github.com/rg3/youtube-dl
@@ -2990,6 +2995,14 @@ function courseLength() {
 	echo "\\n $(convertSeconds $SECONDS) \\n"
 }
 
+alias cpduration="dur"
+alias cpdurcpy="dur |pbcopy"
+alias cpdur="dur"
+alias filenameDuration="dur"
+function dur() {
+	exiftool -T -Duration -FileName *
+}
+
 # Convert seconds to hr min sec.
 function convertSeconds() {
 	h=$(bc <<< "${1}/3600")
@@ -3305,6 +3318,8 @@ _gen_fzf_default_opts
 
 function mans () { man $1 | less -p "^ +$2"; }
 
+# Videos.
+
 # Video cutting.
 function cut1min() {
 	for i in *.mp4;
@@ -3312,4 +3327,26 @@ function cut1min() {
 	echo "$name"
 	ffmpeg -ss 00:00:00.000 -i "$i" -t 60 -c:v libx264 -c:a copy "${name}-1min.mp4"
 	done
+}
+
+# vidtrim <vid file name> <seconds to trim from start>
+# vidtrim vid.mp4 5
+function vidtrim() {
+	ffmpeg-bar -i "$1" -ss "$2" -vcodec copy -acodec copy trimmed-"$1"
+}
+
+# vidjoin <intro vid file name> <actual vid file name>
+# vidjoin intro.mp4 input.mp4
+function vidjoin() {
+	 echo file "$1" >> vidjoin.txt
+	 echo file "$2" >> vidjoin.txt
+	 ffmpeg-bar -f concat -i vidjoin.txt -c copy output.mp4
+	 rm vidjoin.txt
+}
+
+# Open Chrome URL.
+# https://superuser.com/a/422861/439227
+url() {
+  url=$([[ $1 =~ ^[a-zA-Z]{1,}: ]] && printf '%s\n' "$1" || printf '%s\n' "http://$1")
+  open -a 'Google Chrome' "$url"
 }

@@ -9,11 +9,13 @@ aspell
 autoconf
 automake
 bat
+bdw-gc
 boost
 brotli
 c-ares
 cairo
 coreutils
+curl
 curl-openssl
 dav1d
 deno
@@ -49,6 +51,7 @@ gobject-introspection
 graphite2
 grep
 guetzli
+guile
 harfbuzz
 help2man
 heroku
@@ -150,6 +153,7 @@ python
 python3
 python@2
 python@3.8
+python@3.9
 qrencode
 qt
 randomize-lines
