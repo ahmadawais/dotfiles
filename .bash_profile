@@ -1,3 +1,1 @@
-# NorthStack START
-PATH=/Users/ahmadawais/.local/bin:$PATH
-# NorthStack END
+/Users/ahmadawais/Dropbox/Mackup/.bash_profile
