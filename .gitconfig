@@ -1,1 +1,157 @@
-/Users/ahmadawais/Dropbox/Mackup/.gitconfig
+[user]
+name = Ahmad Awais
+email = me@AhmadAwais.com
+signingkey = E73BD42BA2C6BF7F
+[filter "media"]
+required = true
+clean = git media clean %f
+smudge = git media smudge %f
+[filter "lfs"]
+clean = git-lfs clean -- %f
+smudge = git-lfs smudge -- %f
+required = true
+process = git-lfs filter-process
+[core]
+excludesfile = ~/.gitignore
+editor = code --wait
+[log]
+date = relative
+[color]
+# Use colors in Git commands that are capable of colored output when outputting to the terminal.
+ui = auto
+[color "branch"]
+current = yellow reverse
+local = yellow
+remote = green
+[color "diff"]
+meta = yellow bold
+frag = magenta bold
+old = red bold
+new = green bold
+[color "status"]
+added = yellow
+changed = green
+untracked = cyan
+[url "git@github.com:"]
+insteadOf = "gh:"
+pushInsteadOf = "github:"
+pushInsteadOf = "git://github.com/"
+[url "git://github.com/"]
+insteadOf = "github:"
+[url "git@gist.github.com:"]
+insteadOf = "gst:"
+pushInsteadOf = "gist:"
+pushInsteadOf = "git://gist.github.com/"
+[url "git://gist.github.com/"]
+insteadOf = "gist:"
+[help]
+# Automatically correct and execute mistyped commands.
+autocorrect = 1
+[merge]
+tool = code
+[diff]
+tool = default-difftool
+[difftool "default-difftool"]
+cmd = code --wait --diff $LOCAL $REMOTE
+# https://stackoverflow.com/a/22933955/950111
+# Now do git push -u
+[push]
+default = current
+# Since git 2.27 — https://stackoverflow.com/q/62653114/950111
+[pull]
+ff = only
+[credential]
+helper = store
+[commit]
+gpgsign = true
+[gpg]
+program = gpg
+# Make sure you're adding under the [alias] block.
+[alias]
+# Git Commit, Add all and Push — in one step.
+cap = "!f() { git add .; git commit -m \"$@\"; git push; }; f"
+# NEW.
+new = "!f() { git cap \"📦 NEW: $@\"; }; f"
+# IMPROVE.
+imp = "!f() { git cap \"👌 IMPROVE: $@\"; }; f"
+# FIX.
+fix = "!f() { git cap \"🐛 FIX: $@\"; }; f"
+# RELEASE.
+rlz = "!f() { git cap \"🚀 RELEASE: $@\"; }; f"
+# DOC.
+doc = "!f() { git cap \"📖 DOC: $@\"; }; f"
+# TEST.
+tst = "!f() { git cap \"✅ TEST: $@\"; }; f"
+st = status
+ci = commit
+cm = commit -m
+ca = commit --amend
+amend = commit --amend
+co = checkout
+br = branch
+type = cat-file -t
+dump = cat-file -p
+hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+changelog = "!_() { t=$(git describe --abbrev=0 --tags); git log ${t}..HEAD --no-merges --pretty=format:'* %s'; }; _"
+le = log --oneline --decorate
+ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+ls1 = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+lds = log --pretty=format:"%C(yellow)%h\\ %C(green)%ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short --graph
+ls = log --pretty=format:"%C(green)%h\\ %C(yellow)[%ad]%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative
+lg1 = log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(red)%h%C(reset) —— %C(bold blue)%an%C(reset): %C(white)%s%C(reset) %C(dim white)  %C(bold green)(%ar)%C(reset) %C(bold yellow)%d%C(reset)' --all
+lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all
+lg3 = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+lg = !"git lg1"
+lnc = log --pretty=format:"%h\\ %s\\ [%cn]"
+# List all aliases.
+la = "!git config -l | grep alias | cut -c 7-"
+
+# List modified files in last commit.
+dl = "!git ll -1"
+
+# Diff last commit.
+dlc = diff --cached HEAD^
+
+# List remotes.
+rem="!git config -l | grep remote.*url | tail -n +2"
+
+# Show the diff between the latest commit and the current state.
+d = !"git diff-index --quiet HEAD -- || clear; git diff --patch-with-stat"
+
+# Show verbose output about tags, branches or remotes.
+tags = tag -l
+branches = !legit branches
+remotes = remote -v
+
+# Credit an author on the latest commit.
+credit = "!f() { git commit --amend --author \"$1 <$2>\" -C HEAD; }; f"
+
+# Interactive rebase with the given number of latest commits.
+reb = "!r() { git rebase -i HEAD~$1; }; r"
+
+# Remove branches that have already been merged with master.
+# a.k.a. ‘delete merged’.
+dm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
+
+# List contributors with number of commits.
+contributors = shortlog --summary --numbered
+
+# Pull in remote changes for the current repository and all its submodules.
+pl = !"git pull; git submodule foreach git pull origin master"
+
+# Clone a repository including all submodules.
+cl = clone
+clr = clone --recursive
+
+# Switch to a branch, creating it if necessary.
+go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
+
+# Remove the old tag with this name and tag the latest commit with it..
+retag = "!r() { git tag -d $1 && git push origin :refs/tags/$1 && git tag $1; }; r"
+
+publish = !legit publish
+unpublish = !legit unpublish
+sync = !legit sync
+switch = !legit switch
+resync = !legit resync
+undo = !legit undo
