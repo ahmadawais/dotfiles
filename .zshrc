@@ -439,6 +439,7 @@ alias sra="svn st  | grep '!' | sed 's/!M      \(.*\)$/"\1"/' | xargs svn revert
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ipconfig getifaddr en1"
 alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
+alias myip="curl ipecho.net/plain ; echo"
 
 # All the dig info
 alias dig="dig +nocmd any +multiline +noall +answer"
@@ -2392,6 +2393,18 @@ function gbrk() {
 }
 function gbrkx() {
 	gcapll "‼️ BREAKING: $@"
+}
+
+gtype() {
+NORMAL='\033[0;39m'
+GREEN='\033[0;32m'
+    echo "$GREEN gnew$NORMAL — 📦 NEW
+$GREEN gimp$NORMAL — 👌 IMPROVE
+$GREEN gfix$NORMAL — 🐛 FIX
+$GREEN grlz$NORMAL — 🚀 RELEASE
+$GREEN gdoc$NORMAL — 📖 DOC
+$GREEN gtst$NORMAL — 🧪️ TEST
+$GREEN gbrk$NORMAL — ❗️ BREAKING"
 }
 
 # Git Stash all.

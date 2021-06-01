@@ -4,6 +4,7 @@ cursorcerer
 discord
 dropbox
 forklift
+hammerspoon
 hazel
 maccy
 macs-fan-control
