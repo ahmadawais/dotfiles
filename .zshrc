@@ -2498,7 +2498,7 @@ function grc() {
 	fi
 
 	if [ -z "$2" ]; then
-		DESC="$1 by Awais"
+		DESC="$1 by Awais.dev"
 	else
 		DESC="$2"
 	fi
