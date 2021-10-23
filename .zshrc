@@ -294,7 +294,7 @@ function gbrdel {
 
 
 alias gsclear="git stash clear"
-alias gsc="git stash clear"
+# alias gsc="git stash clear"
 alias gsa="git stash apply"
 alias gfo="git fetch origin"
 alias grh="git reset --hard"
@@ -521,6 +521,8 @@ alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date
 
 # Recursively delete all `.DS_Store` files in the pwd.
 alias rmds="find . -type f -name '*.DS_Store' -ls -delete"
+
+alias rmlockfiles="find . -type f -name 'package-lock.json' -ls -delete"
 
 # Recursively delete all `.nfo` files in the pwd.
 alias rmnfo="find . -type f -name '*.nfo' -ls -delete"
@@ -1204,19 +1206,19 @@ function pulldfiles() {
 		echo "${rb}${bf}PWD is not empty, let's delete it...${r}"
 
 		# PWD variable
-		aa_pwd=$PWD
+		DFILES_DIR=$PWD
 		# go back
 		cd ..
 		# trash the old PWD where git repo needs to be cloned
-		rm -rf $aa_pwd
+		rm -rf $DFILES_DIR
 		# recreate the old PWD and cd in it
-		mkdir $aa_pwd && cd $aa_pwd
+		mkdir $DFILES_DIR && cd $DFILES_DIR
 
 		echo "${rb}${bf}PWD deleted and recreated...${r}"
 	fi
 
 	# Clone the repo.
-	git clone https://github.com/$USER/dotFiles/ .
+	git clone https://github.com/ahmadawais/dotfiles/ .
 	echo "${gb}${bf}Git repo cloned for dotfiles cloned. DONE!${r}"
 }
 
@@ -1458,10 +1460,10 @@ export SAVEHIST=1000
 alias nfrmac="nativefier --full-screen -n "$1" $2"
 
 # Silently add git ignore but if it fails, then show the error.
-alias addgitignore="curl --fail --silent --show-error -O https://raw.githubusercontent.com/ahmadawais/DotGitIgnore/master/.gitignore"
+alias addgitignore="curl --fail --silent --show-error -O https://raw.githubusercontent.com/ahmadawais/dotfiles/master/.gitignore"
 
 # Silently add .prettierrc but if it fails, then show the error.
-alias addprettier="curl --fail --silent --show-error -O https://raw.githubusercontent.com/ahmadawais/cli-meow-help/master/.prettierrc"
+alias addprettier="curl --fail --silent --show-error -O https://raw.githubusercontent.com/ahmadawais/dotfiles/master/.prettierrc"
 
 # Remove cached but now gitignored files from remote after adding gitignore
 alias grmcached="git rm -r --cached . && gfix 'Sync .gitignore'"
@@ -1492,9 +1494,18 @@ function dvidbest() {
  youtube-dl -f 'bestvideo[height<=1080,ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' --merge-output-format mp4 "$@" -o '%(title)s.%(ext)s'
 }
 
+function dvidbesta() {
+ yt-dlp -f 'bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4] / bv*+ba/b' --merge-output-format mp4 "$@" -o '%(title)s.%(ext)s'
+}
+
+function dvidfb() {
+ youtube-dl --format best --merge-output-format mp4 "$@" -o '%(title)s.%(ext)s'
+}
+
 function dvideh() {
 	youtube-dl --download-archive "$1/archive.txt" -o "$1/%(playlist_index)s_%(title)s" "https://egghead.io/courses/$1"
 }
+
 
 function dwistia() {
 	youtube-dl http://fast.wistia.net/embed/iframe/"$@";
@@ -3027,6 +3038,9 @@ shotpng() {
 shotjpg() {
 	defaults write com.apple.screencapture type jpg;killall SystemUIServer
 }
+shotpdf() {
+	defaults write com.apple.screencapture type pdf;killall SystemUIServer
+}
 
 # RUBY
 #  eval "$(rbenv init -)"
@@ -3359,7 +3373,7 @@ function sendyupgrade() {
 	rm .htaccess
 }
 
-function slug(){
+slug(){
 	slugify "$@" | ghead -c -1 | pbcopy
 }
 
@@ -3432,6 +3446,11 @@ function cut1min() {
 # vidtrim vid.mp4 5
 function vidtrim() {
 	ffmpeg-bar -i "$1" -ss "$2" -vcodec copy -acodec copy trimmed-"$1"
+}
+# Cut video from start to end in seconds
+# vidcut v.mp5 0 100
+vidcut() {
+	ffmpeg-bar -i "$1" -vcodec copy -acodec copy -ss "$2" -t "$3" cut-"$1"
 }
 
 # vidjoin <intro vid file name> <actual vid file name>

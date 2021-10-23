@@ -155,3 +155,5 @@ sync = !legit sync
 switch = !legit switch
 resync = !legit resync
 undo = !legit undo
+[init]
+	defaultBranch = main
