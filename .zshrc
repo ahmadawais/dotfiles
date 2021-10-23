@@ -1188,7 +1188,7 @@ function syncdfiles() {
 
 	echo "${yf}❯ Git commit/push in progress…${r}"
 	gimp 'Sync dotfiles' >/dev/null 2>&1
-	echo "${gf}❯ https://github.com/ahmadawais/dotFiles.git${r}"
+	echo "${gf}❯ https://github.com/ahmadawais/dotfiles.git${r}"
 	cd $REMEMBERERD_DIR
 
 	echo "\n${gf}✅ DONE!${r}\n"
