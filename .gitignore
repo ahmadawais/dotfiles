@@ -31,6 +31,7 @@ ehthumbs.db
 Icon?
 Thumbs.db
 ._*
+**settings.dat*
 
 # Vim generated files #
 ######################
@@ -69,3 +70,6 @@ assets/img/.DS_Store
 
 # VSCode related files #
 # .vscode
+
+# Next.js
+.next
