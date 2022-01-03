@@ -24,7 +24,7 @@ alias html="cd ~ && cd /Users/$USER/html"
 alias sb="cd ~ && cd sb"
 alias dot="cd ~ && cd /Users/$USER/dotFiles"
 alias gtest="cd ~ && cd /Users/$USER/gtest"
-alias dfiles='cd ~ ; cd dfiles'
+alias dfiles='mkdir -p ~/dotfiles && cd ~/dotfiles'
 alias wtdev="cd ~ && cd /Users/$USER/html/writablehtml.dev"
 alias cfcdev="cd ~ && cd cfc"
 alias ntdev="cd ~ && ntdev"
@@ -109,6 +109,8 @@ plugins=(git git-extras npm zsh-autosuggestions)
 # User configuration
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin/git:/usr/local/git/bin:$HOME/.wp-cli:~/bin:~/.composer/vendor/bin"
 
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # Homebrew completions.
 # https://docs.brew.sh/Shell-Completion#configuring-completions-in-zsh
 # if type brew &>/dev/null; then
@@ -187,6 +189,16 @@ function gbse() {
 function gmb() {
 	git blame-someone-else "Maedah Batool <root@gmail.com>" "$@"
 }
+
+
+# gbsb() {
+# 	git branch --set-upstream-to=origin/"$@" "$@"
+# }
+
+gbsu() {
+	git branch --set-upstream-to=origin/"$@" "$@"
+}
+
 
 function gstrk() {
 	cd /Users/$USER/Documents/web/Git/WPDev ;
@@ -754,9 +766,9 @@ alias wpds="wpp query-monitor && wpp debug-bar && wpp debug-meta-data && wpp jar
 
 
 # Go installation.
-export GOPATH="${HOME}/.go"
-export GOROOT="$(brew --prefix golang)/libexec"
-export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
+# export GOPATH="${HOME}/.go"
+# export GOROOT="$(brew --prefix golang)/libexec"
+# export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
 
 # Brew.
 export PATH="/usr/local/sbin:$PATH"
@@ -1174,14 +1186,18 @@ function syncdfiles() {
 	REMEMBERERD_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 	echo "${yf}❯ Copying files${r}"
-	cd ~/Documents/Web/imp/dotFiles
+	# dfiles
+	mkdir -p ~/dotfiles && cd ~/dotfiles
+	git clone https://github.com/ahmadawais/dotfiles .
 	rmds  >/dev/null 2>&1
 	rsync -aL ~/.zshrc ~/.bashrc ~/.bash_profile ~/.gitconfig .  >/dev/null 2>&1
 	rsync -aL "/Users/ahmadawais/Library/Application Support/Code/User/spellright.dict" ./VSCode/  >/dev/null 2>&1
 
-	echo "${yf}❯ Listing brew files${r}"
-	brew list > ./brew/brew-list.txt
-	brew list --cask > ./brew/cask-list.txt
+	# Not needed anymore.
+	# echo "${yf}❯ Listing brew files${r}"
+	# mkdir -p ./brew/
+	# brew list > ./brew/brew-list.txt
+	# brew list --cask > ./brew/cask-list.txt
 
 	# echo "${yf}❯ Listing npm files${r}"
 	# npm list -g --depth 0 > ./npm/global-packages-list.txt
@@ -1484,17 +1500,20 @@ function cimg() {
 # Command-line program to download videos from
 # YouTube.com and other video sites http://rg3.github.io/youtube-dl/
 #
+# YouTube disabled youtube-dl by speed limiting it. Now using yt-dlp
+# https://github.com/yt-dlp/yt-dlp
 # Old Command: youtube-dl
 # New Command: dvid
 function dvid() {
- youtube-dl "$@" -o '%(title)s.%(ext)s'
-}
-
-function dvidbest() {
- youtube-dl -f 'bestvideo[height<=1080,ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' --merge-output-format mp4 "$@" -o '%(title)s.%(ext)s'
+ yt-dlp "$@" -o '%(title)s.%(ext)s' --format mp4
+#  youtube-dl "$@" -o '%(title)s.%(ext)s'
 }
 
 function dvidbesta() {
+ youtube-dl -f 'bestvideo[height<=1080,ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' --merge-output-format mp4 "$@" -o '%(title)s.%(ext)s'
+}
+
+function dvidbest() {
  yt-dlp -f 'bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4] / bv*+ba/b' --merge-output-format mp4 "$@" -o '%(title)s.%(ext)s'
 }
 
@@ -3473,3 +3492,8 @@ url() {
 #### FIG ENV VARIABLES ####
 [ -s ~/.fig/fig.sh ] && source ~/.fig/fig.sh
 #### END FIG ENV VARIABLES ####
+
+srt() {
+	# for i in *.vtt ; do ffmpeg -i "$i" "$i.srt" ; done
+	for i in *.vtt ; do ffmpeg -i "$i" "${i%.*}.srt" ; done
+}
