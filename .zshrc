@@ -74,7 +74,7 @@ alias vrcwp="cd ~ && cd vrcwp"
 export ZSH=/Users/$USER/.oh-my-zsh
 
 # Deno installation.
-export PATH="/Users/$USER/.deno/bin:$PATH"
+# export PATH="/Users/$USER/.deno/bin:$PATH"
 
 # Pass https://www.passwordstore.org/
 # source /usr/local/etc/bash_completion.d/password-store
@@ -107,7 +107,7 @@ HIST_STAMPS="yyyy-mm-dd"
 # plugins=(git git-extras extract npm bower brew composer wp-cli emoji z zsh-autosuggestions)
 plugins=(git git-extras npm zsh-autosuggestions)
 # User configuration
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin/git:/usr/local/git/bin:$HOME/.wp-cli:~/bin:~/.composer/vendor/bin"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin/git:/usr/local/git/bin:$HOME/.wp-cli:~/bin:~/.composer/vendor/bin:/Users/$USER/Library/Python/2.7/bin"
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
@@ -227,9 +227,11 @@ alias gbd="git branch -D"
 alias gbn='git checkout -b'
 alias gfu='git fetch upstream && git pull upstream master'
 alias gpu='git pull upstream master'
-function gbnf() {
-	git fetch --all
-	git checkout -b $@ upstream/master
+
+# Create a new branch on top of (by fetching) the latest origin/main branch.
+function gbno() {
+	git fetch origin
+	git checkout -b $@ origin/main
 }
 
 function gbnu() {
@@ -252,7 +254,7 @@ alias gcontributors="git shortlog -sn"
 alias gccount="git rev-list HEAD --count"
 
 # Checkout to master
-alias gcm="git checkout master"
+alias gcm="git checkout main"
 
 # Create new branch and checkout.
 alias gbn='git checkout -b'
@@ -1509,6 +1511,12 @@ function dvid() {
 #  youtube-dl "$@" -o '%(title)s.%(ext)s'
 }
 
+yt() {
+	# yt-dlp -f "bv*[height<=1080,ext=mp4]+ba[ext=m4a]" --merge-output-format mp4 "$@" -o '%(title)s.%(ext)s'
+#  yt-dlp -f 'bv*[height<=1080,ext=mp4]+ba[ext=m4a]/b[ext=mp4] / bv*+ba/b' --merge-output-format mp4 "$@" -o '%(title)s.%(ext)s'
+  yt-dlp -f "bv*[height<=1080]+ba/b[height<=1080] / bv*+ba/b" --merge-output-format mp4 "$@" -o '%(title)s.%(ext)s'
+}
+
 function dvidbesta() {
  youtube-dl -f 'bestvideo[height<=1080,ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' --merge-output-format mp4 "$@" -o '%(title)s.%(ext)s'
 }
@@ -2559,6 +2567,7 @@ function grcpwd() {
 
 	git init
 	gh repo create "$NAME" --description "$DESC" "$TYPE" --homepage "https://twitter.com/MrAhmadAwais" --confirm
+	git remote add origin "https://github.com/ahmadawais/$NAME.git"
 
 	echo "\n${gf}✅ https://github.com/ahmadawais/$NAME${r}\n"
 }
@@ -3393,7 +3402,8 @@ function sendyupgrade() {
 }
 
 slug(){
-	slugify "$@" | ghead -c -1 | pbcopy
+	# slugify "$@" | ghead -c -1 | pbcopy # Needs coreutils https://stackoverflow.com/a/54351771/950111
+	printf $(slugify "$@") | pbcopy
 }
 
 function pdfr() {
@@ -3497,3 +3507,20 @@ srt() {
 	# for i in *.vtt ; do ffmpeg -i "$i" "$i.srt" ; done
 	for i in *.vtt ; do ffmpeg -i "$i" "${i%.*}.srt" ; done
 }
+
+png2jpg() {
+	mkdir JPG
+	sips -s format jpeg *.png --out JPG
+	sips -s format jpeg *.PNG --out JPG
+}
+
+tojpg() {
+	mkdir JPG
+	sips -s format jpeg *.* --out JPG
+}
+
+# https://iterm2.com/documentation-shell-integration.html
+# test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+# CoreaudioD restart
+alias audiorestart="sudo killall -u _coreaudiod -SIGKILL"
+export DEVREL_CLI_ENV=/Users/ahmadawais/Documents/Sandbox/DevRel-Dashboard/.env
