@@ -1813,17 +1813,17 @@ function updatewpcs() {
 	echo "—"
 	echo "${blb}${wf}———————————————— ⏲  PHPCS updating... ————————————————${r}"
 	# cd phpcs && git fetch && git pull && git checkout 2.9
-	cd phpcs && git fetch && git pull
+	cd phpcs && git pull
 	echo "—"
 	echo "${gb}${bf}———————————————— PHPCS UPDATED!  ✔︎ ————————————————${r}"
 	echo "—"
 	echo "${blb}${wf}———————————————— ⏲  PHPMD updating... ————————————————${r}"
-	cd .. && cd phpmd && git fetch && git pull
+	cd .. && cd phpmd && git pull
 	echo "—"
 	echo "${gb}${bf}———————————————— PHPMD UPDATED! ✔︎ ————————————————${r}"
 	echo "—"
 	echo "${blb}${wf}———————————————— ⏲  WPCS updating... ————————————————${r}"
-	cd .. && cd wpcs && git fetch && git pull && git checkout master
+	cd .. && cd wpcs && git pull && git checkout master
 	echo "—"
 	echo "${gb}${bf}———————————————— WPCS UPDATED! ✔︎ ————————————————${r}"
 	echo "—"
@@ -3523,4 +3523,3 @@ tojpg() {
 # test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 # CoreaudioD restart
 alias audiorestart="sudo killall -u _coreaudiod -SIGKILL"
-export DEVREL_CLI_ENV=/Users/ahmadawais/Documents/Sandbox/DevRel-Dashboard/.env
