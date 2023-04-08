@@ -136,7 +136,7 @@ alias stgc="st ~/.gitconfig"
 if [ -f ~/Dropbox/bin/.exports ]; then
     source ~/Dropbox/bin/.exports
 else
-    print "404: ~/Dropbox/bin/.exports not found."
+    print "Hey ~/Dropbox/bin/.exports not found."
 fi
 
 alias rldexpo="source ~/Dropbox/bin/.exports"
@@ -145,14 +145,14 @@ alias rldexpo="source ~/Dropbox/bin/.exports"
 if [ -f ~/Dropbox/bin/.privaterc ]; then
     source ~/Dropbox/bin/.privaterc
 else
-    print "404: ~/Dropbox/bin/.privaterc not found."
+    print "Hey ~/Dropbox/bin/.privaterc not found."
 fi
 
 # Project paths.
 if [ -f ~/Dropbox/bin/.paths ]; then
     source ~/Dropbox/bin/.paths
 else
-    print "404: ~/Dropbox/bin/.paths not found."
+    print "Hey ~/Dropbox/bin/.paths not found."
 fi
 
 # Open Exports in VSCode.
