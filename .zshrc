@@ -565,6 +565,14 @@ function hidden() {
 # Usage: `mergepdf -o output.pdf input{1,2,3}.pdf`
 alias mergepdf='/System/Library/Automator/Combine\ PDF\ Pages.action/Contents/Resources/join.py'
 
+# Decrypt a password-protected PDF
+# Needs brew install qpdf
+# https://superuser.com/a/1735907
+decryptpdf() {
+  echo "Enter password followed by <enter> followed by <ctrl-D>"
+  qpdf --decrypt --password-file=- --replace-input "${1}"
+}
+
 # Stuff I never really use but cannot delete either because of http://xkcd.com/530/
 alias stfu="osascript -e 'set volume output muted true'"
 alias pumpitup="osascript -e 'set volume 7'"
@@ -3274,7 +3282,8 @@ function rlz() {
 # Release it.
 function rlzv() {
 	release-it --ci --config "$HOME/Dropbox/bin/.release-it.json" "$@"
-	npx vsce publish
+	# npx vsce publish
+	npx vsce@latest publish
 	npx ovsx publish -p "$OPENVSX_TOKEN"
 }
 
@@ -3523,3 +3532,7 @@ tojpg() {
 # test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 # CoreaudioD restart
 alias audiorestart="sudo killall -u _coreaudiod -SIGKILL"
+
+# iTerm2 Colors
+export CLICOLOR=1
+export TERM=xterm-256color
