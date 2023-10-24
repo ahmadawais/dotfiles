@@ -13,7 +13,7 @@ required = true
 process = git-lfs filter-process
 [core]
 excludesfile = ~/.gitignore
-editor = code --wait
+editor = code-insiders --wait
 [log]
 date = relative
 [color]
@@ -48,11 +48,11 @@ insteadOf = "gist:"
 # Automatically correct and execute mistyped commands.
 autocorrect = 1
 [merge]
-tool = code
+tool = code-insiders
 [diff]
 tool = default-difftool
 [difftool "default-difftool"]
-cmd = code --wait --diff $LOCAL $REMOTE
+cmd = code-insiders --wait --diff $LOCAL $REMOTE
 # https://stackoverflow.com/a/22933955/950111
 # Now do git push -u
 [push]

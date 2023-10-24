@@ -37,6 +37,9 @@ plugins=(git git-extras npm zsh-autosuggestions)
 # PATH
 export PATH="/usr/local/sbin:$PATH"
 
+export VISUAL="code-insiders -w"
+export EDITOR="code-insiders -w"
+
 # Python from brew
 # https://stackoverflow.com/a/51912712/950111
 # export PATH=/usr/local/opt/python/libexec/bin:$PATH
@@ -139,7 +142,13 @@ gmb() {
 # }
 
 gbsu() {
-	git branch --set-upstream-to=origin/"$@" "$@"
+	if [[ -z "$@" ]]; then
+		# git branch --set-upstream-to=origin/main main
+		git branch --set-upstream-to=upstream/main main
+	else
+		# git branch --set-upstream-to=origin/"$@" "$@"
+		git branch --set-upstream-to=upstream/"$@" "$@"
+	fi
 }
 
 gstrk() {
@@ -565,7 +574,7 @@ alias nsl="caffeinate -t 50000"
 # alias nx='/usr/local/bin/n'
 # alias n='/usr/local/bin/n'
 
-#NPM Install.
+# npm aliases
 alias ni="npm install"
 alias nrm="npm rm"
 alias nd="npm run dev"
@@ -574,38 +583,33 @@ alias nu="npm unlink"
 alias s="npm start"
 alias b="npm run build"
 alias d="npm run dev"
-
-# Search Packages
-alias n:='npm search'
-
-# Install
 alias ni='npm install'
-alias nis='sudo npm install'
-
-# Install Globally
 alias nig='npm install -g'
 alias nrmg='npm uninstall -g'
-
-# Install Globally and Save
-alias nigs="npm install -g $@ --save"
-
-# Install and Save
-alias niss="npm install $@ --save"
-
 # npm-check to update npm packages https://www.npmjs.com/package/npm-check
-alias ncupg='sudo npm-check -g -u'
-alias ncup='sudo npm-check -u'
+alias ncupg='npm-check -g -u'
+alias ncup='npm-check -u'
+
+# pnpm aliases
+alias p="pnpm"
+alias pi="pnpm install"
+alias pr="pnpm"
+alias prm="pnpm rm"
+alias pd="pnpm dev"
+alias pl="pnpm link"
+alias pu="pnpm unlink"
+alias pb="pnpm run build"
+alias pd="pnpm run dev"
+# alias ps="pnpm start" # Conflict with ps.
 
 # Fix Issues --Hard
 nf() {
 	rm -rf ./node_modules
-	npm clear cache
-	npm clean cache
 	npm install
 }
 
 # Fix Issues
-nfh() {
+ncc() {
 	npm clear cache
 	npm clean cache
 }
@@ -1439,8 +1443,16 @@ dvidbesta() {
 	youtube-dl -f 'bestvideo[height<=1080,ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio' --merge-output-format mp4 "$@" -o '%(title)s.%(ext)s'
 }
 
+dvidbesta2() {
+	yt-dlp -f 'bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4] / bv*+ba/b' --merge-output-format mp4 "$@" --add-metadata --embed-thumbnail -o '%(title)s.%(ext)s'
+}
+
 dvidbest() {
-	yt-dlp -f 'bv*[ext=mp4]+ba[ext=m4a]/b[ext=mp4] / bv*+ba/b' --merge-output-format mp4 "$@" -o '%(title)s.%(ext)s'
+	yt-dlp -f "bestvideo+bestaudio/best" --merge-output-format mp4 --add-metadata --embed-thumbnail -o "%(title)s.%(ext)s" "$@"
+}
+
+lsvid() {
+	yt-dlp --list-formats "$@"
 }
 
 dvidfb() {
@@ -3578,3 +3590,82 @@ eval "$(github-copilot-cli alias -- "$0")"
 # }
 
 alias lg="git log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(red)%h%C(reset) —— %C(bold blue)%an%C(reset): %C(white)%s%C(reset) %C(dim white)  %C(bold green)(%ar)%C(reset) %C(bold yellow)%d%C(reset)' --all"
+
+alias nexttelx="npx next telemetry disable"
+alias gsu="git branch --set-upstream-to=upstream/main main"
+
+alias sb="supabase"
+
+# Usage:
+# ytcontent "https://www.youtube.com/watch?v=YOUR_VIDEO_ID"
+ytcontentx() {
+    # Check if a URL was provided
+    if [ -z "$1" ]; then
+        # If no URL was provided, print a help message and exit the function
+        echo "Usage: ytcontent [YOUTUBE_URL]"
+        echo "Description: Extracts and cleans auto-generated English subtitles from a YouTube video."
+        echo "Example: ytcontent \"https://www.youtube.com/watch?v=YOUR_VIDEO_ID\""
+        return
+    fi
+
+    # URL of the YouTube video
+    YT_URL="$1"
+
+    # Use yt-dlp to download the auto-generated English subtitles in .vtt format
+    # The --skip-download flag ensures only subtitles are downloaded, not the video itself
+    yt-dlp --skip-download --write-auto-sub --sub-lang en "$YT_URL"
+
+    # Identify the downloaded .vtt file by listing all .en.vtt files and taking the first one
+    VTT_FILE=$(ls *.en.vtt | head -1)
+
+    # Use sed to process the .vtt file:
+    # - Remove the 'WEBVTT' header
+    # - Remove lines containing timestamps (i.e., lines with -->)
+    # - Remove empty lines
+    # - Remove HTML-like tags (common in .vtt files)
+    # After processing, copy the content to the clipboard using pbcopy
+    sed -e '/^WEBVTT/d' -e '/-->/d' -e '/^$/d' -e 's/<[^>]*>//g' "$VTT_FILE" | pbcopy
+
+    # Print a message indicating the content has been copied to clipboard
+    echo "Subtitles copied to clipboard!"
+}
+
+# Usage:
+# ytcontent "https://www.youtube.com/watch?v=YOUR_VIDEO_ID"
+ytcontent() {
+    # Check if a URL was provided
+    if [ -z "$1" ]; then
+        # If no URL was provided, print a help message and exit the function
+        echo "Usage: ytcontent [YOUTUBE_URL]"
+        echo "Description: Extracts and cleans auto-generated English subtitles from a YouTube video."
+        echo "Example: ytcontent \"https://www.youtube.com/watch?v=YOUR_VIDEO_ID\""
+        return
+    fi
+
+    # URL of the YouTube video
+    YT_URL="$1"
+
+    # Use yt-dlp to download the auto-generated English subtitles in .vtt format
+    yt-dlp --skip-download --write-auto-sub --sub-lang en "$YT_URL"
+
+    # Identify the downloaded .vtt file by listing all .en.vtt files and taking the first one
+    VTT_FILE=$(ls *.en.vtt | head -1)
+
+    # Use sed and awk to process the .vtt file:
+    # - Remove the 'WEBVTT' header
+    # - Remove lines containing timestamps (i.e., lines with -->)
+    # - Remove empty lines
+    # - Remove HTML-like tags (common in .vtt files)
+    # Using awk to remove lines that are repeated (even if they are one line away)
+    # Finally, copy the unique content to the clipboard using pbcopy
+    sed -e '/^WEBVTT/d' -e '/-->/d' -e '/^$/d' -e '/^[ \t]*$/d' -e 's/<[^>]*>//g' "$VTT_FILE" | \
+    awk 'NR==1{prev=$0; next} $0!=prev{print prev; prev=$0} END{print prev}' | \
+    awk 'NR<=2{lines[NR]=$0; next} {if (lines[1] != lines[2] && lines[1] != $0) print lines[1]; for(i=1; i<2; i++) lines[i] = lines[i+1]; lines[2] = $0} END{for(i=1; i<=2; i++) print lines[i]}' | \
+    pbcopy
+
+    # Print a message indicating the content has been copied to clipboard
+    echo "Subtitles copied to clipboard!"
+
+    # Remove the downloaded files
+    rm *.en.vtt
+}
