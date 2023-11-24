@@ -3599,73 +3599,138 @@ alias sb="supabase"
 # Usage:
 # ytcontent "https://www.youtube.com/watch?v=YOUR_VIDEO_ID"
 ytcontentx() {
-    # Check if a URL was provided
-    if [ -z "$1" ]; then
-        # If no URL was provided, print a help message and exit the function
-        echo "Usage: ytcontent [YOUTUBE_URL]"
-        echo "Description: Extracts and cleans auto-generated English subtitles from a YouTube video."
-        echo "Example: ytcontent \"https://www.youtube.com/watch?v=YOUR_VIDEO_ID\""
-        return
-    fi
+	# Check if a URL was provided
+	if [ -z "$1" ]; then
+		# If no URL was provided, print a help message and exit the function
+		echo "Usage: ytcontent [YOUTUBE_URL]"
+		echo "Description: Extracts and cleans auto-generated English subtitles from a YouTube video."
+		echo "Example: ytcontent \"https://www.youtube.com/watch?v=YOUR_VIDEO_ID\""
+		return
+	fi
 
-    # URL of the YouTube video
-    YT_URL="$1"
+	# URL of the YouTube video
+	YT_URL="$1"
 
-    # Use yt-dlp to download the auto-generated English subtitles in .vtt format
-    # The --skip-download flag ensures only subtitles are downloaded, not the video itself
-    yt-dlp --skip-download --write-auto-sub --sub-lang en "$YT_URL"
+	# Use yt-dlp to download the auto-generated English subtitles in .vtt format
+	# The --skip-download flag ensures only subtitles are downloaded, not the video itself
+	yt-dlp --skip-download --write-auto-sub --sub-lang en "$YT_URL"
 
-    # Identify the downloaded .vtt file by listing all .en.vtt files and taking the first one
-    VTT_FILE=$(ls *.en.vtt | head -1)
+	# Identify the downloaded .vtt file by listing all .en.vtt files and taking the first one
+	VTT_FILE=$(ls *.en.vtt | head -1)
 
-    # Use sed to process the .vtt file:
-    # - Remove the 'WEBVTT' header
-    # - Remove lines containing timestamps (i.e., lines with -->)
-    # - Remove empty lines
-    # - Remove HTML-like tags (common in .vtt files)
-    # After processing, copy the content to the clipboard using pbcopy
-    sed -e '/^WEBVTT/d' -e '/-->/d' -e '/^$/d' -e 's/<[^>]*>//g' "$VTT_FILE" | pbcopy
+	# Use sed to process the .vtt file:
+	# - Remove the 'WEBVTT' header
+	# - Remove lines containing timestamps (i.e., lines with -->)
+	# - Remove empty lines
+	# - Remove HTML-like tags (common in .vtt files)
+	# After processing, copy the content to the clipboard using pbcopy
+	sed -e '/^WEBVTT/d' -e '/-->/d' -e '/^$/d' -e 's/<[^>]*>//g' "$VTT_FILE" | pbcopy
 
-    # Print a message indicating the content has been copied to clipboard
-    echo "Subtitles copied to clipboard!"
+	# Print a message indicating the content has been copied to clipboard
+	echo "Subtitles copied to clipboard!"
 }
 
 # Usage:
 # ytcontent "https://www.youtube.com/watch?v=YOUR_VIDEO_ID"
 ytcontent() {
-    # Check if a URL was provided
-    if [ -z "$1" ]; then
-        # If no URL was provided, print a help message and exit the function
-        echo "Usage: ytcontent [YOUTUBE_URL]"
-        echo "Description: Extracts and cleans auto-generated English subtitles from a YouTube video."
-        echo "Example: ytcontent \"https://www.youtube.com/watch?v=YOUR_VIDEO_ID\""
-        return
-    fi
+	# Check if a URL was provided
+	if [ -z "$1" ]; then
+		# If no URL was provided, print a help message and exit the function
+		echo "Usage: ytcontent [YOUTUBE_URL]"
+		echo "Description: Extracts and cleans auto-generated English subtitles from a YouTube video."
+		echo "Example: ytcontent \"https://www.youtube.com/watch?v=YOUR_VIDEO_ID\""
+		return
+	fi
 
-    # URL of the YouTube video
-    YT_URL="$1"
+	# URL of the YouTube video
+	YT_URL="$1"
 
-    # Use yt-dlp to download the auto-generated English subtitles in .vtt format
-    yt-dlp --skip-download --write-auto-sub --sub-lang en "$YT_URL"
+	# Use yt-dlp to download the auto-generated English subtitles in .vtt format
+	yt-dlp --skip-download --write-auto-sub --sub-lang en "$YT_URL"
 
-    # Identify the downloaded .vtt file by listing all .en.vtt files and taking the first one
-    VTT_FILE=$(ls *.en.vtt | head -1)
+	# Identify the downloaded .vtt file by listing all .en.vtt files and taking the first one
+	VTT_FILE=$(ls *.en.vtt | head -1)
 
-    # Use sed and awk to process the .vtt file:
-    # - Remove the 'WEBVTT' header
-    # - Remove lines containing timestamps (i.e., lines with -->)
-    # - Remove empty lines
-    # - Remove HTML-like tags (common in .vtt files)
-    # Using awk to remove lines that are repeated (even if they are one line away)
-    # Finally, copy the unique content to the clipboard using pbcopy
-    sed -e '/^WEBVTT/d' -e '/-->/d' -e '/^$/d' -e '/^[ \t]*$/d' -e 's/<[^>]*>//g' "$VTT_FILE" | \
-    awk 'NR==1{prev=$0; next} $0!=prev{print prev; prev=$0} END{print prev}' | \
-    awk 'NR<=2{lines[NR]=$0; next} {if (lines[1] != lines[2] && lines[1] != $0) print lines[1]; for(i=1; i<2; i++) lines[i] = lines[i+1]; lines[2] = $0} END{for(i=1; i<=2; i++) print lines[i]}' | \
-    pbcopy
+	# Use sed and awk to process the .vtt file:
+	# - Remove the 'WEBVTT' header
+	# - Remove lines containing timestamps (i.e., lines with -->)
+	# - Remove empty lines
+	# - Remove HTML-like tags (common in .vtt files)
+	# Using awk to remove lines that are repeated (even if they are one line away)
+	# Finally, copy the unique content to the clipboard using pbcopy
+	sed -e '/^WEBVTT/d' -e '/-->/d' -e '/^$/d' -e '/^[ \t]*$/d' -e 's/<[^>]*>//g' "$VTT_FILE" |
+		awk 'NR==1{prev=$0; next} $0!=prev{print prev; prev=$0} END{print prev}' |
+		awk 'NR<=2{lines[NR]=$0; next} {if (lines[1] != lines[2] && lines[1] != $0) print lines[1]; for(i=1; i<2; i++) lines[i] = lines[i+1]; lines[2] = $0} END{for(i=1; i<=2; i++) print lines[i]}' |
+		pbcopy
 
-    # Print a message indicating the content has been copied to clipboard
-    echo "Subtitles copied to clipboard!"
+	# Print a message indicating the content has been copied to clipboard
+	echo "Subtitles copied to clipboard!"
 
-    # Remove the downloaded files
-    rm *.en.vtt
+	# Remove the downloaded files
+	rm *.en.vtt
+}
+
+mkg() {
+	mkd $@
+	git init && gh repo create --private --source=. --remote=upstream && gbsu && gpl
+}
+
+alias heictojpg=htojpg
+alias heic2jpg=htojpg
+htojpg() {
+	for file in *.{heic,HEIC}; do sips -s format jpeg "$file" --out "${file%.*}.jpg"; done
+}
+
+# Usage:
+# Call this function directly in your terminal after navigating to your Git repository.
+# It will automatically detect the current branch and perform the rebase.
+rebase() {
+	# Detect the current branch
+	current_branch=$(git rev-parse --abbrev-ref HEAD)
+
+	if [ "$current_branch" = "HEAD" ]; then
+		echo "You are not on a branch (detached HEAD state). Please check out a branch to rebase."
+		return 1
+	fi
+
+	echo "Current branch is $current_branch."
+
+	# The main branch name
+	MAIN_BRANCH="main"
+
+	# Step 1: Update the main branch
+	echo "Updating: $MAIN_BRANCH... git pull"
+	git checkout $MAIN_BRANCH
+	git pull origin $MAIN_BRANCH
+
+	# Step 2: Check out the current branch
+	echo "Switching back to $current_branch..."
+	git checkout $current_branch
+
+	# Step 3: Start the rebase
+	echo "Starting rebase of $current_branch onto $MAIN_BRANCH..."
+	git rebase $MAIN_BRANCH
+
+	# Handle rebase conflicts
+	while [ $? -ne 0 ]; do
+		echo "Please resolve conflicts, then run 'git rebase --continue'."
+		read -p "Press Enter to continue after resolving conflicts and running 'git rebase --continue'"
+
+		# Try to continue the rebase
+		git rebase --continue
+	done
+
+	# Step 5: Optionally force push the changes
+	read -p "Do you want to force push the changes to the remote repository? [y/N] " choice
+	case "$choice" in
+	y | Y)
+		echo "Force pushing $current_branch to remote repository..."
+		git push origin $current_branch --force
+		;;
+	*) echo "Skipping force push." ;;
+	esac
+
+	# Step 6: Verify the rebase
+	echo "Rebase complete. Here's the latest commit log:"
+	git log --oneline -n 5
 }
