@@ -1114,7 +1114,8 @@ syncdfiles() {
 	echo "${yf}❯ Copying files${r}"
 	# dfiles
 	mkdir -p ~/dotfiles && cd ~/dotfiles
-	git clone https://github.com/ahmadawais/dotfiles .
+	git clone https://github.com/ahmadawais/dotfiles . >/dev/null 2>&1
+	git pull >/dev/null 2>&1
 	rmds >/dev/null 2>&1
 	rsync -aL ~/.zshrc ~/.bashrc ~/.bash_profile ~/.gitconfig . >/dev/null 2>&1
 	rsync -aL "/Users/ahmadawais/Library/Application Support/Code/User/spellright.dict" ./VSCode/ >/dev/null 2>&1
