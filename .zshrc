@@ -44,6 +44,7 @@ export EDITOR="code-insiders -w"
 # https://stackoverflow.com/a/51912712/950111
 # export PATH=/usr/local/opt/python/libexec/bin:$PATH
 export PATH="/opt/homebrew/opt/python@3.11/libexec/bin:$PATH"
+export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 
 ## OLD
 # export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin/git:/usr/local/git/bin:$HOME/.wp-cli:~/bin:~/.composer/vendor/bin:/Users/$USER/Library/Python/2.7/bin"
@@ -100,8 +101,8 @@ else
 fi
 
 # Open Exports in VSCode.
-alias expo="code --folder-uri $HOME/Dropbox/bin"
-alias expi="code --folder-uri $HOME/Dropbox/bin"
+alias expo="code-insiders --folder-uri $HOME/Dropbox/bin"
+alias expi="code-insiders --folder-uri $HOME/Dropbox/bin"
 
 # VSCode open folder
 alias co="code ."
