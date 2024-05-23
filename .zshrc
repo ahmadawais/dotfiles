@@ -269,7 +269,7 @@ alias gitreverything='git clean -d -x -f; git reset --hard'
 alias grhc='git clean -d -x -f; git reset --hard'
 
 alias gcdf="git clean -d -f"
-alias gbrename="git branch -m"
+# alias gbrename="git branch -m"
 
 alias gst="git status"
 alias gss="git status -s"
@@ -285,6 +285,7 @@ gcma() {
 alias gp="git push"
 alias gpp="git push -u"
 alias gpf="git push --force"
+alias gpfs="git push --force-with-lease"
 alias gpt="git push --tags"
 
 # delete git and re-inialize git
@@ -3596,7 +3597,8 @@ alias lg="git log --graph --abbrev-commit --decorate --date=relative --format=fo
 alias nexttelx="npx next telemetry disable"
 alias gsu="git branch --set-upstream-to=upstream/main main"
 
-alias sb="supabase"
+alias sb="npx supabase"
+alias supabase="npx supabase"
 
 # Usage:
 # ytcontent "https://www.youtube.com/watch?v=YOUR_VIDEO_ID"
@@ -3687,6 +3689,10 @@ htojpg() {
 # Call this function directly in your terminal after navigating to your Git repository.
 # It will automatically detect the current branch and perform the rebase.
 rebase() {
+	# git pull origin main
+	# git checkout $current_branch
+	# git rebase main
+
 	# Detect the current branch
 	current_branch=$(git rev-parse --abbrev-ref HEAD)
 
@@ -3694,45 +3700,172 @@ rebase() {
 		echo "You are not on a branch (detached HEAD state). Please check out a branch to rebase."
 		return 1
 	fi
-
-	echo "Current branch is $current_branch."
+	echo "${wf}———————————————————${r}"
+	echo "${blf}❯ Current branch: $current_branch.${r}"
 
 	# The main branch name
 	MAIN_BRANCH="main"
 
 	# Step 1: Update the main branch
-	echo "Updating: $MAIN_BRANCH... git pull"
+	echo "${blf}❯ 1. gcm && gpl${r}"
 	git checkout $MAIN_BRANCH
 	git pull origin $MAIN_BRANCH
 
 	# Step 2: Check out the current branch
-	echo "Switching back to $current_branch..."
+	echo "${blf}❯ 2. gco $current_branch${r}"
 	git checkout $current_branch
 
 	# Step 3: Start the rebase
-	echo "Starting rebase of $current_branch onto $MAIN_BRANCH..."
+	echo "${blf}❯ 3. git rebase main${r}"
+	echo "${bf}❯ — Starting rebase of $current_branch onto $MAIN_BRANCH...${r}"
 	git rebase $MAIN_BRANCH
 
 	# Handle rebase conflicts
 	while [ $? -ne 0 ]; do
-		echo "Please resolve conflicts, then run 'git rebase --continue'."
-		read -p "Press Enter to continue after resolving conflicts and running 'git rebase --continue'"
-
-		# Try to continue the rebase
-		git rebase --continue
+		echo "${rf}❯ CONFLICTS FOUND!'${r}"
+		echo "${yf}❯ Please resolve conflicts, then run 'git rebase --continue'. ${r}"
+		echo "${bf}❯ When done, do a 'gpfs' ${r}"
+		echo "${bf}git push origin $current_branch --force-with-lease ${r}"
+		# exit 1 means the rebase is not complete
+		return 1
 	done
 
-	# Step 5: Optionally force push the changes
-	read -p "Do you want to force push the changes to the remote repository? [y/N] " choice
-	case "$choice" in
-	y | Y)
-		echo "Force pushing $current_branch to remote repository..."
-		git push origin $current_branch --force
-		;;
-	*) echo "Skipping force push." ;;
-	esac
+	# # Step 4: Optionally force push the changes
+	# read -p echo "${blf}❯ 4. Do you want to force push the changes to the remote repository? [y/N] ${r}" choice
+	# case "$choice" in
+	# y | Y)
+	# 	echo "Force pushing $current_branch to remote repository..."
+	# 	git push origin $current_branch --force-with-lease
+	# 	;;
+	# *) echo "${bf}❯ Skipping force push.${r}" ;;
+	# esac
 
 	# Step 6: Verify the rebase
-	echo "Rebase complete. Here's the latest commit log:"
-	git log --oneline -n 5
+	# echo "${gf}❯ DONE! Rebase complete. Here's the latest commit log: ${r}"
+	echo "${wf}————————————————————————${r}"
+	echo "${gf}❯ DONE! Rebase complete.${r}"
+	echo "${wf}————————————————————————${r}"
+	# git log --oneline -n 5
+}
+
+accept() {
+	echo "${wf}———————————————————————————————————————————————————${r}"
+	echo "${blf}❯ Accepting PR...${r}"
+	echo "${bf}❯ gpra && gprsq && gcm && gpl${r}"
+
+	if gpra && gprsq && gcm && gpl; then
+		echo "${wf}———————————————————————————————————————————————————${r}"
+		echo "${gf}❯ DONE! PR approved, squashed, merged, main pulled.${r}"
+	else
+		echo "${wf}———————————————————————————————————————————————————${r}"
+		echo "${rf}❯ FAILED! PR process did not complete successfully.${r}"
+	fi
+	echo "${wf}———————————————————————————————————————————————————${r}"
+}
+
+lbi() {
+	code-insiders "/Users/ahmadawais/Library/CloudStorage/Dropbox/_Langbase/Dev/langbase.code-workspace"
+}
+
+lbo() {
+	code "/Users/ahmadawais/Library/CloudStorage/Dropbox/_Langbase/Dev/langbase.code-workspace"
+}
+
+gpra() {
+	gh pr review --comment -b 'Thank you. Looks good to me! 🚀'
+	gh pr review --approve
+}
+
+gprmr() {
+	gh pr merge --rebase --auto
+}
+
+gprsq() {
+	gh pr merge --squash --auto
+}
+
+abort() {
+	git rebase --abort
+}
+
+gcmpl() {
+	git checkout main && git pull
+}
+
+gcml() {
+	git checkout main && git pull
+}
+
+# Git Branch Rename Function
+gbrename() {
+	if [ $# -ne 2 ]; then
+		echo "Usage: gbrename <old_branch_name> <new_branch_name>"
+		return 1
+	fi
+
+	local old_branch_name=$1
+	local new_branch_name=$2
+
+	# Check if the current branch is the old branch
+	current_branch=$(git rev-parse --abbrev-ref HEAD)
+	if [ "$current_branch" != "$old_branch_name" ]; then
+		git checkout $old_branch_name
+		if [ $? -ne 0 ]; then
+			echo "Failed to checkout the old branch: $old_branch_name"
+			return 1
+		fi
+	fi
+
+	# Rename the branch locally
+	git branch -m $new_branch_name
+	if [ $? -ne 0 ]; then
+		echo "Failed to rename the branch locally."
+		return 1
+	fi
+
+	# Push the new branch and set the upstream
+	git push origin -u $new_branch_name
+	if [ $? -ne 0 ]; then
+		echo "Failed to push the new branch: $new_branch_name"
+		return 1
+	fi
+
+	# Delete the old branch from the remote
+	git push origin --delete $old_branch_name
+	if [ $? -ne 0 ]; then
+		echo "Failed to delete the old branch from the remote: $old_branch_name"
+		return 1
+	fi
+
+	echo "${gf}❯Branch renamed successfully from $old_branch_name to $new_branch_name.${r}"
+}
+
+stage() {
+	bf=$(tput setaf 0) #set foreground black
+	gf=$(tput setaf 2) # set foreground green
+	wf=$(tput setaf 7) # set foreground white
+
+	r=$(tput sgr0) # r to defaults
+	echo "${wf}———————————————————————————————————————————————————${r}"
+	current_branch=$(git rev-parse --abbrev-ref HEAD)
+
+	echo "${bf}❯ 1. Current branch: $current_branch${r}"
+	echo "${bf}❯ 2. gcm${r}"
+	git checkout main
+
+	echo "${bf}❯ 2. gbdel staging${r}"
+	git branch -D staging            # Local delete.
+	git push origin --delete staging # Remote delete.
+
+	echo "${bf}❯ 3. gbn staging${r}"
+	git checkout -b staging
+
+	echo "${bf}❯ 4. git merge --squash "$current_branch"${r}"
+	git merge --squash "$current_branch"
+	git add . >>/dev/null
+	git commit -m "Staging for $current_branch" >>/dev/null
+	git push >>/dev/null
+	echo "${gf}———————————————————————————————————————————————————${r}"
+	echo "${gf}———————————————————————DONE————————————————————————${r}"
+	echo "${gf}———————————————————————————————————————————————————${r}"
 }
