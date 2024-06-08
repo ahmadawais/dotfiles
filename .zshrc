@@ -491,6 +491,7 @@ alias rmnfo="find . -type f -name '*.nfo' -ls -delete"
 alias delnm="find . -name "node_modules" -type d -prune -exec rm -rf '{}' +"
 alias nmrmv="find . -name "node_modules" -type d -prune -exec rm -rf '{}' +"
 alias rmnm="find . -name "node_modules" -type d -prune -exec rm -rf '{}' +"
+alias nmrm="find . -name "node_modules" -type d -prune -exec rm -rf '{}' +"
 
 # Show/Hide hidden files/directories in macOS Finder.
 alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
@@ -3868,4 +3869,44 @@ stage() {
 	echo "${gf}———————————————————————————————————————————————————${r}"
 	echo "${gf}———————————————————————DONE————————————————————————${r}"
 	echo "${gf}———————————————————————————————————————————————————${r}"
+}
+
+transferToLangbase() {
+	bf=$(tput setaf 0) # set foreground black
+	gf=$(tput setaf 2) # set foreground green
+	wf=$(tput setaf 7) # set foreground white
+
+	r=$(tput sgr0) # reset to defaults
+
+	echo "${wf}———————————————————————————————————————————————————${r}"
+	echo "${bf}❯ 1. Getting repository information${r}"
+
+	# Get the current repository owner and name
+	repo_info=$(gh repo view --json owner,name -q ".owner.login + \"/\" + .name")
+	owner=$(echo $repo_info | cut -d'/' -f1)
+	repo=$(echo $repo_info | cut -d'/' -f2)
+
+	echo "${bf}❯ 2. Transferring repository $repo to LangbaseInc${r}"
+	# Transfer the repository
+	gh api repos/$owner/$repo/transfer -f new_owner=LangbaseInc >/dev/null 2>&1
+
+	echo "${gf}———————————————————————————————————————————————————${r}"
+	echo "${gf}———————————————————————DONE————————————————————————${r}"
+	echo "${gf}———————————————————————————————————————————————————${r}"
+}
+
+ollamaweb() {
+	launchctl setenv OLLAMA_ORIGINS "*"
+}
+
+# Check SSL info of a domain
+ssl() {
+	if [ -z "$1" ]; then
+		echo "Usage: ssl <domain>"
+		return 1
+	fi
+
+	domain=$1
+
+	echo | openssl s_client -servername $domain -connect $domain:443 2>/dev/null | openssl x509 -noout -text
 }
