@@ -3797,6 +3797,10 @@ gcml() {
 	git checkout main && git pull
 }
 
+alias gml="git checkout main && git pull"
+alias gmpl="git checkout main && git pull"
+alias gmp="git checkout main && git pull"
+
 # Git Branch Rename Function
 gbrename() {
 	if [ $# -ne 2 ]; then
