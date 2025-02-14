@@ -600,9 +600,13 @@ alias pr="pnpm"
 alias prm="pnpm rm"
 alias pd="pnpm dev"
 alias pl="pnpm link"
-alias pu="pnpm unlink"
+alias pul="pnpm unlink"
+alias pu="pnpm add -g pnpm"
 alias pb="pnpm run build"
 alias pd="pnpm run dev"
+alias pnpx='pnpm dlx'
+alias pnx='pnpm dlx'
+alias px='pnpm dlx'
 # alias ps="pnpm start" # Conflict with ps.
 
 # Fix Issues --Hard
@@ -1262,6 +1266,10 @@ pngtojpg() {
 	for i in *.png; do convert "$i" "${i%.*}.jpg"; done
 }
 
+ptoj() {
+	for i in *.png; do sips -s format jpeg "$i" --out "${i%.*}.jpg"; done
+}
+
 # JPEG Optimization.
 # Usage: jpegoptim 90 | where 90 is the quality.
 jpgoptim() {
@@ -1454,6 +1462,7 @@ dvidbesta2() {
 dvidbest() {
 	yt-dlp -f "bestvideo+bestaudio/best" --merge-output-format mp4 --add-metadata --embed-thumbnail -o "%(title)s.%(ext)s" "$@"
 }
+alias dv=dvidbest
 
 lsvid() {
 	yt-dlp --list-formats "$@"
@@ -1789,8 +1798,16 @@ size_pwd() {
 }
 
 # Record terminal.
-recterm() {
-	asciinema rec
+trec() {
+	asciinema rec "$@"
+}
+
+tup() {
+	asciinema upload "$@"
+}
+
+tauth() {
+	asciinema auth
 }
 
 ####.#### ———————————————————————————————————————————— RELEASE IT ———————————————————————————————————————————— ####.####
@@ -3764,9 +3781,9 @@ accept() {
 	echo "${wf}———————————————————————————————————————————————————${r}"
 }
 
-lbi() {
-	code-insiders "/Users/ahmadawais/Library/CloudStorage/Dropbox/_Langbase/Dev/langbase.code-workspace"
-}
+# lbi() {
+# 	code-insiders "/Users/ahmadawais/Library/CloudStorage/Dropbox/_Langbase/Dev/langbase.code-workspace"
+# }
 
 lbo() {
 	code "/Users/ahmadawais/Library/CloudStorage/Dropbox/_Langbase/Dev/langbase.code-workspace"
@@ -3914,3 +3931,212 @@ ssl() {
 
 	echo | openssl s_client -servername $domain -connect $domain:443 2>/dev/null | openssl x509 -noout -text
 }
+
+alias pn=pnpm
+alias pni="pnpm install"
+alias ppx="pnpm dlx"
+alias px="pnpm dlx"
+alias pl="pnpm link --global"
+alias pul="pnpm rm -g"
+
+# pnpm
+# Ran `pnpm setup` to configure the shell.
+export PNPM_HOME="/Users/ahmadawais/Library/pnpm"
+case ":$PATH:" in
+*":$PNPM_HOME:"*) ;;
+*) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+stream() {
+	awk '/^data:/ {print substr($0, 6)}' | jq -r 'select(.choices[0].delta.content != null) | .choices[0].delta.content'
+}
+
+gclear() {
+	git checkout -- .
+}
+
+# Function to rename git master branch to main using GitHub CLI
+git_rename_master_to_main() {
+	# Check if we're in a git repository
+	if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+		echo "Error: This is not a git repository"
+		return 1
+	fi
+
+	# Check if GitHub CLI is installed
+	if ! command -v gh &>/dev/null; then
+		echo "Error: GitHub CLI (gh) is not installed. Please install it first."
+		return 1
+	fi
+
+	# Check if authenticated with GitHub CLI
+	if ! gh auth status &>/dev/null; then
+		echo "Error: Not authenticated with GitHub CLI. Please run 'gh auth login' first."
+		return 1
+	fi
+
+	# Get the remote repository name
+	repo_name=$(gh repo view --json nameWithOwner -q .nameWithOwner)
+	if [ -z "$repo_name" ]; then
+		echo "Error: Could not determine the GitHub repository name."
+		return 1
+	fi
+
+	# Fetch the latest changes
+	git fetch
+
+	# Rename the local branch from "master" to "main"
+	git branch -m master main
+	echo "Local branch 'master' renamed to 'main'"
+
+	# Push the new "main" branch to the remote
+	git push -u origin main
+
+	# Change the default branch on GitHub
+	echo "Changing default branch to 'main' on GitHub..."
+	if gh api -X PATCH "repos/$repo_name" -f default_branch=main >/dev/null; then
+		echo "Default branch on GitHub changed to 'main'"
+	else
+		echo "Failed to change default branch on GitHub. Please do this manually in repository settings."
+		return 1
+	fi
+
+	# Delete the old "master" branch on the remote
+	echo "Deleting remote 'master' branch..."
+	if git push origin --delete master; then
+		echo "Remote 'master' branch successfully deleted."
+	else
+		echo "Failed to delete remote 'master' branch. Please check if you have the necessary permissions."
+		return 1
+	fi
+
+	echo "Branch rename process completed successfully."
+	echo "Remember to update any CI/CD scripts or documentation that may reference the 'master' branch."
+}
+
+# Uncomment the following line to run the function when the script is executed
+# delete_git_history "$@"
+delete_git_history() {
+	local new_branch_name=${1:-new_branch}
+	local main_branch_name=${2:-main}
+
+	echo "Deleting Git history..."
+	echo "New branch name: $new_branch_name"
+	echo "Main branch name: $main_branch_name"
+
+	# Create a new orphan branch
+	if ! git checkout --orphan "$new_branch_name"; then
+		echo "Error: Failed to create new orphan branch"
+		return 1
+	fi
+
+	# Add all files to this new branch
+	if ! git add -A; then
+		echo "Error: Failed to add files to new branch"
+		return 1
+	fi
+
+	# Commit the changes
+	if ! git commit -m "📦 NEW: Initial commit"; then
+		echo "Error: Failed to commit changes"
+		return 1
+	fi
+
+	# Delete the old branch
+	if ! git branch -D "$main_branch_name"; then
+		echo "Error: Failed to delete old branch"
+		return 1
+	fi
+
+	# Rename the current branch to main
+	if ! git branch -m "$main_branch_name"; then
+		echo "Error: Failed to rename current branch"
+		return 1
+	fi
+
+	# Force push to remote repository
+	if ! git push -f origin "$main_branch_name"; then
+		echo "Error: Failed to force push to remote"
+		return 1
+	fi
+
+	echo "Git history has been successfully deleted."
+}
+
+empty_pwd() {
+	local current_dir="$PWD"
+	local force=false
+
+	# Check for -y flag
+	if [[ "$1" == "-y" ]]; then
+		force=true
+	fi
+
+	if $force; then
+		echo "Emptying directory: $current_dir"
+	else
+		echo "Are you sure you want to empty the current directory ($current_dir)?"
+		echo "This will delete all files and subdirectories. (y/N): "
+		read -q response
+		echo
+		[[ $response =~ ^[Yy]$ ]] || {
+			echo "Operation cancelled."
+			return 1
+		}
+	fi
+
+	find "$current_dir" -mindepth 1 -maxdepth 1 -exec rm -rf {} +
+	echo "Directory emptied."
+}
+
+# MP4 to MP3 conversion function
+mp4tomp3() {
+	# Check if ffmpeg is installed
+	if ! command -v ffmpeg &>/dev/null; then
+		echo "Error: ffmpeg is not installed. Please install it first."
+		return 1
+	fi
+
+	# Show usage if no arguments provided
+	if [[ $# -eq 0 ]]; then
+		echo "Usage:"
+		echo "  mp4tomp3 video.mp4            # Convert single file"
+		echo "  mp4tomp3 vid1.mp4 vid2.mp4    # Convert multiple files"
+		return 1
+	fi
+
+	# Function to convert a single file
+	convert_file() {
+		local input_file="$1"
+		local output_file="${input_file:r}.mp3" # :r removes extension in zsh
+
+		if [[ -f "$input_file" ]]; then
+			echo "Converting: $input_file to $output_file"
+			ffmpeg -i "$input_file" -vn -acodec libmp3lame -q:a 2 "$output_file" \
+				-loglevel error -stats
+			echo "✓ Completed: $output_file"
+		else
+			echo "Error: File '$input_file' not found"
+		fi
+	}
+
+	# Convert specified files
+	for file in "$@"; do
+		convert_file "$file"
+	done
+}
+
+# Optional completion function for mp4tomp3
+_mp4tomp3() {
+	local state
+	_arguments '*:video file:_files -g "*.mp4"'
+}
+compdef _mp4tomp3 mp4tomp3
+
+# bun completions
+[ -s "/Users/ahmadawais/.bun/_bun" ] && source "/Users/ahmadawais/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
