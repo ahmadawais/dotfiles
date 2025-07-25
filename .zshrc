@@ -581,7 +581,7 @@ alias nsl="caffeinate -t 50000"
 alias ni="npm install"
 alias nrm="npm rm"
 alias nd="npm run dev"
-alias nl="npm link"
+# alias nl="npm link"
 alias nu="npm unlink"
 alias s="npm start"
 alias b="npm run build"
@@ -601,7 +601,7 @@ alias prm="pnpm rm"
 alias pd="pnpm dev"
 alias pl="pnpm link"
 alias pul="pnpm unlink"
-alias pu="pnpm add -g pnpm"
+alias pu="pnpm self-update"
 alias pb="pnpm run build"
 alias pd="pnpm run dev"
 alias pnpx='pnpm dlx'
@@ -2863,34 +2863,34 @@ rmqs() {
 	for file in *."$1"\?*; do mv "$file" "${file%%\?*}"; done
 }
 
-# Personal tfoo.
-rt() {
-	REMEMBERERD_DIR="$(cd "$(dirname "$0")" && pwd)"
-	cd ~/tfoo
-	node rtl.js $*
-	cd $REMEMBERERD_DIR
-}
+# # Personal tfoo.
+# rt() {
+# 	REMEMBERERD_DIR="$(cd "$(dirname "$0")" && pwd)"
+# 	cd ~/tfoo
+# 	node rtl.js $*
+# 	cd $REMEMBERERD_DIR
+# }
 
-tl() {
-	REMEMBERERD_DIR="$(cd "$(dirname "$0")" && pwd)"
-	cd ~/tfoo
-	node l.js $*
-	cd $REMEMBERERD_DIR
-}
+# tl() {
+# 	REMEMBERERD_DIR="$(cd "$(dirname "$0")" && pwd)"
+# 	cd ~/tfoo
+# 	node l.js $*
+# 	cd $REMEMBERERD_DIR
+# }
 
-tr() {
-	REMEMBERERD_DIR="$(cd "$(dirname "$0")" && pwd)"
-	cd ~/tfoo
-	node r.js $*
-	cd $REMEMBERERD_DIR
-}
+# tr() {
+# 	REMEMBERERD_DIR="$(cd "$(dirname "$0")" && pwd)"
+# 	cd ~/tfoo
+# 	node r.js $*
+# 	cd $REMEMBERERD_DIR
+# }
 
-tq() {
-	REMEMBERERD_DIR="$(cd "$(dirname "$0")" && pwd)"
-	cd ~/tfoo
-	node quote.js
-	cd $REMEMBERERD_DIR
-}
+# tq() {
+# 	REMEMBERERD_DIR="$(cd "$(dirname "$0")" && pwd)"
+# 	cd ~/tfoo
+# 	node quote.js
+# 	cd $REMEMBERERD_DIR
+# }
 
 # Start a PHP Server.
 phpServer() {
@@ -3531,7 +3531,7 @@ export CLICOLOR=1
 export TERM=xterm-256color
 
 # 3rd party aliases and installs.
-eval "$(github-copilot-cli alias -- "$0")"
+# eval "$(github-copilot-cli alias -- "$0")"
 
 # Find files with a space followed by "2" at the end of the name (before the file extension)
 # dups() {
@@ -4127,6 +4127,9 @@ mp4tomp3() {
 	done
 }
 
+alias claudeconfig="code ~/Library/Application\ Support/Claude/claude_desktop_config.json"
+alias cconfig="claudeconfig"
+
 # Optional completion function for mp4tomp3
 _mp4tomp3() {
 	local state
@@ -4140,3 +4143,450 @@ compdef _mp4tomp3 mp4tomp3
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+# fly
+flyMStopAll() {
+	fly machine list -a "$@" -q | xargs fly machine stop -a "$@"
+}
+
+flyMachineDestroyRegiion() {
+	fly machine list --json | jq -r '.[] | select(.region==""$@"") | .id' | xargs -r fly machine destroy --force
+}
+
+# Check single domain availability
+checkdomain() {
+    if [ -z "$1" ]; then
+        echo "❌ Usage: checkdomain domain.com"
+        return 1
+    fi
+
+    local domain="$1"
+
+    # Add .com if no extension provided
+    if [[ ! "$domain" =~ \. ]]; then
+        domain="${domain}.com"
+    fi
+
+    # echo "🔍 Checking $domain..."
+
+    local response=$(curl -s -X GET "https://domainr.p.rapidapi.com/v2/status?mashape-key=${DOMAINR_API_KEY}&domain=${domain}")
+
+    if [ $? -ne 0 ]; then
+        echo "❌ API request failed"
+        return 1
+    fi
+
+    local full_status=$(echo "$response" | jq -r '.status[0].status // "unknown"')
+    local domain_name=$(echo "$response" | jq -r '.status[0].domain // "unknown"')
+
+    # Get the most significant status (rightmost in space-separated list)
+    local primary_status=$(echo "$full_status" | awk '{print $NF}')
+
+    case "$primary_status" in
+        "inactive")
+            echo "✅ $domain is AVAILABLE for registration!"
+            echo "📝 Status: $full_status"
+            ;;
+        "undelegated")
+            echo "✅ $domain is AVAILABLE (not in DNS)!"
+            echo "📝 Status: $full_status"
+            ;;
+        "active")
+            echo "❌ $domain is REGISTERED (possibly available via aftermarket)"
+            echo "📝 Status: $full_status"
+            ;;
+        "parked")
+            echo "🅿️ $domain is PARKED (possibly available via aftermarket)"
+            echo "📝 Status: $full_status"
+            ;;
+        "marketed")
+            echo "💰 $domain is FOR SALE via aftermarket"
+            echo "📝 Status: $full_status"
+            ;;
+        "priced")
+            echo "💲 $domain has an explicit aftermarket price"
+            echo "📝 Status: $full_status"
+            ;;
+        "transferable")
+            echo "🔄 $domain is available for fast-transfer"
+            echo "📝 Status: $full_status"
+            ;;
+        "premium")
+            echo "💎 $domain is a PREMIUM domain (special pricing)"
+            echo "📝 Status: $full_status"
+            ;;
+        "claimed")
+            echo "🚫 $domain is CLAIMED/RESERVED by a party"
+            echo "📝 Status: $full_status"
+            ;;
+        "reserved")
+            echo "🔒 $domain is RESERVED by ICANN/registry"
+            echo "📝 Status: $full_status"
+            ;;
+        "dpml")
+            echo "™️ $domain is protected by trademark (DPML)"
+            echo "📝 Status: $full_status"
+            ;;
+        "disallowed")
+            echo "🚫 $domain is DISALLOWED by registry/ICANN"
+            echo "📝 Status: $full_status"
+            ;;
+        "invalid")
+            echo "❌ $domain is INVALID (too long/short/malformed)"
+            echo "📝 Status: $full_status"
+            ;;
+        "pending")
+            echo "⏳ $domain TLD is PENDING (not yet in root zone)"
+            echo "📝 Status: $full_status"
+            ;;
+        "expiring")
+            echo "⏰ $domain is EXPIRING (may be available via backorder)"
+            echo "📝 Status: $full_status"
+            ;;
+        "deleting")
+            echo "🗑️ $domain is being DELETED (may be available via backorder)"
+            echo "📝 Status: $full_status"
+            ;;
+        "tld")
+            echo "🌐 $domain is a TOP-LEVEL DOMAIN"
+            echo "📝 Status: $full_status"
+            ;;
+        "zone")
+            echo "🗂️ $domain is a ZONE/EXTENSION in database"
+            echo "📝 Status: $full_status"
+            ;;
+        "suffix")
+            echo "📋 $domain is a PUBLIC SUFFIX"
+            echo "📝 Status: $full_status"
+            ;;
+        "unknown")
+            echo "❓ $domain status is UNKNOWN (registry may be offline)"
+            echo "📝 Status: $full_status"
+            ;;
+        "error"|"")
+            echo "⚠️ Could not determine status for $domain"
+            echo "📝 Response: $response"
+            ;;
+        *)
+            echo "❓ Unrecognized status: $primary_status"
+            echo "📝 Full status: $full_status"
+            ;;
+    esac
+
+    echo "🔗 Check on Domainr: https://domainr.com/?q=$domain"
+    echo ""
+}
+
+# Check multiple domains at once
+checkdomains() {
+    if [ $# -eq 0 ]; then
+        echo "❌ Usage: checkdomains domain1.com domain2.com domain3.com"
+        echo "   Or: checkdomains wordlist.txt"
+        return 1
+    fi
+
+    # If first argument is a file, read domains from it
+    if [ -f "$1" ] && [ $# -eq 1 ]; then
+        echo "📂 Reading domains from file: $1"
+        while IFS= read -r domain; do
+            [ -n "$domain" ] && checkdomain "$domain"
+        done < "$1"
+    else
+        # Check each domain passed as argument
+        for domain in "$@"; do
+            checkdomain "$domain"
+        done
+    fi
+}
+
+# Quick check - just shows availability with emoji
+quickcheck() {
+    if [ -z "$1" ]; then
+        echo "❌ Usage: quickcheck domain.com"
+        return 1
+    fi
+
+    local domain="$1"
+
+    # Add .com if no extension provided
+    if [[ ! "$domain" =~ \. ]]; then
+        domain="${domain}.com"
+    fi
+
+    local response=$(curl -s -X GET "https://domainr.p.rapidapi.com/v2/status?mashape-key=${DOMAINR_API_KEY}&domain=${domain}")
+    local full_status=$(echo "$response" | jq -r '.status[0].status // "unknown"')
+    local primary_status=$(echo "$full_status" | awk '{print $NF}')
+
+    case "$primary_status" in
+        "inactive"|"undelegated")
+            echo "✅ $domain"
+            ;;
+        "active")
+            echo "❌ $domain"
+            ;;
+        "parked")
+            echo "🅿️ $domain"
+            ;;
+        "marketed"|"priced"|"transferable")
+            echo "💰 $domain"
+            ;;
+        "premium")
+            echo "💎 $domain"
+            ;;
+        "claimed"|"reserved"|"dpml"|"disallowed")
+            echo "🚫 $domain"
+            ;;
+        "invalid")
+            echo "❌ $domain (invalid)"
+            ;;
+        "pending")
+            echo "⏳ $domain"
+            ;;
+        "expiring"|"deleting")
+            echo "⏰ $domain"
+            ;;
+        "tld"|"zone"|"suffix")
+            echo "🌐 $domain"
+            ;;
+        *)
+            echo "❓ $domain"
+            ;;
+    esac
+}
+
+# Bulk quick check from a list
+bulkcheck() {
+    if [ -z "$1" ]; then
+        echo "❌ Usage: bulkcheck domain1 domain2 domain3..."
+        echo "   Or: bulkcheck wordlist.txt"
+        return 1
+    fi
+
+    if [ -f "$1" ] && [ $# -eq 1 ]; then
+        while IFS= read -r domain; do
+            [ -n "$domain" ] && quickcheck "$domain"
+        done < "$1"
+    else
+        for domain in "$@"; do
+            quickcheck "$domain"
+        done
+    fi
+}
+
+# Interactive domain checker
+tldinteractive() {
+    echo "🚀 Interactive Domain Checker"
+    echo "Type domains to check (press Enter after each, 'quit' to exit):"
+    echo ""
+
+    while true; do
+        read -p "🔍 Domain: " domain
+
+        if [ "$domain" = "quit" ] || [ "$domain" = "exit" ] || [ "$domain" = "q" ]; then
+            echo "👋 Goodbye!"
+            break
+        fi
+
+        if [ -n "$domain" ]; then
+            checkdomain "$domain"
+        fi
+    done
+}
+
+# Generate variations and check them
+variations() {
+    if [ -z "$1" ]; then
+        echo "❌ Usage: variations baseword"
+        echo "   Example: variations myapp"
+        return 1
+    fi
+
+    local base="$1"
+    local variants=(
+        "$base"
+        "${base}app"
+        "${base}io"
+        "${base}hq"
+        "${base}labs"
+        "${base}pro"
+        "${base}hub"
+        "get${base}"
+        "try${base}"
+        "my${base}"
+        "the${base}"
+    )
+
+    echo "🎯 Checking variations for '$base':"
+    echo ""
+
+    for variant in "${variants[@]}"; do
+        quickcheck "$variant"
+    done
+}
+
+# Help function
+domainhelp() {
+    echo "🌐 Domain Checker Functions:"
+    echo ""
+    echo "  checkdomain domain.com     - Detailed check of single domain"
+    echo "  checkdomains dom1 dom2     - Check multiple domains"
+    echo "  quickcheck domain.com      - Quick emoji-only result"
+    echo "  bulkcheck list.txt         - Quick check from file"
+    echo "  tldinteractive                - Interactive mode"
+    echo "  variations myapp           - Check common variations"
+    echo "  domainhelp                 - Show this help"
+    echo ""
+    echo "💡 Tips:"
+    echo "  - .com extension is added automatically if missing"
+    echo "  - ✅ = Available for registration"
+    echo "  - ❌ = Taken/registered"
+    echo "  - 🅿️ = Parked (may be for sale)"
+    echo "  - 💰 = For sale via aftermarket"
+    echo "  - 💎 = Premium domain"
+    echo "  - 🚫 = Reserved/claimed/disallowed"
+    echo "  - ⏳ = Pending/expiring"
+    echo "  - 🌐 = TLD/zone/suffix"
+    echo "  - ❓ = Unknown status"
+    echo "  - Functions use \$DOMAINR_API_KEY environment variable"
+    echo ""
+}
+
+# Function that forces .com extension
+checkcom() {
+    if [ -z "$1" ]; then
+        echo "❌ Usage: checkcom domainname (automatically adds .com)"
+        return 1
+    fi
+
+    local domain="$1"
+
+    # Remove any existing extension and force .com
+    domain=$(echo "$domain" | sed 's/\.[^.]*$//')
+    domain="${domain}.com"
+
+    checkdomain "$domain"
+}
+
+# Bulk check .com domains from file and output CSV format
+# Safe domain checker that avoids conflicts
+bulkcheckcom() {
+    if [ -z "$1" ]; then
+        echo "❌ Usage: bulkcheckcom wordlist.txt"
+        echo "   Reads words from file, checks .com versions, outputs CSV"
+        return 1
+    fi
+
+    if [ ! -f "$1" ]; then
+        echo "❌ File not found: $1"
+        return 1
+    fi
+
+    # Make sure we have the API key
+    if [ -z "$DOMAINR_API_KEY" ]; then
+        echo "❌ Error: DOMAINR_API_KEY environment variable not set"
+        return 1
+    fi
+
+    # CSV header
+    echo "domain,status"
+
+    while IFS= read -r word; do
+        # Skip empty lines and comments
+        [[ -z "$word" || "$word" =~ ^[[:space:]]*# ]] && continue
+
+        # Clean the word (remove whitespace, force lowercase, remove any existing extension)
+        word=$(echo "$word" | tr -d '[:space:]' | tr '[:upper:]' '[:lower:]' | sed 's/\.[a-z]*$//')
+
+        # Skip if empty after cleaning
+        [ -z "$word" ] && continue
+
+        # Force .com extension
+        domain="${word}.com"
+
+        # Make API call with error handling
+        response=$(curl -s -X GET "https://domainr.p.rapidapi.com/v2/status?mashape-key=${DOMAINR_API_KEY}&domain=${domain}" 2>/dev/null)
+
+        if [ $? -ne 0 ] || [ -z "$response" ]; then
+            echo "${domain},❌ API error"
+            continue
+        fi
+
+        # Parse response
+        full_status=$(echo "$response" | jq -r '.status[0].status // "unknown"' 2>/dev/null)
+        primary_status=$(echo "$full_status" | awk '{print $NF}')
+
+        # Determine status
+        case "$primary_status" in
+            "inactive"|"undelegated")
+                echo "${domain},✅ available"
+                ;;
+            "active")
+                echo "${domain},❌ registered"
+                ;;
+            "parked")
+                echo "${domain},🅿️ parked"
+                ;;
+            "marketed")
+                echo "${domain},💰 for sale"
+                ;;
+            "priced")
+                echo "${domain},💲 priced"
+                ;;
+            "transferable")
+                echo "${domain},🔄 transferable"
+                ;;
+            "premium")
+                echo "${domain},💎 premium"
+                ;;
+            "claimed")
+                echo "${domain},🚫 claimed"
+                ;;
+            "reserved")
+                echo "${domain},🔒 reserved"
+                ;;
+            "dpml")
+                echo "${domain},™️ trademark"
+                ;;
+            "disallowed")
+                echo "${domain},🚫 disallowed"
+                ;;
+            "invalid")
+                echo "${domain},❌ invalid"
+                ;;
+            "pending")
+                echo "${domain},⏳ pending"
+                ;;
+            "expiring")
+                echo "${domain},⏰ expiring"
+                ;;
+            "deleting")
+                echo "${domain},🗑️ deleting"
+                ;;
+            "tld"|"zone"|"suffix")
+                echo "${domain},🌐 tld/zone"
+                ;;
+            "unknown")
+                echo "${domain},❓ unknown"
+                ;;
+            "error"|"")
+                echo "${domain},⚠️ error"
+                ;;
+            *)
+                echo "${domain},❓ ${primary_status}"
+                ;;
+        esac
+
+        # Small delay to be nice to API
+        sleep 0.1
+
+    done < "$1"
+}
+
+alias dom=checkdomain
+alias tld=checkdomain
+alias com=checkcom
+
+function seedm() {
+	cd /Users/$HOME/sbx/seedmage
+	python seedmage.py file.torrent 280021 --update-interval 6
+}
