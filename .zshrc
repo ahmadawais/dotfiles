@@ -4585,8 +4585,3 @@ bulkcheckcom() {
 alias dom=checkdomain
 alias tld=checkdomain
 alias com=checkcom
-
-function seedm() {
-	cd /Users/$HOME/sbx/seedmage
-	python seedmage.py file.torrent 280021 --update-interval 6
-}

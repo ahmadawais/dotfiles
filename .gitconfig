@@ -157,3 +157,5 @@ resync = !legit resync
 undo = !legit undo
 [init]
 	defaultBranch = main
+[branch]
+	autoSetupMerge = always
