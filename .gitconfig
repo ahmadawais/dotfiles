@@ -56,7 +56,8 @@ cmd = code-insiders --wait --diff $LOCAL $REMOTE
 # https://stackoverflow.com/a/22933955/950111
 # Now do git push -u
 [push]
-default = current
+	default = current
+	autoSetupRemote = true
 # Since git 2.27 — https://stackoverflow.com/q/62653114/950111
 [pull]
 ff = only
