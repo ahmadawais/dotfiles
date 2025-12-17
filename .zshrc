@@ -33,12 +33,13 @@ HIST_STAMPS="yyyy-mm-dd"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # plugins=(git git-extras extract npm bower brew composer wp-cli emoji z zsh-autosuggestions)
 plugins=(git git-extras npm zsh-autosuggestions)
+# unalias gst
 
 # PATH
 export PATH="/usr/local/sbin:$PATH"
 
-export VISUAL="code-insiders -w"
-export EDITOR="code-insiders -w"
+export VISUAL="code -w"
+export EDITOR="code -w"
 
 # Python from brew
 # https://stackoverflow.com/a/51912712/950111
@@ -67,6 +68,9 @@ eval "$(/opt/homebrew/bin/brew shellenv)"
 # Oh My Zsh.
 # Should inlcude after themes and plugins are set.
 source $ZSH/oh-my-zsh.sh
+
+# not needed from ohmyzsh git plugin
+unalias gst
 
 # Aliases
 alias zs="source ~/.zshrc"
@@ -101,7 +105,7 @@ else
 fi
 
 # Open Exports in VSCode.
-alias expo="code-insiders --folder-uri $HOME/Dropbox/bin"
+alias expo="code --folder-uri $HOME/Dropbox/bin"
 alias expi="code-insiders --folder-uri $HOME/Dropbox/bin"
 
 # VSCode open folder
@@ -259,7 +263,7 @@ gbrdel() {
 }
 
 alias gsclear="git stash clear"
-# alias gsc="git stash clear"
+alias gsc="git stash clear"
 alias gsa="git stash apply"
 alias gfo="git fetch origin"
 alias grh="git reset --hard"
@@ -271,7 +275,7 @@ alias grhc='git clean -d -x -f; git reset --hard'
 alias gcdf="git clean -d -f"
 # alias gbrename="git branch -m"
 
-alias gst="git status"
+# alias gst="git status"
 alias gss="git status -s"
 alias gsb="git status -sb"
 
@@ -1419,6 +1423,7 @@ alias addprettier="curl --fail --silent --show-error -O https://raw.githubuserco
 
 # Remove cached but now gitignored files from remote after adding gitignore
 alias grmcached="git rm -r --cached . && gfix 'Sync .gitignore'"
+alias grmc="git rm -r --cached . && gfix 'Sync .gitignore'"
 
 # Copy pictures to desktop
 #
@@ -2423,7 +2428,7 @@ grinit() {
 # GH New repo.
 ghinit() {
 	echo "\n${yf}❯ Creating the GitHub Repo in PWD…${r}\n"
-	gh re --new "$1" --description "$2" --type "$3" --homepage "https://twitter.com/MrAhmadAwais/"
+	gh re --new "$1" --description "$2" --type "$3" --homepage "https://x.com/_AhmadAwais"
 	gh re --user "ahmadawais" --repo "$1" --clone
 	cd "$1"
 	addgitignore
@@ -2440,7 +2445,7 @@ ghinitp() {
 ghinitx() {
 	git init >/dev/null 2>&1
 	echo "${yf}❯  Creating the GitHub Repo in PWD…${r}"
-	gh re --new "$1" --description "$2" --type "$3" --homepage "https://twitter.com/MrAhmadAwais/" >/dev/null 2>&1
+	gh re --new "$1" --description "$2" --type "$3" --homepage "https://x.com/_AhmadAwais" >/dev/null 2>&1
 	git remote remove origin >/dev/null 2>&1
 	git remote add origin "https://github.com/ahmadawais/$1" >/dev/null 2>&1
 	addgitignore >/dev/null 2>&1
@@ -3781,10 +3786,6 @@ accept() {
 	echo "${wf}———————————————————————————————————————————————————${r}"
 }
 
-# lbi() {
-# 	code-insiders "/Users/ahmadawais/Library/CloudStorage/Dropbox/_Langbase/Dev/langbase.code-workspace"
-# }
-
 lbo() {
 	code "/Users/ahmadawais/Library/CloudStorage/Dropbox/_Langbase/Dev/langbase.code-workspace"
 }
@@ -3910,6 +3911,10 @@ transferToLangbase() {
 	echo "${bf}❯ 2. Transferring repository $repo to LangbaseInc${r}"
 	# Transfer the repository
 	gh api repos/$owner/$repo/transfer -f new_owner=LangbaseInc >/dev/null 2>&1
+
+	echo "${bf}❯ 3. Updating git remote to new location${r}"
+	# Update the remote URL to point to the new location
+	git remote set-url origin "https://github.com/LangbaseInc/$repo.git"
 
 	echo "${gf}———————————————————————————————————————————————————${r}"
 	echo "${gf}———————————————————————DONE————————————————————————${r}"
@@ -4585,3 +4590,6 @@ bulkcheckcom() {
 alias dom=checkdomain
 alias tld=checkdomain
 alias com=checkcom
+
+# Added by Antigravity
+export PATH="/Users/ahmadawais/.antigravity/antigravity/bin:$PATH"

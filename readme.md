@@ -1,29 +1,195 @@
-# dotFiles
+# Mac Setup
 
-> [Work in progress] Collection of my dotFiles.
+> Automated macOS setup script for a fresh Mac installation. Installs apps, CLI tools, configures system preferences, and sets up the development environment.
 
-<br>
+## Quick Start
 
-[![🙌](https://raw.githubusercontent.com/ahmadawais/stuff/master/images/git/connect.png)](./../../)
+```bash
+# Clone the repo
+git clone https://github.com/ahmadawais/dotfiles.git
+cd dotfiles
 
-## Connect
+# Make executable and run
+chmod +x mac-setup.sh
+./mac-setup.sh
+```
 
-<div align="left">
-    <p><a href="https://github.com/ahmadawais"><img alt="GitHub @AhmadAwais" align="center" src="https://img.shields.io/badge/GITHUB-gray.svg?colorB=6cc644&style=flat" /></a>&nbsp;<small><strong>(follow)</strong> To stay up to date on free & open-source software</small></p>
-    <p><a href="https://twitter.com/MrAhmadAwais/"><img alt="Twitter @MrAhmadAwais" align="center" src="https://img.shields.io/badge/TWITTER-gray.svg?colorB=1da1f2&style=flat" /></a>&nbsp;<small><strong>(follow)</strong> To get #OneDevMinute daily hot tips & trolls</small></p>
-    <p><a href="https://www.youtube.com/AhmadAwais"><img alt="YouTube AhmadAwais" align="center" src="https://img.shields.io/badge/YOUTUBE-gray.svg?colorB=ff0000&style=flat" /></a>&nbsp;<small><strong>(subscribe)</strong> To tech talks & #OneDevMinute videos</small></p>
-    <p><a href="https://AhmadAwais.com/"><img alt="Blog: AhmadAwais.com" align="center" src="https://img.shields.io/badge/MY%20BLOG-gray.svg?colorB=4D2AFF&style=flat" /></a>&nbsp;<small><strong>(read)</strong> In-depth & long form technical articles</small></p>
-    <p><a href="https://www.linkedin.com/in/MrAhmadAwais/"><img alt="LinkedIn @MrAhmadAwais" align="center" src="https://img.shields.io/badge/LINKEDIN-gray.svg?colorB=0077b5&style=flat" /></a>&nbsp;<small><strong>(connect)</strong> On the LinkedIn profile y'all</small></p>
-</div>
+## What Gets Installed
 
-<br>
+### CLI Tools
 
-[![👌](https://raw.githubusercontent.com/ahmadawais/stuff/master/images/git/sponsor.png)](./../../)
+| Tool | Description |
+|------|-------------|
+| `wget` | Network downloader |
+| `bat` | Better `cat` with syntax highlighting |
+| `mackup` | Backup app settings to cloud |
+| `pv` | Pipe progress viewer |
+| `jq` | JSON processor |
+| `ffmpeg` | Media converter |
+| `yt-dlp` | YouTube downloader |
+| `composer` | PHP package manager |
+| `gh` | GitHub CLI |
+| `eza` | Modern `ls` replacement |
 
-## Sponsor
+### Applications
 
-Me ([Ahmad Awais](https://twitter.com/mrahmadawais/)) and my incredible wife ([Maedah Batool](https://twitter.com/MaedahBatool/)) are two engineers who fell in love with open source and then with each other. You can read more [about me here](https://ahmadawais.com/about). If you or your company use any of my projects or like what I’m doing then consider backing me. I'm in this for the long run. An open-source developer advocate.
+#### Terminals
+- **Ghostty** - GPU-accelerated terminal
+- **iTerm2** - Feature-rich terminal
 
-[![Ahmad on Twitter](https://img.shields.io/twitter/follow/mrahmadawais.svg?style=social&label=Follow%20@MrAhmadAwais)](https://twitter.com/mrahmadawais/)
+#### Browsers
+- Google Chrome
 
-[![Ahmad on Twitter](https://raw.githubusercontent.com/ahmadawais/stuff/master/sponsor/sponsor.jpg)](https://github.com/AhmadAwais/sponsor)
+#### Development
+- Visual Studio Code + Insiders
+- Postman
+- Local (WordPress)
+- GPG Suite
+
+#### Productivity
+- Raycast (launcher)
+- Rectangle (window management)
+- Maccy (clipboard manager)
+- Dropbox
+
+#### Communication
+- Zoom
+- Microsoft Teams
+- Discord
+- WhatsApp
+
+#### Media
+- VLC
+- IINA
+- ImageOptim
+- WebTorrent
+
+#### Utilities
+- Mounty (NTFS support)
+- Cursorcerer (auto-hide cursor)
+- Macs Fan Control
+- Cloudflare WARP
+- Karabiner Elements
+- OBS Studio
+- Tunnelblick (VPN)
+
+#### Pro Apps (Licensed)
+- ScreenFlow
+- Rocket
+- ColorSnapper
+- ForkLift
+- Setapp
+
+### Node.js Setup
+
+- **n** - Node version manager
+- Node.js LTS
+- npm
+- pnpm
+- git-open (global package)
+
+### Shell Setup
+
+- Oh My Zsh
+- zsh-autosuggestions plugin
+- zsh-syntax-highlighting plugin
+- Shades of Purple theme
+
+### macOS Preferences
+
+The script configures these system preferences:
+
+#### Finder
+- Allow quitting via Cmd+Q
+- Show hidden files
+- Show all file extensions
+- Show path bar and status bar
+- List view by default
+- Folders on top when sorting
+
+#### System
+- Expanded save/print dialogs
+- Fast key repeat rate
+- Disabled auto-correct
+- Tap to click enabled
+- Auto-hide Dock (no delay)
+
+#### Screenshots
+- Saved to `~/Desktop/Screenshots`
+- Shadows disabled
+
+#### Apps
+- Safari: Full URL + Developer menu
+- TextEdit: Plain text mode
+- Activity Monitor: Show all processes
+- VLC: History cleared
+
+## Post-Installation
+
+After the script completes:
+
+1. **Restart your Mac** to apply all system changes
+2. **Configure zsh** - Add plugins to `~/.zshrc`:
+   ```bash
+   plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+   ZSH_THEME="shades-of-purple"
+   ```
+3. **Check manual.md** for:
+   - License activation instructions
+   - Manual app installations
+   - Theme setup guides
+
+## File Structure
+
+```
+dotfiles/
+├── mac-setup.sh    # Main setup script
+├── manual.md       # Post-install manual steps
+├── readme.md       # This file
+└── .zshrc          # Zsh configuration
+```
+
+## Customization
+
+### Adding Apps
+
+Add brew formulas or casks in the appropriate section:
+
+```bash
+# CLI tool
+brew install tool-name
+
+# GUI app
+brew install --cask app-name
+```
+
+### Modifying Preferences
+
+macOS defaults are in the "macOS PREFERENCES" section. Reference:
+- https://macos-defaults.com/
+- https://mths.be/macos
+
+## Requirements
+
+- macOS (tested on Ventura, Sonoma, Sequoia)
+- Admin privileges (for sudo)
+- Internet connection
+
+## Compatibility
+
+- **Intel Macs**: Full support
+- **Apple Silicon (M1/M2/M3)**: Full support with automatic Homebrew path configuration
+
+## Credits
+
+Inspired by:
+- [mathiasbynens/dotfiles](https://github.com/mathiasbynens/dotfiles)
+- [mths.be/macos](https://mths.be/macos)
+
+## Author
+
+**Ahmad Awais** - [@_AhmadAwais_](https://x.com/_AhmadAwais_)
+
+## License
+
+MIT
