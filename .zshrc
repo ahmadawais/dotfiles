@@ -4593,3 +4593,46 @@ alias com=checkcom
 
 # Added by Antigravity
 export PATH="/Users/ahmadawais/.antigravity/antigravity/bin:$PATH"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# MACKUP - Automated Config Backup (Copy Mode)
+# ─────────────────────────────────────────────────────────────────────────────
+# 
+# HOW IT WORKS:
+# - Mackup backs up app configs from their real locations to Dropbox
+# - Using COPY MODE (not symlinks) because macOS Sonoma+ broke symlinked prefs
+# - Files stay in real locations, Dropbox/Mackup/ has backup copies
+# - Automated backup runs every hour via launchd
+#
+# LOCATIONS:
+# - Config:     ~/.mackup.cfg
+# - Backup:     ~/Library/CloudStorage/Dropbox/Mackup/
+# - LaunchAgent: ~/Library/LaunchAgents/com.ahmadawais.mackup-backup.plist
+# - Logs:       /tmp/mackup-backup.log
+#
+# WORKFLOW:
+# - Changes you make to apps are saved locally (real files)
+# - Every hour, mackup copies changes to Dropbox
+# - On new machine: mackup restore (copies from Dropbox to local)
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Backup now (copy local configs → Dropbox)
+alias mb="mackup backup --force"
+
+# Restore (copy Dropbox → local) - use on new machine
+alias mr="mackup restore --force"
+
+# Show mackup status and last backup
+alias ms="echo '=== Mackup Status ===' && launchctl list | grep mackup && echo '' && echo '=== Last Backup Log ===' && tail -10 /tmp/mackup-backup.log 2>/dev/null || echo 'No recent logs'"
+
+# Stop automated backups
+alias mbstop="launchctl unload ~/Library/LaunchAgents/com.ahmadawais.mackup-backup.plist && echo 'Mackup auto-backup stopped'"
+
+# Start automated backups
+alias mbstart="launchctl load ~/Library/LaunchAgents/com.ahmadawais.mackup-backup.plist && echo 'Mackup auto-backup started'"
+
+# Show what apps mackup manages
+alias mlist="mackup list"
+
+# Show mackup config
+alias mconfig="cat ~/.mackup.cfg"

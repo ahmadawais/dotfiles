@@ -56,8 +56,7 @@ cmd = code-insiders --wait --diff $LOCAL $REMOTE
 # https://stackoverflow.com/a/22933955/950111
 # Now do git push -u
 [push]
-	default = current
-	autoSetupRemote = true
+default = current
 # Since git 2.27 — https://stackoverflow.com/q/62653114/950111
 [pull]
 ff = only
@@ -158,5 +157,3 @@ resync = !legit resync
 undo = !legit undo
 [init]
 	defaultBranch = main
-[branch]
-	autoSetupMerge = always

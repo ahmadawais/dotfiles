@@ -1,4 +1,3 @@
-langbase
 mackup
 fs
 toc
@@ -501,9 +500,3 @@ nextra
 cruip
 pb
 permalinks
-
-
-
-baseai
-langbase
-pnpm
