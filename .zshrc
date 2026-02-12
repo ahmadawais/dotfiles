@@ -319,7 +319,9 @@ gamend() {
 
 # Git fethc & Pull
 alias gf="git fetch"
-alias gpl="git pull"
+alias gplm="git pull --rebase"
+alias gplr="git pull --rebase"
+alias gpl="git pull --rebase"
 alias gfp="git fetch && git pull && git submodule update"
 
 # Open git config file
@@ -454,7 +456,7 @@ alias des="cd Desktop"
 alias emptytrash="sudo rm -rfv /Volumes/*/.Trashes; rm -rfv ~/.Trash; sudo rm /private/var/vm/sleepimage"
 alias et="sudo rm -rfv /Volumes/*/.Trashes; rm -rfv ~/.Trash; sudo rm /private/var/vm/sleepimage"
 
-# yes I occasionally 127.0.0.1 twitter.com ;)
+# yes I occasionally 127.0.0.1 x.com ;)
 alias hosts='sudo code /etc/hosts'
 
 alias cask='brew cask' # i <3 u cask
@@ -2484,7 +2486,7 @@ grc() {
 		DESC="$2"
 	fi
 
-	gh repo create "$NAME" --description "$DESC" "$TYPE" --homepage "https://twitter.com/MrAhmadAwais" --confirm
+	gh repo create "$NAME" --description "$DESC" "$TYPE" --homepage "https://x.com/MrAhmadAwais" --confirm
 
 	cd "$NAME"
 	echo "# $NAME \n\n > $DESC" >>readme.md
@@ -2509,8 +2511,8 @@ grcpwd() {
 	fi
 
 	git init
-	gh repo create "$NAME" --description "$DESC" "$TYPE" --homepage "https://twitter.com/MrAhmadAwais" --confirm
-	git remote add origin "https://github.com/ahmadawais/$NAME.git"
+	gh repo create "$NAME" --description "$DESC" "$TYPE" --homepage "https://x.com/MrAhmadAwais" --source=.
+	git remote add origin "https://github.com/ahmadawais/$NAME.git" 2>/dev/null
 
 	echo "\n${gf}✅ https://github.com/ahmadawais/$NAME${r}\n"
 }
@@ -3313,7 +3315,7 @@ inmc() {
 	echoY "📥 GIT REPOSITORY…"
 
 	git init &>/dev/null
-	gh repo create --description "description" --homepage "https://twitter.com/MrAhmadAwais" --public --source=. &>/dev/null
+	gh repo create --description "description" --homepage "https://x.com/MrAhmadAwais" --public --source=. &>/dev/null
 
 	sh init.sh &>/dev/null
 	git add . >/dev/null 2>&1
@@ -3387,7 +3389,7 @@ fileTreeToHTML() {
 
 # Site download.
 # siteDownload https://AhmadAwais.com/
-# https://twitter.com/philhawksworth/status/1214942635300982785
+# https://x.com/philhawksworth/status/1214942635300982785
 siteDownload() {
 	wget -H -E -k -p $*
 }
@@ -3915,6 +3917,34 @@ transferToLangbase() {
 	echo "${bf}❯ 3. Updating git remote to new location${r}"
 	# Update the remote URL to point to the new location
 	git remote set-url origin "https://github.com/LangbaseInc/$repo.git"
+
+	echo "${gf}———————————————————————————————————————————————————${r}"
+	echo "${gf}———————————————————————DONE————————————————————————${r}"
+	echo "${gf}———————————————————————————————————————————————————${r}"
+}
+
+transferToCommandCodeAI() {
+	bf=$(tput setaf 0) # set foreground black
+	gf=$(tput setaf 2) # set foreground green
+	wf=$(tput setaf 7) # set foreground white
+
+	r=$(tput sgr0) # reset to defaults
+
+	echo "${wf}———————————————————————————————————————————————————${r}"
+	echo "${bf}❯ 1. Getting repository information${r}"
+
+	# Get the current repository owner and name
+	repo_info=$(gh repo view --json owner,name -q ".owner.login + \"/\" + .name")
+	owner=$(echo $repo_info | cut -d'/' -f1)
+	repo=$(echo $repo_info | cut -d'/' -f2)
+
+	echo "${bf}❯ 2. Transferring repository $repo to CommandCodeAI${r}"
+	# Transfer the repository
+	gh api repos/$owner/$repo/transfer -f new_owner=CommandCodeAI >/dev/null 2>&1
+
+	echo "${bf}❯ 3. Updating git remote to new location${r}"
+	# Update the remote URL to point to the new location
+	git remote set-url origin "https://github.com/CommandCodeAI/$repo.git"
 
 	echo "${gf}———————————————————————————————————————————————————${r}"
 	echo "${gf}———————————————————————DONE————————————————————————${r}"
@@ -4597,7 +4627,7 @@ export PATH="/Users/ahmadawais/.antigravity/antigravity/bin:$PATH"
 # ─────────────────────────────────────────────────────────────────────────────
 # MACKUP - Automated Config Backup (Copy Mode)
 # ─────────────────────────────────────────────────────────────────────────────
-# 
+#
 # HOW IT WORKS:
 # - Mackup backs up app configs from their real locations to Dropbox
 # - Using COPY MODE (not symlinks) because macOS Sonoma+ broke symlinked prefs
@@ -4620,7 +4650,7 @@ export PATH="/Users/ahmadawais/.antigravity/antigravity/bin:$PATH"
 alias mb="mackup backup --force"
 
 # Restore (copy Dropbox → local) - use on new machine
-alias mr="mackup restore --force"
+alias macrestore="mackup restore --force"
 
 # Show mackup status and last backup
 alias ms="echo '=== Mackup Status ===' && launchctl list | grep mackup && echo '' && echo '=== Last Backup Log ===' && tail -10 /tmp/mackup-backup.log 2>/dev/null || echo 'No recent logs'"
@@ -4635,4 +4665,7 @@ alias mbstart="launchctl load ~/Library/LaunchAgents/com.ahmadawais.mackup-backu
 alias mlist="mackup list"
 
 # Show mackup config
-alias mconfig="cat ~/.mackup.cfg"
+alias mconfig="code ~/.mackup.cfg"
+
+# pii update alias
+alias piiupdate="npm install -g @mariozechner/pi-coding-agent && ln -sf /usr/local/bin/pi /usr/local/bin/pii"
