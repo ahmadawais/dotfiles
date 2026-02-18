@@ -73,3 +73,8 @@ assets/img/.DS_Store
 
 # Next.js
 .next
+
+
+# CLIs 
+dist
+opensrc
