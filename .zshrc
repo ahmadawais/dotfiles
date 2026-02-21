@@ -1148,6 +1148,7 @@ syncdfiles() {
 
 	echo "\n${gf}✅ DONE!${r}\n"
 }
+alias dotfiles="cd ~/dotfiles"
 
 # Pull Dotfiles
 pulldfiles() {
