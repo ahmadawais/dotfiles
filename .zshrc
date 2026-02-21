@@ -290,6 +290,7 @@ alias gp="git push"
 alias gpp="git push -u"
 alias gpf="git push --force"
 alias gpfs="git push --force-with-lease"
+alias gpfl="git push --force-with-lease"
 alias gpt="git push --tags"
 
 # delete git and re-inialize git
@@ -319,9 +320,8 @@ gamend() {
 
 # Git fethc & Pull
 alias gf="git fetch"
-alias gplm="git pull --rebase"
-alias gplr="git pull --rebase"
-alias gpl="git pull --rebase"
+alias gplr="git pull --rebase origin main"
+alias gpl="git pull --rebase origin main"
 alias gfp="git fetch && git pull && git submodule update"
 
 # Open git config file
@@ -2324,59 +2324,118 @@ gcall() {
 }
 
 # NEW.
+gfeat() {
+	gcap "feat: $@"
+}
 gnew() {
-	gcap "📦 NEW: $@"
+	gcap "feat: $@"
 }
 gnewx() {
+	gcall "feat: $@"
+}
+gnewe() {
+	gcap "📦 NEW: $@"
+}
+gnewex() {
 	gcall "📦 NEW: $@"
 }
 
 # IMPROVE.
 gimp() {
-	gcap "👌 IMPROVE: $@"
+	gcap "refactor: $@"
 }
 gimpx() {
+	gcall "refactor: $@"
+}
+gimpe() {
+	gcap "👌 IMPROVE: $@"
+}
+gimpex() {
 	gcall "👌 IMPROVE: $@"
 }
 
 # FIX.
 gfix() {
-	gcap "🐛 FIX: $@"
+	gcap "fix: $@"
 }
 gfixx() {
+	gcall "fix: $@"
+}
+gfixe() {
+	gcap "🐛 FIX: $@"
+}
+gfixex() {
 	gcall "🐛 FIX: $@"
 }
 
 # RELEASE.
 grlz() {
-	gcap "🚀 RELEASE: $@"
+	gcap "release: $@"
 }
 grlzx() {
+	gcall "release: $@"
+}
+grlze() {
+	gcap "🚀 RELEASE: $@"
+}
+grlzex() {
 	gcall "🚀 RELEASE: $@"
+}
+
+# CHORE.
+gchr() {
+	gcap "chore: $@"
+}
+gchrx() {
+	gcall "chore: $@"
+}
+gchre() {
+	gcap "♻️ CHORE: $@"
+}
+gchrex() {
+	gcall "♻️ CHORE: $@"
 }
 
 # DOC.
 gdoc() {
-	gcap "📖 DOC: $@"
+	gcap "docs: $@"
 }
 gdocx() {
+	gcall "docs: $@"
+}
+gdoce() {
+	gcap "📖 DOC: $@"
+}
+gdocex() {
 	gcall "📖 DOC: $@"
 }
 
 # TEST.
 gtst() {
-	gcap "🤖 TEST: $@"
+	gcap "test: $@"
 }
 gtstx() {
-	gcapll "🤖 TEST: $@"
+	gcall "test: $@"
+}
+gtste() {
+	gcap "🤖 TEST: $@"
+}
+gtstex() {
+	gcall "🤖 TEST: $@"
 }
 
 # BREAKING CHANGE.
 gbrk() {
-	gcap "‼️ BREAKING: $@"
+	gcap "feat!: $@"
 }
 gbrkx() {
-	gcapll "‼️ BREAKING: $@"
+	gcall "feat!: $@"
+}
+gbrke() {
+	gcap "‼️ BREAKING: $@"
+}
+gbrkex() {
+	gcall "‼️ BREAKING: $@"
 }
 
 gtype() {
@@ -3221,7 +3280,7 @@ rlz() {
 	# npmPubLint
 	# if [ $? -eq 0 ]; then
 	# echo "publint reported no errors. Continuing with release."
-	release-it --ci --config "$HOME/Dropbox/bin/.release-it.json" "$@"
+	release-it --config "$HOME/Dropbox/bin/.release-it.json" "$@"
 	# else
 	# 	echo "Error: Aborting release due to publint errors."
 	# fi
@@ -4669,3 +4728,10 @@ alias mconfig="code ~/.mackup.cfg"
 
 # pii update alias
 alias piiupdate="npm install -g @mariozechner/pi-coding-agent && ln -sf /usr/local/bin/pi /usr/local/bin/pii"
+
+alias kwrangler='killall workerd 2>/dev/null; killall wrangler 2>/dev/null; echo "Killed all wrangler/workerd processes"'
+alias bhook='npx ramadan-cli --status'
+
+alias coaa1="code ~/sbx/commandcode-aa1"
+alias coaa2="code ~/sbx/commandcode-aa2"
+alias coaa3="code ~/sbx/commandcode-aa3"
