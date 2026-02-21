@@ -982,6 +982,43 @@ function gpr {
 	echo "${wf}———————————————————${r}"
 }
 
++# Checkout a PR for review: checks clean workdir, rebases origin/main, checks out PR by number.
+# Usage: gprco <PR_NUMBER>
+gprco() {
+	local pr="${1}"
+	if [[ -z "${pr}" ]]; then
+		echo "${rf}✗ Usage: gprco <PR_NUMBER>${r}"
+		return 1
+	fi
+
+	echo "${wf}———————————————————${r}"
+	echo "${wb}${bf}0. Checking working directory is clean...${r}"
+
+	if ! git diff --quiet || ! git diff --cached --quiet; then
+		echo "${rb}${wf}✗ Working directory has uncommitted changes. Stash or commit first.${r}"
+		return 1
+	fi
+
+	echo "${gf}✔ Clean working directory.${r}"
+	echo "${wb}${bf}1. Rebasing from origin/main...${r}"
+
+	git pull --rebase origin main || {
+		echo "${rb}${wf}✗ Rebase failed. Resolve conflicts and try again.${r}"
+		return 1
+	}
+
+	echo "${gf}✔ Rebased from origin/main.${r}"
+	echo "${wb}${bf}2. Checking out PR #${pr}...${r}"
+
+	gh pr checkout "${pr}" || {
+		echo "${rb}${wf}✗ Failed to checkout PR #${pr}.${r}"
+		return 1
+	}
+
+	echo "✅ — ${gb}${bf}3. PR #${pr} checked out and ready to review!${r}"
+	echo "${wf}———————————————————${r}"
+}
+
 gfupr() {
 	echo "${wf}———————————————————${r}"
 	echo "${wb}${bf}0. Fetching the pull request...${r}"
