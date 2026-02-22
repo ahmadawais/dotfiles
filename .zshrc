@@ -73,44 +73,46 @@ source $ZSH/oh-my-zsh.sh
 unalias gst
 
 # Show hints for commands being run so I can remember them and learn from them.
+# Renders a dimmed, standardized preview line for a command.
 _hint_print() {
-	local dim=$'\e[2m'
-	local reset=$'\e[0m'
+	local dim=$'\e[2m'   # ANSI "dim" style so hints are visible but low-noise.
+	local reset=$'\e[0m' # Reset terminal style so command output is unaffected.
 
-	print -r -- "${dim}⎿   $*${reset}"
-	print -r -- ""
+	print -r -- "${dim}⎿   $*${reset}" # Show the command preview line.
+	print -r -- ""                     # Spacer for readability before real output.
 }
 
+# Wrapper to preview a command and then run it unchanged.
 hint() {
-	local cmd=("$@")
-	_hint_print "${cmd[*]}"
-	"${cmd[@]}"
+	local cmd=("$@")        # Keep original args intact (safe with spaces).
+	_hint_print "${cmd[*]}" # Print exactly what is about to run.
+	"${cmd[@]}"             # Run the real command with original argv.
 }
 
+# preexec hook: if the typed command starts with an alias, print its expansion.
 hint_alias_preexec() {
-	emulate -L zsh
+	emulate -L zsh # Localize zsh options for predictable parsing behavior.
 
-	local -a words
-	words=(${(z)1})
-	(( ${#words[@]} )) || return
+	local -a words            # Tokenized representation of entered command.
+	words=(${(z)1})           # Parse command using zsh lexer rules.
+	(( ${#words[@]} )) || return # Skip empty commands safely.
 
-	local alias_name="${words[1]}"
+	local alias_name="${words[1]}" # First token = command or alias name.
 	local alias_def
-	alias_def=$(alias -- "$alias_name" 2>/dev/null) || return
+	alias_def=$(alias -- "$alias_name" 2>/dev/null) || return # Exit if not an alias.
 
-	local alias_value="${alias_def#*=}"
-	alias_value=${(Q)alias_value}
+	local alias_value="${alias_def#*=}" # Strip "name=" from alias output.
+	alias_value=${(Q)alias_value}        # Remove shell quoting from alias body.
 
-	words[1]="$alias_value"
-	_hint_print "${(j: :)words}"
+	words[1]="$alias_value"       # Replace alias token with expanded command.
+	_hint_print "${(j: :)words}"  # Print expanded command for learning/debugging.
 }
 
-autoload -Uz add-zsh-hook
-add-zsh-hook preexec hint_alias_preexec
+autoload -Uz add-zsh-hook # Load zsh hook helper on demand.
+add-zsh-hook preexec hint_alias_preexec # Run alias expander before each command.
 
 # Aliases
 alias zs="source ~/.zshrc"
-alias zso="subl ~/.zshrc"
 alias zco="code ~/.zshrc"
 alias zci="code-insiders ~/.zshrc"
 alias mco="code ~/.mackup.cfg"
@@ -4810,3 +4812,6 @@ alias bhook='npx ramadan-cli --status'
 alias coaa1="code ~/sbx/commandcode-aa1"
 alias coaa2="code ~/sbx/commandcode-aa2"
 alias coaa3="code ~/sbx/commandcode-aa3"
+
+# Rust/Cargo environment setup.
+# . "$HOME/.cargo/env"
