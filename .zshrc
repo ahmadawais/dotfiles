@@ -72,6 +72,42 @@ source $ZSH/oh-my-zsh.sh
 # not needed from ohmyzsh git plugin
 unalias gst
 
+# Show hints for commands being run so I can remember them and learn from them.
+_hint_print() {
+	local dim=$'\e[2m'
+	local reset=$'\e[0m'
+
+	print -r -- "${dim}⎿   $*${reset}"
+	print -r -- ""
+}
+
+hint() {
+	local cmd=("$@")
+	_hint_print "${cmd[*]}"
+	"${cmd[@]}"
+}
+
+hint_alias_preexec() {
+	emulate -L zsh
+
+	local -a words
+	words=(${(z)1})
+	(( ${#words[@]} )) || return
+
+	local alias_name="${words[1]}"
+	local alias_def
+	alias_def=$(alias -- "$alias_name" 2>/dev/null) || return
+
+	local alias_value="${alias_def#*=}"
+	alias_value=${(Q)alias_value}
+
+	words[1]="$alias_value"
+	_hint_print "${(j: :)words}"
+}
+
+autoload -Uz add-zsh-hook
+add-zsh-hook preexec hint_alias_preexec
+
 # Aliases
 alias zs="source ~/.zshrc"
 alias zso="subl ~/.zshrc"
@@ -216,11 +252,11 @@ alias gcm="git checkout main"
 alias gbn='git checkout -b'
 
 # Remove local branch
-gbdel() {
+gbdelr() {
 	# Branch name present?
 	if [[ -z "$1" ]]; then
 		echo "\n🤔 Oops… you forgot to provide the branch name"
-		echo "👉 E.g. gbdel branch_name\n"
+		echo "👉 E.g. gbdelr branch_name\n"
 	else
 		# Start deleteing.
 		echo "\n⏳ Deleting…\n"
@@ -320,8 +356,9 @@ gamend() {
 
 # Git fethc & Pull
 alias gf="git fetch"
-alias gplr="git pull --rebase origin main"
-alias gpl="git pull --rebase origin main"
+
+gplr() { hint git pull --rebase origin main "$@"; }
+gpl() { hint git pull --rebase origin main "$@"; }
 alias gfp="git fetch && git pull && git submodule update"
 
 # Open git config file
@@ -982,7 +1019,7 @@ function gpr {
 	echo "${wf}———————————————————${r}"
 }
 
-+# Checkout a PR for review: checks clean workdir, rebases origin/main, checks out PR by number.
+# Checkout a PR for review: checks clean workdir, rebases origin/main, checks out PR by number.
 # Usage: gprco <PR_NUMBER>
 gprco() {
 	local pr="${1}"
@@ -3975,7 +4012,7 @@ stage() {
 	echo "${bf}❯ 2. gcm${r}"
 	git checkout main
 
-	echo "${bf}❯ 2. gbdel staging${r}"
+	echo "${bf}❯ 2. gbdelr staging${r}"
 	git branch -D staging            # Local delete.
 	git push origin --delete staging # Remote delete.
 
