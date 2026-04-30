@@ -30,7 +30,7 @@ type_and_enter() {
     -e 'tell application "System Events" to key code 36'
 }
 
-# --- Chrome — left fourth ---
+# --- Chrome — left 1/4 ---
 open -na "Google Chrome" --args --new-window "about:blank"
 sleep 0.7
 rect first-fourth
@@ -43,12 +43,8 @@ else
 fi
 sleep 1.0
 rect center-half
-# Open integrated terminal (Ctrl+`) and run ccode
-osascript -e 'tell application "System Events" to keystroke "`" using {control down}'
-sleep 0.5
-type_and_enter "ccode"
 
-# --- Ghostty — last fourth ---
+# --- Ghostty — right fourth 4/4 ---
 open -na Ghostty
 sleep 0.8
 rect last-fourth
