@@ -8,6 +8,7 @@
 [core]
 	excludesfile = ~/.gitignore
 	editor = code --wait
+	hooksPath = ~/.githooks
 
 [init]
 	defaultBranch = main

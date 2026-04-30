@@ -329,6 +329,7 @@ alias gpp="git push -u"
 alias gpf="git push --force"
 alias gpfs="git push --force-with-lease"
 alias gpfl="git push --force-with-lease"
+alias gpfwl="git push --force-with-lease"
 alias gpt="git push --tags"
 
 # delete git and re-inialize git
@@ -359,7 +360,7 @@ gamend() {
 # Git fethc & Pull
 alias gf="git fetch"
 
-gplr() { hint git pull --rebase origin main "$@"; }
+gplr() { hint  "$@"; }
 gpl() { hint git pull --rebase origin main "$@"; }
 alias gfp="git fetch && git pull && git submodule update"
 
@@ -640,7 +641,7 @@ alias ncup='npm-check -u'
 
 # pnpm aliases
 alias p="pnpm"
-alias pi="pnpm install"
+# alias pi="pnpm install"
 alias pr="pnpm"
 alias prm="pnpm rm"
 alias pd="pnpm dev"
@@ -1041,13 +1042,13 @@ gprco() {
 	echo "${gf}✔ Clean working directory.${r}"
 	echo "${wb}${bf}1. Rebasing from origin/main...${r}"
 
-	git pull --rebase origin main || {
-		echo "${rb}${wf}✗ Rebase failed. Resolve conflicts and try again.${r}"
-		return 1
-	}
+	# git pull --rebase origin main || {
+	# 	echo "${rb}${wf}✗ Rebase failed. Resolve conflicts and try again.${r}"
+	# 	return 1
+	# }
 
-	echo "${gf}✔ Rebased from origin/main.${r}"
-	echo "${wb}${bf}2. Checking out PR #${pr}...${r}"
+	# echo "${gf}✔ Rebased from origin/main.${r}"
+	# echo "${wb}${bf}2. Checking out PR #${pr}...${r}"
 
 	gh pr checkout "${pr}" || {
 		echo "${rb}${wf}✗ Failed to checkout PR #${pr}.${r}"
@@ -1501,8 +1502,8 @@ alias addgitignore="curl --fail --silent --show-error -O https://raw.githubuserc
 alias addprettier="curl --fail --silent --show-error -O https://raw.githubusercontent.com/ahmadawais/dotfiles/master/.prettierrc"
 
 # Remove cached but now gitignored files from remote after adding gitignore
-alias grmcached="git rm -r --cached . && gfix 'Sync .gitignore'"
-alias grmc="git rm -r --cached . && gfix 'Sync .gitignore'"
+alias grmcached="git rm -r --cached . && gfix 'fix: sync with .gitignore'"
+alias grmc="git rm -r --cached . && gfix 'fix: sync with .gitignore'"
 
 # Copy pictures to desktop
 #
@@ -4813,5 +4814,116 @@ alias coaa1="code ~/sbx/commandcode-aa1"
 alias coaa2="code ~/sbx/commandcode-aa2"
 alias coaa3="code ~/sbx/commandcode-aa3"
 
+alias cdaa1="cd ~/sbx/commandcode-aa1"
+alias cdaa2="cd ~/sbx/commandcode-aa2"
+alias cdaa3="cd ~/sbx/commandcode-aa3"
+
+xmd() {
+  local dist="$(pwd)/packages/command/dist/index.mjs"
+  local pkg="$(pwd)/packages/command"
+  if [[ -f "$dist" ]]; then
+    node "$dist" "$@"
+  else
+    echo "building first..."
+    (cd "$pkg" && pnpm bcmd) && node "$dist" "$@"
+  fi
+}
+
 # Rust/Cargo environment setup.
 # . "$HOME/.cargo/env"
+
+alias gprms="hint gh pr ready $@ && gh pr merge $@ --squash"
+
+ghrwptp() {
+  local repo_url="$1"
+  if [[ -z "$repo_url" ]]; then
+    echo "Usage: ghrwptp <repo-url>"
+    return 1
+  fi
+  local repo_name
+  repo_name=$(basename "$repo_url" .git)
+  local tmp_dir="/tmp/ghrwptp-$repo_name"
+
+  echo "Cloning $repo_url..."
+  rm -rf "$tmp_dir"
+  git clone "$repo_url" "$tmp_dir" || return 1
+  rm -rf "$tmp_dir/.git"
+
+  echo "Creating private repo wptie/$repo_name..."
+  gh repo create "wptie/$repo_name" --private || return 1
+
+  cd "$tmp_dir" || return 1
+  git init
+  git remote add origin "https://github.com/wptie/$repo_name.git"
+
+  mkdir -p oldsrc
+  find . -maxdepth 1 ! -name '.' ! -name '.git' ! -name 'oldsrc' -exec mv {} oldsrc/ \;
+
+  if [[ -f "oldsrc/README.md" ]]; then
+    local tmp_readme=$(mktemp)
+    { echo -e "> **Original repo:** $repo_url
+"; cat "oldsrc/README.md"; } > "$tmp_readme"
+    mv "$tmp_readme" "oldsrc/README.md"
+  else
+    echo -e "> **Original repo:** $repo_url
+" > "oldsrc/README.md"
+  fi
+
+  git add -A
+  git commit -m "chore: move files to oldsrc, add original repo link"
+  git push -u origin main
+
+  cd - > /dev/null
+  rm -rf "$tmp_dir"
+  local new_url="https://github.com/wptie/$repo_name"
+  echo "Done! $new_url"
+  echo -n "Open in browser? [Enter to open / any key to skip] "
+  read -r answer
+  if [[ -z "$answer" ]]; then
+    open "$new_url"
+  fi
+}
+
+# Kill and reload cams. Fix heated Sony Alpha 7 Cam.
+alias fixcam='sudo killall VDCAssistant; sudo killall AppleCameraAssistant'
+
+alias ccn="claude"
+alias cc="IS_DEMO=true claude"
+alias claude="IS_DEMO=true claude"
+
+# Backup OBS settings versioned by date-time.
+obsbackup() {
+  local dir="/Users/ahmadawais/Documents/Sandbox/del/aa-obs"
+  local obs="$HOME/Library/Application Support/obs-studio"
+  local ts=$(date | sed 's/[T:]/-/g' | sed 's/\..*//')
+  local bdir="$dir/backups/$ts"
+  # Profile (video, output, encoder, stream, multi-rtmp settings)
+  mkdir -p "$bdir/profiles/AA"
+  cp "$obs/basic/profiles/AA/basic.ini" "$bdir/profiles/AA/"
+  cp "$obs/basic/profiles/AA/recordEncoder.json" "$bdir/profiles/AA/"
+  cp "$obs/basic/profiles/AA/streamEncoder.json" "$bdir/profiles/AA/"
+  cp "$obs/basic/profiles/AA/service.json" "$bdir/profiles/AA/"
+  cp "$obs/basic/profiles/AA/obs-multi-rtmp.json" "$bdir/profiles/AA/" 2>/dev/null
+  cp "$obs/basic/profiles/AA/obs-multi-rtmp-aa.json" "$bdir/profiles/AA/" 2>/dev/null
+
+  # Scenes (sources, transforms, filters, Source Record configs)
+  mkdir -p "$bdir/scenes"
+  cp "$obs/basic/scenes/AA.json" "$bdir/scenes/"
+
+  # Global settings (layout, UI, docks)
+  cp "$obs/global.ini" "$bdir/"
+
+  # WebSocket config
+  mkdir -p "$bdir/plugin_config/obs-websocket"
+  cp "$obs/plugin_config/obs-websocket/config.json" "$bdir/plugin_config/obs-websocket/"
+
+  echo "OBS backup saved to $bdir"
+  cd "$dir" && git add -A && git commit -m "backup: $ts" && git push && cd - > /dev/null
+}
+
+# >>> microsandbox >>>
+export PATH="$HOME/.microsandbox/bin:$PATH"
+export DYLD_LIBRARY_PATH="$HOME/.microsandbox/lib${DYLD_LIBRARY_PATH:+:$DYLD_LIBRARY_PATH}"
+# <<< microsandbox <<<
+# CF CLI completions
+[[ -f "/Users/ahmadawais/.config/cf/completions/_cf.zsh" ]] && source "/Users/ahmadawais/.config/cf/completions/_cf.zsh"

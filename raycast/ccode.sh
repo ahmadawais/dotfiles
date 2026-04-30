@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
-# Tri-Window Layout — opens Chrome (left ¼), VSCode (center ½), Ghostty (right ¼)
-# on the currently active macOS Space, and starts `claude` in the VSCode
+# ccode — opens Chrome (left ¼), VSCode (center ½), Ghostty (right ¼)
+# on the currently active macOS Space, and starts `ccode` in the VSCode
 # integrated terminal and Ghostty.
 #
 # Tiling is done via Rectangle's URL scheme: https://github.com/rxhanson/Rectangle
@@ -10,18 +10,18 @@
 #
 # Required parameters:
 # @raycast.schemaVersion 1
-# @raycast.title Tri-Window Layout
+# @raycast.title ccode
 # @raycast.mode silent
 #
 # Optional parameters:
 # @raycast.icon 🪟
 # @raycast.packageName Window
-# @raycast.description Open Chrome ¼ + VSCode ½ + Ghostty ¼ on the active Space, with claude running.
+# @raycast.description Open Chrome ¼ + VSCode ½ + Ghostty ¼ on the active Space, with ccode running.
 # @raycast.argument1 { "type": "text", "placeholder": "VSCode folder (optional)", "optional": true }
 
 set -u
 
-VSCODE_DIR="${1:-}"
+VSCODE_DIR="${1:-$HOME/ccode}"
 
 rect() { open -g "rectangle://execute-action?name=$1"; }
 type_and_enter() {
@@ -43,13 +43,13 @@ else
 fi
 sleep 1.0
 rect center-half
-# Open integrated terminal (Ctrl+`) and run claude
+# Open integrated terminal (Ctrl+`) and run ccode
 osascript -e 'tell application "System Events" to keystroke "`" using {control down}'
 sleep 0.5
-type_and_enter "claude"
+type_and_enter "ccode"
 
 # --- Ghostty — last fourth ---
 open -na Ghostty
 sleep 0.8
 rect last-fourth
-type_and_enter "claude"
+type_and_enter "ccode"
