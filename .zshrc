@@ -1042,14 +1042,6 @@ gprco() {
 	echo "${gf}✔ Clean working directory.${r}"
 	echo "${wb}${bf}1. Rebasing from origin/main...${r}"
 
-	# git pull --rebase origin main || {
-	# 	echo "${rb}${wf}✗ Rebase failed. Resolve conflicts and try again.${r}"
-	# 	return 1
-	# }
-
-	# echo "${gf}✔ Rebased from origin/main.${r}"
-	# echo "${wb}${bf}2. Checking out PR #${pr}...${r}"
-
 	gh pr checkout "${pr}" || {
 		echo "${rb}${wf}✗ Failed to checkout PR #${pr}.${r}"
 		return 1
@@ -3931,6 +3923,17 @@ lbo() {
 
 gpra() {
 	gh pr review --comment -b 'Thank you. Looks good to me! 🚀'
+
+	# Can't approve your own PR — skip approval instead of failing.
+	local pr_author current_user
+	pr_author=$(gh pr view --json author --jq '.author.login' 2>/dev/null)
+	current_user=$(gh api user --jq '.login' 2>/dev/null)
+
+	if [[ -n "$pr_author" && "$pr_author" == "$current_user" ]]; then
+		echo "${bf}❯ Own PR — skipping approval.${r}"
+		return 0
+	fi
+
 	gh pr review --approve
 }
 
@@ -4889,6 +4892,7 @@ alias fixcam='sudo killall VDCAssistant; sudo killall AppleCameraAssistant'
 
 alias ccn="claude"
 alias cc="IS_DEMO=true claude"
+alias ccd="IS_DEMO=true claude --dangerously-skip-permissions"
 alias claude="IS_DEMO=true claude"
 
 # Backup OBS settings versioned by date-time.
@@ -4927,3 +4931,11 @@ export DYLD_LIBRARY_PATH="$HOME/.microsandbox/lib${DYLD_LIBRARY_PATH:+:$DYLD_LIB
 # <<< microsandbox <<<
 # CF CLI completions
 [[ -f "/Users/ahmadawais/.config/cf/completions/_cf.zsh" ]] && source "/Users/ahmadawais/.config/cf/completions/_cf.zsh"
+
+# >>> grok installer >>>
+export PATH="$HOME/.grok/bin:$PATH"
+fpath=(~/.grok/completions/zsh $fpath)
+autoload -Uz compinit && compinit -C
+# <<< grok installer <<<
+
+alias img="chafa -f kitty"
