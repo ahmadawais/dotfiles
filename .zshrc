@@ -3922,7 +3922,7 @@ lbo() {
 }
 
 gpra() {
-	gh pr review --comment -b 'Thank you. Looks good to me! 🚀'
+	gh pr review --comment -b 'Looks good to me! [⌐■-■]'
 
 	# Can't approve your own PR — skip approval instead of failing.
 	local pr_author current_user
@@ -4939,3 +4939,4 @@ autoload -Uz compinit && compinit -C
 # <<< grok installer <<<
 
 alias img="chafa -f kitty"
+alias cmdy="cmd --yolo"
