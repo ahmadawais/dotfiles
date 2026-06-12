@@ -451,7 +451,7 @@ alias myip="curl ipecho.net/plain ; echo"
 # All the dig info
 alias dig="dig +nocmd any +multiline +noall +answer"
 
-alias l="exa --long --all --header --git-ignore --group-directories-first --git --ignore-glob=\".git|node_modules\" --sort=\"ext\""
+alias l="eza --long --all --header --git-ignore --group-directories-first --git --ignore-glob=\".git|node_modules\" --sort=\"ext\""
 
 # List ALL files (colorized() in long format, show permissions in octal
 alias la="ls -l | awk '
@@ -4940,3 +4940,20 @@ autoload -Uz compinit && compinit -C
 
 alias img="chafa -f kitty"
 alias cmdy="cmd --yolo"
+
+# signcmd — de-quarantine + ad-hoc re-sign an app so macOS will open it.
+# Usage: signcmd                      (defaults to Command Code.app)
+#        signcmd "/Applications/Foo.app"
+signcmd() {
+  local app="${1:-/Applications/Command Code.app}"
+  if [[ ! -d "$app" ]]; then
+    echo "signcmd: not found: $app" >&2
+    return 1
+  fi
+  echo "→ removing quarantine: $app"
+  xattr -dr com.apple.quarantine "$app"
+  echo "→ ad-hoc re-signing (deep)"
+  codesign --force --deep --sign - "$app" || return 1
+  echo "→ verifying"
+  codesign --verify --deep --strict --verbose=2 "$app" && echo "✓ done — $app is signed and ready"
+}
