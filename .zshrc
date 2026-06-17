@@ -3746,7 +3746,38 @@ export TERM=xterm-256color
 #   fi
 # }
 
-alias lg="git log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(red)%h%C(reset) —— %C(bold blue)%an%C(reset): %C(white)%s%C(reset) %C(dim white)  %C(bold green)(%ar)%C(reset) %C(bold yellow)%d%C(reset)' --all"
+lg() {
+  local cols remote_url github_url
+  cols=$(tput cols 2>/dev/null || echo 100)
+
+  remote_url=$(git remote get-url origin 2>/dev/null || true)
+  if [[ "$remote_url" == git@github.com:* ]]; then
+    github_url="https://github.com/${remote_url#git@github.com:}"
+    github_url="${github_url%.git}"
+  elif [[ "$remote_url" == https://github.com/* ]]; then
+    github_url="${remote_url%.git}"
+  else
+    github_url=""
+  fi
+
+  git log --color=always \
+    --pretty=tformat:'%C(bold white)%s%C(reset)%x01%an authored %ar%x01%h%x01%H' \
+    --abbrev-commit "$@" | \
+  awk -F'\001' -v cols="$cols" -v base="$github_url" '
+  {
+    print $1
+    meta = $2; shorthash = $3; fullhash = $4
+    pad = cols - length(meta) - length(shorthash) - 2
+    if (pad < 2) pad = 2
+    if (base != "") {
+      url = base "/commit/" fullhash
+      hash_out = "\033[33m\033]8;;" url "\033\\" shorthash "\033]8;;\033\\\033[0m"
+    } else {
+      hash_out = "\033[33m" shorthash "\033[0m"
+    }
+    printf "\033[2m%s\033[0m%*s%s\n\n", meta, pad, "", hash_out
+  }' | less -rF
+}
 
 alias nexttelx="npx next telemetry disable"
 alias gsu="git branch --set-upstream-to=upstream/main main"
