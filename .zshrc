@@ -3761,12 +3761,28 @@ lg() {
   fi
 
   git log --color=always \
-    --pretty=tformat:'%C(bold white)%s%C(reset)%x01%an authored %ar%x01%h%x01%H' \
+    --pretty=tformat:'%C(bold white)%s%C(reset)%x01%an%x01%ar%x01%h%x01%H' \
     --abbrev-commit "$@" | \
   awk -F'\001' -v cols="$cols" -v base="$github_url" '
+  function link_prs(str,    result, num, pr_url) {
+    result = ""
+    while (match(str, /\(#[0-9]+\)/)) {
+      num = substr(str, RSTART + 2, RLENGTH - 3)
+      pr_url = base "/pull/" num
+      result = result substr(str, 1, RSTART - 1) "\033]8;;" pr_url "\033\\(#" num ")\033]8;;\033\\"
+      str = substr(str, RSTART + RLENGTH)
+    }
+    return result str
+  }
+  function link_author(name, base,    slug) {
+    slug = name; gsub(/ /, "+", slug)
+    return "\033]8;;" base "/commits?author=" slug "\033\\" name "\033]8;;\033\\"
+  }
   {
-    print $1
-    meta = $2; shorthash = $3; fullhash = $4
+    print (base != "") ? link_prs($1) : $1
+    author = $2; reltime = $3; shorthash = $4; fullhash = $5
+    author_out = (base != "") ? link_author(author, base) : author
+    meta = author " authored " reltime
     pad = cols - length(meta) - length(shorthash) - 2
     if (pad < 2) pad = 2
     if (base != "") {
@@ -3775,7 +3791,7 @@ lg() {
     } else {
       hash_out = "\033[33m" shorthash "\033[0m"
     }
-    printf "\033[2m%s\033[0m%*s%s\n\n", meta, pad, "", hash_out
+    printf "\033[2m%s authored %s\033[0m%*s%s\n\n", author_out, reltime, pad, "", hash_out
   }' | less -rF
 }
 
